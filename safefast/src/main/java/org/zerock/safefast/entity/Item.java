@@ -14,9 +14,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer itemCode;
+    private String itemCode;
 
     @Column
     private String itemName;
