@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
-public class Purchase_order {
+public class PurchaseOrder {
     @Id
     @Column
     private String purchOrderNumber;
