@@ -16,10 +16,10 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer member_number;
+    private Integer memberNumber;
 
     @Column
-    private String emp_number;
+    private String empNumber;
 
     @Column
     private String password;
