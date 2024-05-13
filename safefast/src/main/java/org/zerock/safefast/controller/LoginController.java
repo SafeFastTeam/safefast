@@ -1,18 +1,17 @@
-package org.zerock.safefast.controller.login;
+package org.zerock.safefast.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.zerock.safefast.dto.member.LoginDTO;
 import org.zerock.safefast.entity.Member;
-import org.zerock.safefast.service.login.LoginService;
+import org.zerock.safefast.service.LoginService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,48 +23,18 @@ import java.io.PrintWriter;
 public class LoginController {
 
     private final LoginService loginService;
-    private final PasswordEncoder passwordEncoder;
-
-//    @GetMapping("/login")
-//    public String loginPage(@RequestParam(value = "error", required = false) String error,
-//                            @RequestParam(value = "exception", required = false) String exception, Model model,
-//                            HttpSession session) {
-//        model.addAttribute("error", error);
-//        model.addAttribute("exception", exception);
-//
-//        // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
-//        session.setAttribute("isLoggedIn", true);
-//
-//        return "member/login_form";
-//    }
 
     @GetMapping("/login")
-    public String showLogin() {
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception, Model model,
+                            HttpSession session) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+
+        // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
+        session.setAttribute("isLoggedIn", true);
+
         return "member/login_form";
-    }
-
-    @PostMapping("/login")
-    public ModelAndView login(@RequestParam String empNumber, @RequestParam String password) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        // 사용자를 인증
-        Member authenticatedUser = loginService.authenticate(new LoginDTO(empNumber, password));
-
-        if (authenticatedUser != null) {
-            modelAndView.setViewName("redirect:/member/home");
-            log.info("Login successful, redirecting to /member/home");
-        } else {
-            modelAndView.setViewName("member/login_form");
-            log.info("Login failed, returning to login form");
-        }
-        return modelAndView;
-    }
-
-
-
-    @GetMapping("/home")
-    public String home() {
-        return "/member/home";
     }
 
     @PostMapping("/reset_password_form")
