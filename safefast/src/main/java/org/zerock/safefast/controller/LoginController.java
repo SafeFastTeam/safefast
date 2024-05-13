@@ -117,7 +117,4 @@ public class LoginController {
             return "member/forgot_id_form";
         }
     }
-
-
-
 }
