@@ -1,4 +1,4 @@
-package org.zerock.safefast.service;
+package org.zerock.safefast.service.login;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
@@ -15,7 +15,7 @@ import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
-public class LoginServiceImpl implements LoginService{
+public class LoginServiceImpl implements LoginService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;

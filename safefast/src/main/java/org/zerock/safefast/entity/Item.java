@@ -24,7 +24,7 @@ public class Item {
     private Integer width;
 
     @Column
-    private Integer LENGTH;
+    private Integer Length;
 
     @Column
     private Integer height;

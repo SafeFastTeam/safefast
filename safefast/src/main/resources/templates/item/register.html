@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품목 정보 등록</title>
+</head>
+<body>
+<h1>품목 정보 등록</h1>
+<form action="/item/register" method="post" enctype="multipart/form-data">
+    <label for="unitCode">대분류:</label><br>
+    <select id="unitCode" name="unitCode" required>
+        <option value="">대분류 선택</option>
+        <!-- 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 -->
+        <!-- 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. -->
+        <option value="unitCode1">대분류1</option>
+        <option value="unitCode2">대분류2</option>
+    </select><br>
+    <label for="assyCode">중분류:</label><br>
+    <select id="assyCode" name="assyCode" required>
+        <option value="">중분류 선택</option>
+    </select><br>
+    <label for="partCode">소분류:</label><br>
+    <select id="partCode" name="partCode" required>
+        <option value="">소분류 선택</option>
+    </select><br>
+    <label for="itemCode">품목 코드:</label><br>
+    <input type="text" id="itemCode" name="itemCode" required><br>
+    <label for="itemName">품목명:</label><br>
+    <input type="text" id="itemName" name="itemName" required><br>
+    <label for="width">가로:</label><br>
+    <input type="number" id="width" name="width" required><br>
+    <label for="length">세로:</label><br>
+    <input type="number" id="length" name="length" required><br>
+    <label for="height">높이:</label><br>
+    <input type="number" id="height" name="height" required><br>
+    <label for="material">재질:</label><br>
+    <input type="text" id="material" name="material" required><br>
+    <label for="blueprintFile">도면 파일:</label><br>
+    <input type="file" id="blueprintFile" name="blueprintFile" accept=".pdf,.jpg,.png" required><br><br>
+    <button type="submit">등록</button>
+</form>
+
+<script>
+    // 대분류 선택에 따라 중분류 내용을 동적으로 변경하는 함수
+    document.getElementById('unitCode').addEventListener('change', function () {
+        var unitCode = this.value;
+        var assyCodeOptions = document.getElementById('assyCode').options;
+        // 중분류 내용 초기화
+        assyCodeOptions.length = 1;
+
+        // 선택된 대분류에 따라 중분류 내용을 설정
+        if (unitCode === 'unitCode1') {
+            assyCodeOptions[1] = new Option('중분류1', '중분류1');
+            assyCodeOptions[2] = new Option('중분류2', '중분류2');
+            // 다른 대분류 항목에 따라 중분류 내용 추가
+        } else if (unitCode === 'unitCode2') {
+            assyCodeOptions[1] = new Option('중분류3', '중분류3');
+            assyCodeOptions[2] = new Option('중분류4', '중분류4');
+            // 다른 대분류 항목에 따라 중분류 내용 추가
+        }
+        // 다른 대분류 항목에 따라 중분류 내용 추가
+    });
+
+    // 중분류 선택에 따라 소분류 내용을 동적으로 변경하는 함수
+    document.getElementById('assyCode').addEventListener('change', function () {
+        var assyCode = this.value;
+        var partCodeOptions = document.getElementById('partCode').options;
+        // 소분류 내용 초기화
+        partCodeOptions.length = 1;
+
+        // 선택된 중분류에 따라 소분류 내용을 설정
+        if (assyCode === '중분류1') {
+            partCodeOptions[1] = new Option('소분류1', '소분류1');
+            partCodeOptions[2] = new Option('소분류2', '소분류2');
+            // 다른 중분류 항목에 따라 소분류 내용 추가
+        } else if (assyCode === '중분류2') {
+            partCodeOptions[1] = new Option('소분류3', '소분류3');
+            partCodeOptions[2] = new Option('소분류4', '소분류4');
+            // 다른 중분류 항목에 따라 소분류 내용 추가
+        }
+        // 다른 중분류 항목에 따라 소분류 내용 추가
+    });
+</script>
+</body>
+</html>

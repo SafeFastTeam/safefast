@@ -1,4 +1,4 @@
-package org.zerock.safefast.service;
+package org.zerock.safefast.service.login;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.zerock.safefast.repository.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
-public class SignUpServiceImpl implements SignUpService{
+public class SignUpServiceImpl implements SignUpService {
 
     private final MemberRepository memberRepository;
 
