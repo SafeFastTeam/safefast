@@ -24,7 +24,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
                             @RequestParam(value = "exception", required = false) String exception, Model model,
                             HttpSession session) {
@@ -34,6 +34,11 @@ public class LoginController {
         // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
         session.setAttribute("isLoggedIn", true);
 
+        return "member/home";
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
         return "member/login_form";
     }
 
@@ -45,11 +50,11 @@ public class LoginController {
 
         if (member != null) {
             loginService.sendPasswordResetMail(email);
-            response.setContentType("text/html; charset=UTF-8"); //응답의 content type을 설정, "text/html"은 전송될 데이터의 종류가 HTML임을 나타냄
-            PrintWriter writer = response.getWriter(); //이 PrintWriter를 통해 HTML 코드나 다른 텍스트 데이터를 클라이언트로 전송
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
             writer.println("<script>alert('비밀번호 재설정 이메일이 전송되었습니다.');</script>");
             writer.flush();
-            return "member/login_form";
+            return "redirect:/member/login"; // 수정된 부분: 로그인 페이지로 리다이렉트
         } else {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
@@ -86,7 +91,4 @@ public class LoginController {
             return "member/forgot_id_form";
         }
     }
-
-
-
 }
