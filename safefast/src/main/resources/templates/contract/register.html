@@ -42,9 +42,9 @@
         <tr>
             <td><input type="text" name="itemCode" class="input-field" disabled></td>
             <td><input type="text" name="itemName" class="input-field" disabled></td>
-            <td><input type="text" name="itemPrice" class="input-field" disabled></td>
-            <td><input type="text" name="leadTime" class="input-field" disabled></td>
-            <td><input type="text" name="note" class="input-field" disabled></td>
+            <td><input type="text" name="itemPrice"></td>
+            <td><input type="text" name="leadTime" ></td>
+            <td><input type="text" name="note" ></td>
         </tr>
         <!-- Add more rows as needed -->
     </table>
@@ -80,10 +80,13 @@
         </thead>
         <tbody>
         <tr th:each="item : ${items}">
-            <td th:text="${item.itemCode}"></td>
+            <td></td>
+            <td class="item-row">
+                <span class="itemCode" th:text="${item.itemCode}"></span>
+            </td>
             <td th:text="${item.itemName}"></td>
-            <td th:text="${contract.companyName}"></td>
-            <td th:text="${contract.businessNumber}"></td>
+<!--            <td th:text="${contract.companyName}"></td>-->
+<!--            <td th:text="${contract.businessNumber}"></td>-->
             <td></td>
             <td></td>
             <td></td>
@@ -93,7 +96,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        // 품목 코드를 클릭했을 때 해당 품목의 정보를 계약 등록 폼에 자동으로 채우기
+        // 품목 코드를 클릭했을 때 해당 품목의 정보를 계약 항목에 자동으로 채우기
         $("body").on("click", ".item-row", function () {
             var itemCode = $(this).find(".itemCode").text();
             var itemName = $(this).find(".itemName").text();
@@ -106,6 +109,23 @@
             $("input[name='itemPrice']").val(unitPrice);
             $("input[name='leadTime']").val(leadTime);
             $("input[name='note']").val(details);
+        });
+
+        // 사업자 번호를 입력했을 때 해당 업체 정보를 자동으로 채우기
+        $("input[name='businessNumber']").on("change", function () {
+            var businessNumber = $(this).val();
+            $.ajax({
+                url: "/contract/company",
+                method: "GET",
+                data: { businessNumber: businessNumber },
+                success: function (response) {
+                    $("input[name='companyName']").val(response.companyName);
+                    $("input[name='companyAccount']").val(response.companyAccount);
+                },
+                error: function () {
+                    alert("업체 정보를 불러올 수 없습니다.");
+                }
+            });
         });
     });
 </script>
