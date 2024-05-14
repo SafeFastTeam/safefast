@@ -26,13 +26,6 @@ public class ProcurementPlanController {
         this.procurementPlanService = procurementPlanService;
     }
 
-    @GetMapping("/production_plan")
-    public String showProductionPlan(Model model) {
-        List<ProductionPlan> productionPlans = productionPlanService.getAllProductionPlans();
-        model.addAttribute("productionPlans", productionPlans);
-        return "procurement/procurement";
-    }
-
     // 등록 버튼을 눌렀을 때의 요청을 처리하는 메서드
     @PostMapping("/submit_production_plan")
     public String submitProductionPlan(ProductionPlan productionPlan) {
@@ -43,6 +36,10 @@ public class ProcurementPlanController {
     // 조달 계획 제출 폼 보여주기
     @GetMapping("/procurement")
     public String showProcurement(Model model) {
+        List<ProductionPlan> productionPlans = productionPlanService.getAllProductionPlans();
+        if (productionPlans != null) {
+            model.addAttribute("productionPlans", productionPlans);
+        }
         // ProcurementPlan과 관련된 로직 추가 가능
         return "procurement/procurement";
     }
