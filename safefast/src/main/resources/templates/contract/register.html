@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>계약 등록 - 계약서</h2>
+<form id="contract-form" action="/contract/register" method="POST">
+    <table>
+        <tr>
+            <th>계약서/첨부파일</th>
+            <td><input type="file"></td>
+        </tr>
+        <tr>
+            <th>사업자 번호</th>
+            <td><input type="text" name="businessNumber" class="input-field"></td>
+        </tr>
+        <tr>
+            <th>업체명</th>
+            <td><input type="text" name="companyName" class="input-field" disabled></td>
+        </tr>
+        <tr>
+            <th>계좌 정보</th>
+            <td><input type="text" name="companyAccount" class="input-field" disabled></td>
+        </tr>
+        <tr>
+            <th>비고</th>
+            <td><input type="text" name="note" class="input-field"></td>
+        </tr>
+    </table>
+
+    <h2>계약 등록 - 계약 항목</h2>
+    <table class="save-section">
+        <tr>
+            <th>품목코드</th>
+            <th>품목명</th>
+            <th>단가</th>
+            <th>L/T(일)</th>
+            <th>세부사항</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="itemCode" class="input-field" disabled></td>
+            <td><input type="text" name="itemName" class="input-field" disabled></td>
+            <td><input type="text" name="itemPrice" class="input-field" disabled></td>
+            <td><input type="text" name="leadTime" class="input-field" disabled></td>
+            <td><input type="text" name="note" class="input-field" disabled></td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </table>
+    <button type="submit" class="save-button">저장</button>
+</form>
+</div>
+
+
+<div class="management-section">
+    <h2>계약 관리</h2>
+    <div class="search-bar">
+        <select name="search-option" id="search-option">
+            <option value="계약번호">계약번호</option>
+            <option value="품목명">품목명</option>
+            <option value="업체명">업체명</option>
+        </select>
+        <input type="text" placeholder="품목명 검색..." class="search-input">
+        <button class="search-button">검색</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>계약번호</th>
+            <th>품목코드</th>
+            <th>품목명</th>
+            <th>업체명</th>
+            <th>사업자번호</th>
+            <th>단가</th>
+            <th>L/T(일)</th>
+            <th>수정</th>
+            <th>계약서</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.itemCode}"></td>
+            <td th:text="${item.itemName}"></td>
+            <td th:text="${contract.companyName}"></td>
+            <td th:text="${contract.businessNumber}"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        // 품목 코드를 클릭했을 때 해당 품목의 정보를 계약 등록 폼에 자동으로 채우기
+        $("body").on("click", ".item-row", function () {
+            var itemCode = $(this).find(".itemCode").text();
+            var itemName = $(this).find(".itemName").text();
+            var unitPrice = $(this).find(".itemPrice").text();
+            var leadTime = $(this).find(".leadTime").text();
+            var details = $(this).find(".note").text();
+
+            $("input[name='itemCode']").val(itemCode);
+            $("input[name='itemName']").val(itemName);
+            $("input[name='itemPrice']").val(unitPrice);
+            $("input[name='leadTime']").val(leadTime);
+            $("input[name='note']").val(details);
+        });
+    });
+</script>
+
+</body>
+</html>
