@@ -1,46 +1,71 @@
 package org.zerock.safefast.service.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.safefast.entity.Item;
+import org.zerock.safefast.entity.Unit;
 import org.zerock.safefast.repository.ItemRepository;
+import org.zerock.safefast.repository.UnitRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
-    @Autowired
-    public ItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    private final UnitRepository unitRepository;
+
+    public List<Unit> getAllUnits() {
+        return unitRepository.findAll();
     }
 
-    @Transactional
-    public void registerItem(Item item, MultipartFile blueprintFile) throws IOException {
-        // 아이템 저장
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    public void registerItem(Item item, MultipartFile file) {
+        // 아이템 정보 저장
         itemRepository.save(item);
 
-        // 첨부 파일 저장
-        if (blueprintFile != null && !blueprintFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(blueprintFile.getOriginalFilename());
-            String uploadDir = "./blueprints"; // 파일을 저장할 디렉토리 경로
+        // 파일 저장
+        if (!file.isEmpty()) {
+            try {
+                String uploadDir = "uploads"; // 파일 업로드 디렉토리
+                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 파일 이름 생성
+                Path uploadPath = Paths.get(uploadDir);
 
-            // 디렉토리 생성
-            Files.createDirectories(Paths.get(uploadDir));
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
 
-            // 파일 경로 설정
-            Path filePath = Paths.get(uploadDir, fileName);
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(file.getInputStream(), filePath);
+                item.setBlueprintOriginName(file.getOriginalFilename()); // 파일 원본 이름 저장
+                item.setBlueprintSaveName(fileName); // 파일 저장된 이름 저장
+            } catch (IOException e) {
+                // 파일 저장 과정에서 예외 발생 시 로깅
+                logger.error("파일을 저장하는 동안 오류가 발생했습니다.", e);
 
-            // 파일 저장
-            Files.copy(blueprintFile.getInputStream(), filePath);
+            }
         }
     }
+
+//    public boolean isValidUnitCode(String unitCode) {
+//        // 데이터베이스에서 유효한 unitCode 목록을 조회하는 로직
+//        List<String> validUnitCodes = getAllUnitCodes();
+//
+//        // 주어진 unitCode가 유효한지 확인
+//        return validUnitCodes.contains(unitCode);
+//    }
 }

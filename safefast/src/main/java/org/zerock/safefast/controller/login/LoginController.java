@@ -62,11 +62,14 @@ public class LoginController {
         return modelAndView;
     }
 
-
-
     @GetMapping("/home")
     public String home() {
         return "/member/home";
+    }
+
+    @GetMapping("/reset_password_form")
+    public String resetPasswordForm() {
+        return "member/reset_password_form";
     }
 
     @PostMapping("/reset_password_form")
@@ -93,7 +96,7 @@ public class LoginController {
 
     @GetMapping("/forgot_id")
     public String showForgotIdForm() {
-        return "admin/member/forgot_id_form";
+        return "member/forgot_id_form";
     }
 
     @PostMapping("/forgot_id")
@@ -109,7 +112,7 @@ public class LoginController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('가입하신 이메일 주소로 아이디를 전송했습니다.');</script>");
             writer.flush();
-            return "member/forgot_id_form";
+            return "member/login_form";
         } else {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
