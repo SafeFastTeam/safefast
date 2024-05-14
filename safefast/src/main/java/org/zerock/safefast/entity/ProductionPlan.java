@@ -16,9 +16,8 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 public class ProductionPlan {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer prodPlanCode;
+    private String prodPlanCode;
 
     @Column
     private LocalDateTime prodStartDate;

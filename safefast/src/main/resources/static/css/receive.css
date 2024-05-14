@@ -1,0 +1,283 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #066278;
+}
+
+/* 헤더 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 10px;
+}
+
+.logout-btn {
+  background-color: #066278;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #054a5e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 1;
+  width: 1400px;
+}
+
+/* 사이드 바 */
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  display: block;
+  min-height: 140vh;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.sidebar li a:hover {
+  background-color: #066278;
+}
+
+.sidebar li a i {
+  margin-right: 5px;
+}
+
+.dropdown li a {
+  padding-left: 30px;
+  position: relative;
+}
+
+.dropdown li a i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropdown {
+  display: none;
+  padding-left: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.sidebar li:hover .dropdown {
+  display: block;
+}
+
+
+/* 메인 테이블 */
+
+section {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+}
+
+section:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.save-btn {
+  display: flex;
+  float: right;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.date-search,
+.keyword-search {
+  display: flex;
+  align-items: center;
+}
+
+.date-search input,
+.keyword-search input,
+.keyword-search select {
+  margin-right: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.date-search input:focus,
+.keyword-search input:focus,
+.keyword-search select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.date-search button,
+.keyword-search button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #066278;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.date-search button:hover,
+.keyword-search button:hover {
+  background-color: #044b5e;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  width: 200PX;
+}
+
+button {
+  background-color: #066278;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #044b5e;
+}
+
+#end-order-btn,
+#cancelBtn {
+  background-color: red;
+}
+
+/* 모달 */
+.modal {
+  display: none; /* 모달 숨기기 */
+  position: fixed; /* 고정 위치 */
+  z-index: 1; /* 다른 요소 위에 위치 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* 배경 투명도 조절 */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#modal-purchase-order-list input {
+  width: 120px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 모달 내 버튼 스타일 */
+.btn-box {
+  display: block;
+  text-align: center;
+  margin: 20px auto; /* 수직 가운데 정렬을 위해 margin을 auto로 설정 */
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#cancelBtn:hover,
+#confirmBtn:hover {
+  transform: translateY(-2px);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
