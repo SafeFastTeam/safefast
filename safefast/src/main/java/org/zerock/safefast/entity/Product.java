@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -18,4 +20,7 @@ public class Product {
     private String productCode;
 
     private String productName;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProcurementPlan> procurementPlans;
 }
