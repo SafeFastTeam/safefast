@@ -40,15 +40,16 @@ public class Item {
     @Column
     private String blueprintOriginName;
 
-    @Column
-    private String unitCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unitCode")
+    private Unit unit;
 
-    @Column
-    private String assyCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assCode")
+    private Assy assy;
 
-    @Column
-    private String partCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partCode")
+    private Part part;
 
-    @OneToMany(mappedBy = "item")
-    private List<ProcurementPlan> procurementPlans;
 }

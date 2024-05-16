@@ -5,9 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.safefast.entity.Assy;
 import org.zerock.safefast.entity.Item;
+import org.zerock.safefast.entity.Part;
 import org.zerock.safefast.entity.Unit;
+import org.zerock.safefast.repository.AssyRepository;
 import org.zerock.safefast.repository.ItemRepository;
+import org.zerock.safefast.repository.PartRepository;
 import org.zerock.safefast.repository.UnitRepository;
 
 import java.io.IOException;
@@ -25,9 +29,19 @@ public class ItemService {
     private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
     private final UnitRepository unitRepository;
+    private final AssyRepository assyRepository;
+    private final PartRepository partRepository;
 
     public List<Unit> getAllUnits() {
         return unitRepository.findAll();
+    }
+
+    public List<Assy> getAllAssys() {
+        return assyRepository.findAll();
+    }
+
+    public List<Part> getAllParts() {
+        return partRepository.findAll();
     }
 
     public List<Item> getAllItems() {
@@ -61,11 +75,4 @@ public class ItemService {
         }
     }
 
-//    public boolean isValidUnitCode(String unitCode) {
-//        // 데이터베이스에서 유효한 unitCode 목록을 조회하는 로직
-//        List<String> validUnitCodes = getAllUnitCodes();
-//
-//        // 주어진 unitCode가 유효한지 확인
-//        return validUnitCodes.contains(unitCode);
-//    }
 }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.entity.CoOpCompany;
 import org.zerock.safefast.entity.Contract;
 import org.zerock.safefast.entity.Item;
@@ -28,6 +25,7 @@ public class ContractController {
 
     private final ContractService contractService;
     private final CoOpCompanyRepository coOpCompanyRepository;
+    private final ItemService itemService;
 
     @GetMapping("/register")
     public String showContract(Model model) {
@@ -49,6 +47,33 @@ public class ContractController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/register")
+    public String registerContract(@RequestParam("businessNumber") String businessNumber,
+                                   @RequestParam("itemCode") String itemCode,
+                                   @RequestParam("itemName") String itemName,
+                                   @RequestParam("itemPrice") double itemPrice,
+                                   @RequestParam("leadTime") int leadTime,
+                                   @RequestParam("note") String note) {
+
+        // 사업자 번호로 업체 정보 조회
+        CoOpCompany coOpCompany = coOpCompanyRepository.findById(businessNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid business number: " + businessNumber));
+
+        // 품목 코드로 품목 정보 조회
+//        Item item = itemService.findItemByCode(itemCode);
+//
+//        Contract contract = Contract.builder()
+//                .coOpCompany(coOpCompany)
+//                .item(item)
+//                .itemName(itemName)
+//                .itemPrice(itemPrice)
+//                .leadTime(leadTime)
+//                .note(note)
+//                .build;
+
+        return "redirect:/contract/register";
     }
 
 }
