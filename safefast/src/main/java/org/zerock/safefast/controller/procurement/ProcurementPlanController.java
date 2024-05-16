@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.ProductionPlan;
+import org.zerock.safefast.repository.ProductionPlanRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.procurement.ProductionPlanService;
 
@@ -26,13 +27,6 @@ public class ProcurementPlanController {
         this.procurementPlanService = procurementPlanService;
     }
 
-    // 등록 버튼을 눌렀을 때의 요청을 처리하는 메서드
-    @PostMapping("/submit_production_plan")
-    public String submitProductionPlan(ProductionPlan productionPlan) {
-        productionPlanService.saveProductionPlan(productionPlan);
-        return "redirect:/procurement/production_plan";
-    }
-
     // 조달 계획 제출 폼 보여주기
     @GetMapping("/procurement")
     public String showProcurementPlans(Model model) {
@@ -44,6 +38,8 @@ public class ProcurementPlanController {
     // 등록 버튼을 눌렀을 때의 요청을 처리하는 메서드
     @PostMapping("/submit_procurement_plan")
     public String submitProcurementPlan(ProcurementPlan procurementPlan) {
+        procurementPlan.generateProcPlanNumber();
+        procurementPlan.setProcProgress(0);
         procurementPlanService.saveProcurementPlan(procurementPlan);
         return "redirect:/procurement/procurement";
     }

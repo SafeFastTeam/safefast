@@ -6,6 +6,7 @@
     <title>계약 관리</title>
     <link rel="stylesheet" href="/css/procurement.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
   
@@ -23,15 +24,15 @@
               <li>
                   <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
                   <ul class="dropdown">
-                      <li><a th:href="@{/item}">품목정보등록</a></li>
-                      <li><a th:href="@{/contract}">계약 등록</a></li>
-                      <li><a th:href="@{/procurement}">조달계획등록</a></li>
+                      <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                      <li><a th:href="@{/contract/register}">계약 등록</a></li>
+                      <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
                   </ul>
               </li>
               <li>
                   <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
                   <ul class="dropdown">
-                      <li><a th:href="@{/purchase-order}">구매 발주서 관리</a></li>
+                      <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
                       <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
                       <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
                   </ul>
@@ -63,14 +64,14 @@
                   <th>품목명</th>
                 </tr>
                 <tr>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-                  <td><input type="text" class="input-field" disabled></td>
-              </tr>
+                    <td><input type="text" class="input-field" id="reg-prodStartDate" disabled></td>
+                    <td><input type="text" class="input-field" id="reg-prodEndDate" disabled></td>
+                    <td><input type="text" class="input-field" id="reg-productCode" name="productCode" readonly></td>
+                    <td><input type="text" class="input-field" id="reg-productName" disabled></td>
+                    <td><input type="text" class="input-field" id="reg-prodQuantity" disabled></td>
+                    <td><input type="text" class="input-field" id="reg-itemCode" name="itemCode" readonly></td>
+                    <td><input type="text" class="input-field" id="reg-itemName" disabled></td>
+                </tr>
 
           </table>
           <table class="save-section">
@@ -80,8 +81,8 @@
 
               </tr>
               <tr>
-                  <td><input type="text" class="input-field"></td>
-                  <td><input type="text" class="input-field"></td>
+                  <td><input type="text" class="input-field" id="reg-procureQuantity" name="procQuantity"></td>
+                  <td><input type="datetime-local" class="input-field" id="reg-procureTerm" name="procDueDate" ></td>
 
               </tr>
               <!-- Add more rows as needed -->
@@ -126,7 +127,18 @@
                   <td th:text="${productionPlan.item != null ? productionPlan.item.itemCode : 'N/A'}"></td>
                   <td th:text="${productionPlan.item != null ? productionPlan.item.itemName : 'N/A'}"></td>
 
-                  <td><button class="register-button">등록</button></td>
+                  <td>
+                      <button class="register-button"
+                              th:data-prod-start-date="${productionPlan.prodStartDate}"
+                              th:data-prod-end-date="${productionPlan.prodEndDate}"
+                              th:data-product-code="${productionPlan.product != null ? productionPlan.product.productCode : 'N/A'}"
+                              th:data-product-name="${productionPlan.product != null ? productionPlan.product.productName : 'N/A'}"
+                              th:data-prod-quantity="${productionPlan.prodQuantity}"
+                              th:data-item-code="${productionPlan.item != null ? productionPlan.item.itemCode : 'N/A'}"
+                              th:data-item-name="${productionPlan.item != null ? productionPlan.item.itemName : 'N/A'}">
+                          등록
+                      </button>
+                  </td>
               </tr>
               </tbody>
           </table>
@@ -140,5 +152,27 @@
   </div>
   <script src="/js/procurement.js"></script>
   <script src="/js/index.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('.register-button').on('click', function() {
+              var prodStartDate = $(this).data('prod-start-date');
+              var prodEndDate = $(this).data('prod-end-date');
+              var productCode = $(this).data('product-code');
+              var productName = $(this).data('product-name');
+              var prodQuantity = $(this).data('prod-quantity');
+              var itemCode = $(this).data('item-code');
+              var itemName = $(this).data('item-name');
+
+              // 입력 필드에 데이터 설정
+              $('#reg-prodStartDate').val(prodStartDate);
+              $('#reg-prodEndDate').val(prodEndDate);
+              $('#reg-productCode').val(productCode);
+              $('#reg-productName').val(productName);
+              $('#reg-prodQuantity').val(prodQuantity);
+              $('#reg-itemCode').val(itemCode);
+              $('#reg-itemName').val(itemName);
+          });
+      });
+  </script>
 </body>
 </html>
