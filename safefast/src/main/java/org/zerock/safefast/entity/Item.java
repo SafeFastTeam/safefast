@@ -46,11 +46,14 @@ public class Item {
     private Unit unit;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "assCode")
+    @JoinColumn(name = "assyCode")
     private Assy assy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partCode")
     private Part part;
+
+    @OneToMany(mappedBy = "item")
+    private List<Contract> contracts;
 
 }
