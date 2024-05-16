@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db_safefast@localhost" uuid="ecb3df21-dc00-461a-b535-79d6f01c7756">
+    <data-source source="LOCAL" name="db_safefast@localhost" uuid="47eba5b6-edcd-40ce-8455-72b97e820cc8">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

@@ -1,17 +1,19 @@
-package org.zerock.safefast.controller;
+package org.zerock.safefast.controller.login;
 
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.zerock.safefast.dto.member.LoginDTO;
 import org.zerock.safefast.entity.Member;
-import org.zerock.safefast.service.LoginService;
+import org.zerock.safefast.service.login.LoginService;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,18 +25,51 @@ import java.io.PrintWriter;
 public class LoginController {
 
     private final LoginService loginService;
+    private final PasswordEncoder passwordEncoder;
+
+//    @GetMapping("/login")
+//    public String loginPage(@RequestParam(value = "error", required = false) String error,
+//                            @RequestParam(value = "exception", required = false) String exception, Model model,
+//                            HttpSession session) {
+//        model.addAttribute("error", error);
+//        model.addAttribute("exception", exception);
+//
+//        // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
+//        session.setAttribute("isLoggedIn", true);
+//
+//        return "member/login_form";
+//    }
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(value = "error", required = false) String error,
-                            @RequestParam(value = "exception", required = false) String exception, Model model,
-                            HttpSession session) {
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-
-        // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
-        session.setAttribute("isLoggedIn", true);
-
+    public String showLogin() {
         return "member/login_form";
+    }
+
+    @PostMapping("/login")
+    public ModelAndView login(@RequestParam String empNumber, @RequestParam String password) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        // 사용자를 인증
+        Member authenticatedUser = loginService.authenticate(new LoginDTO(empNumber, password));
+
+        if (authenticatedUser != null) {
+            modelAndView.setViewName("redirect:/member/home");
+            log.info("Login successful, redirecting to /member/home");
+        } else {
+            modelAndView.setViewName("member/login_form");
+            log.info("Login failed, returning to login form");
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "/member/home";
+    }
+
+    @GetMapping("/reset_password_form")
+    public String resetPasswordForm() {
+        return "member/reset_password_form";
     }
 
     @PostMapping("/reset_password_form")
@@ -61,7 +96,7 @@ public class LoginController {
 
     @GetMapping("/forgot_id")
     public String showForgotIdForm() {
-        return "admin/member/forgot_id_form";
+        return "member/forgot_id_form";
     }
 
     @PostMapping("/forgot_id")
@@ -77,7 +112,7 @@ public class LoginController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('가입하신 이메일 주소로 아이디를 전송했습니다.');</script>");
             writer.flush();
-            return "member/forgot_id_form";
+            return "member/login_form";
         } else {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
@@ -86,7 +121,4 @@ public class LoginController {
             return "member/forgot_id_form";
         }
     }
-
-
-
 }

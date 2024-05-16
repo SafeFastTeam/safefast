@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구매 조달 시스템</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    
+</head>
+<body>
+    <header>
+        <h1>구매 조달 시스템</h1>
+        <div class="user-info">
+            <span class="username">[사용자의 이름] 님</span>
+            <a href="login.html" class="logout-btn">로그아웃</a>
+        </div>
+
+    </header>
+    <div class="sub-navigation">
+        <div class="breadcrumb">
+          <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
+          <span>></span>
+          <a href="#">현재 페이지</a>
+        </div>
+        <div class="info-icon">
+          <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <li><a th:href="@{/}">메인화면</a></li>
+                <li>
+                    <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                        <li><a th:href="@{/contract}">계약 등록</a></li>
+                        <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a th:href="@{/purchase-order}">구매 발주서 관리</a></li>
+                        <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
+                        <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a th:href="@{/receive}">자재 입출고</a></li>
+                        <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
+                        <li><a th:href="@{/inventory}">재고 산출</a></li>
+                        <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <h3>구 매 조 달 시 스 템</h3>
+            <div class="logo">
+                <img src="/image/sf_logo01.png" alt="">
+            </div>
+            <div class="sections">
+                <section>
+                    <h2>조달관리</h2>
+                    <ul>
+                        <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                        <li><a href="contract.html">계약 등록</a></li>
+                        <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>발주관리</h2>
+                    <ul>
+                        <li><a href="purchase_order.html">구매 발주서 관리</a></li>
+                        <li><a href="progress_check_item.html">진척 검수 처리</a></li>
+                        <li><a href="po_status.html">발주 진행 현황</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>자재관리</h2>
+                    <ul>
+                        <li><a href="receive.html">자재 입출고</a></li>
+                        <li><a href="invoicing.html">거래 명세서 발행</a></li>
+                        <!-- <li><a href="release.html">자재 출고</a></li> -->
+                        <li><a href="inventory.html">재고 산출</a></li>
+                        <li><a href="inventory_management.html">재고(금액) 관리</a></li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>페이지 이용방법</h2> <hr>
+              <p>이 페이지는 포탈 페이지입니다.</p>
+              <p>1. 측면 메뉴 선택지를 클릭하여, 각각의 항목으로 이동할 수 있습니다.</p>
+              <p>2. 메인 화면의 선택지를 클릭하여, 각각의 항목으로 이동할 수 있습니다.</p>
+              <p>3. 홈 버튼을 클릭하여, 언제든 메인 페이지로 이동할 수 있습니다.</p>
+              <p>4. 조달관리, 발주관리, 자재관리를 클릭하면 하위 메뉴를 계속 볼 수 있습니다.</p>
+              <p>5. 해당 항목을 다시 한 번 클릭하면, 하위 항목들을 닫을 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html>

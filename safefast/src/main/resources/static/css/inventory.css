@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
+  margin: 0px;
   background-color: #f5f5f5;
 }
 
@@ -52,9 +52,6 @@ header {
 .content {
   flex: 1;
   width: 1400px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
 }
 
 /* 사이드 바 */
@@ -115,149 +112,104 @@ header {
 }
 
 
-/* 메인 스타일 */
-.progress { 
-  align-self: flex-end;
-}
-.plan-btn,
-.process-btn,
-.process-btn {
-  background-color: #066278;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+/* 메인 테이블 */
+
+section {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
 }
 
-.plan-btn:hover,
-.process-btn:hover {
-  background-color: #044055;
+section:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.controls {
+h2 {
+  margin-bottom: 10px;
+}
+
+.search-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  clear: both;
 }
 
-.date-search {
+.date-search,
+.keyword-search {
   display: flex;
   align-items: center;
 }
 
 .date-search input,
-.select-search input,
-.date-search select,
-.select-search select {
+.keyword-search input,
+.keyword-search select {
   margin-right: 5px;
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
 
-.btn {
-  background-color: #066278;
-  color: white;
+.date-search input:focus,
+.keyword-search input:focus,
+.keyword-search select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.date-search button,
+.keyword-search button {
+  margin-right: 5px;
+  padding: 5px 10px;
   border: none;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
+  background-color: #066278;
+  color: #fff;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 3px;
   transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #044055;
+.date-search button:hover,
+.keyword-search button:hover {
+  background-color: #044b5e;
 }
 
-.process-btn, .delete-btn {
-  background-color: red;
-}
-
-.main-table {
+table {
   width: 100%;
-  height: 350px;
   border-collapse: collapse;
-  margin-bottom: 20px;
 }
 
-.modal-table,
-.modal-table-3 {
-  width: 100%;
-  height: 100px;
-  margin-bottom: 20px;
+th, td {
+  padding: 18px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 th {
   background-color: #f2f2f2;
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
 }
 
-td {
-  text-align: center;
-  border-bottom: 1px solid #ddd;
+#inventory-calculation-list td:nth-child(10) {
+  color: red;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.page-info {
-  margin: 0 10px;
-}
-
-.modal,
-.modal2 {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  height: 80%;
-  position: relative;
-}
-
-.close-btn {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-  color: black;
-  text-decoration: none;
+.button {
+  background-color: #066278;
+  color: white;
+  padding: 10px 20px;
+  border: none;
   cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
-.register-btn {
-  float: right;
+.button:hover {
+  background-color: #044b5e;
 }

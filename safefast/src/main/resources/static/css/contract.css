@@ -1,0 +1,259 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  color: #066278;
+}
+
+/* 헤더 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-right: 10px;
+}
+
+.logout-btn {
+  background-color: #066278;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #054a5e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  width: 1200px;
+}
+
+/* 사이드 바 */
+.sidebar {
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  display: block;
+  min-height: 140vh;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.sidebar li a:hover {
+  background-color: #066278;
+}
+
+.sidebar li a i {
+  margin-right: 5px;
+}
+
+.dropdown li a {
+  padding-left: 30px;
+  position: relative;
+}
+
+.dropdown li a i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropdown {
+  display: none;
+  padding-left: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.sidebar li:hover .dropdown {
+  display: block;
+}
+
+
+/* 메인 테이블 */
+.content .registration-section {
+  height: 600px;
+}
+
+.registration-section th {
+  width: 20%;
+}
+
+#contract-form {
+  padding-bottom: 20px;
+}
+
+.content .management-section {
+  margin-top: 35px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.save-section tr td {
+  text-align: center;
+}
+
+th, td {  
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  text-align: center;
+  background-color: #f2f2f2;
+  color: rgb(0, 0, 0);
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+input[type="file"] {
+  width: 70%;
+  padding: 5px;
+}
+
+input[type="text"]:hover, input[type="file"]:hover {
+  border-color: #066278;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #066278;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #044258;
+}
+
+.save-button {
+  float: right;
+  margin-top: 10px;
+}
+
+#search-option {
+  height: 33px;
+}
+
+.search-bar {
+  margin-bottom: 10px;
+  display: flex;
+  width: 400px;
+  align-items: center;
+}
+
+.search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.search-button {
+  width: 80px;
+}
+
+.management-section table tbody tr td {
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination span {
+  margin: 8px 20px;
+}
+
+.pagination-button {
+  margin-right: 5px;
+  width: 60px;
+  height: 40px;
+}
+
+.delete-button, .contract-button {
+  background-color: #066278;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover, .contract-button:hover {
+  background-color: #044258;
+}
+
+.content .registration-section,
+.content .management-section {
+  background-color: #fff; /* 콘텐츠 섹션 배경색 지정 */
+  padding: 20px; /* 콘텐츠 섹션 주변 여백 추가 */
+  margin-bottom: 20px; /* 콘텐츠 섹션 아래 여백 추가 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  border-radius: 5px; /* 모서리를 둥글게 만듦 */
+}
