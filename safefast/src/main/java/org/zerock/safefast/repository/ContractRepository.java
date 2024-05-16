@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ContractRepository extends JpaRepository<Contract, String> {
-//    List<Contract> findByCoOpCompany(CoOpCompany coOpCompany);
+
 }
