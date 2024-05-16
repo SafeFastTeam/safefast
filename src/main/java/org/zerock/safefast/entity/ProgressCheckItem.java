@@ -18,9 +18,6 @@ public class ProgressCheckItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-
-    private Integer progCheckNumber;
-
     private Integer progCheckOrder;
 
     private LocalDateTime progCheckDate;
