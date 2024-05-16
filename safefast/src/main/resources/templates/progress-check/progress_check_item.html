@@ -48,8 +48,8 @@
     <div class="content">
     <h2>진척 검수 처리 - 발주리스트</h2>
     <div class="progress">
-        <button class="plan-btn">검수계획 등록</button>
-        <button class="process-btn">검수처리</button>
+        <button class="plan-btn" data-modal="modal1">검수계획 등록</button>
+        <button class="process-btn" data-modal="modal2">검수처리</button>
     </div>
     <div class="controls">
         <div class="date-search">
@@ -82,7 +82,7 @@
         </thead>
         <tbody>
             <tr>
-                <th><input type="checkbox"></th>
+                <td><input type="checkbox"></td>
                 <td>PO-001</td>
                 <td>2024-05-01</td>
                 <td>2024-05-15</td>
@@ -92,77 +92,77 @@
                 <td>0/0</td>
             </tr>
             <tr>
-                <th><input type="checkbox"></th>
-                <td>PO-001</td>
-                <td>2024-05-01</td>
-                <td>2024-05-15</td>
-                <td>ITEM-001</td>
-                <td>상품 A</td>
-                <td>100</td>
-                <td>0/0</td>
+                <td><input type="checkbox"></td>
+                <td>{purch_order_number}</td>
+                <td>{purch_order_date}</td>
+                <td>{receive_duedate}</td>
+                <td>{item_code}</td>
+                <td>{item_name}</td>
+                <td>{purch_order_quantity}</td>
+                <td>{proc_check_result}/{proc_check_order}</td>
             </tr>
             <tr>
-                <th><input type="checkbox"></th>
-                <td>PO-001</td>
-                <td>2024-05-01</td>
-                <td>2024-05-15</td>
-                <td>ITEM-001</td>
-                <td>상품 A</td>
-                <td>100</td>
-                <td>0/0</td>
+                <td><input type="checkbox"></td>
+                <td>{purch_order_number}</td>
+                <td>{purch_order_date}</td>
+                <td>{receive_duedate}</td>
+                <td>{item_code}</td>
+                <td>{item_name}</td>
+                <td>{purch_order_quantity}</td>
+                <td>{proc_check_result}/{proc_check_order}</td>
             </tr>
             <tr>
-                <th><input type="checkbox"></th>
-                <td>PO-001</td>
-                <td>2024-05-01</td>
-                <td>2024-05-15</td>
-                <td>ITEM-001</td>
-                <td>상품 A</td>
-                <td>100</td>
-                <td>0/0</td>
+                <td><input type="checkbox"></td>
+                <td>{purch_order_number}</td>
+                <td>{purch_order_date}</td>
+                <td>{receive_duedate}</td>
+                <td>{item_code}</td>
+                <td>{item_name}</td>
+                <td>{purch_order_quantity}</td>
+                <td>{proc_check_result}/{proc_check_order}</td>
             </tr>
             <tr>
-                <th><input type="checkbox"></th>
-                <td>PO-001</td>
-                <td>2024-05-01</td>
-                <td>2024-05-15</td>
-                <td>ITEM-001</td>
-                <td>상품 A</td>
-                <td>100</td>
-                <td>0/0</td>
+                <td><input type="checkbox"></td>
+                <td>{purch_order_number}</td>
+                <td>{purch_order_date}</td>
+                <td>{receive_duedate}</td>
+                <td>{item_code}</td>
+                <td>{item_name}</td>
+                <td>{purch_order_quantity}</td>
+                <td>{proc_check_result}/{proc_check_order}</td>
             </tr>
         </tbody>
     </table>
     <div class="pagination">
         <button class="btn prev-btn" disabled>이전</button>
-        <span class="page-info">1/2</span>
+        <span class="page-info">1/1</span>
         <button class="btn next-btn">다음</button>
     </div>
     <div class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h3>검수 계획</h3>
+            <h3>검수 계획 등록</h3>
             <table class="modal-table">
                 <tbody>
                     <tr>
                         <th>발주번호</th>
-                        <td>PO-001</td>
+                        <td>{purch_order_number}</td>
                     </tr>
                     <tr>
                         <th>발주일자</th>
-                        <td>2024-05-02 09:00:00</td>
+                        <td>{purch_order_date}</td>
                     </tr>
                     <tr>
                         <th>입고예정일자</th>
-                        <td>2024-05-16 09:00:00</td>
+                        <td>{receive_duedate}</td>
                     </tr>
                     <tr>
                         <th>업체명</th>
-                        <td>(주) 주주</td>
+                        <td>@co_op_company{company_name}</td>
                     </tr>
                     <tr>
                         <th>사업자번호</th>
-                        <td>108-86-04814</td>
+                        <td>@co_op_company{business_number}</td>
                     </tr>
                 </tbody>
             </table>
@@ -176,9 +176,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>C1B12_001</td>
-                        <td>보고서용 테스트 품목</td>
-                        <td>500</td>
+                        <td>{item_code}</td>
+                        <td>{item_name}</td>
+                        <td>{purch_order_quantity}</td>
                     </tr>
                 </tbody>
             </table>
@@ -193,7 +193,7 @@
                 <tbody>
                     <tr>
                         <td>1차</td>
-                        <td>2024-05-18</td>
+                        <td><input type="date" class="inspection-date"></td>
                         <td>
                             <button class="btn add-btn">추가</button>
                             <button class="btn delete-btn">삭제</button>
@@ -201,7 +201,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="btn register-btn">검수계획 등록</button>
+            <button class="btn register-btn">검수계획 등록완료</button>
         </div>
     </div>
 
@@ -213,23 +213,23 @@
                 <tbody>
                     <tr>
                         <th>발주번호</th>
-                        <td>PO-001</td>
+                        <td>{purch_order_number}</td>
                     </tr>
                     <tr>
                         <th>발주일자</th>
-                        <td>2024-05-02 09:00:00</td>
+                        <td>{purch_order_date}</td>
                     </tr>
                     <tr>
                         <th>입고예정일자</th>
-                        <td>2024-05-16 09:00:00</td>
+                        <td>{receive_duedate}</td>
                     </tr>
                     <tr>
                         <th>업체명</th>
-                        <td>(주) 주주</td>
+                        <td>@co_op_company{company_name}</td>
                     </tr>
                     <tr>
                         <th>사업자번호</th>
-                        <td>108-86-04814</td>
+                        <td>@co_op_company{business_number}</td>
                     </tr>
                 </tbody>
             </table>
@@ -243,9 +243,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>C1B12_001</td>
-                        <td>보고서용 테스트 품목</td>
-                        <td>500</td>
+                        <td>{item_code}</td>
+                        <td>{item_name}</td>
+                        <td>{purch_order_quantity}</td>
                     </tr>
                 </tbody>
             </table>
@@ -262,12 +262,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1차</td>
-                        <td>2024-05-18</td>
-                        <td>100</td>
-                        <td>검수완료</td>
-                        <td>보완내용1</td>
-                        <td><input type="number" min="0" max="100" value="0" class="progress-input">%</td>
+                        <td>{prog_check_order}차</td>
+                        <td>{prog_check_date}</td>
+                        <td><input type="number" class="correction-input">미검수시입력칸or검수완료시{completed_quantity}</td>
+                        <td>미검수시{검수전}or{검수완료}</td>
+                        <td><input type="text" class="correction-input"></td>
+                        <td>{progress_check_result}/{progress_check_order}%</td>
                     </tr>
                 </tbody>
             </table>

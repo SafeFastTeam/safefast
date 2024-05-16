@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-241.15989.150">
-    <data-source name="db_safefast@localhost" uuid="ecb3df21-dc00-461a-b535-79d6f01c7756">
-      <database-info product="MariaDB" version="10.11.2-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.11.2" exact-driver-version="3.3">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <user-name>safefast</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
+    <data-source name="db_safefast@localhost" uuid="47eba5b6-edcd-40ce-8455-72b97e820cc8">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>
