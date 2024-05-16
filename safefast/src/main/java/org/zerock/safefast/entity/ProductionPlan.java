@@ -31,6 +31,12 @@ public class ProductionPlan {
     @Column
     private Integer procureTerm;
 
-    @Column
-    private String productCode;
+    @ManyToOne
+    @JoinColumn(name = "itemCode")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "productCode")
+    private Product product;
+
 }

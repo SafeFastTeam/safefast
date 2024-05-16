@@ -30,7 +30,8 @@ public class ProductionPlanService {
         return productionPlanRepository.findAll();
     }
 
-    public List<ProcurementPlan> getAllProcurementPlans() {
-        return procurementPlanRepository.findAll();
+    public List<ProductionPlan> findAll() {
+        return productionPlanRepository.findAll();
+
     }
 }
