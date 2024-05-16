@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-241.15989.150">
-    <data-source name="db_safefast@localhost" uuid="47eba5b6-edcd-40ce-8455-72b97e820cc8">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" />
-      <schema-mapping />
-    </data-source>
-  </component>
-</project>
