@@ -1,8 +1,6 @@
 package org.zerock.safefast.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -40,10 +38,12 @@ public class Contract {
     @Column
     private Integer itemPrice;
 
-    @Column
-    private String businessNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "businessNumber")
+    private CoOpCompany coOpCompany;
 
-    @Column
-    private String itemCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemCode")
+    private Item item;
 
 }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <h2>계약 등록 - 계약서</h2>
@@ -50,7 +51,6 @@
     </table>
     <button type="submit" class="save-button">저장</button>
 </form>
-</div>
 
 
 <div class="management-section">
@@ -83,10 +83,9 @@
             <td></td>
             <td class="item-row">
                 <span class="itemCode" th:text="${item.itemCode}"></span>
+                <span class="itemName" th:text="${item.itemName}" style="display: none;"></span> <!-- 수정된 부분 -->
             </td>
             <td th:text="${item.itemName}"></td>
-<!--            <td th:text="${contract.companyName}"></td>-->
-<!--            <td th:text="${contract.businessNumber}"></td>-->
             <td></td>
             <td></td>
             <td></td>
@@ -96,13 +95,13 @@
 </div>
 <script>
     $(document).ready(function () {
-        // 품목 코드를 클릭했을 때 해당 품목의 정보를 계약 항목에 자동으로 채우기
+        // 품목 행을 클릭했을 때 해당 품목의 정보를 계약 항목에 자동으로 채우기
         $("body").on("click", ".item-row", function () {
             var itemCode = $(this).find(".itemCode").text();
-            var itemName = $(this).find(".itemName").text();
-            var unitPrice = $(this).find(".itemPrice").text();
-            var leadTime = $(this).find(".leadTime").text();
-            var details = $(this).find(".note").text();
+            var itemName = $(this).find(".itemName").text(); // 수정된 부분
+            var unitPrice = $(this).find(".itemPrice").val(); // 수정
+            var leadTime = $(this).find(".leadTime").val(); // 수정
+            var details = $(this).find(".note").val(); // 수정
 
             $("input[name='itemCode']").val(itemCode);
             $("input[name='itemName']").val(itemName);
@@ -129,6 +128,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>
