@@ -120,8 +120,7 @@ header {
   align-self: flex-end;
 }
 .plan-btn,
-.process-btn,
-.btn {
+.process-btn {
   background-color: #066278;
   color: white;
   border: none;
@@ -161,7 +160,7 @@ header {
   padding: 5px;
 }
 
-/*.btn {
+.btn {
   background-color: #066278;
   color: white;
   border: none;
@@ -174,7 +173,7 @@ header {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-}*/
+}
 
 .btn:hover {
   background-color: #044055;
