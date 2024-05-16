@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -74,5 +75,11 @@ public class ItemService {
             }
         }
     }
+
+    public Item findItemByCode(String itemCode) {
+        Optional<Item> optionalItem = itemRepository.findByItemCode(itemCode);
+        return optionalItem.orElse(null); // Optional을 사용하여 Item이 없을 경우 null을 반환하도록 처리
+    }
+
 
 }
