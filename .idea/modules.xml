@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/safefast.safefast.iml" filepath="$PROJECT_DIR$/.idea/modules/safefast.safefast.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/safefast.safefast.main.iml" filepath="$PROJECT_DIR$/.idea/modules/safefast.safefast.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/safefast.safefast.test.iml" filepath="$PROJECT_DIR$/.idea/modules/safefast.safefast.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/safefast.iml" filepath="$PROJECT_DIR$/.idea/safefast.iml" />
     </modules>
   </component>
 </project>
