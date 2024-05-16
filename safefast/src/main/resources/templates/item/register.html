@@ -18,10 +18,14 @@
     <label for="assyCode">중분류:</label><br>
     <select id="assyCode" name="assyCode" required>
         <option value="">중분류 선택</option>
+        <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
+        <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
     </select><br>
     <label for="partCode">소분류:</label><br>
     <select id="partCode" name="partCode" required>
         <option value="">소분류 선택</option>
+        <!-- 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 -->
+        <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
     </select><br>
     <label for="itemCode">품목 코드:</label><br>
     <input type="text" id="itemCode" name="itemCode" required><br>
@@ -69,29 +73,44 @@
 
 <script th:inline="javascript">
     // 대분류 선택에 따라 중분류 내용을 동적으로 변경하는 함수
-    document.getElementById('unitCode').addEventListener('change', function () {
+    document.getElementById('unit').addEventListener('change', function () {
         var unitCode = this.value;
         var assyCodeOptions = document.getElementById('assyCode').options;
+        var partCodeOptions = document.getElementById('partCode').options;
+
         // 중분류 내용 초기화
         assyCodeOptions.length = 1;
+        // 소분류 내용 초기화
+        partCodeOptions.length = 1;
 
-        // 선택된 대분류에 따라 중분류 내용을 설정
-        /* 서버에서 받은 unitCodes를 반복하며 중분류 옵션을 생성 */
-        /* 각 옵션의 값은 unit.unitCode, 텍스트는 unit.unitName을 사용 */
-        /* 서버에서 전달한 변수는 th:를 통해 사용 */
-        /* 반복되는 내용은 th:each="unit : ${unitCodes}"와 같이 설정 */
-        /* 옵션을 생성하는 부분은 자바스크립트로 작성되므로 내부에서 Thymeleaf 문법을 사용하기 위해 th:inline="javascript"를 사용하여 자바스크립트로 해석합니다. */
-        /* 이렇게 하면 서버에서 받은 unitCodes를 이용하여 자바스크립트 코드가 동적으로 생성됩니다. */
-        /* 이렇게 생성된 코드는 브라우저에서 실행될 때 실제 동적으로 생성됩니다. */
-        /* 이 코드는 Thymeleaf와 자바스크립트가 혼합된 형태이므로 주의해야 합니다. */
-        /* 자세한 내용은 Thymeleaf 공식 문서나 온라인 자료를 참고하시기 바랍니다. */
-        [[(unitCodes != null) ? /* unitCodes가 null이 아닐 때만 실행 */
-            #th:each="unit : ${unitCodes}" ,/* unitCodes를 반복하며 unit 정보를 추출 */
-            #intIndex="${unitStat.index}" ,/* 반복문의 인덱스 변수를 추출하여 저장 */
-            #srcValue="${unit.unitCode}" ,/* 옵션의 값으로 unitCode 사용 */
-            #textValue="${unit.unitName}" ,/* 옵션의 텍스트로 unitName 사용 */
-            "assyCodeOptions[/*=*/${unitStat.index}+1] = new Option('/*=*/${unit.unitName}', '/*=*/${unit.unitCode}');" /* 옵션을 생성하여 배열에 추가 */
-        ]]
+        // 대분류에 따라 중분류 옵션 설정
+        if (unitCode === '충전부') {
+            assyCodeOptions[1] = new Option('Heater', 'Heater');
+        } else if (unitCode === '다른 대분류 값') {
+            // 다른 대분류에 따른 중분류 옵션 설정
+            assyCodeOptions[1] = new Option('다른 중분류1', '다른 중분류1');
+        }
+    });
+
+    // 중분류 선택에 따라 소분류 내용을 동적으로 변경하는 함수
+    document.getElementById('assyCode').addEventListener('change', function () {
+        var assyCode = this.value;
+        var partCodeOptions = document.getElementById('partCode').options;
+        // 소분류 내용 초기화
+        partCodeOptions.length = 1;
+
+        // 선택된 중분류에 따라 소분류 내용을 설정
+        if (assyCode === '중분류1') {
+            partCodeOptions[1] = new Option('소분류1', '소분류1');
+            partCodeOptions[2] = new Option('소분류2', '소분류2');
+            // 다른 중분류 항목에 따라 소분류 내용 추가
+        } else if (assyCode === '다른 중분류1') {
+            partCodeOptions[1] = new Option('다른 소분류1', '다른 소분류1');
+            partCodeOptions[2] = new Option('다른 소분류2', '다른 소분류2');
+            // 다른 중분류 항목에 따라 소분류 내용 추가
+        }
+        // 다른 중분류 항목에 따라 소분류 내용 추가
+    });
 </script>
 </body>
 </html>
