@@ -1,5 +1,6 @@
 package org.zerock.safefast.entity;
 
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;

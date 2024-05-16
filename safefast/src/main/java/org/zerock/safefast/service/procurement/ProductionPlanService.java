@@ -24,4 +24,8 @@ public class ProductionPlanService {
     public List<ProductionPlan> getAllProductionPlans() {
         return productionPlanRepository.findAll();
     }
+
+    public List<ProductionPlan> findAll() {
+        return productionPlanRepository.findAll();
+    }
 }

@@ -117,15 +117,14 @@
               </thead>
               <tbody>
               <!-- 반복문을 통해 서버에서 받아온 데이터를 동적으로 표시 -->
-              <tr th:if="${productionPlans != null}" th:each="productionPlan : ${productionPlans}">
+              <tr th:each="productionPlan : ${productionPlans}">
                   <td th:text="${productionPlan.prodStartDate}"></td>
                   <td th:text="${productionPlan.prodEndDate}"></td>
-                  <td th:text="${productionPlan.productCode}"></td>
-                  <td th:text="${productName}"></td>
+                  <td th:text="${productionPlan.product != null ? productionPlan.product.productCode : 'N/A'}"></td>
+                  <td th:text="${productionPlan.product != null ? productionPlan.product.productName : 'N/A'}"></td>
                   <td th:text="${productionPlan.prodQuantity}"></td>
-                  <td th:text="${productionPlan.prodPlanCode}"></td>
-                  <td th:text="${itemName}"></td>
-                  <!-- 조달계획등록 버튼 -->
+                  <td th:text="${productionPlan.item != null ? productionPlan.item.itemCode : 'N/A'}"></td>
+                  <td th:text="${productionPlan.item != null ? productionPlan.item.itemName : 'N/A'}"></td>
                   <td><button class="register-button">등록</button></td>
               </tr>
               </tbody>

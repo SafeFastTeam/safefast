@@ -35,12 +35,9 @@ public class ProcurementPlanController {
 
     // 조달 계획 제출 폼 보여주기
     @GetMapping("/procurement")
-    public String showProcurement(Model model) {
+    public String showProcurementPlans(Model model) {
         List<ProductionPlan> productionPlans = productionPlanService.getAllProductionPlans();
-        if (productionPlans != null) {
-            model.addAttribute("productionPlans", productionPlans);
-        }
-        // ProcurementPlan과 관련된 로직 추가 가능
+        model.addAttribute("productionPlans", productionPlans);
         return "procurement/procurement";
     }
 
