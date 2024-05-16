@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품목 정보 등록</title>
+</head>
+<body>
+<h1>품목 정보 등록</h1>
+<form action="/item/register" method="post" enctype="multipart/form-data">
+    <label for="unit">대분류:</label><br>
+    <select id="unit" name="unitCode" required>
+        <option value="">대분류 선택</option>
+        <!-- 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 -->
+        <!-- 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. -->
+        <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
+    </select><br>
+    <label for="assyCode">중분류:</label><br>
+    <select id="assyCode" name="assyCode" required>
+        <option value="">중분류 선택</option>
+    </select><br>
+    <label for="partCode">소분류:</label><br>
+    <select id="partCode" name="partCode" required>
+        <option value="">소분류 선택</option>
+    </select><br>
+    <label for="itemCode">품목 코드:</label><br>
+    <input type="text" id="itemCode" name="itemCode" required><br>
+    <label for="itemName">품목명:</label><br>
+    <input type="text" id="itemName" name="itemName" required><br>
+    <label for="width">가로:</label><br>
+    <input type="number" id="width" name="width" required><br>
+    <label for="length">세로:</label><br>
+    <input type="number" id="length" name="length" required><br>
+    <label for="height">높이:</label><br>
+    <input type="number" id="height" name="height" required><br>
+    <label for="material">재질:</label><br>
+    <input type="text" id="material" name="material" required><br>
+    <label for="blueprintOriginName">도면 파일:</label><br>
+    <input type="file" id="blueprintOriginName" name="blueprintOriginName" accept=".pdf,.jpg,.png" required><br><br>
+    <button type="submit">등록</button>
+</form>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>품목 코드</th>
+        <th>품목명</th>
+        <th>가로</th>
+        <th>세로</th>
+        <th>높이</th>
+        <th>재질</th>
+        <th>도면 파일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
+    <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
+    <tr th:each="item : ${items}">
+        <td th:text="${item.itemCode}"></td>
+        <td th:text="${item.itemName}"></td>
+        <td th:text="${item.width}"></td>
+        <td th:text="${item.length}"></td>
+        <td th:text="${item.height}"></td>
+        <td th:text="${item.material}"></td>
+        <td th:text="${item.blueprintOriginName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script th:inline="javascript">
+    // 대분류 선택에 따라 중분류 내용을 동적으로 변경하는 함수
+    document.getElementById('unitCode').addEventListener('change', function () {
+        var unitCode = this.value;
+        var assyCodeOptions = document.getElementById('assyCode').options;
+        // 중분류 내용 초기화
+        assyCodeOptions.length = 1;
+
+        // 선택된 대분류에 따라 중분류 내용을 설정
+        /* 서버에서 받은 unitCodes를 반복하며 중분류 옵션을 생성 */
+        /* 각 옵션의 값은 unit.unitCode, 텍스트는 unit.unitName을 사용 */
+        /* 서버에서 전달한 변수는 th:를 통해 사용 */
+        /* 반복되는 내용은 th:each="unit : ${unitCodes}"와 같이 설정 */
+        /* 옵션을 생성하는 부분은 자바스크립트로 작성되므로 내부에서 Thymeleaf 문법을 사용하기 위해 th:inline="javascript"를 사용하여 자바스크립트로 해석합니다. */
+        /* 이렇게 하면 서버에서 받은 unitCodes를 이용하여 자바스크립트 코드가 동적으로 생성됩니다. */
+        /* 이렇게 생성된 코드는 브라우저에서 실행될 때 실제 동적으로 생성됩니다. */
+        /* 이 코드는 Thymeleaf와 자바스크립트가 혼합된 형태이므로 주의해야 합니다. */
+        /* 자세한 내용은 Thymeleaf 공식 문서나 온라인 자료를 참고하시기 바랍니다. */
+        [[(unitCodes != null) ? /* unitCodes가 null이 아닐 때만 실행 */
+            #th:each="unit : ${unitCodes}" ,/* unitCodes를 반복하며 unit 정보를 추출 */
+            #intIndex="${unitStat.index}" ,/* 반복문의 인덱스 변수를 추출하여 저장 */
+            #srcValue="${unit.unitCode}" ,/* 옵션의 값으로 unitCode 사용 */
+            #textValue="${unit.unitName}" ,/* 옵션의 텍스트로 unitName 사용 */
+            "assyCodeOptions[/*=*/${unitStat.index}+1] = new Option('/*=*/${unit.unitName}', '/*=*/${unit.unitCode}');" /* 옵션을 생성하여 배열에 추가 */
+        ]]
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package org.zerock.safefast.service;
+package org.zerock.safefast.service.login;
 
 import org.zerock.safefast.dto.member.SignUpDTO;
 import org.zerock.safefast.entity.Member;

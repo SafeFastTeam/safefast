@@ -13,4 +13,10 @@ public class LoginDTO {
     private String password;
 
     private String email;
+
+    public LoginDTO(String empNumber, String password) {
+        this.empNumber = empNumber;
+        this.password = password;
+
+    }
 }
