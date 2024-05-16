@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.safefast.entity.Assy;
 import org.zerock.safefast.entity.Item;
+import org.zerock.safefast.entity.Part;
 import org.zerock.safefast.entity.Unit;
 import org.zerock.safefast.service.product.ItemService;
 
@@ -28,9 +30,13 @@ public class ItemController {
     @GetMapping("/register")
     public String showItemForm(Model model) {
         List<Unit> units = itemService.getAllUnits();
+        List<Assy> assies = itemService.getAllAssys();
+        List<Part> parts = itemService.getAllParts();
         List<Item> items = itemService.getAllItems();
         model.addAttribute("units", units); // 모델에 Unit 정보 추가
         model.addAttribute("items", items);
+        model.addAttribute("assies", assies);
+        model.addAttribute("parts", parts);
         model.addAttribute("item", new Item());
         return "item/register";
     }
@@ -44,12 +50,6 @@ public class ItemController {
                                @RequestParam("material") String material,
                                @RequestParam("blueprintOriginName") MultipartFile blueprintFile,
                                Model model, RedirectAttributes redirectAttributes) {
-
-//        if (!itemService.isValidUnitCode(unitCode)) {
-//            model.addAttribute("errorMessage", "유효하지 않은 unitCode입니다.");
-//            return "item/register";
-//        }
-
 
         Item newItem = Item.builder()
                 .itemCode(itemCode)

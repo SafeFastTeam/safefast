@@ -2,8 +2,10 @@ package org.zerock.safefast.service.procurement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.ProductionPlan;
 import org.zerock.safefast.repository.ProductionPlanRepository;
+import org.zerock.safefast.repository.ProcurementPlanRepository;
 
 import java.util.List;
 
@@ -11,6 +13,9 @@ import java.util.List;
 public class ProductionPlanService {
 
     private final ProductionPlanRepository productionPlanRepository;
+
+    @Autowired
+    private ProcurementPlanRepository procurementPlanRepository;
 
     @Autowired
     public ProductionPlanService(ProductionPlanRepository productionPlanRepository) {
@@ -27,5 +32,6 @@ public class ProductionPlanService {
 
     public List<ProductionPlan> findAll() {
         return productionPlanRepository.findAll();
+
     }
 }

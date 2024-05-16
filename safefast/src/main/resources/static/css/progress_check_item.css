@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0px;
+  margin: 0;
   background-color: #f5f5f5;
 }
 
@@ -120,6 +120,7 @@ header {
   align-self: flex-end;
 }
 .plan-btn,
+.process-btn,
 .process-btn {
   background-color: #066278;
   color: white;

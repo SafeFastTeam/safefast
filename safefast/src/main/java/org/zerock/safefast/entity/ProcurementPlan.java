@@ -31,6 +31,14 @@ public class ProcurementPlan {
     @Column
     private LocalDateTime procRegisterDate;
 
+    @ManyToOne
+    @JoinColumn(name = "itemCode", referencedColumnName = "itemCode", insertable = false, updatable = false)
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "productCode", referencedColumnName = "productCode", insertable = false, updatable = false)
+    private Product product;
+
     @Column
     private String itemCode;
 }

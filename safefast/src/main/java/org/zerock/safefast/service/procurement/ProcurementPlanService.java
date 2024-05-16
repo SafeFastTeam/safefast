@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
 
+import java.util.List;
+
 @Service
 public class ProcurementPlanService {
 
@@ -18,5 +20,9 @@ public class ProcurementPlanService {
     public void saveProcurementPlan(ProcurementPlan procurementPlan) {
         // ProcurementPlan을 저장하는 메서드
         procurementPlanRepository.save(procurementPlan);
+    }
+
+    public List<ProcurementPlan> getAllProcurementPlans() {
+        return procurementPlanRepository.findAll();
     }
 }
