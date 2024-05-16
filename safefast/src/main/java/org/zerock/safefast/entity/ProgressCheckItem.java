@@ -18,15 +18,18 @@ public class ProgressCheckItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+
+    private Integer progCheckNumber;
+
     private Integer progCheckOrder;
+
+    private LocalDateTime progCheckDate;
 
     private String progCheckResult;
 
     private Integer CompletedQuantity;
 
     private String supplementation;
-
-    private LocalDateTime progCheckDate;
 
     private String purchOrderNumber;
 

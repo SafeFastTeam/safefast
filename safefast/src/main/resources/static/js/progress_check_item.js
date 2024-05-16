@@ -7,32 +7,42 @@ const addBtnEventListener = () => {
             const countCell = document.createElement('td');
             const dateCell = document.createElement('td');
             const actionCell = document.createElement('td');
-
             countCell.textContent = `${inspectionCount + 1}차`;
-
-            // 여기서 지정된 날짜를 가져와서 표시하거나, 원하는 형식으로 날짜를 표시하세요.
-            const specifiedDate = "2024-05-08"; // 예시로 고정된 날짜를 사용합니다.
-            dateCell.textContent = specifiedDate;
-
+            // 입력 가능한 날짜 입력란 생성
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.className = 'inspection-date'; // 날짜 입력란에 클래스 추가
+            dateCell.appendChild(dateInput);
             actionCell.innerHTML = '<button class="btn add-btn">추가</button><button class="btn delete-btn">삭제</button>';
-
             newRow.appendChild(countCell);
             newRow.appendChild(dateCell);
             newRow.appendChild(actionCell);
-
             inspectionList.appendChild(newRow);
             inspectionCount++;
         });
     });
 };
 
-// 모달 창 열기/닫기 기능
+// 발주 리스트 테이블의 각 행에서 여섯 번째 열의 체크박스 요소들을 선택합니다.
+const checkboxes = document.querySelectorAll('.main-table tbody tr td:nth-child(6) input[type="checkbox"]');
+
+// 모달 창1 열기/닫기 기능
 const modal = document.querySelector('.modal');
 const openModalBtn = document.querySelector('.plan-btn');
 const closeModalBtn = document.querySelector('.close-btn');
 
 openModalBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
+    // 체크된 체크박스의 개수를 세어봅니다.
+    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+    // 만약 체크된 체크박스가 없으면 경고 팝업을 띄웁니다.
+    if (checkedCount === 0) {
+        alert('선택된 발주가 없습니다. 발주를 선택해주세요.');
+    } else {
+        // 체크된 체크박스가 있을 경우 모달을 엽니다.
+        modal.style.display = 'block';
+        displaySelectedOrders(); // 선택된 발주 데이터 표시
+    }
 });
 
 closeModalBtn.addEventListener('click', () => {
@@ -104,7 +114,7 @@ document.querySelector('.next-btn').addEventListener('click', () => {
     }
 });
 
-// 검수 계획 추가/삭제 기능
+// 검수 계획 삭제 기능
 // const addBtn = document.querySelector('.add-btn'); // 삭제
 const deleteBtn = document.querySelector('.delete-btn');
 const inspectionList = document.querySelector('.modal-table-3 tbody');
@@ -122,8 +132,7 @@ inspectionList.addEventListener('click', (event) => {
 });
 
 
-
-// 모달 창 열기/닫기 기능
+// 모달 창2 열기/닫기 기능
 const modal2 = document.querySelector('.modal2');
 const openModalBtn2 = document.querySelector('.process-btn');
 const closeModalBtn2 = document.querySelector('.close-btn');
