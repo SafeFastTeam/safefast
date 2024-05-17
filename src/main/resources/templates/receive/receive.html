@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자재입고</title>
+  <link rel="stylesheet" href="/css/receive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>구매 조달 시스템</h1>
+    <div class="user-info">
+        <span class="username">[사용자의 이름] 님</span>
+        <a th:href="@{/login}" class="logout-btn">로그아웃</a>
+    </div>
+  </header>
+  <div class="container">
+      <nav class="sidebar">
+          <ul>
+              <li><a th:href="@{/}">메인화면</a></li>
+              <li>
+                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/item}">품목정보등록</a></li>
+                      <li><a th:href="@{/contract}">계약 등록</a></li>
+                      <li><a th:href="@{/procurement}">조달계획등록</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/purchase-order}">구매 발주서 관리</a></li>
+                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
+                      <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/receive}">자재 입출고</a></li>
+                      <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
+                      <li><a th:href="@{/inventory}">재고 산출</a></li>
+                      <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </nav>
+    <div class="content">
+      <section class="procurement-plan">
+        <h2>자재 입고</h2>
+        <div class="save-btn">
+          <button id="issue-order-btn" class="button">저장</button>
+          <button id="close-button" style="display: none;">마감</button>
+        </div>
+        <table>
+          <thead>
+          <tr>
+            <th>발주번호</th>
+            <th>업체명</th>
+            <th>품목명</th>
+            <th>재고</th>
+            <th>발주 수량</th>
+            <th>입고 수량</th>
+          </tr>
+          </thead>
+          <tbody id="procurement-plan-list">
+          <tr th:each="procurement : ${procurements}">
+            <td th:text="${procurement.procPlanNumber}"></td>
+            <td th:text="${procurement.coOpCompany.companyName}"></td>
+            <td th:text="${procurement.item.itemName}"></td>
+            <td>
+              <input type="text" name="receiveQuantity">
+            </td>
+            <td th:text="${procurement.procQuantity}"></td>
+            <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${procurement.procPlanNumber}"></td>
+          </tr>
+          </tbody>
+        </table>
+        <h2>자재 출고</h2>
+        <div class="save-btn">
+          <button id="issue-order-btn" class="button">저장</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>생산계획번호</th>
+              <th>제품명</th>
+              <th>품목명</th>
+              <th>소요량</th>
+              <th>재고 수량</th>
+              <th>출고 수량</th>
+            </tr>
+          </thead>
+          <tbody id="procurement-plan-list">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input type="text"></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="purchase-order">
+        <h2>자재 입출고 리스트</h2>
+        <div class="search-bar">
+          <div class="date-search">
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
+            <input type="date" id="date-end" placeholder="종료 날짜">
+            <button id="date-search-btn">검색</button>
+          </div>
+          <div class="keyword-search">
+            <select id="keyword-search-type">
+              <option value="품목코드" checked>품목코드</option>
+              <option value="company">업체명</option>
+              <option value="item">품목명</option>
+            </select>
+            <input type="text" id="keyword-search" placeholder="키워드 검색">
+            <button id="keyword-search-btn">검색</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>발주번호</th>
+              <th>업체명</th>
+              <th>품목명</th>
+              <th>발주일</th>
+              <th>조달납기일</th>
+              <th>입고</th>
+            </tr>
+          </thead>
+          <tbody id="purchase-order-list">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><button onclick="openModal()">입고완료</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button class="pagination-button">이전</button>
+          <span>1/10 페이지</span>
+          <button class="pagination-button">다음</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- 모달 -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>해당 구매발주서를 마감 처리 하시겠습니까?</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>발주번호</th>
+            <th>품목코드</th>
+            <th>품목명</th>
+            <th>발주수량</th>
+            <th>검수현황</th>
+            <th>입고마감</th>
+          </tr>
+        </thead>
+        <tbody id="modal-purchase-order-list">
+          <!-- 모달 내용은 JavaScript를 통해 동적으로 생성 -->
+        </tbody>
+      </table>
+      <div class="btn-box">
+        <button id="cancelBtn">취소</button>
+        <button id="confirmBtn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/receive.js"></script>
+  <script src="/js/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const saveButton = document.getElementById('issue-order-btn');
+      const endButton = document.getElementById('end-order-btn');
+
+      // Save button click event handler
+      saveButton.addEventListener('click', function () {
+        const inputs = document.querySelectorAll('.procurement-quantity-input');
+        const receiveData = [];
+        let totalReceiveQuantity = 0;
+
+        inputs.forEach(input => {
+          const procPlanNumber = input.getAttribute('data-proc-plan-number');
+          const receiveQuantity = parseInt(input.value);
+
+          if (!isNaN(receiveQuantity) && receiveQuantity > 0) {
+            receiveData.push({
+              procPlanNumber: procPlanNumber,
+              receiveQuantity: receiveQuantity
+            });
+            totalReceiveQuantity += receiveQuantity;
+          }
+        });
+
+        if (receiveData.length > 0) {
+          // Send receive data to server and update stock
+          fetch('/receive/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(receiveData)
+          })
+                  .then(response => {
+                    if (response.ok) {
+                      return response.json();
+                    } else {
+                      throw new Error('서버 응답 처리 중 오류가 발생했습니다.');
+                    }
+                  })
+                  .then(updatedReceives => {
+                    // Update receive quantity in table
+                    updatedReceives.forEach(updatedReceive => {
+                      const spans = document.querySelectorAll(`td:has([data-proc-plan-number="${updatedReceive.procPlanNumber}"]) span.receive-quantity`);
+                      spans.forEach(span => {
+                        span.textContent = updatedReceive.receiveQuantity;
+                      });
+                    });
+
+                    // Check if total receive quantity equals procurement quantity
+                    const procurementQuantities = document.querySelectorAll('.procurement-quantity');
+                    let procurementQuantityTotal = 0;
+                    procurementQuantities.forEach(quantity => {
+                      procurementQuantityTotal += parseInt(quantity.textContent);
+                    });
+
+                    if (totalReceiveQuantity === procurementQuantityTotal) {
+                      endButton.style.display = 'block'; // Show end button
+                    }
+                  })
+                  .catch(error => {
+                    console.error('서버 응답 처리 중 오류가 발생했습니다.', error);
+                  });
+        } else {
+          alert("입고 수량을 입력하세요.");
+        }
+      });
+
+      // End button click event handler
+      endButton.addEventListener('click', function () {
+        // Redirect to procurement list section
+        window.location.href = '#purchase-order';
+      });
+    });
+
+  </script>
+</body>
+</html>

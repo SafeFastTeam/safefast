@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +48,9 @@ public class ProcurementPlan {
 
     @Column
     private String itemCode;
+
+    @OneToMany(mappedBy = "procurementPlan")
+    private List<Receive> receives;
 
     public void generateProcPlanNumber() {
         // 임의의 키 생성 로직을 구현하여 값을 설정
