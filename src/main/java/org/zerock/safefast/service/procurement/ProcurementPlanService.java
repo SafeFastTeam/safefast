@@ -18,11 +18,13 @@ public class ProcurementPlanService {
     }
 
     public void saveProcurementPlan(ProcurementPlan procurementPlan) {
-        // ProcurementPlan을 저장하는 메서드
+        System.out.println("저장하기 전: " + procurementPlan.getProcDuedate());
         procurementPlanRepository.save(procurementPlan);
+        System.out.println("저장 완료");
     }
 
     public List<ProcurementPlan> getAllProcurementPlans() {
+
         return procurementPlanRepository.findAll();
     }
 
