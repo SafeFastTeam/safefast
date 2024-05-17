@@ -37,8 +37,8 @@ public class ContractService {
 
     public void registerContract(Contract contract, MultipartFile file) {
 
-        contract.setContractNumber("unique_number_here");
-
+        String shortUuid = UUID.randomUUID().toString().substring(0, 8);
+        contract.setContractNumber(shortUuid);
         contract.setContractDate(LocalDateTime.now());
 
         contractRepository.save(contract);
