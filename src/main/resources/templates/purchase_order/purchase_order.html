@@ -6,7 +6,7 @@
   <title>구매 발주서 관리</title>
   <link rel="stylesheet" href="/css/purchase_order.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-</head>
+  </head>
 <body>
   <header>
     <h1>구매 조달 시스템</h1>
@@ -134,55 +134,21 @@
           <div class="modal-header">
             <h3>구매 발주서 관리 - 발주서 작성</h3>
             <div class="btn-group">
+              <button id="saveOrder" class="button">저장</button>
               <button id="sendOrder" class="button">전송</button>
               <button id="printOrder" class="button">인쇄</button>
             </div>
           </div>
-          <table>
-            <tr>
-              <td colspan="2"><h2>발주서</h2></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="order-date">발행일: <span id="orderDate"></span></td>
-            </tr>
-            <tr>
-              <td class="supplier-info">
-                <h3>수급인</h3>
-                <p>업체명: <span id="supplierName"></span></p>
-                <p>주소: <span id="supplierAddress"></span></p>
-                <p>담당자: <span id="supplierContact"></span></p>
-              </td>
-              <td class="buyer-info">
-                <h3>발주자</h3>
-                <p>업체명: <span id="buyerName"></span></p>
-                <p>주소: <span id="buyerAddress"></span></p>
-                <p>담당자: <span id="buyerContact"></span></p>
-              </td>
-            </tr>
-          </table>
-          <table>
-            <tr>
-              <th>순번</th>
-              <th>품목코드</th>
-              <th>품목명</th>
-              <th>규격</th>
-              <th>재질</th>
-              <th>수량</th>
-              <th>단가</th>
-              <th>비고</th>
-            </tr>
-            <tbody id="orderDetails">
-              <!-- 발주 상세 내역이 여기에 추가됩니다 -->
-            </tbody>
-          </table>
+            <div id="image-container"></div>
           <button id="checkOrder" class="button">확인</button>
         </div>
       </div>
 
     </div>
   </div>
-
-  <script src="/js/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
   <script src="/js/purchase_order.js"></script>
+  <script src="/js/index.js"></script>
+
 </body>
 </html>
