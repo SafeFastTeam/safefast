@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var modalTable = document.getElementById("modal-purchase-order-list");
 
   // 예시 데이터 (실제로는 서버에서 데이터를 받아와야 함)
-  var data = [
-    { orderNumber: "PO20230501", itemCode: "ABC기업", itemName: "너트", orderQuantity: '2024-04-30', inspectionStatus: '2024-05-30', receiveClosing: "마감" },
-    { orderNumber: "PO20230502", itemCode: "CDE기업", itemName: "안테나", orderQuantity: '2024-05-30', inspectionStatus: '2024-06-30', receiveClosing: "미마감" }
-  ];
+  // var data = [
+  //   { orderNumber: "PO20230501", itemCode: "ABC기업", itemName: "너트", orderQuantity: '2024-04-30', inspectionStatus: '2024-05-30', receiveClosing: "마감" },
+  //   { orderNumber: "PO20230502", itemCode: "CDE기업", itemName: "안테나", orderQuantity: '2024-05-30', inspectionStatus: '2024-06-30', receiveClosing: "미마감" }
+  // ];
 
   data.forEach(function(item) {
     var row = table.insertRow();

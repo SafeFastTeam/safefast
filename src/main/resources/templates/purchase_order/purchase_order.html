@@ -38,7 +38,7 @@
               <li>
                   <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
                   <ul class="dropdown">
-                      <li><a th:href="@{/receive}">자재 입출고</a></li>
+                      <li><a th:href="@{/templates/receive}">자재 입출고</a></li>
                       <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
                       <li><a th:href="@{/inventory}">재고 산출</a></li>
                       <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
@@ -72,6 +72,7 @@
               <th>조달계획번호</th>
               <th>업체명</th>
               <th>품목명</th>
+              <th>조달수량</th>
               <th>조달납기일</th>
             </tr>
           </thead>
@@ -80,8 +81,15 @@
               <td><input type="checkbox"></td>
               <td th:text="${plan.procPlanNumber}"></td>
               <td th:text="${plan.coOpCompany.companyName}"></td>
-              <td th:text="${plan.item.itemName}"></td>
-              <td th:text="${plan.procDuedate}"></td>
+                <td class="plan-row">
+                    <span class="itemCode" th:text="${item.itemCode}"></span>
+                    <span class="itemCode" th:text="${item.itemCode}"></span>
+                    <span class="itemName" th:text="${item.itemName}" style="display: none;"></span>
+
+                </td>
+              <td><input type="text" class="input-field" name="itemName" readonly></td>
+              <td><input type="text" class="input-field" name="procQuantity" readonly></td>
+              <td><input type="text" class="input-field" name="procDuedate" readonly></td>
             </tr>
           </tbody>
         </table>

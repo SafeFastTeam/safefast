@@ -240,7 +240,7 @@ th {
   margin: 25% auto;
   padding: 30px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   height: 800px;
 }
 
@@ -328,8 +328,8 @@ th {
 }
 
 #image-container img {
-  width: 600px;
-  height: 500px;
+  width: 800px;
+  height: 600px;
   display: block;
   margin: 0 auto;
 }
