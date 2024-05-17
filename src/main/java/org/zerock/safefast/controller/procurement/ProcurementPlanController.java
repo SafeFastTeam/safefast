@@ -38,9 +38,25 @@ public class ProcurementPlanController {
     // 등록 버튼을 눌렀을 때의 요청을 처리하는 메서드
     @PostMapping("/submit_procurement_plan")
     public String submitProcurementPlan(ProcurementPlan procurementPlan) {
-        procurementPlan.generateProcPlanNumber();
-        procurementPlan.setProcProgress(0);
-        procurementPlanService.saveProcurementPlan(procurementPlan);
+        System.out.println("submitProcurementPlan 메소드 호출됨");
+
+        try {
+            procurementPlan.generateProcPlanNumber();
+            procurementPlan.setProcProgress(0);
+
+            // 로그로 필드 값 확인
+            System.out.println("procPlanNumber: " + procurementPlan.getProcPlanNumber());
+            System.out.println("procQuantity: " + procurementPlan.getProcQuantity());
+            System.out.println("procDueDate: " + procurementPlan.getProcDuedate());
+            System.out.println("procProgress: " + procurementPlan.getProcProgress());
+            System.out.println("itemCode: " + procurementPlan.getItemCode());
+
+            procurementPlanService.saveProcurementPlan(procurementPlan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 에러 페이지로 리디렉션하거나 에러 메시지를 사용자에게 전달
+            return "error/500"; // 적절한 에러 페이지로 리디렉션
+        }
         return "redirect:/procurement/procurement";
     }
 }

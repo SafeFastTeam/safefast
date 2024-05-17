@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(form); // 폼 데이터 가져오기
         var xhr = new XMLHttpRequest(); // AJAX 객체 생성
 
+        console.log(formData.get('procDueDate')); // 이 값을 확인합니다.
+
         xhr.open('POST', '/procurement/submit_procurement_plan'); // 요청 준비
         xhr.onload = function() {
             if (xhr.status === 200) {

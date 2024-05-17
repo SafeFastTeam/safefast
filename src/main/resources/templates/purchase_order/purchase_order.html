@@ -76,19 +76,12 @@
             </tr>
           </thead>
           <tbody id="procurement-plan-list">
-            <tr>
+            <tr th:each="plan : ${procurementPlans}">
               <td><input type="checkbox"></td>
-              <td>CP20230501</td>
-              <td>ABC 기업</td>
-              <td>볼트</td>
-              <td>2023-06-30</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>CP20230502</td>
-              <td>XYZ 기업</td>
-              <td>너트</td>
-              <td>2023-07-15</td>
+              <td th:text="${plan.procPlanNumber}"></td>
+              <td th:text="${plan.coOpCompany.companyName}"></td>
+              <td th:text="${plan.item.itemName}"></td>
+              <td th:text="${plan.procDuedate}"></td>
             </tr>
           </tbody>
         </table>

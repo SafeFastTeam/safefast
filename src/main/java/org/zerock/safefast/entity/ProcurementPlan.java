@@ -24,8 +24,8 @@ public class ProcurementPlan {
     @Column
     private Integer procQuantity;
 
-    @Column
-    private LocalDateTime procDueDate;
+    @Column(name = "procDuedate", nullable = false)
+    private LocalDateTime procDuedate;
 
     @Column
     private Integer procProgress;
@@ -40,6 +40,10 @@ public class ProcurementPlan {
     @ManyToOne
     @JoinColumn(name = "productCode", referencedColumnName = "productCode", insertable = false, updatable = false)
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
+    private CoOpCompany coOpCompany;
 
     @Column
     private String itemCode;
