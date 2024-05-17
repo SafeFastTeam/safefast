@@ -170,44 +170,12 @@ issueOrderBtn.addEventListener('click', () => {
       };
     });
 
-  // selectedRows 배열이 비어 있으면 모달 창을 열지 않음
-  if (selectedRows.length === 0) {
+  // 선택된 항목이 없거나 2개 이상일 때는 발주 버튼 동작하지 않도록 처리
+  if (selectedRows.length === 0 || selectedRows.length > 1) {
     return;
   }
-
   // 모달 창에 데이터 추가
-  const orderDate = document.getElementById('orderDate');
-  const supplierName = document.getElementById('supplierName');
-  const supplierAddress = document.getElementById('supplierAddress');
-  const supplierContact = document.getElementById('supplierContact');
-  const buyerName = document.getElementById('buyerName');
-  const buyerAddress = document.getElementById('buyerAddress');
-  const buyerContact = document.getElementById('buyerContact');
-  const orderDetails = document.getElementById('orderDetails');
 
-  orderDate.textContent = new Date().toISOString().split('T')[0];
-  supplierName.textContent = 'ABC 기업';
-  supplierAddress.textContent = '서울시 강남구 역삼동';
-  supplierContact.textContent = '홍길동';
-  buyerName.textContent = '구매 발주 회사';
-  buyerAddress.textContent = '서울시 서초구 반포동';
-  buyerContact.textContent = '김개발';
-
-  orderDetails.innerHTML = '';
-  selectedRows.forEach((row, index) => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${row.procurementPlanNo}</td>
-      <td>${row.item}</td>
-      <td>15인치</td>
-      <td>알루미늄</td>
-      <td>10</td>
-      <td>500,000원</td>
-      <td></td>
-    `;
-    orderDetails.appendChild(newRow);
-  });
 
   orderModal.style.display = 'block';
 });
@@ -242,4 +210,58 @@ document.getElementById('sendOrder').addEventListener('click', function() {
   document.execCommand('copy');
   document.body.removeChild(dummyInput);
   alert('이메일 주소가 복사되었습니다: ' + emailAddress);
+});
+
+// 발주 버튼 클릭 시 모달에 이미지 추가
+document.getElementById("issue-order-btn").addEventListener("click", function() {
+  // 선택된 항목을 가져오기
+  var selectedItems = document.querySelectorAll("#procurement-plan-list input[type=checkbox]:checked");
+
+  // 이미지를 추가할 공간 찾기
+  var imageContainer = document.getElementById("image-container");
+
+  // 이미지 컨테이너 초기화
+  imageContainer.innerHTML = '';
+
+  // 선택된 항목에 대해 반복하여 이미지 추가
+  selectedItems.forEach(function(item) {
+    // 선택된 항목에 대한 정보 가져오기
+    var itemName = item.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerText.trim();
+
+    // 해당 항목에 따른 이미지 경로 설정
+    var imgSrc;
+    if (itemName === "bolt") {
+      imgSrc = "/image/bal01.png";
+    } else if (itemName === "cable") {
+      imgSrc = "/image/bal02.png";
+    }  else if (itemName === "nut") {
+      imgSrc = "/image/bal03.png";
+    }// 이하 계속해서 필요한 항목과 이미지에 대한 조건 추가
+
+    // 이미지 요소 생성
+    var img = document.createElement("img");
+    img.src = imgSrc;
+
+    // 이미지를 추가할 공간에 이미지 요소 추가
+    imageContainer.appendChild(img);
+  });
+});
+
+document.getElementById('saveOrder').addEventListener('click', () => {
+  // 모달 내용 가져오기
+  const modalContent = document.querySelector('.modal-content');
+
+  // 새로운 PDF 문서 생성
+  const pdf = new jsPDF();
+
+  // HTML을 Canvas로 렌더링
+  html2canvas(modalContent).then(canvas => {
+    // Canvas를 PDF로 추가하고 이미지 크기 조정
+    const imgWidth = pdf.internal.pageSize.getWidth(); // PDF 페이지의 너비
+    const imgHeight = pdf.internal.pageSize.getHeight(); // PDF 페이지의 높이
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+
+    // PDF 저장
+    pdf.save('order.pdf');
+  });
 });
