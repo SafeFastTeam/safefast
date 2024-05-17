@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReceiveRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReceiveRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/receive.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/receive.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
-    </list>
+    <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,10 +81,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "feat/receive/system",
+    "git-widget-placeholder": "feat/dev/procurement01",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/safefast/safefast/src/main/resources/static/css",
+    "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -106,14 +95,13 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\safefast\src\main\resources\static\image" />
       <recent name="C:\safefast\safefast\src\main\resources\static\css" />
       <recent name="C:\safefast\safefast\src\main\resources\static\js" />
       <recent name="C:\safefast\safefast\src\main\resources\static\image" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\safefast\safefast\src\main\resources\templates\receive" />
-      <recent name="C:\safefast\safefast\src\main\resources\templates" />
-      <recent name="C:\safefast\safefast\src\main\resources\receive" />
+      <recent name="C:\safefast\src\main\resources\static\image" />
       <recent name="C:\safefast\safefast\src\main\resources\static\css" />
       <recent name="C:\safefast\safefast\src\main\resources\templates\progress_check" />
     </key>
@@ -177,7 +165,6 @@
       <workItem from="1715850316021" duration="16000" />
       <workItem from="1715852804620" duration="96000" />
       <workItem from="1715852907356" duration="183000" />
-      <workItem from="1715916230630" duration="14534000" />
     </task>
     <servers />
   </component>

@@ -240,7 +240,7 @@ th {
   margin: 25% auto;
   padding: 30px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   height: 800px;
 }
 
@@ -325,4 +325,11 @@ th {
   background-color: #054a5e;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
+}
+
+#image-container img {
+  width: 800px;
+  height: 600px;
+  display: block;
+  margin: 0 auto;
 }
