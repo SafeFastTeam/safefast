@@ -29,7 +29,6 @@ public class ContractController {
 
     private final ContractService contractService;
     private final CoOpCompanyRepository coOpCompanyRepository;
-    private final ItemService itemService;
     private final ItemRepository itemRepository;
 
     @GetMapping("/register")
