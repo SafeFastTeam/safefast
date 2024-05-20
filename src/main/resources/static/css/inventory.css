@@ -200,16 +200,33 @@ th {
   color: red;
 }
 
-.button {
+button {
+  padding: 8px 16px;
   background-color: #066278;
   color: white;
-  padding: 10px 20px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  border-radius: 3px;
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
-  background-color: #044b5e;
+button:hover {
+  background-color: #044258;
+}
+
+
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination span {
+  margin: 8px 20px;
+}
+
+.pagination-button {
+  margin-right: 5px;
+  width: 60px;
+  height: 40px;
 }
