@@ -7,9 +7,51 @@ const openModalBtn = document.querySelector('.plan-btn');
 const closeModalBtn = document.querySelector('.close-btn');
 const orderNoP = document.getElementById('order-no');
 
+// 모달 열기 버튼 클릭 이벤트 핸들러 수정
 openModalBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
+    // 체크된 체크박스의 개수를 세어봅니다.
+    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+    // 만약 체크된 체크박스가 없으면 경고 팝업을 띄웁니다.
+    if (checkedCount === 0 || checkedCount !== 1) {
+        alert('발주를 한 개씩 선택해주세요.');
+    } else {
+        // 체크된 체크박스가 있을 경우, 선택된 발주에 대한 데이터를 가져와서 모달에 표시합니다.
+        $.ajax({
+            url: '/progress_check/purchase_order_details', // 적절한 엔드포인트로 수정 필요
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(data) {
+                displayModalContent(data); // 받은 데이터로 모달 내용을 채움
+                modal.style.display = 'block'; // 모달 열기
+            },
+            error: function(xhr, status, error) {
+                console.error('Failed to fetch purchase orders:', error);
+            }
+        });
+    }
 });
+
+// 선택된 발주의 정보를 가져오는 함수
+function getCheckedOrders() {
+    const checkedOrders = [];
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            const row = checkbox.closest('tr'); // 가장 가까운 tr 요소 가져오기
+            const orderNoCell = row.querySelector('td:nth-child(2)'); // 발주번호 셀 가져오기
+            const orderNo = orderNoCell.textContent; // 발주번호 가져오기
+            checkedOrders.push(orderNo);
+        }
+    });
+    return checkedOrders;
+}
+
+// 모달 내용을 채우는 함수
+function displayModalContent(data) {
+    // 모달 내부의 텍스트를 채우는 로직 작성
+}
+
 
 /*경고창 오류로 일단 주석처리*/
 /*openModalBtn.addEventListener('click', () => {
