@@ -5,25 +5,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
+import org.zerock.safefast.entity.ProgressCheckItem;
 import org.zerock.safefast.service.progress.ProgressCheckItemService;
+import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
+
+import java.util.List;
 
 @Controller
 /*@RequestMapping("/progress-check")*/
 public class ProgressCheckItemController {
 
-    /*    private final PurchaseOrderService purchaseOrderService;*/
-    private final ProgressCheckItemService progressCheckItemService;
+    private final PurchaseOrderService purchaseOrderService;
 
-/*    @Autowired
-    public ProgressCheckItemController(PurchaseOrderService purchaseOrderService, ProgressCheckItemService progressCheckItemService) {
+    public ProgressCheckItemController(PurchaseOrderService purchaseOrderService) {
         this.purchaseOrderService = purchaseOrderService;
-        this.progressCheckItemService = progressCheckItemService;
-    }*/
-
-    @Autowired
-    public ProgressCheckItemController(ProgressCheckItemService progressCheckItemService) {
-        this.progressCheckItemService = progressCheckItemService;
     }
+
+    @GetMapping("/purchaseOrders")
+    public List<PurchaseOrderResponse> getPurchaseOrders() {
+        return purchaseOrderService.getPurchaseOrders();
+    }
+
 
     @GetMapping("/progress-check")
     public String progressCheck(Model model) {
