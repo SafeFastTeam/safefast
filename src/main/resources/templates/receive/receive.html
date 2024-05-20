@@ -73,14 +73,14 @@
             <td>
               <input type="text" name="receiveQuantity">
             </td>
-            <td th:text="${procurement.procQuantity}"></td>
+            <td th:text="${procurement.procQuantity}" data-proc-quantity="${procurement.procQuantity}"></td>
             <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${procurement.procPlanNumber}"></td>
           </tr>
           </tbody>
         </table>
         <h2>자재 출고</h2>
         <div class="save-btn">
-          <button id="issue-order-btn" class="button">저장</button>
+          <button id="issue-order-btn-2" class="button">저장</button>
         </div>
         <table>
           <thead>
@@ -185,79 +185,79 @@
   <script src="/js/receive.js"></script>
   <script src="/js/index.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const saveButton = document.getElementById('issue-order-btn');
-      const endButton = document.getElementById('end-order-btn');
-
-      // Save button click event handler
-      saveButton.addEventListener('click', function () {
-        const inputs = document.querySelectorAll('.procurement-quantity-input');
-        const receiveData = [];
-        let totalReceiveQuantity = 0;
-
-        inputs.forEach(input => {
-          const procPlanNumber = input.getAttribute('data-proc-plan-number');
-          const receiveQuantity = parseInt(input.value);
-
-          if (!isNaN(receiveQuantity) && receiveQuantity > 0) {
-            receiveData.push({
-              procPlanNumber: procPlanNumber,
-              receiveQuantity: receiveQuantity
-            });
-            totalReceiveQuantity += receiveQuantity;
+    $(document).ready(function() {
+      // 저장 버튼 클릭 이벤트 처리
+      $('#issue-order-btn').on('click', function() {
+        // 각 입력된 입고 수량을 가져와서 해당 행의 재고 열에 업데이트
+        $('.procurement-quantity-input').each(function() {
+          var inputQuantity = parseFloat($(this).val()); // 입력된 입고 수량 가져오기
+          var rowIndex = $(this).closest('tr').index(); // 해당 행의 인덱스 가져오기
+          var procurementQuantity = parseFloat($('tbody#procurement-plan-list tr').eq(rowIndex).find('td:eq(4)').text()); // 발주 수량 가져오기
+          console.log("발주 수량:", procurementQuantity);
+          if (!isNaN(procurementQuantity)) {
+            var stockQuantity = parseFloat($(this).closest('tr').find('td:eq(3)').text()); // 기존 재고 수량 가져오기
+            var newStockQuantity = isNaN(stockQuantity) ? 0 : stockQuantity; // 기존 재고 수량이 NaN인 경우 0으로 설정
+            newStockQuantity += inputQuantity; // 새로운 재고 수량 계산
+            $(this).closest('tr').find('td:eq(3)').text(newStockQuantity); // 해당 행의 재고 열에 새로운 값 업데이트
           }
         });
 
-        if (receiveData.length > 0) {
-          // Send receive data to server and update stock
-          fetch('/receive/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(receiveData)
-          })
-                  .then(response => {
-                    if (response.ok) {
-                      return response.json();
-                    } else {
-                      throw new Error('서버 응답 처리 중 오류가 발생했습니다.');
-                    }
-                  })
-                  .then(updatedReceives => {
-                    // Update receive quantity in table
-                    updatedReceives.forEach(updatedReceive => {
-                      const spans = document.querySelectorAll(`td:has([data-proc-plan-number="${updatedReceive.procPlanNumber}"]) span.receive-quantity`);
-                      spans.forEach(span => {
-                        span.textContent = updatedReceive.receiveQuantity;
-                      });
-                    });
+        // 재고와 발주 수량이 동일한지 확인
+        var allMatch = true;
+        $('#procurement-plan-list tr').each(function() {
+          var procurementQuantity = $(this).find('td:eq(4)').text(); // 발주 수량 가져오기
+          console.log("발주 수량:", procurementQuantity);
+          var stockQuantity = $(this).find('td:eq(3)').text(); // 재고 가져오기
+          console.log("재고 수량:", stockQuantity);
 
-                    // Check if total receive quantity equals procurement quantity
-                    const procurementQuantities = document.querySelectorAll('.procurement-quantity');
-                    let procurementQuantityTotal = 0;
-                    procurementQuantities.forEach(quantity => {
-                      procurementQuantityTotal += parseInt(quantity.textContent);
-                    });
+          // NaN 값 처리
+          if (isNaN(procurementQuantity) || isNaN(stockQuantity)) {
+            allMatch = false;
+            return false;
+          }
 
-                    if (totalReceiveQuantity === procurementQuantityTotal) {
-                      endButton.style.display = 'block'; // Show end button
-                    }
-                  })
-                  .catch(error => {
-                    console.error('서버 응답 처리 중 오류가 발생했습니다.', error);
-                  });
+          // 발주 수량과 재고 수량이 다른 경우
+          if (procurementQuantity !== stockQuantity) {
+            allMatch = false;
+            return false;
+          }
+        });
+
+        // 재고와 발주 수량이 동일하면 마감 버튼 표시, 그렇지 않으면 숨김
+        if (allMatch) {
+          $('#close-button').show();
         } else {
-          alert("입고 수량을 입력하세요.");
+          $('#close-button').hide();
         }
       });
 
-      // End button click event handler
-      endButton.addEventListener('click', function () {
-        // Redirect to procurement list section
-        window.location.href = '#purchase-order';
+      $('#close-button').on('click', function() {
+        // 발주번호, 업체명, 품목명, 발주일, 조달납기일 정보 가져오기
+        var purchaseOrderNumber = $('#purchase-order-list tr:first-child td:first-child').text();
+        var companyName = $('#purchase-order-list tr:first-child td:nth-child(2)').text();
+        var itemName = $('#purchase-order-list tr:first-child td:nth-child(3)').text();
+        var orderDate = $('#purchase-order-list tr:first-child td:nth-child(4)').text();
+        var deliveryDate = $('#purchase-order-list tr:first-child td:nth-child(5)').text();
+
+        // 자재 입출고 리스트 섹션으로 스크롤
+        $('html, body').animate({
+          scrollTop: $('.purchase-order').offset().top
+        }, 1000);
+
+        // 가져온 정보를 출력하거나 활용할 수 있도록 적절한 곳에 삽입
+        // 예를 들어, 자재 입출고 리스트 섹션 안에 새로운 테이블을 만들어서 정보를 출력할 수 있습니다.
+        var tableRow = '<tr>' +
+                '<td>' + purchaseOrderNumber + '</td>' +
+                '<td>' + companyName + '</td>' +
+                '<td>' + itemName + '</td>' +
+                '<td>' + orderDate + '</td>' +
+                '<td>' + deliveryDate + '</td>' +
+                '</tr>';
+        $('#new-table-body').append(tableRow);
       });
+
     });
+
 
   </script>
 </body>
