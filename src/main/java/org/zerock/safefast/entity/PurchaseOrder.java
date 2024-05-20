@@ -41,6 +41,10 @@ public class PurchaseOrder {
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
     private CoOpCompany coOpCompany;
 
+    @ManyToOne
+    @JoinColumn(name = "itemCode")
+    private Item item;
+
     @PrePersist
     public void ensureId() {
         if (this.purchOrderNumber == null) {
