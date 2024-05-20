@@ -72,7 +72,7 @@
               <th>조달계획번호</th>
               <th>업체명</th>
               <th>품목명</th>
-              <th>조달수량</th>
+              <th>구매주문수량</th>
               <th>조달납기일</th>
             </tr>
           </thead>
@@ -81,15 +81,11 @@
               <td><input type="checkbox"></td>
               <td th:text="${plan.procPlanNumber}"></td>
               <td th:text="${plan.coOpCompany.companyName}"></td>
-                <td class="plan-row">
-                    <span class="itemCode" th:text="${item.itemCode}"></span>
-                    <span class="itemCode" th:text="${item.itemCode}"></span>
-                    <span class="itemName" th:text="${item.itemName}" style="display: none;"></span>
-
-                </td>
-              <td><input type="text" class="input-field" name="itemName" readonly></td>
-              <td><input type="text" class="input-field" name="procQuantity" readonly></td>
-              <td><input type="text" class="input-field" name="procDuedate" readonly></td>
+              <td th:text="${plan.item.itemName}"></td>
+              <td><input type="number"></input></td>
+              <td><input type="date"></input></td>
+<!--              <td th:text="${plan.procQuantity}"></td>-->
+<!--              <td th:text="${plan.procDuedate}"></td>-->
             </tr>
           </tbody>
         </table>
