@@ -201,6 +201,14 @@
                 }
             });
         });
+        // 확인 버튼 클릭 이벤트 핸들러
+        document.getElementById('save-contract-button').addEventListener('click', () => {
+            // 0.5초의 지연 추가
+            setTimeout(() => {
+                // 페이지 리다이렉션
+                window.location.href = '/contract/register';
+            }, 500); // 0.5초를 밀리초로 표기
+        });
     });
 </script>
 
