@@ -25,16 +25,33 @@ public class InventoryItem {
     @Builder.Default
     private int quantityAvailable = 0;
 
+    // Receive 테이블과의 관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiveNumber")
     private Receive receive;
 
+    // Releases 테이블과의 관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "releasesNumber")
     private Releases releases;
 
+    // Contract 테이블과의 관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contractNumber")
     private Contract contract;
+
+
+//    // Receive 테이블과의 관계
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "receiveNumber")
+//    private Receive receive;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "releasesNumber")
+//    private Releases releases;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "contractNumber")
+//    private Contract contract;
 
 }

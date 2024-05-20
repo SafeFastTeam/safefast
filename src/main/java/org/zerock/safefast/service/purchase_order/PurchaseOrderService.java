@@ -57,6 +57,19 @@ public class PurchaseOrderService {
                 .collect(Collectors.toList());
     }
 
+    public List<PurchaseOrderResponse> getPurchaseOrderDetails(List<String> orderNumbers) {
+        // 체크된 발주에 대한 상세 정보를 가져오는 로직을 작성하세요.
+        // orderNumbers에 있는 발주번호 리스트를 기준으로 PurchaseOrder 엔티티를 조회하고,
+        // 필요한 정보를 PurchaseOrderResponse로 변환하여 반환합니다.
+
+        List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.findByPurchOrderNumberIn(orderNumbers);
+
+        return purchaseOrders.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+
     // PurchaseOrder를 PurchaseOrderResponse로 매핑하는 메서드
     private PurchaseOrderResponse mapToResponse(PurchaseOrder purchaseOrder) {
         PurchaseOrderResponse response = new PurchaseOrderResponse();
@@ -68,5 +81,7 @@ public class PurchaseOrderService {
 
         return response;
     }
+
+
 
 }

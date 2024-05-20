@@ -41,8 +41,8 @@ public class InventoryService {
         for (Item item : items) {
             // 해당 품목에 대한 기초 재고, 입고 수량, 출고 수량을 계산합니다.
             int initialInventory = calculateInitialInventory(item, receives, releases, contracts);
-            int incomingQuantity = calculateIncomingQuantity(item, receives);
-            int outgoingQuantity = calculateOutgoingQuantity(item, releases);
+            int incomingQuantity = calculateIncomingQuantity(item);
+            int outgoingQuantity = calculateOutgoingQuantity(item);
             // 기초 재고와 입고, 출고 수량을 이용하여 기말 재고를 계산합니다.
             int endingInventory = initialInventory + incomingQuantity - outgoingQuantity;
             // 단가(원)은 재고 정보에 따라 설정합니다.
@@ -68,25 +68,31 @@ public class InventoryService {
         return 0;
     }
 
-    // 해당 품목에 대한 입고 수량을 계산하는 메서드
-    private int calculateIncomingQuantity(Item item, List<Receive> receives) {
-        // 입고 수량을 계산하여 반환하는 로직을 구현합니다.
-        // 여기서는 간단히 60000으로 설정합니다.
-        return 60000;
+    // 해당 품목에 대한 입고 수량을 데이터베이스에서 조회하여 반환하는 메서드
+    private int calculateIncomingQuantity(Item item) {
+        // 데이터베이스에서 해당 품목에 대한 입고 수량을 조회하여 반환하는 로직을 작성
+        Integer incomingQuantity = receiveRepository.sumQuantityByItem(item);
+        return incomingQuantity != null ? incomingQuantity : 0;
     }
 
-    // 해당 품목에 대한 출고 수량을 계산하는 메서드
-    private int calculateOutgoingQuantity(Item item, List<Releases> releases) {
-        // 출고 수량을 계산하여 반환하는 로직을 구현합니다.
-        // 여기서는 간단히 500으로 설정합니다.
-        return 500;
+    // 해당 품목에 대한 출고 수량을 계산하여 반환하는 메서드
+    private int calculateOutgoingQuantity(Item item) {
+        // 데이터베이스에서 해당 품목에 대한 출고 수량을 조회하여 반환하는 로직을 작성
+        String itemCode = item.getItemCode(); // 아이템의 itemCode 가져오기
+        Integer outgoingQuantity = releasesRepository.sumQuantityByItem(itemCode);
+        return outgoingQuantity != null ? outgoingQuantity : 0;
     }
 
     // 해당 품목에 대한 단가(원)를 계산하는 메서드
     private int calculateUnitPrice(Item item) {
-        // 단가를 계산하여 반환하는 로직을 구현합니다.
-        // 여기서는 간단히 1000으로 설정합니다.
-        return 1000;
+        // ContractRepository를 사용하여 해당 품목에 대한 계약 정보를 조회합니다.
+        Contract contract = contractRepository.findByItem(item)
+                .orElseThrow(() -> new RuntimeException("해당 품목에 대한 계약 정보를 찾을 수 없습니다."));
+
+        // 조회된 계약 정보에서 단가 정보를 가져옵니다.
+        int unitPrice = contract.getItemPrice();
+
+        return unitPrice;
     }
 
     // 재고 검색을 처리하는 메서드

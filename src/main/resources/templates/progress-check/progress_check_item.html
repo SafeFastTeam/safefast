@@ -5,6 +5,7 @@
     <title>Progress Check Item</title>
     <link rel="stylesheet" href="/css/progress_check_item.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -87,10 +88,10 @@
                     <td th:text="${purchaseOrder.purchOrderNumber}"></td>
                     <td th:text="${purchaseOrder.purchOrderDate}"></td>
                     <td th:text="${purchaseOrder.receiveDuedate}"></td>
-<!--                    <td th:text="${purchaseOrder.itemCode}"></td>-->
-<!--                    <td th:text="${purchaseOrder.itemName}"></td>-->
+                    <td th:text="${purchaseOrder.item.itemCode}"></td>
+                    <td th:text="${purchaseOrder.item.itemName}"></td>
                     <td th:text="${purchaseOrder.purchOrderQuantity}"></td>
-<!--                    <td th:text="${purchaseOrder.inspectionStatus}"></td>-->
+                    <td></td>
                 </tr>
             </tbody>
         </table>
