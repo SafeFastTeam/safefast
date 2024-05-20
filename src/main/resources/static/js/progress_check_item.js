@@ -52,23 +52,6 @@ function displayModalContent(data) {
     // 모달 내부의 텍스트를 채우는 로직 작성
 }
 
-
-/*경고창 오류로 일단 주석처리*/
-/*openModalBtn.addEventListener('click', () => {
-    // 체크된 체크박스의 개수를 세어봅니다.
-    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-
-    // 만약 체크된 체크박스가 없으면 경고 팝업을 띄웁니다.
-    if (checkedCount === 0) {
-        alert('선택된 발주가 없습니다. 발주를 선택해주세요.');
-    } else {
-        // 체크된 체크박스가 있을 경우, 발주번호를 모달에 표시하고 모달을 엽니다.
-        const orderNos = checkedRows.map(row => row.querySelector('.order-no').innerText).join(', ');
-        orderNoP.innerText = `Order No: ${orderNos}`;
-        modal.style.display = 'block';
-    }
-});*/
-
 closeModalBtn.addEventListener('click', () => {
     modal.style.display = 'none';
 });
