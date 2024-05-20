@@ -53,17 +53,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
+    &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;songoffeather&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/SafeFastTeam/safefast.git&quot;,
     &quot;accountId&quot;: &quot;80eaff78-0c67-48f4-850e-fa4f5c0ded53&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="ProjectColorInfo">{
     &quot;customColor&quot;: &quot;&quot;,
     &quot;associatedIndex&quot;: 5
@@ -77,7 +77,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
+    &quot;keyToString&quot;: {
     &quot;Gradle.Build safefast.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.safefast [:SafefastApplication.main()].executor&quot;: &quot;Run&quot;,
     &quot;JavaScript Debug.progress_check_item.html.executor&quot;: &quot;Run&quot;,
@@ -98,8 +98,8 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\safefast\src\main\resources\static\image" />
@@ -152,8 +152,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -175,7 +175,7 @@
       <workItem from="1715852804620" duration="96000" />
       <workItem from="1715852907356" duration="183000" />
       <workItem from="1716162880692" duration="1443000" />
-      <workItem from="1716193223894" duration="555000" />
+      <workItem from="1716193461343" duration="718000" />
     </task>
     <servers />
   </component>
