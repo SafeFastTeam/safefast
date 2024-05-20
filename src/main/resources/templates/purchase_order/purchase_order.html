@@ -6,7 +6,8 @@
   <title>구매 발주서 관리</title>
   <link rel="stylesheet" href="/css/purchase_order.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
 <body>
   <header>
     <h1>구매 조달 시스템</h1>
@@ -77,13 +78,13 @@
             </tr>
           </thead>
           <tbody id="procurement-plan-list">
-            <tr th:each="plan : ${procurementPlans}">
+            <tr  class="plan-row" th:each="plan : ${procurementPlans}">
               <td><input type="checkbox"></td>
               <td th:text="${plan.procPlanNumber}"></td>
               <td th:text="${plan.coOpCompany.companyName}"></td>
               <td th:text="${plan.item.itemName}"></td>
-              <td><input type="number"></input></td>
-              <td><input type="date"></input></td>
+              <td><input type="number" name="procQuantity" class="input-field"></input></td>
+              <td><input type="date" name="procDuedate" class="input-field"></input></td>
 <!--              <td th:text="${plan.procQuantity}"></td>-->
 <!--              <td th:text="${plan.procDuedate}"></td>-->
             </tr>
@@ -114,19 +115,21 @@
             <tr>
               <th><input type="checkbox"></th>
               <th>발주번호</th>
-              <th>업체명</th>
-              <th>품목명</th>
-              <th>조달납기일</th>
+              <th>발주수량</th>
+              <th>입고예정일</th>
+              <th>발주일</th>
             </tr>
           </thead>
           <tbody id="purchase-order-list">
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>PO20230501</td>
-              <td>ABC 기업</td>
-              <td>볼트</td>
-              <td>2023-08-31</td>
-            </tr>
+
+<!--            <tr th:each="purchase : ${purchasePlans}">-->
+<!--                <td><input type="checkbox"></td>-->
+<!--                <td th:text="${purchase.purchOrderNumber}"></td>-->
+<!--                <td th:text="${purchase.purchOrderQuantity}"></td>-->
+<!--                <td th:text="${purchase.receiveDuedate}"></td>-->
+<!--                <td th:text="${purchase.purchOrderDate}"></td>-->
+<!--            </tr>-->
+
           </tbody>
         </table>
       </section>
@@ -150,9 +153,124 @@
 
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-  <script src="/js/purchase_order.js"></script>
-  <script src="/js/index.js"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
+              checkbox.addEventListener('change', function () {
+                  if (this.checked) {
+                      let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
 
+                      fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
+                          .then(response => {
+                              if (response.ok) {
+                                  return response.json();
+                              } else {
+                                  throw new Error('조달계획 정보를 불러오지 못했습니다.');
+                              }
+                          })
+                          .then(data => {
+                              let row = this.closest('tr');
+                              row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
+                              row.querySelector('input[name="procDuedate"]').value = new Date(data.procDuedate).toISOString().split('T')[0];
+                          })
+                          .catch(error => {
+                              alert(error.message);
+                          });
+                  }
+              });
+          });
+
+          document.getElementById('issue-order-btn').addEventListener('click', function () {
+              let selectedPlans = [];
+              document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
+                  let row = checkbox.closest('tr');
+                  selectedPlans.push({
+                      procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
+                      companyName: row.querySelector('td:nth-child(3)').innerText,
+                      itemName: row.querySelector('td:nth-child(4)').innerText,
+                      purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
+                      receiveDuedate: row.querySelector('input[name="procDuedate"]').value + 'T00:00:00'
+                  });
+              });
+
+              fetch('/purchase_order/create', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(selectedPlans)
+              })
+                  .then(response => {
+                      if (response.ok) {
+                          return response.json();
+                      } else {
+                          throw new Error('발주서 생성을 실패했습니다.');
+                      }
+                  })
+                  .then(data => {
+                      alert('발주서가 성공적으로 생성되었습니다.');
+                  })
+                  .catch(error => {
+                      alert(error.message);
+                  });
+          });
+      });
+
+      // 모달 창 닫기 기능
+      document.addEventListener('DOMContentLoaded', function () {
+          var modal = document.getElementById('orderModal');
+          var span = document.getElementsByClassName('close')[0];
+
+          span.onclick = function () {
+              modal.style.display = 'none';
+          };
+
+          window.onclick = function (event) {
+              if (event.target == modal) {
+                  modal.style.display = 'none';
+              }
+          };
+      });
+
+      $(document).ready(function() {
+          // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
+          fetchPurchaseOrders();
+
+          // 구매 발주서 리스트를 가져와서 HTML에 표시하는 함수
+          function fetchPurchaseOrders() {
+              $.ajax({
+                  url: '/purchase_order/list', // 서버의 해당 엔드포인트에 요청을 보냄
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(data) {
+                      displayPurchaseOrders(data); // 받아온 데이터를 화면에 표시하는 함수 호출
+                  },
+                  error: function(xhr, status, error) {
+                      console.error('Failed to fetch purchase orders:', error);
+                  }
+              });
+          }
+
+          // 구매 발주서 데이터를 HTML에 표시하는 함수
+          function displayPurchaseOrders(purchaseOrders) {
+              var tableBody = $('#purchase-order-list');
+              tableBody.empty(); // 기존 데이터를 지우고 새로운 데이터로 채움
+
+              // 각 구매 발주서 데이터를 테이블에 추가
+              $.each(purchaseOrders, function(index, purchaseOrder) {
+                  var row = $('<tr>');
+                  row.append('<td><input type="checkbox"></td>');
+                  row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
+                  row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
+                  row.append('<td>' + purchaseOrder.receiveDuedate.split('T')[0]  + '</td>');
+                  row.append('<td>' + purchaseOrder.purchOrderDate.split('T')[0]  + '</td>');
+                  tableBody.append(row);
+              });
+          }
+      });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+  <script src="/js/purchase_order.js"></script>
 </body>
 </html>

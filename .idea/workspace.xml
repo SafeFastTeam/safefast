@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/procurement/ProcurementPlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/procurement/ProcurementPlanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/PurchaseOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/PurchaseOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +97,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "feat/receive/ing",
+    "git-widget-placeholder": "feat/dev/procurement01",
+
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/safefast/src/main/resources/static/image",

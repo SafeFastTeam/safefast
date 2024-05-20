@@ -1,5 +1,6 @@
 package org.zerock.safefast.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -44,6 +45,7 @@ public class ProcurementPlan {
 
     @ManyToOne
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
+    @JsonIgnore
     private CoOpCompany coOpCompany;
 
     @Column
