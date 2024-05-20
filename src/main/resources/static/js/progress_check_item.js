@@ -1,3 +1,40 @@
+$(document).ready(function() {
+    fetchPurchaseOrders();
+
+    function fetchPurchaseOrders() {
+        $.ajax({
+            url: '/progress_check/purchase_orders',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                displayPurchaseOrders(data);
+            },
+            error: function(xhr, status, error) {
+                console.error('Failed to fetch purchase orders:', error);
+            }
+        });
+    }
+
+    function displayPurchaseOrders(purchaseOrders) {
+        var tableBody = $('.main-table tbody');
+        tableBody.empty();
+
+        $.each(purchaseOrders, function(index, purchaseOrder) {
+            var row = $('<tr>');
+            row.append('<td><input type="checkbox"></td>');
+            row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
+            row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
+            row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
+            // row.append('<td>' + purchaseOrder.itemCode + '</td>');
+            // row.append('<td>' + purchaseOrder.itemName + '</td>');
+            row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
+            row.append('<td>' + purchaseOrder.procCheckResult + '/' + purchaseOrder.procCheckOrder + '</td>');
+            tableBody.append(row);
+        });
+    }
+});
+
+
 // 발주 리스트 테이블의 각 행에서 첫 번째 열의 체크박스 요소들을 선택합니다.
 const checkboxes = document.querySelectorAll('.main-table tbody tr td:first-child input[type="checkbox"]');
 
