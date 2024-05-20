@@ -6,6 +6,7 @@ import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProcurementPlanService {
@@ -26,6 +27,10 @@ public class ProcurementPlanService {
     public List<ProcurementPlan> getAllProcurementPlans() {
 
         return procurementPlanRepository.findAll();
+    }
+
+    public Optional<ProcurementPlan> getProcurementPlanByNumber(String procPlanNumber) {
+        return procurementPlanRepository.findByProcPlanNumber(procPlanNumber);
     }
 
 }

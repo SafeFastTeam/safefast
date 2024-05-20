@@ -1,18 +1,27 @@
 package org.zerock.safefast.controller.procurement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.ProductionPlan;
 import org.zerock.safefast.repository.ProductionPlanRepository;
+
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.procurement.ProductionPlanService;
 
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/procurement")
@@ -59,4 +68,22 @@ public class ProcurementPlanController {
         }
         return "redirect:/procurement/procurement";
     }
+
+    @Autowired
+    ProcurementPlanService procurementService;
+
+    @GetMapping("/getPlan")
+    public ResponseEntity<Map<String, Object>> getProcurementPlan(@RequestParam String procPlanNumber) {
+        Optional<ProcurementPlan> planOptional = procurementService.getProcurementPlanByNumber(procPlanNumber);
+        if (planOptional.isPresent()) {
+            ProcurementPlan plan = planOptional.get();
+            Map<String, Object> response = new HashMap<>();
+            response.put("procQuantity", plan.getProcQuantity());
+            response.put("procDuedate", plan.getProcDuedate());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 }

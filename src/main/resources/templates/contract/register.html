@@ -139,7 +139,7 @@
             var itemCode = $(this).find(".itemCode").text();
             var itemName = $(this).find(".itemName").text();
 
-            $("input[name='item']").val(itemCode);
+            // $("input[name='item']").val(itemCode);
             $("input[name='itemCode']").val(itemCode);
             $("input[name='itemName']").val(itemName);
 
@@ -200,6 +200,14 @@
                     alert("업체 정보를 불러올 수 없습니다.");
                 }
             });
+        });
+        // 확인 버튼 클릭 이벤트 핸들러
+        document.getElementById('save-contract-button').addEventListener('click', () => {
+            // 0.5초의 지연 추가
+            setTimeout(() => {
+                // 페이지 리다이렉션
+                window.location.href = '/contract/register';
+            }, 500); // 0.5초를 밀리초로 표기
         });
     });
 </script>
