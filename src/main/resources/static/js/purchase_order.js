@@ -105,29 +105,6 @@ keywordSearchBtns.forEach(btn => {
   });
 });
 
-$("body").on("click", ".plan-row", function () {
-  var itemName = $(this).find(".itemName").text();
-  var procQuantity = $(this).find(".procQuantity").text();
-  var procDuedate = $(this).find(".procDuedate").text();
-
-
-  $.ajax({
-    url: "/purchase_order/purchase_order",
-    method: "GET",
-    data: {
-      businessNumber: businessNumber,
-    },
-    success: function (response) {
-      console.log(response); // 서버 응답을 콘솔에 출력하여 확인
-      $("input[name='companyName']").val(response.companyName);
-      $("input[name='companyAccount']").val(response.companyAccount);
-    },
-    error: function () {
-      alert("업체 정보를 불러올 수 없습니다.");
-    }
-  });
-});
-
 
   document.getElementById('issue-order-btn').addEventListener('click', function () {
     // 발주 데이터를 수집하고 객체로 만듭니다.
@@ -224,6 +201,18 @@ $("body").on("click", ".plan-row", function () {
     });
   });
 
+// 확인 버튼 클릭 이벤트 핸들러
+document.getElementById('checkOrder').addEventListener('click', () => {
+  // 모달을 닫음
+  document.getElementById('orderModal').style.display = 'none';
+
+  // 페이지 리다이렉션
+  window.location.href = '/purchase_order/purchase_order';
+});
+
+
+
+// 메일 전송
   document.getElementById('sendOrder').addEventListener('click', function () {
     // 이메일 클라이언트가 없는 경우에는 다른 방법으로 이메일을 전송할 수 있도록 안내
     var emailAddress = 'ekzmemforhs3@naver.com';
@@ -270,6 +259,7 @@ $("body").on("click", ".plan-row", function () {
       // 이미지를 추가할 공간에 이미지 요소 추가
       imageContainer.appendChild(img);
     });
+
   });
 
   document.getElementById('saveOrder').addEventListener('click', () => {
@@ -289,4 +279,5 @@ $("body").on("click", ".plan-row", function () {
       // PDF 저장
       pdf.save('order.pdf');
     });
+
 });

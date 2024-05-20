@@ -41,9 +41,11 @@ public class PurchaseOrder {
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
     private CoOpCompany coOpCompany;
 
-    public void generatePurchOrderNumber() {
-        // 임의의 키 생성 로직을 구현하여 값을 설정
-        this.purchOrderNumber = generateUniqueKey();
+    @PrePersist
+    public void ensureId() {
+        if (this.purchOrderNumber == null) {
+            this.purchOrderNumber = generateUniqueKey();
+        }
     }
 
     private String generateUniqueKey() {
@@ -52,5 +54,7 @@ public class PurchaseOrder {
         // UUID를 생성하여 첫 8자리만 반환
         return UUID.randomUUID().toString().substring(0, 8);
     }
+
+    // Getter and Setter methods
 
 }
