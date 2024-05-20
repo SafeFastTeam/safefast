@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재고산출</title>
+  <link rel="stylesheet" href="inventory.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <h1>구매 조달 시스템</h1>
+    <div class="user-info">
+        <span class="username">[사용자의 이름] 님</span>
+        <a href="login.html" class="logout-btn">로그아웃</a>
+    </div>
+  </header>
+  <div class="container">
+    <nav class="sidebar">
+      <ul>
+          <li><a href="index.html">메인화면</a></li>
+          <!-- <li><a href="calendar.html">생산계획</a></li> -->
+          <!-- <li><a href="co_op_register.html">업체등록</a></li> -->
+          <li>
+              <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+              <ul class="dropdown">
+                  <li><a href="item.html">품목정보등록</a></li>
+                  <li><a href="contract.html">계약 등록</a></li>
+                  <li><a href="procurement.html">조달계획등록</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+              <ul class="dropdown">
+                  <li><a href="purchase_order.html">구매 발주서 관리</a></li>
+                  <li><a href="progress_check_item.html">진척 검수 처리</a></li>
+                  <!-- <li><a href="#">구매 발주서 마감</a></li> -->
+                  <li><a href="po_status.html">발주 진행 현황</a></li>
+              </ul>
+          </li>
+          <li>
+              <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+              <ul class="dropdown">
+                  <li><a href="receive.html">자재 입출고</a></li>
+                  <li><a href="invoicing.html">거래 명세서 발행</a></li>
+                  <!-- <li><a href="release.html">자재 출고</a></li> -->
+                  <li><a href="inventory.html">재고 산출</a></li>
+                  <li><a href="inventory_management.html">재고(금액) 관리</a></li>
+              </ul>
+          </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <section class="inventory-calculation">
+        <h2>기간별 재고</h2>
+          <div class="search-bar">
+            <div class="date-search">
+              <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+              <input type="date" id="date-end" placeholder="종료 날짜">
+              <button id="date-search-btn">검색</button>
+            </div>
+            <div class="keyword-search">
+              <select id="keyword-search-type">
+                <option value="품목코드" checked>품목코드</option>
+                <option value="item">품목명</option>
+                <option value="material">재질</option>
+              </select>
+              <input type="text" id="keyword-search" placeholder="키워드 검색">
+              <button id="keyword-search-btn">검색</button>
+            </div>
+          </div>
+        <table>
+          <thead>
+            <tr>
+              <th>품목코드</th>
+              <th>품목명</th>
+              <th>규격</th>
+              <th>재질</th>
+              <th>기초 재고</th>
+              <th>입고수량</th>
+              <th>출고수량</th>
+              <th>기말 재고</th>
+              <th>단가(원)</th>
+              <th>재고 금액</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-calculation-list">
+            <tr>
+              <td>CP20230501</td>
+              <td>너트</td>
+              <td>5x5x100</td>
+              <td>금속</td>
+              <td>0</td>
+              <td>60000</td>
+              <td>500</td>
+              <td>100</td>
+              <td>1000</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>CP20230502</td>
+              <td>볼트</td>
+              <td>5x5x100</td>
+              <td>금속</td>
+              <td>0</td>
+              <td>612</td>
+              <td>540</td>
+              <td>1000</td>
+              <td>1000</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>CP20230501</td>
+              <td>너트</td>
+              <td>5x5x100</td>
+              <td>고무</td>
+              <td>0</td>
+              <td>800</td>
+              <td>500</td>
+              <td>100</td>
+              <td>1000</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // 기말 재고를 자동으로 계산합니다.
+    // 이 함수는 기말 재고와 단가를 곱하여 자동으로 재고 금액을 산출합니다.
+    function calculateInventoryAmount() {
+    }
+  
+    window.onload = function() {
+      calculateInventoryAmount();
+    };
+  </script>
+  <script src="inventory.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
