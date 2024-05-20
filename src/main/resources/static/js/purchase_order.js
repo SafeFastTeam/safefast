@@ -105,141 +105,188 @@ keywordSearchBtns.forEach(btn => {
   });
 });
 
-// // 발주 버튼 클릭 이벤트
-// const issueOrderBtn = document.getElementById('issue-order-btn');
+$("body").on("click", ".plan-row", function () {
+  var itemName = $(this).find(".itemName").text();
+  var procQuantity = $(this).find(".procQuantity").text();
+  var procDuedate = $(this).find(".procDuedate").text();
 
-// issueOrderBtn.addEventListener('click', () => {
-//   const selectedRows = Array.from(document.querySelectorAll('#procurement-plan-list tr'))
-//     .filter(row => row.querySelector('input[type="checkbox"]').checked)
-//     .map(row => {
-//       // 선택한 행의 데이터 추출 및 반환
-//       const cells = row.querySelectorAll('td');
-//       return {
-//         procurementPlanNo: cells[0].textContent,
-//         company: cells[1].textContent,
-//         item: cells[2].textContent,
-//         dueDate: cells[3].textContent
-//       };
-//     });
 
-//   // 선택한 행의 데이터를 구매 발주서 리스트에 추가
-//   const purchaseOrderList = document.getElementById('purchase-order-list');
-//   selectedRows.forEach(row => {
-//     const newRow = document.createElement('tr');
-//     newRow.innerHTML = `
-//       <td><input type="checkbox"></td>
-//       <td>${row.procurementPlanNo.replace('CP', 'PO')}</td>
-//       <td>${row.company}</td>
-//       <td>${row.item}</td>
-//       <td>${row.dueDate}</td>
-//     `;
-//     purchaseOrderList.appendChild(newRow);
-//   });
-// });
-
-// 삭제 버튼 클릭 이벤트
-const deleteOrderBtn = document.getElementById('delete-order-btn');
-
-deleteOrderBtn.addEventListener('click', () => {
-  const selectedRows = Array.from(document.querySelectorAll('#purchase-order-list tr'))
-    .filter(row => row.querySelector('input[type="checkbox"]').checked);
-
-  selectedRows.forEach(row => {
-    // 선택한 행 삭제
-    row.remove();
+  $.ajax({
+    url: "/purchase_order/purchase_order",
+    method: "GET",
+    data: {
+      businessNumber: businessNumber,
+    },
+    success: function (response) {
+      console.log(response); // 서버 응답을 콘솔에 출력하여 확인
+      $("input[name='companyName']").val(response.companyName);
+      $("input[name='companyAccount']").val(response.companyAccount);
+    },
+    error: function () {
+      alert("업체 정보를 불러올 수 없습니다.");
+    }
   });
 });
+
+
+  document.getElementById('issue-order-btn').addEventListener('click', function () {
+    // 발주 데이터를 수집하고 객체로 만듭니다.
+    var orderData = {
+      // 데이터 수집
+    };
+
+    // AJAX 요청을 만듭니다.
+    var xhr = new XMLHttpRequest();
+
+    // POST 방식으로 서버에 요청을 보냅니다. URL은 적절하게 변경해야 합니다.
+    xhr.open('POST', '/purchase_order', true);
+
+    // 서버로 보낼 데이터의 형식을 지정합니다. 이 예제에서는 JSON으로 보냅니다.
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+
+    // 요청이 완료되었을 때의 콜백 함수를 정의합니다.
+    xhr.onload = function () {
+      // 응답을 확인하고 적절한 작업을 수행합니다.
+      if (xhr.status === 200) {
+        // 성공적으로 처리된 경우의 작업
+        console.log('주문이 성공적으로 전송되었습니다.');
+      } else {
+        // 오류 처리
+        console.error('주문 전송 중 오류가 발생했습니다.');
+      }
+    };
+
+    // 데이터를 JSON 문자열로 변환하여 요청 본문에 추가합니다.
+    xhr.send(JSON.stringify(orderData));
+  });
+
+
+// 삭제 버튼 클릭 이벤트
+  const deleteOrderBtn = document.getElementById('delete-order-btn');
+
+  deleteOrderBtn.addEventListener('click', () => {
+    const selectedRows = Array.from(document.querySelectorAll('#purchase-order-list tr'))
+        .filter(row => row.querySelector('input[type="checkbox"]').checked);
+
+    selectedRows.forEach(row => {
+      // 선택한 행 삭제
+      row.remove();
+    });
+  });
 
 
 // 발주 버튼 클릭 이벤트
-const issueOrderBtn = document.getElementById('issue-order-btn');
-const orderModal = document.getElementById('orderModal');
-const closeModal = document.getElementsByClassName('close')[0];
+  const issueOrderBtn = document.getElementById('issue-order-btn');
+  const orderModal = document.getElementById('orderModal');
+  const closeModal = document.getElementsByClassName('close')[0];
 
-issueOrderBtn.addEventListener('click', () => {
-  const selectedRows = Array.from(document.querySelectorAll('#procurement-plan-list tr'))
-    .filter(row => row.querySelector('input[type="checkbox"]').checked)
-    .map(row => {
-      // 선택한 행의 데이터 추출 및 반환
-      const cells = row.querySelectorAll('td');
-      return {
-        procurementPlanNo: cells[0].textContent,
-        company: cells[1].textContent,
-        item: cells[2].textContent,
-        dueDate: cells[3].textContent
-      };
-    });
+  issueOrderBtn.addEventListener('click', () => {
+    const selectedRows = Array.from(document.querySelectorAll('#procurement-plan-list tr'))
+        .filter(row => row.querySelector('input[type="checkbox"]').checked)
+        .map(row => {
+          // 선택한 행의 데이터 추출 및 반환
+          const cells = row.querySelectorAll('td');
+          return {
+            procurementPlanNo: cells[0].textContent,
+            company: cells[1].textContent,
+            item: cells[2].textContent,
+            dueDate: cells[3].textContent
+          };
+        });
 
-  // selectedRows 배열이 비어 있으면 모달 창을 열지 않음
-  if (selectedRows.length === 0) {
-    return;
-  }
+    // 선택된 항목이 없거나 2개 이상일 때는 발주 버튼 동작하지 않도록 처리
+    if (selectedRows.length === 0 || selectedRows.length > 1) {
+      return;
+    }
+    // 모달 창에 데이터 추가
 
-  // 모달 창에 데이터 추가
-  const orderDate = document.getElementById('orderDate');
-  const supplierName = document.getElementById('supplierName');
-  const supplierAddress = document.getElementById('supplierAddress');
-  const supplierContact = document.getElementById('supplierContact');
-  const buyerName = document.getElementById('buyerName');
-  const buyerAddress = document.getElementById('buyerAddress');
-  const buyerContact = document.getElementById('buyerContact');
-  const orderDetails = document.getElementById('orderDetails');
 
-  orderDate.textContent = new Date().toISOString().split('T')[0];
-  supplierName.textContent = 'ABC 기업';
-  supplierAddress.textContent = '서울시 강남구 역삼동';
-  supplierContact.textContent = '홍길동';
-  buyerName.textContent = '구매 발주 회사';
-  buyerAddress.textContent = '서울시 서초구 반포동';
-  buyerContact.textContent = '김개발';
-
-  orderDetails.innerHTML = '';
-  selectedRows.forEach((row, index) => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${row.procurementPlanNo}</td>
-      <td>${row.item}</td>
-      <td>15인치</td>
-      <td>알루미늄</td>
-      <td>10</td>
-      <td>500,000원</td>
-      <td></td>
-    `;
-    orderDetails.appendChild(newRow);
+    orderModal.style.display = 'block';
   });
-
-  orderModal.style.display = 'block';
-});
 
 // 모달 창 닫기
-closeModal.addEventListener('click', () => {
-  orderModal.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-  if (event.target === orderModal) {
+  closeModal.addEventListener('click', () => {
     orderModal.style.display = 'none';
-  }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var printButton = document.getElementById('printOrder');
-
-  printButton.addEventListener('click', function() {
-    window.print(); // 페이지 프린트
   });
-});
 
-document.getElementById('sendOrder').addEventListener('click', function() {
-  // 이메일 클라이언트가 없는 경우에는 다른 방법으로 이메일을 전송할 수 있도록 안내
-  var emailAddress = 'ekzmemforhs3@naver.com';
-  // 사용자에게 이메일 주소를 복사하도록 안내
-  var dummyInput = document.createElement('input');
-  document.body.appendChild(dummyInput);
-  dummyInput.setAttribute('value', emailAddress);
-  dummyInput.select();
-  document.execCommand('copy');
-  document.body.removeChild(dummyInput);
-  alert('이메일 주소가 복사되었습니다: ' + emailAddress);
+  window.addEventListener('click', (event) => {
+    if (event.target === orderModal) {
+      orderModal.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var printButton = document.getElementById('printOrder');
+
+    printButton.addEventListener('click', function () {
+      window.print(); // 페이지 프린트
+    });
+  });
+
+  document.getElementById('sendOrder').addEventListener('click', function () {
+    // 이메일 클라이언트가 없는 경우에는 다른 방법으로 이메일을 전송할 수 있도록 안내
+    var emailAddress = 'ekzmemforhs3@naver.com';
+    // 사용자에게 이메일 주소를 복사하도록 안내
+    var dummyInput = document.createElement('input');
+    document.body.appendChild(dummyInput);
+    dummyInput.setAttribute('value', emailAddress);
+    dummyInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummyInput);
+    alert('이메일 주소가 복사되었습니다: ' + emailAddress);
+  });
+
+// 발주 버튼 클릭 시 모달에 이미지 추가
+  document.getElementById("issue-order-btn").addEventListener("click", function () {
+    // 선택된 항목을 가져오기
+    var selectedItems = document.querySelectorAll("#procurement-plan-list input[type=checkbox]:checked");
+
+    // 이미지를 추가할 공간 찾기
+    var imageContainer = document.getElementById("image-container");
+
+    // 이미지 컨테이너 초기화
+    imageContainer.innerHTML = '';
+
+    // 선택된 항목에 대해 반복하여 이미지 추가
+    selectedItems.forEach(function (item) {
+      // 선택된 항목에 대한 정보 가져오기
+      var itemName = item.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerText.trim();
+
+      // 해당 항목에 따른 이미지 경로 설정
+      var imgSrc;
+      if (itemName === "bolt") {
+        imgSrc = "/image/bal01.png";
+      } else if (itemName === "cable") {
+        imgSrc = "/image/bal02.png";
+      } else if (itemName === "nut") {
+        imgSrc = "/image/bal03.png";
+      }// 이하 계속해서 필요한 항목과 이미지에 대한 조건 추가
+
+      // 이미지 요소 생성
+      var img = document.createElement("img");
+      img.src = imgSrc;
+
+      // 이미지를 추가할 공간에 이미지 요소 추가
+      imageContainer.appendChild(img);
+    });
+  });
+
+  document.getElementById('saveOrder').addEventListener('click', () => {
+    // 모달 내용 가져오기
+    const modalContent = document.querySelector('.modal-content');
+
+    // 새로운 PDF 문서 생성
+    const pdf = new jsPDF();
+
+    // HTML을 Canvas로 렌더링
+    html2canvas(modalContent).then(canvas => {
+      // Canvas를 PDF로 추가하고 이미지 크기 조정
+      const imgWidth = pdf.internal.pageSize.getWidth(); // PDF 페이지의 너비
+      const imgHeight = pdf.internal.pageSize.getHeight(); // PDF 페이지의 높이
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+
+      // PDF 저장
+      pdf.save('order.pdf');
+    });
 });

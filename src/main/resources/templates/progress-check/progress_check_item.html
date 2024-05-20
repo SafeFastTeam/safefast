@@ -7,68 +7,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
-  <header>
+<header>
     <h1>구매 조달 시스템</h1>
     <div class="user-info">
         <span class="username">[사용자의 이름] 님</span>
         <a th:href="@{/login}" class="logout-btn">로그아웃</a>
     </div>
-  </header>
-  <div class="container">
-      <nav class="sidebar">
-          <ul>
-              <li><a th:href="@{/}">메인화면</a></li>
-              <li>
-                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/item}">품목정보등록</a></li>
-                      <li><a th:href="@{/contract}">계약 등록</a></li>
-                      <li><a th:href="@{/procurement}">조달계획등록</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/purchase-order}">구매 발주서 관리</a></li>
-                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
-                      <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/receive}">자재 입출고</a></li>
-                      <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
-                      <li><a th:href="@{/inventory}">재고 산출</a></li>
-                      <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </nav>
+</header>
+<div class="container">
+    <nav class="sidebar">
+        <ul>
+            <li><a th:href="@{/}">메인화면</a></li>
+            <li>
+                <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/item}">품목정보등록</a></li>
+                    <li><a th:href="@{/contract}">계약 등록</a></li>
+                    <li><a th:href="@{/procurement}">조달계획등록</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/purchase-order}">구매 발주서 관리</a></li>
+                    <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
+                    <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/receive}">자재 입출고</a></li>
+                    <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
+                    <li><a th:href="@{/inventory}">재고 산출</a></li>
+                    <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
     <div class="content">
-    <h2>진척 검수 처리 - 발주리스트</h2>
-    <div class="progress">
-        <button class="plan-btn" data-modal="modal1">검수계획 등록</button>
-        <button class="process-btn" data-modal="modal2">검수처리</button>
-    </div>
-    <div class="controls">
-        <div class="date-search">
-            <input type="date" id="start-date" placeholder="Start Date"><span>&nbsp; - &nbsp;</span>
-            <input type="date" id="end-date" placeholder="End Date">
-            <button class="btn">검색</button>
-          </div>
-          <div class="select-search">
-            <select id="search-option">
-                <option value="order-no">발주번호</option>
-                <option value="item-code">품목코드</option>
-                <option value="item-name">품목명</option>
-            </select>
-            <input type="text" id="search-input" placeholder="Search">
-            <button class="btn">검색</button>
-          </div>
-    </div>
-    <table class="main-table">
-        <thead>
+        <h2>진척 검수 처리 - 발주리스트</h2>
+        <div class="progress">
+            <button class="plan-btn" data-modal="modal1">검수계획 등록</button>
+            <button class="process-btn" data-modal="modal2">검수처리</button>
+        </div>
+        <div class="controls">
+            <div class="date-search">
+                <input type="date" id="start-date" placeholder="Start Date"><span>&nbsp; - &nbsp;</span>
+                <input type="date" id="end-date" placeholder="End Date">
+                <button class="btn">검색</button>
+            </div>
+            <div class="select-search">
+                <select id="search-option">
+                    <option value="order-no">발주번호</option>
+                    <option value="item-code">품목코드</option>
+                    <option value="item-name">품목명</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Search">
+                <button class="btn">검색</button>
+            </div>
+        </div>
+        <table class="main-table">
+            <thead>
             <tr>
                 <th>선택</th>
                 <th>발주번호</th>
@@ -79,8 +80,8 @@
                 <th>발주수량</th>
                 <th>검수현황</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr>
                 <td><input type="checkbox"></td>
                 <td>PO-001</td>
@@ -131,19 +132,19 @@
                 <td>{purch_order_quantity}</td>
                 <td>{proc_check_result}/{proc_check_order}</td>
             </tr>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <button class="btn prev-btn" disabled>이전</button>
-        <span class="page-info">1/1</span>
-        <button class="btn next-btn">다음</button>
-    </div>
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>검수 계획 등록</h3>
-            <table class="modal-table">
-                <tbody>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button class="btn prev-btn" disabled>이전</button>
+            <span class="page-info">1/1</span>
+            <button class="btn next-btn">다음</button>
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3>검수 계획 등록</h3>
+                <table class="modal-table">
+                    <tbody>
                     <tr>
                         <th>발주번호</th>
                         <td>{purch_order_number}</td>
@@ -164,53 +165,54 @@
                         <th>사업자번호</th>
                         <td>@co_op_company{business_number}</td>
                     </tr>
-                </tbody>
-            </table>
-            <table class="modal-table">
-                <thead>
+                    </tbody>
+                </table>
+                <table class="modal-table">
+                    <thead>
                     <tr>
                         <th>품목코드</th>
                         <th>품목명</th>
                         <th>발주수량</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>{item_code}</td>
                         <td>{item_name}</td>
                         <td>{purch_order_quantity}</td>
                     </tr>
-                </tbody>
-            </table>
-            <table class="modal-table-3">
-                <thead>
+                    </tbody>
+                </table>
+                <table class="modal-table-3">
+                    <thead>
                     <tr>
                         <th>차수</th>
                         <th>검수일자</th>
                         <th>처리</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>1차</td>
                         <td><input type="date" class="inspection-date"></td>
                         <td>
-                            <button class="btn add-btn">추가</button>
+                            <button class="btn add-btn">저장</button>
                             <button class="btn delete-btn">삭제</button>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-            <button class="btn register-btn">검수계획 등록완료</button>
+                    </tbody>
+                </table>
+                <button class="btn add-btn">추가</button>
+                <button class="btn register-btn">검수계획 등록완료</button>
+            </div>
         </div>
-    </div>
 
-    <div class="modal2">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>진척 검수 처리 - 발주리스트 - 검수처리</h3>
-            <table class="modal-table">
-                <tbody>
+        <div class="modal2">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h3>진척 검수 처리 - 발주리스트 - 검수처리</h3>
+                <table class="modal-table">
+                    <tbody>
                     <tr>
                         <th>발주번호</th>
                         <td>{purch_order_number}</td>
@@ -231,26 +233,26 @@
                         <th>사업자번호</th>
                         <td>@co_op_company{business_number}</td>
                     </tr>
-                </tbody>
-            </table>
-            <table class="modal-table">
-                <thead>
+                    </tbody>
+                </table>
+                <table class="modal-table">
+                    <thead>
                     <tr>
                         <th>품목코드</th>
                         <th>품목명</th>
                         <th>발주수량</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>{item_code}</td>
                         <td>{item_name}</td>
                         <td>{purch_order_quantity}</td>
                     </tr>
-                </tbody>
-            </table>
-            <table class="modal-table-3">
-                <thead>
+                    </tbody>
+                </table>
+                <table class="modal-table-3">
+                    <thead>
                     <tr>
                         <th>차수</th>
                         <th>검수일자</th>
@@ -259,8 +261,8 @@
                         <th>보완사항</th>
                         <th>진척도</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>{prog_check_order}차</td>
                         <td>{prog_check_date}</td>
@@ -269,15 +271,15 @@
                         <td><input type="text" class="correction-input"></td>
                         <td>{progress_check_result}/{progress_check_order}%</td>
                     </tr>
-                </tbody>
-            </table>
-            <button class="btn register-btn">검수처리 저장</button>
+                    </tbody>
+                </table>
+                <button class="btn register-btn">검수처리 저장</button>
+            </div>
         </div>
-    </div>
 
     </div>
     <script src="/js/progress_check_item.js"></script>
     <script src="/js/index.js"></script>
-  </div>
+</div>
 </body>
 </html>

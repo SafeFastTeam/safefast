@@ -20,7 +20,7 @@ public class ProgressCheckItem {
     @Column
     private Integer progCheckOrder;
 
-    private LocalDateTime progCheckDate;
+    private String progCheckDate;
 
     private String progCheckResult;
 

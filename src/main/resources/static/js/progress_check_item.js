@@ -1,3 +1,42 @@
+// 발주 리스트 테이블의 각 행에서 첫 번째 열의 체크박스 요소들을 선택합니다.
+const checkboxes = document.querySelectorAll('.main-table tbody tr td:first-child input[type="checkbox"]');
+
+// 모달 창1 열기/닫기 기능
+const modal = document.querySelector('.modal');
+const openModalBtn = document.querySelector('.plan-btn');
+const closeModalBtn = document.querySelector('.close-btn');
+const orderNoP = document.getElementById('order-no');
+
+openModalBtn.addEventListener('click', () => {
+    modal.style.display = 'block';
+});
+
+/*경고창 오류로 일단 주석처리*/
+/*openModalBtn.addEventListener('click', () => {
+    // 체크된 체크박스의 개수를 세어봅니다.
+    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+    // 만약 체크된 체크박스가 없으면 경고 팝업을 띄웁니다.
+    if (checkedCount === 0) {
+        alert('선택된 발주가 없습니다. 발주를 선택해주세요.');
+    } else {
+        // 체크된 체크박스가 있을 경우, 발주번호를 모달에 표시하고 모달을 엽니다.
+        const orderNos = checkedRows.map(row => row.querySelector('.order-no').innerText).join(', ');
+        orderNoP.innerText = `Order No: ${orderNos}`;
+        modal.style.display = 'block';
+    }
+});*/
+
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
 // 검수 계획 추가 버튼에 대한 이벤트 리스너 등록 함수
 const addBtnEventListener = () => {
     const addBtns = document.querySelectorAll('.modal-table-3 .add-btn');
@@ -13,7 +52,7 @@ const addBtnEventListener = () => {
             dateInput.type = 'date';
             dateInput.className = 'inspection-date'; // 날짜 입력란에 클래스 추가
             dateCell.appendChild(dateInput);
-            actionCell.innerHTML = '<button class="btn add-btn">추가</button><button class="btn delete-btn">삭제</button>';
+            actionCell.innerHTML = '<button class="btn add-btn">저장</button><button class="btn delete-btn">삭제</button>';
             newRow.appendChild(countCell);
             newRow.appendChild(dateCell);
             newRow.appendChild(actionCell);
@@ -22,38 +61,6 @@ const addBtnEventListener = () => {
         });
     });
 };
-
-// 발주 리스트 테이블의 각 행에서 여섯 번째 열의 체크박스 요소들을 선택합니다.
-const checkboxes = document.querySelectorAll('.main-table tbody tr td:nth-child(6) input[type="checkbox"]');
-
-// 모달 창1 열기/닫기 기능
-const modal = document.querySelector('.modal');
-const openModalBtn = document.querySelector('.plan-btn');
-const closeModalBtn = document.querySelector('.close-btn');
-
-openModalBtn.addEventListener('click', () => {
-    // 체크된 체크박스의 개수를 세어봅니다.
-    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-
-    // 만약 체크된 체크박스가 없으면 경고 팝업을 띄웁니다.
-    if (checkedCount === 0) {
-        alert('선택된 발주가 없습니다. 발주를 선택해주세요.');
-    } else {
-        // 체크된 체크박스가 있을 경우 모달을 엽니다.
-        modal.style.display = 'block';
-        displaySelectedOrders(); // 선택된 발주 데이터 표시
-    }
-});
-
-closeModalBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
 
 // 페이징 기능
 // const itemsPerPage = 10;
