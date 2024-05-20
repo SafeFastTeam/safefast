@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryItem, Long> {
 
+    List<InventoryItem> findByItem_ItemCodeContaining(String keyword);
+    List<InventoryItem> findByItem_ItemNameContaining(String keyword);
+    List<InventoryItem> findByItem_MaterialContaining(String keyword);
+
 }
