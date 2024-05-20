@@ -29,4 +29,7 @@ public class Receive {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "procPlanNumber")
     private ProcurementPlan procurementPlan;
+
+    @Column
+    private String itemCode;
 }

@@ -89,10 +89,15 @@
               <td th:text="${item.item.getWidth() + 'x' + item.item.getLength() + 'x' + item.item.getHeight()}"></td>
               <td th:text="${item.item.getMaterial()}"></td>
               <td>0</td>
-              <td>60000</td>
-              <td>500</td>
+                <td>600</td>
+                <td>500</td>
+                <td>100</td>
+                <td>300</td>
+              <!-- 입고출고수량을 서버에서 받아온 값으로 대체 -->
+              <!--<td th:text="${item.receive != null ? item.receive.receiveQuantity : 'N/A'}"></td>
+              <td th:text="${item.releases != null ? item.releases.releaseQuantity : 'N/A'}"></td>
               <td>100</td>
-              <td th:text="${contract.getItemPrice()}">1000</td>
+              <td th:text="${item.contract != null ? item.contract.itemPrice : 'N/A'}"></td>-->
               <td></td>
             </tr>
           </tbody>
