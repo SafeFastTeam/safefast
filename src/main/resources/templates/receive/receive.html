@@ -135,14 +135,7 @@
             </tr>
           </thead>
           <tbody id="purchase-order-list">
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button onclick="openModal()">입고완료</button></td>
-            </tr>
+
           </tbody>
         </table>
         <div class="pagination">
@@ -155,32 +148,7 @@
     </div>
   </div>
 
-  <!-- 모달 -->
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>해당 구매발주서를 마감 처리 하시겠습니까?</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>발주번호</th>
-            <th>품목코드</th>
-            <th>품목명</th>
-            <th>발주수량</th>
-            <th>검수현황</th>
-            <th>입고마감</th>
-          </tr>
-        </thead>
-        <tbody id="modal-purchase-order-list">
-          <!-- 모달 내용은 JavaScript를 통해 동적으로 생성 -->
-        </tbody>
-      </table>
-      <div class="btn-box">
-        <button id="cancelBtn">취소</button>
-        <button id="confirmBtn">확인</button>
-      </div>
-    </div>
-  </div>
+
 
   <script src="/js/receive.js"></script>
   <script src="/js/index.js"></script>
@@ -231,34 +199,39 @@
         }
       });
 
-      $('#close-button').on('click', function() {
-        // 발주번호, 업체명, 품목명, 발주일, 조달납기일 정보 가져오기
-        var purchaseOrderNumber = $('#purchase-order-list tr:first-child td:first-child').text();
-        var companyName = $('#purchase-order-list tr:first-child td:nth-child(2)').text();
-        var itemName = $('#purchase-order-list tr:first-child td:nth-child(3)').text();
-        var orderDate = $('#purchase-order-list tr:first-child td:nth-child(4)').text();
-        var deliveryDate = $('#purchase-order-list tr:first-child td:nth-child(5)').text();
+        $('#close-button').on('click', function() {
+            // 클릭된 버튼이 속한 행에서 정보 가져오기
+            var $row = $(this).closest('tr');
+            var procPlanNumber = $row.find("td:eq(0)").text(); // 발주번호
+            var companyName = $row.find("td:eq(1)").text(); // 업체명
+            var itemName = $row.find("td:eq(2)").text(); // 품목명
 
-        // 자재 입출고 리스트 섹션으로 스크롤
-        $('html, body').animate({
-          scrollTop: $('.purchase-order').offset().top
-        }, 1000);
+            // AJAX를 사용하여 서버에서 발주일과 조달납기일 가져오기
+            $.ajax({
+                url: '/api/purchase-order/' + procPlanNumber,
+                method: 'GET',
+                success: function(response) {
+                    var orderDate = response.orderDate;
+                    var deliveryDate = response.deliveryDate;
 
-        // 가져온 정보를 출력하거나 활용할 수 있도록 적절한 곳에 삽입
-        // 예를 들어, 자재 입출고 리스트 섹션 안에 새로운 테이블을 만들어서 정보를 출력할 수 있습니다.
-        var tableRow = '<tr>' +
-                '<td>' + purchaseOrderNumber + '</td>' +
-                '<td>' + companyName + '</td>' +
-                '<td>' + itemName + '</td>' +
-                '<td>' + orderDate + '</td>' +
-                '<td>' + deliveryDate + '</td>' +
-                '</tr>';
-        $('#new-table-body').append(tableRow);
-      });
+                    // 자재 입출고 리스트에 해당 정보 추가
+                    var newRow = "<tr>" +
+                        "<td>" + procPlanNumber + "</td>" +
+                        "<td>" + companyName + "</td>" +
+                        "<td>" + itemName + "</td>" +
+                        "<td>" + orderDate + "</td>" +
+                        "<td>" + deliveryDate + "</td>" +
+                        "<td><button onclick='openModal()'>입고완료</button></td>" +
+                        "</tr>";
 
+                    $('#purchase-order-list').append(newRow);
+                },
+                error: function() {
+                    alert('발주 정보를 가져오는 데 실패했습니다.');
+                }
+            });
+        });
     });
-
-
   </script>
 </body>
 </html>
