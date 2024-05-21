@@ -16,7 +16,7 @@ function calculateInventoryAmount() {
   });
 }
 
-document.getElementById('keyword-search-btn').addEventListener('click', function() {
+/*document.getElementById('keyword-search-btn').addEventListener('click', function() {
   searchInventory();
 });
 
@@ -62,7 +62,7 @@ function searchInventory() {
       .catch(error => {
         console.error('검색 요청 중 오류가 발생했습니다:', error);
       });
-}
+}*/
 
 
 /*
