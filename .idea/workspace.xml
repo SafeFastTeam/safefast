@@ -4,52 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
+    <list default="true" id="7040d94d-1147-49ba-93c3-0e7e428b1334" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/progress/ProgressCheckItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/progress/ProgressCheckItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/purchase_order/PurchaseOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/purchase_order/PurchaseOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/invoicing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/invoicing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
-
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
-    <projectState path="$PROJECT_DIR$/safefast">
-      <ProjectState />
-    </projectState>
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="safefast" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -58,94 +21,32 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;songoffeather&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/SafeFastTeam/safefast.git&quot;,
-    &quot;accountId&quot;: &quot;80eaff78-0c67-48f4-850e-fa4f5c0ded53&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-    &quot;customColor&quot;: &quot;&quot;,
-    &quot;associatedIndex&quot;: 5
-    }</component>
-  <component name="ProjectId" id="2gGY6xt7iTEEiSpJ9BI7ncipXir" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Build safefast.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.safefast [:SafefastApplication.main()].executor": "Run",
-    "JavaScript Debug.progress_check_item.html.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "feat/dev/progressChkItem02",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/safefast/src/main/resources/templates/invoicing",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+    "git-widget-placeholder": "feat/dev/progressChkItem03",
+    "last_opened_file_path": "C:/safefast/src/main/resources/templates/inventory_management",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\safefast\src\main\resources\templates\invoicing" />
-      <recent name="C:\safefast\src\main\resources\static\image" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\css" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\js" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\image" />
+      <recent name="C:\safefast\src\main\resources\templates\inventory_management" />
+      <recent name="C:\safefast\src\main\resources\templates\po_status" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\safefast\safefast\src\main\resources\templates\receive" />
-      <recent name="C:\safefast\safefast\src\main\resources\templates" />
-      <recent name="C:\safefast\safefast\src\main\resources\receive" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\css" />
-      <recent name="C:\safefast\safefast\src\main\resources\templates\progress_check" />
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.zerock.safefast.controller.inventory_management" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.SafefastApplication">
-    <configuration name="SafefastApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.zerock.safefast.SafefastApplication" />
-      <module name="org.zerock.safefast.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.zerock.safefast.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="SafefastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="safefast.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.zerock.safefast.SafefastApplication" />
@@ -162,65 +63,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.SafefastApplication" />
-        <item itemvalue="Application.SafefastApplication" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="" />
-      <created>1715325210682</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1715325210682</updated>
-      <workItem from="1715325212372" duration="2487000" />
-      <workItem from="1715571098958" duration="2272000" />
-      <workItem from="1715816593481" duration="4575000" />
-      <workItem from="1715822880609" duration="20991000" />
-      <workItem from="1715849889703" duration="36000" />
-      <workItem from="1715849936864" duration="356000" />
-      <workItem from="1715850316021" duration="16000" />
-      <workItem from="1715852804620" duration="96000" />
-      <workItem from="1715852907356" duration="183000" />
-      <workItem from="1716162880692" duration="1443000" />
-      <workItem from="1716184842483" duration="7859000" />
-
-      <workItem from="1716246827154" duration="21738000" />
-
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="org.hibernate.QueryParameterException" package="org.hibernate" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

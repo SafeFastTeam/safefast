@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자재관리 - 거래 명세서 발행</title>
+  <link rel="stylesheet" href="/css/inventory_management.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>구매 조달 시스템</h1>
+    <div class="user-info">
+        <span class="username">[사용자의 이름] 님</span>
+        <a th:href="@{/login}" class="logout-btn">로그아웃</a>
+    </div>
+  </header>
+  <div class="container">
+      <nav class="sidebar">
+          <ul>
+              <li><a th:href="@{/}">메인화면</a></li>
+              <li>
+                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                      <li><a th:href="@{/contract/register}">계약 등록</a></li>
+                      <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
+                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
+                      <li><a th:href="@{/po_status/po_status}">발주 진행 현황</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/receive}">자재 입출고</a></li>
+                      <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
+                      <li><a th:href="@{/inventory}">재고 산출</a></li>
+                      <li><a th:href="@{/inventory_management/inventory_management}">재고(금액) 관리</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </nav>
+    <div class="content">
+      <h2>현황 관리 그래프</h2>
+      <div class="head-box">
+        <div class="date-search">
+          <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;</span> 
+          <input type="date" id="date-end" placeholder="종료 날짜">
+          <button id="date-search-btn">검색</button>
+        </div>
+        <div class="save-btn">
+            <button id="issue-order-btn-large" class="button">대분류</button>
+            <button id="issue-order-btn-medium" class="button">중분류</button>
+            <button id="issue-order-btn-small" class="button">소분류</button>
+        </div>
+      </div>
+
+          <canvas id="myChart" width="400" height="400"></canvas>
+          <div id="container3" style="height: 40%; width: 40%;"></div>
+
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+  <script type="text/javascript">
+      var dom = document.getElementById('container3');
+      var myChart = echarts.init(dom, null, {
+          renderer: 'canvas',
+          useDirtyRect: false
+      });
+      var app = {};
+
+      var option;
+
+      option = {
+          xAxis: {
+              type: 'category',
+              data: ['볼트', '너트', '안테나', '모듈', '기어', '센서']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [
+              {
+                  data: [1200, 600, 400, 0, 800, 50],
+                  type: 'bar',
+                  showBackground: true,
+                  backgroundStyle: {
+                      color: 'rgba(180, 180, 180, 0.2)'
+                  }
+              }
+          ]
+      };
+
+      if (option && typeof option === 'object') {
+          myChart.setOption(option);
+      }
+
+      window.addEventListener('resize', myChart.resize);
+  </script>
+  <script type="text/javascript">
+      // 차트 데이터
+      var data = {
+          labels: ['볼트', '너트', '안테나', '모듈', '기어', '센서'],
+          datasets: [{
+              data: [1200, 600, 400, 0, 800, 50],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 159, 64, 0.8)'
+              ],
+              hoverOffset: 4 // 마우스 호버 효과
+          }]
+      };
+
+      // 도넛 차트 설정
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data,
+          options: {
+              responsive: false, // 반응형 설정
+              plugins: {
+                  legend: {
+                      position: 'right' // 범례 위치 설정
+                  }
+              }
+          }
+      });
+  </script>
+
+  <script src="/js/index.js"></script>
+  <script src="/js/inventory_management.js"></script>
+</body>
+</html>
