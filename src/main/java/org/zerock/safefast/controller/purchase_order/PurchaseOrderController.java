@@ -1,5 +1,6 @@
 package org.zerock.safefast.controller.purchase_order;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,10 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
+import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
-
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -22,6 +24,9 @@ public class PurchaseOrderController {
 
     @Autowired
     private PurchaseOrderService purchaseOrderService;
+
+    @Autowired
+    private PurchaseOrderRepository purchaseOrderRepository;
 
     @PostMapping("/purchase_order")
     public String createPurchaseOrder(@ModelAttribute PurchaseOrder purchaseOrder, Model model) {
@@ -56,5 +61,13 @@ public class PurchaseOrderController {
         return purchaseOrderService.getAllPurchaseOrders();
     }
 
-
+    @GetMapping("/{purchOrderNumber}")
+    public ResponseEntity<PurchaseOrder> getPurchaseOrder(@PathVariable String purchOrderNumber) {
+        Optional<PurchaseOrder> purchaseOrder = Optional.ofNullable(purchaseOrderRepository.findByPurchOrderNumber(purchOrderNumber));
+        if (purchaseOrder.isPresent()) {
+            return ResponseEntity.ok(purchaseOrder.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

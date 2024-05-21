@@ -50,8 +50,8 @@
                 <li>
                     <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
                     <ul class="dropdown">
-                        <li><a th:href="@{/templates/receive}">자재 입출고</a></li>
-                        <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
+                        <li><a th:href="@{/receive/receive}">자재 입출고</a></li>
+                        <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
                         <li><a th:href="@{/inventory}">재고 산출</a></li>
                         <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
                     </ul>
@@ -76,17 +76,17 @@
                     <h2>발주관리</h2>
                     <ul>
                         <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
-                        <li><a href="progress_check_item.html">진척 검수 처리</a></li>
+                        <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
                         <li><a href="po_status.html">발주 진행 현황</a></li>
                     </ul>
                 </section>
                 <section>
                     <h2>자재관리</h2>
                     <ul>
-                        <li><a href="receive.html">자재 입출고</a></li>
-                        <li><a href="invoicing.html">거래 명세서 발행</a></li>
+                        <li><a th:href="@{/receive/receive}">자재 입출고</a></li>
+                        <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
                         <!-- <li><a href="release.html">자재 출고</a></li> -->
-                        <li><a href="inventory.html">재고 산출</a></li>
+                        <li><a th:href="@{/inventory}">재고 산출</a></li>
                         <li><a href="inventory_management.html">재고(금액) 관리</a></li>
                     </ul>
                 </section>

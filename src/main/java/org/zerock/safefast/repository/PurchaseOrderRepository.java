@@ -9,4 +9,6 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, St
     PurchaseOrder findByProcPlanNumber(String procPlanNumber);
 
     List<PurchaseOrder> findByPurchOrderNumberIn(List<String> orderNumbers);
+
+    PurchaseOrder findByPurchOrderNumber(String purchOrderNumber);
 }
