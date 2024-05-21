@@ -82,6 +82,21 @@ public class PurchaseOrderService {
         return response;
     }
 
+    public PurchaseOrderResponse getPurchaseOrderDetails(String purchOrderNumber) {
+        try {
+            PurchaseOrder purchaseOrder = purchaseOrderRepository.findByPurchOrderNumber(purchOrderNumber);
+            if (purchaseOrder == null) {
+                throw new IllegalArgumentException("Purchase order not found for purchOrderNumber: " + purchOrderNumber);
+            }
+            return new PurchaseOrderResponse(purchaseOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new PurchaseOrderResponse();  // 기본 생성자 사용
+        }
+    }
 
 
+    public List<PurchaseOrder> findAll() {
+        return purchaseOrderRepository.findAll();
+    }
 }
