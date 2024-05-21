@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자재관리 - 거래 명세서 발행</title>
+  <link rel="stylesheet" href="/css/po_status.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+</head>
+<body>
+  <header>
+    <h1>구매 조달 시스템</h1>
+    <div class="user-info">
+        <span class="username">[사용자의 이름] 님</span>
+        <a href="login.html" class="logout-btn">로그아웃</a>
+    </div>
+  </header>
+  <div class="container">
+      <nav class="sidebar">
+          <ul>
+              <li><a th:href="@{/}">메인화면</a></li>
+              <li>
+                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                      <li><a th:href="@{/contract/register}">계약 등록</a></li>
+                      <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
+                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
+                      <li><a th:href="@{/po_status/po_status}">발주 진행 현황</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                  <ul class="dropdown">
+                      <li><a th:href="@{/receive}">자재 입출고</a></li>
+                      <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
+                      <li><a th:href="@{/inventory}">재고 산출</a></li>
+                      <li><a th:href="@{/inventory_management/inventory_management}">재고(금액) 관리</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </nav>
+    <div class="content">
+      <h2>현황 관리 그래프</h2>
+
+      <div class="date-search">
+        <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+        <input type="date" id="date-end" placeholder="종료 날짜">
+        <button id="date-search-btn">검색</button>
+      </div>
+        <div id="container1" style="height: 60%; width: 60%;"></div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+  <script type="text/javascript">
+      var dom = document.getElementById('container1');
+      var myChart = echarts.init(dom, null, {
+          renderer: 'canvas',
+          useDirtyRect: false
+      });
+      var app = {};
+
+      var option;
+
+      option = {
+          xAxis: {
+              type: 'category',
+              data: ['총 조달계획', '발주서 발행', '진척 검수', '조달 마감']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [
+              {
+                  data: [20, 10, 4, 3],
+                  type: 'bar',
+                  showBackground: true,
+                  backgroundStyle: {
+                      color: 'rgba(180, 180, 180, 0.2)'
+                  }
+              }
+          ]
+      };
+
+      if (option && typeof option === 'object') {
+          myChart.setOption(option);
+      }
+
+      window.addEventListener('resize', myChart.resize);
+  </script>
+
+  <script src="/js/index.js"></script>
+</body>
+</html>
