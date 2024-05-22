@@ -6,16 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7040d94d-1147-49ba-93c3-0e7e428b1334" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment1.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/invoicing/invoicing.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/invoicing/invoicing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/po_status/po_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/po_status/po_status.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/item.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/item.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

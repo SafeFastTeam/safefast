@@ -1,136 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계약 관리</title>
+    <link rel="stylesheet" href="/css/contract.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<h2>계약 등록 - 계약서</h2>
-<form id="contract-form" action="/contract/register" method="POST" enctype="multipart/form-data">
-    <table>
-<!--        <input type="hidden" name="coOpCompany" value="companyValueId">-->
-<!--        <input type="hidden" name="item" value="itemValue">-->
-        <tr>
-            <th>계약서/첨부파일</th>
-            <td><input type="file" name="contractOriginName"></td>
-        </tr>
-        <tr>
-            <th>사업자 번호</th>
-            <td><input type="text" name="coOpCompany" class="input-field"></td>
-        </tr>
-        <tr>
-            <th>업체명</th>
-            <td><input type="text" name="companyName" class="input-field" readonly></td>
-        </tr>
-        <tr>
-            <th>계좌 정보</th>
-            <td><input type="text" name="companyAccount" class="input-field" readonly></td>
-        </tr>
-    </table>
+<th:block th:replace="~{/fragments/fragment1}"></th:block>
 
-    <h2>계약 등록 - 계약 항목</h2>
-    <table class="save-section">
-        <tr>
-            <th>품목코드</th>
-            <th>품목명</th>
-            <th>단가</th>
-            <th>L/T(일)</th>
-            <th>세부사항</th>
-        </tr>
-        <tr>
-            <td><input type="text" name="itemCode" class="input-field" readonly></td>
-            <td><input type="text" name="itemName" class="input-field" readonly></td>
-            <td><input type="text" name="itemPrice"></td>
-            <td><input type="text" name="leadTime" ></td>
-            <td><input type="text" name="note" ></td>
-        </tr>
-        <!-- Add more rows as needed -->
-    </table>
-    <button type="button" id="save-contract-button" class="save-button">저장</button>
-</form>
+<div class="container">
+    <th:block th:replace="~{/fragments/fragment2}"></th:block>
 
+    <div class="content">
+        <div class="registration-section">
+            <h2>계약 등록 - 계약서</h2>
+            <form id="contract-form" action="/contract/register" method="POST" enctype="multipart/form-data">
+                <table>
+                    <!--        <input type="hidden" name="coOpCompany" value="companyValueId">-->
+                    <!--        <input type="hidden" name="item" value="itemValue">-->
+                    <tr>
+                        <th>계약서/첨부파일</th>
+                        <td><input type="file" name="contractOriginName"></td>
+                    </tr>
+                    <tr>
+                        <th>사업자 번호</th>
+                        <td><input type="text" name="coOpCompany" class="input-field"></td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td><input type="text" name="companyName" class="input-field" readonly></td>
+                    </tr>
+                    <tr>
+                        <th>계좌 정보</th>
+                        <td><input type="text" name="companyAccount" class="input-field" readonly></td>
+                    </tr>
+                </table>
+                <br>
+                <h2>계약 등록 - 계약 항목</h2>
+                <table class="save-section">
+                    <tr>
+                        <th>품목코드</th>
+                        <th>품목명</th>
+                        <th>단가</th>
+                        <th>L/T(일)</th>
+                        <th>세부사항</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="itemCode" class="input-field" readonly></td>
+                        <td><input type="text" name="itemName" class="input-field" readonly></td>
+                        <td><input type="text" name="itemPrice"></td>
+                        <td><input type="text" name="leadTime" ></td>
+                        <td><input type="text" name="note" ></td>
+                    </tr>
+                </table>
+                <button type="button" id="save-contract-button" class="save-button">저장</button>
+            </form>
+        </div>
 
-<div class="management-section">
-    <h2>계약 관리</h2>
-    <div class="search-bar">
-        <select name="search-option" id="search-option">
-            <option value="계약번호">계약번호</option>
-            <option value="품목명">품목명</option>
-            <option value="업체명">업체명</option>
-        </select>
-        <input type="text" placeholder="검색..." class="search-input">
-        <button class="search-button">검색</button>
+        <div class="management-section">
+            <h2>계약 관리</h2>
+            <div class="search-bar">
+                <select name="search-option" id="search-option">
+                    <option value="계약번호">계약번호</option>
+                    <option value="품목명">품목명</option>
+                    <option value="업체명">업체명</option>
+                </select>
+                <input type="text" placeholder="검색..." class="search-input">
+                <button class="search-button">검색</button>
+            </div>
+            <table id="contractManagementTable">
+                <thead>
+                <tr>
+                    <th>품목코드</th>
+                    <th>품목명</th>
+                    <th>계약번호</th>
+                    <th>업체명</th>
+                    <th>사업자번호</th>
+                    <th>단가</th>
+                    <th>L/T(일)</th>
+                    <th>수정</th>
+                    <th>계약서</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <td class="item-row">
+                        <span class="itemCode" th:text="${item.itemCode}"></span>
+                        <span class="itemName" th:text="${item.itemName}"></span>
+                    </td>
+                    <td th:text="${item.itemName}"></td>
+                    <td th:each="contract : ${item.contracts}" th:text="${contract.contractNumber}"></td>
+                    <td th:each="contract : ${item.contracts}" th:text="${contract.coOpCompany.companyName}"></td>
+                    <td th:each="contract : ${item.contracts}" th:text="${contract.coOpCompany.businessNumber}"></td>
+                    <td th:each="contract : ${item.contracts}" th:text="${contract.itemPrice}"></td>
+                    <td th:each="contract : ${item.contracts}" th:text="${contract.leadTime}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="pagination-button">이전</button>
+                <span>1/10 페이지</span>
+                <button class="pagination-button">다음</button>
+            </div>
+        </div>
     </div>
-    <table id="contractManagementTable">
-        <thead>
-        <tr>
-            <th>품목코드</th>
-            <th>품목명</th>
-            <th>계약번호</th>
-            <th>업체명</th>
-            <th>사업자번호</th>
-            <th>단가</th>
-            <th>L/T(일)</th>
-            <th>수정</th>
-            <th>계약서</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${items}">
-            <td class="item-row">
-                <span class="itemCode" th:text="${item.itemCode}"></span>
-                <span class="itemName" th:text="${item.itemName}" style="display: none;"></span>
-            </td>
-            <td th:text="${item.itemName}"></td>
-            <td>
-                <ul>
-                    <th:block th:each="contract : ${item.contracts}">
-                        <li>
-                            <span th:text="${contract.contractNumber}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <th:block th:each="contract : ${item.contracts}">
-                        <li>
-                            <span th:text="${contract.coOpCompany.companyName}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <th:block th:each="contract : ${item.contracts}">
-                        <li>
-                            <span th:text="${contract.coOpCompany.businessNumber}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <th:block th:each="contract : ${item.contracts}">
-                        <li>
-                            <span th:text="${contract.itemPrice}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <th:block th:each="contract : ${item.contracts}">
-                        <li>
-                            <span th:text="${contract.leadTime}"></span>
-                        </li>
-                    </th:block>
-                </ul>
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
 <script>
     $(document).ready(function () {
@@ -211,7 +188,7 @@
         });
     });
 </script>
-
-
+<script src="contract.js"></script>
+<script src="index.js"></script>
 </body>
 </html>
