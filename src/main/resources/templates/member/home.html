@@ -1,11 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세페스트 홈</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sections {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 10px;
+            gap: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        section h2 {
+            color: #066278;
+        }
+
+        section a {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: larger;
+            font-weight: 600;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn {
+            background-color: #066278;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #054a5e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <h1>home</h1>
-    <p>a</p>
+    <main>
+    <h3>구 매 조 달 시 스 템</h3>
+    <div class="logo">
+        <img src="/image/sf_logo01.png" alt="세페스트">
+    </div>
+    <div class="sections">
+        <section>
+            <br><br>
+            <a th:href="@{/member/create_account_form}" class="btn">회원가입</a><br>
+            <a th:href="@{/member/login}" class="btn">로그인</a><br>
+            <p>2024 ⓒ 팀 세페스트</p>
+        </section>
+    </div>
+    </main>
 </body>
 </html>
