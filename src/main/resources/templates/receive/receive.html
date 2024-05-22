@@ -74,8 +74,8 @@
               <td th:text="${procurement.item.itemName}"></td>
               <td th:text="${procurement.procRegisterDate}"></td>
               <td th:text="${procurement.procDuedate}"></td>
-              <td>
-                  <input type="text" name="receiveQuantity">
+              <td >
+
               </td>
               <td th:text="${procurement.procQuantity}" data-proc-quantity="${procurement.procQuantity}"></td>
               <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${procurement.procPlanNumber}"></td>
@@ -152,6 +152,27 @@
       </section>
 
     </div>
+      <div id="myModal" class="modal">
+          <div class="modal-content">
+              <span class="close">&times;</span>
+              <table>
+                  <thead>
+                  <tr>
+                      <th>발주번호</th>
+                      <th>업체명</th>
+                      <th>품목명</th>
+                      <th>발주 수량</th>
+                      <th>검수 현황</th>
+                  </tr>
+                  </thead>
+                  <tbody id="modal-content-body">
+
+                  </tbody>
+              </table>
+              <button id="confirm-button">확인</button>
+          </div>
+      </div>
+
   </div>
 
 
@@ -159,83 +180,135 @@
   <script src="/js/receive.js"></script>
   <script src="/js/index.js"></script>
   <script>
-    $(document).ready(function() {
-      // 저장 버튼 클릭 이벤트 처리
-      $('#issue-order-btn').on('click', function() {
-        // 각 입력된 입고 수량을 가져와서 해당 행의 재고 열에 업데이트
-        $('.procurement-quantity-input').each(function() {
-          var inputQuantity = parseFloat($(this).val()); // 입력된 입고 수량 가져오기
-          var rowIndex = $(this).closest('tr').index(); // 해당 행의 인덱스 가져오기
-          var procurementQuantity = parseFloat($('tbody#procurement-plan-list tr').eq(rowIndex).find('td:eq(6)').text()); // 발주 수량 가져오기
-          console.log("발주 수량:", procurementQuantity);
-          if (!isNaN(procurementQuantity)) {
-            var stockQuantity = parseFloat($(this).closest('tr').find('td:eq(5)').text()); // 기존 재고 수량 가져오기
-            var newStockQuantity = isNaN(stockQuantity) ? 0 : stockQuantity; // 기존 재고 수량이 NaN인 경우 0으로 설정
-            newStockQuantity += inputQuantity; // 새로운 재고 수량 계산
-            $(this).closest('tr').find('td:eq(5)').text(newStockQuantity); // 해당 행의 재고 열에 새로운 값 업데이트
-          }
-        });
+      $(document).ready(function() {
+          var modal = document.getElementById("myModal");
+          var span = document.getElementsByClassName("close")[0];
 
-        // 재고와 발주 수량이 동일한지 확인
-        var allMatch = true;
-        $('#procurement-plan-list tr').each(function() {
-          var procurementQuantity = $(this).find('td:eq(6)').text(); // 발주 수량 가져오기
-          console.log("발주 수량:", procurementQuantity);
-          var stockQuantity = $(this).find('td:eq(5)').text(); // 재고 가져오기
-          console.log("재고 수량:", stockQuantity);
-
-          // NaN 값 처리
-          if (isNaN(procurementQuantity) || isNaN(stockQuantity)) {
-            allMatch = false;
-            return false;
+          window.openModal = function(procPlanNumber, companyName, itemName, procQuantity) {
+              $('#modal-content-body').html(
+                  "<tr>" +
+                  "<td>" + procPlanNumber + "</td>" +
+                  "<td>" + companyName + "</td>" +
+                  "<td>" + itemName + "</td>" +
+                  "<td>" + procQuantity + "</td>" +
+                  "<td>" + "</td>" +
+                  "</tr>"
+              );
+              modal.style.display = "block";
           }
 
-          // 발주 수량과 재고 수량이 다른 경우
-          if (procurementQuantity !== stockQuantity) {
-            allMatch = false;
-            return false;
+          span.onclick = function() {
+              modal.style.display = "none";
           }
-        });
 
-        // 재고와 발주 수량이 동일하면 마감 버튼 표시, 그렇지 않으면 숨김
-        if (allMatch) {
-          $('#close-button').show();
-        } else {
-          $('#close-button').hide();
-        }
+          window.onclick = function(event) {
+              if (event.target === modal) {
+                  modal.style.display = "none";
+              }
+          }
+
+          $('#issue-order-btn').on('click', function() {
+              $('.procurement-quantity-input').each(function() {
+                  var inputQuantity = parseFloat($(this).val());
+                  var rowIndex = $(this).closest('tr').index();
+                  var procurementQuantity = parseFloat($('tbody#procurement-plan-list tr').eq(rowIndex).find('td:eq(6)').text());
+                  if (!isNaN(procurementQuantity)) {
+                      var stockQuantity = parseFloat($(this).closest('tr').find('td:eq(5)').text());
+                      var newStockQuantity = isNaN(stockQuantity) ? 0 : stockQuantity;
+                      newStockQuantity += inputQuantity;
+                      $(this).closest('tr').find('td:eq(5)').text(newStockQuantity);
+                  }
+              });
+
+              var allMatch = true;
+              $('#procurement-plan-list tr').each(function() {
+                  var procurementQuantity = $(this).find('td:eq(6)').text();
+                  var stockQuantity = $(this).find('td:eq(5)').text();
+
+                  if (isNaN(procurementQuantity) || isNaN(stockQuantity) || procurementQuantity !== stockQuantity) {
+                      allMatch = false;
+                      return false;
+                  }
+              });
+
+              if (allMatch) {
+                  $('#close-button').show();
+              } else {
+                  $('#close-button').hide();
+              }
+          });
+
+          $('#close-button').on('click', function() {
+              $('#procurement-plan-list tr').each(function() {
+                  var procPlanNumber = $(this).find("td:eq(0)").text();
+                  var companyName = $(this).find("td:eq(1)").text();
+                  var itemName = $(this).find("td:eq(2)").text();
+                  var purchOrderDate = $(this).find("td:eq(3)").text();
+                  var receiveDuedate = $(this).find("td:eq(4)").text();
+                  var receiveQuantity = $(this).find("td:eq(5)").text();
+                  var procQuantity = $(this).find("td:eq(6)").text();
+
+                  if (procPlanNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && procQuantity) {
+                      var newRow = "<tr>" +
+                          "<td>" + procPlanNumber + "</td>" +
+                          "<td>" + companyName + "</td>" +
+                          "<td>" + itemName + "</td>" +
+                          "<td>" + purchOrderDate + "</td>" +
+                          "<td>" + receiveDuedate + "</td>" +
+                          "<td>" + receiveQuantity + "</td>" +
+                          "<td>" + procQuantity + "</td>" +
+                          "<td><button onclick='openModal(" +
+                          "$(this).closest(\"tr\").find(\"td:eq(0)\").text()," +
+                          "$(this).closest(\"tr\").find(\"td:eq(1)\").text()," +
+                          "$(this).closest(\"tr\").find(\"td:eq(2)\").text()," +
+                          "$(this).closest(\"tr\").find(\"td:eq(6)\").text()" +
+                          ")'>입고완료</button></td>" +
+                          "</tr>";
+
+                      $('#purchase-order-list').append(newRow);
+                  }
+              });
+
+              $('#procurement-plan-list button').on('click', function() {
+                  var $row = $(this).closest('tr');
+                  var procPlanNumber = $row.find('td:eq(0)').text();
+                  var companyName = $row.find('td:eq(1)').text();
+                  var itemName = $row.find('td:eq(2)').text();
+                  var procQuantity = $row.find('td:eq(6)').text();
+                  openModal(procPlanNumber, companyName, itemName, procQuantity);
+              });
+          });
+
+          $('#confirm-button').on('click', function() {
+              var procPlanNumber = $('#modal-content-body').find('td:eq(0)').text();
+              var itemName = $('#modal-content-body').find('td:eq(2)').text();
+              var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
+
+              var receiveDTO = {
+                  receiveQuantity: procQuantity,
+                  procPlanNumber: procPlanNumber,
+                  itemName: itemName
+              };
+
+              $.ajax({
+                  type: "POST",
+                  contentType: "application/json",
+                  url: "/receive/receive",
+                  data: JSON.stringify(receiveDTO),
+                  dataType: 'json',
+                  success: function(response) {
+                      alert('등록되었습니다.');
+                      $('#myModal').hide();
+                  },
+                  error: function (xhr, status, error) {
+                      // 에러 처리
+                      var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
+                      alert(errorMessage);
+                      $('#myModal').hide();
+                  }
+              });
+          });
       });
-
-        $('#close-button').on('click', function() {
-            // 전체 행을 반복하면서 데이터 추출
-            $('#procurement-plan-list tr').each(function() {
-                var procPlanNumber = $(this).find("td:eq(0)").text(); // 발주번호
-                var companyName = $(this).find("td:eq(1)").text(); // 업체명
-                var itemName = $(this).find("td:eq(2)").text(); // 품목명
-                var purchOrderDate = $(this).find("td:eq(3)").text(); // 발주일
-                var receiveDuedate = $(this).find("td:eq(4)").text(); // 조달납기일
-                var receiveQuantity = $(this).find("td:eq(5)").text();
-                var procQuantity = $(this).find("td:eq(6)").text();
-
-
-                // 빈 값은 무시하고 값이 있는 경우만 추가
-                if (procPlanNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && procQuantity) {
-                    // 자재 입출고 리스트에 해당 정보 추가
-                    var newRow = "<tr>" +
-                        "<td>" + procPlanNumber + "</td>" +
-                        "<td>" + companyName + "</td>" +
-                        "<td>" + itemName + "</td>" +
-                        "<td>" + purchOrderDate + "</td>" + // 발주일
-                        "<td>" + receiveDuedate + "</td>" + // 조달납기일
-                        "<td>" + receiveQuantity + "</td>" +
-                        "<td>" + procQuantity + "</td>" +
-                        "<td><button onclick='openModal()'>입고완료</button></td>" +
-                        "</tr>";
-
-                    $('#purchase-order-list').append(newRow);
-                }
-            });
-        });
-    });
   </script>
 </body>
 </html>

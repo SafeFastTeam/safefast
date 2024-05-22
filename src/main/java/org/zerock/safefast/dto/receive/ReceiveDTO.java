@@ -9,11 +9,14 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProcurementDTO {
+public class ReceiveDTO {
+    private Integer receiveNumber;
+
+    private LocalDateTime receiveDate;
+
+    private Integer receiveQuantity;
+
     private String procPlanNumber;
-    private Integer procQuantity;
-    private LocalDateTime procDuedate;
-    private Integer procProgress;
-    private LocalDateTime procRegisterDate;
+
     private String itemCode;
 }

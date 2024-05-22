@@ -1,10 +1,10 @@
 package org.zerock.safefast.service.receive;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.zerock.safefast.dto.receive.ProcurementDTO;
-import org.zerock.safefast.dto.receive.UpdateReceiveQuantityDTO;
+import org.zerock.safefast.dto.receive.ReceiveDTO;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.Receive;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
@@ -12,10 +12,11 @@ import org.zerock.safefast.repository.ReceiveRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class ReceiveService {
 
     private final ReceiveRepository receiveRepository;
@@ -25,43 +26,28 @@ public class ReceiveService {
         return procurementPlanRepository.findAll();
     }
 
-    @Transactional
-    public void updateStockFromReceive(List<UpdateReceiveQuantityDTO> receiveData) {
-        for (UpdateReceiveQuantityDTO data : receiveData) {
-            String procPlanNumber = data.getProcPlanNumber();
-            int receivedQuantity = data.getReceiveQuantity();
+    public void addReceive(ReceiveDTO receiveDTO) {
+        log.info("addReceive called with DTO: {}", receiveDTO);
 
-            ProcurementPlan procurementPlan = procurementPlanRepository.findById(procPlanNumber)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid procurement plan number: " + procPlanNumber));
+        Receive receive = new Receive();
+        receive.setReceiveDate(LocalDateTime.now());
+        receive.setReceiveQuantity(receiveDTO.getReceiveQuantity());
+        receive.setReceiveNumber(receiveDTO.getReceiveNumber()); // ReceiveNumber 설정 추가
 
-            int currentStock = procurementPlan.getProcQuantity();
+        String procPlanNumber = receiveDTO.getProcPlanNumber();
+        Optional<ProcurementPlan> optionalProcurementPlan = procurementPlanRepository.findByProcPlanNumber(procPlanNumber);
 
-            // 기존 재고에 입고 수량을 더하여 재고를 업데이트
-            procurementPlan.setProcQuantity(currentStock + receivedQuantity);
-
-            // 변경된 재고를 데이터베이스에 저장하지 않고, 단순히 업데이트만 합니다.
-            // 따라서 save 메서드를 호출하지 않습니다.
+        if (optionalProcurementPlan.isPresent()) {
+            log.info("ProcurementPlan found: {}", optionalProcurementPlan.get());
+            receive.setProcurementPlan(optionalProcurementPlan.get());
+        } else {
+            log.warn("ProcurementPlan not found for procPlanNumber: {}", procPlanNumber);
+            throw new IllegalArgumentException("Invalid procPlanNumber: " + procPlanNumber);
         }
-    }
 
-    public List<ProcurementDTO> getProcurementData() {
-        // ProcurementPlan 엔티티를 가져옵니다.
-        List<ProcurementPlan> procurementPlans = procurementPlanRepository.findAll();
-
-        // ProcurementPlan 엔티티를 ProcurementDTO로 변환하여 반환합니다.
-        return procurementPlans.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    private ProcurementDTO convertToDTO(ProcurementPlan procurementPlan) {
-        return ProcurementDTO.builder()
-                .procPlanNumber(procurementPlan.getProcPlanNumber())
-                .procQuantity(procurementPlan.getProcQuantity())
-                .procDuedate(procurementPlan.getProcDuedate())
-                .procProgress(procurementPlan.getProcProgress())
-                .procRegisterDate(procurementPlan.getProcRegisterDate())
-                .itemCode(procurementPlan.getItemCode())
-                .build();
+        receiveRepository.save(receive);
+        log.info("Receive entity saved successfully");
     }
 }
+
+

@@ -6,15 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/InventoryItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/InventoryItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/receive/ReceiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/receive/ReceiveController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/receive/ProcurementDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/receive/UpdateReceiveQuantityDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ContractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ContractRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReceiveRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReceiveRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReleasesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ReleasesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/inventory/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/inventory/InventoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/receive/ReceiveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/receive/ReceiveService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/receive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/receive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,9 +97,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-
-    "git-widget-placeholder": "work/inven",
-
+    "git-widget-placeholder": "feat/release/system",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
@@ -163,8 +161,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -186,9 +184,8 @@
       <workItem from="1715852804620" duration="96000" />
       <workItem from="1715852907356" duration="183000" />
       <workItem from="1716162880692" duration="1443000" />
-
       <workItem from="1716184842483" duration="7859000" />
-
+      <workItem from="1716248908131" duration="20785000" />
     </task>
     <servers />
   </component>
