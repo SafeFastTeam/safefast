@@ -1,116 +1,193 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>품목 정보 등록</title>
+    <link rel="stylesheet" href="/css/item.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
 </head>
 <body>
-<h1>품목 정보 등록</h1>
-<form action="/item/register" method="post" enctype="multipart/form-data">
-    <label for="unit">대분류:</label><br>
-    <select id="unit" name="unitCode" required>
-        <option value="">대분류 선택</option>
-        <!-- 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 -->
-        <!-- 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. -->
-        <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
-    </select><br>
-    <label for="assyCode">중분류:</label><br>
-    <select id="assyCode" name="assyCode" required>
-        <option value="">중분류 선택</option>
-        <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
-        <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
-    </select><br>
-    <label for="partCode">소분류:</label><br>
-    <select id="partCode" name="partCode" required>
-        <option value="">소분류 선택</option>
-        <!-- 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 -->
-        <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
-    </select><br>
-    <label for="itemCode">품목 코드:</label><br>
-    <input type="text" id="itemCode" name="itemCode" required><br>
-    <label for="itemName">품목명:</label><br>
-    <input type="text" id="itemName" name="itemName" required><br>
-    <label for="width">가로:</label><br>
-    <input type="number" id="width" name="width" required><br>
-    <label for="length">세로:</label><br>
-    <input type="number" id="length" name="length" required><br>
-    <label for="height">높이:</label><br>
-    <input type="number" id="height" name="height" required><br>
-    <label for="material">재질:</label><br>
-    <input type="text" id="material" name="material" required><br>
-    <label for="blueprintOriginName">도면 파일:</label><br>
-    <input type="file" id="blueprintOriginName" name="blueprintOriginName" accept=".pdf,.jpg,.png" required><br><br>
-    <button type="submit">등록</button>
-</form>
+<th:block th:replace="~{/fragments/fragment1}"></th:block>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>품목 코드</th>
-        <th>품목명</th>
-        <th>가로</th>
-        <th>세로</th>
-        <th>높이</th>
-        <th>재질</th>
-        <th>도면 파일</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
-    <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
-    <tr th:each="item : ${items}">
-        <td th:text="${item.itemCode}"></td>
-        <td th:text="${item.itemName}"></td>
-        <td th:text="${item.width}"></td>
-        <td th:text="${item.length}"></td>
-        <td th:text="${item.height}"></td>
-        <td th:text="${item.material}"></td>
-        <td th:text="${item.blueprintOriginName}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<script th:inline="javascript">
+<div class="container">
+    <th:block th:replace="~{/fragments/fragment2}"></th:block>
+    <div class="content">
+      <div class="item-registration">
+        <h2>품목 정보 등록</h2>
+        <form action="/item/register" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th rowspan="4" class="product-code">품목 분류</th>
+                    <td><label for="unit">대분류</label></td>
+                    <td>
+                    <select id="unit" name="unitCode" required>
+                    <option value="">대분류 선택</option>
+                     <!-- 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 -->
+                     <!-- 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. -->
+                    <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
+                    </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="assyCode">중분류</label></td>
+                    <td>
+                    <select id="assyCode" name="assyCode" required>
+                        <option value="">중분류 선택</option>
+                        <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
+                        <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
+                    </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="partCode">소분류</label></td>
+                    <td>
+                        <select id="partCode" name="partCode" required>
+                            <option value="">소분류 선택</option>
+                            <!-- 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 -->
+                            <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <th><label for="itemCode">품목 코드</label></th>
+                    <td>품목 코드</td><td>
+                    <input type="text" id="itemCode" name="itemCode" required>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th><label for="itemName">품목명</label></th>
+                    <td>품목명</td><td>
+                    <input type="text" id="itemName" name="itemName" required>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th rowspan="4" class="product-spec">규격(mm)</th>
+                    <td><label for="width">가로</label></td>
+                    <td><input type="number" id="width" name="width" required></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="length">세로</label></td>
+                    <td><input type="number" id="length" name="length" required></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="height">높이</label></td>
+                    <td><input type="number" id="height" name="height" required></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="material">재질</label></td>
+                    <td><input type="text" id="material" name="material" required></td>
+                </tr>
+                <tr>
+                    <th><label for="blueprintOriginName">도면 파일</label></th>
+                    <td colspan="3">
+                        <div class="file-upload">
+                            <input type="file" id="blueprintOriginName" name="blueprintOriginName" accept=".pdf,.jpg,.png" required>
+                            <label for="blueprintOriginName" class="button">파일 선택</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="register-button-container">
+                <button type="submit">등록</button>
+            </div>
+        </form>
+      </div>
+        <br>
+        <br>
+      <div class="item-management">
+        <h2>품목 정보 관리</h2>
+        <div class="search-item">
+            <select name="search-option" id="search-option">
+                <option value="code">품목코드</option>
+                <option value="name">품목명</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="검색어 입력" class="search-input">
+            <button onclick="searchItem()" class="search-button">검색</button>
+        </div>
+        <table id="itemTable">
+            <thead>
+            <tr>
+                <th>품목코드</th>
+                <th>품목명</th>
+                <th>규격(mm)</th>
+                <th>재질</th>
+                <th>도면</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
+            <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
+            <tr th:each="item : ${items}">
+                <td th:text="${item.itemCode}"></td>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.width} + 'x' + ${item.length} + 'x' + ${item.height}"></td>
+                <td th:text="${item.material}"></td>
+                <td th:text="${item.blueprintOriginName}"></td>
+            </tr>
+            </tbody>
+        </table>
+          <div class="pagination">
+              <button class="pagination-button">이전</button>
+              <span>1/10 페이지</span>
+              <button class="pagination-button">다음</button>
+          </div>
+      </div>
+    </div>
+</div>
+<script src="item.js"></script>
+<script src="index.js"></script>
+<!--<script>
+<div th:inline="javascript">
     // 대분류 선택에 따라 중분류 내용을 동적으로 변경하는 함수
     document.getElementById('unit').addEventListener('change', function () {
-        var unitCode = this.value;
-        var assyCodeOptions = document.getElementById('assyCode').options;
-        var partCodeOptions = document.getElementById('partCode').options;
+    var unitCode = this.value;
+    var assyCodeOptions = document.getElementById('assyCode').options;
+    var partCodeOptions = document.getElementById('partCode').options;
 
-        // 중분류 내용 초기화
-        assyCodeOptions.length = 1;
-        // 소분류 내용 초기화
-        partCodeOptions.length = 1;
+    // 중분류 내용 초기화
+    assyCodeOptions.length = 1;
+    // 소분류 내용 초기화
+    partCodeOptions.length = 1;
 
-        // 대분류에 따라 중분류 옵션 설정
-        if (unitCode === '충전부') {
-            assyCodeOptions[1] = new Option('Heater', 'Heater');
-        } else if (unitCode === '다른 대분류 값') {
-            // 다른 대분류에 따른 중분류 옵션 설정
-            assyCodeOptions[1] = new Option('다른 중분류1', '다른 중분류1');
-        }
+    // 대분류에 따라 중분류 옵션 설정
+    if (unitCode === '충전부') {
+    assyCodeOptions[1] = new Option('Heater', 'Heater');
+    } else if (unitCode === '다른 대분류 값') {
+    // 다른 대분류에 따른 중분류 옵션 설정
+    assyCodeOptions[1] = new Option('다른 중분류1', '다른 중분류1');
+    }
     });
 
     // 중분류 선택에 따라 소분류 내용을 동적으로 변경하는 함수
     document.getElementById('assyCode').addEventListener('change', function () {
-        var assyCode = this.value;
-        var partCodeOptions = document.getElementById('partCode').options;
-        // 소분류 내용 초기화
-        partCodeOptions.length = 1;
+    var assyCode = this.value;
+    var partCodeOptions = document.getElementById('partCode').options;
+    // 소분류 내용 초기화
+    partCodeOptions.length = 1;
 
-        // 선택된 중분류에 따라 소분류 내용을 설정
-        if (assyCode === '중분류1') {
-            partCodeOptions[1] = new Option('소분류1', '소분류1');
-            partCodeOptions[2] = new Option('소분류2', '소분류2');
-            // 다른 중분류 항목에 따라 소분류 내용 추가
-        } else if (assyCode === '다른 중분류1') {
-            partCodeOptions[1] = new Option('다른 소분류1', '다른 소분류1');
-            partCodeOptions[2] = new Option('다른 소분류2', '다른 소분류2');
-            // 다른 중분류 항목에 따라 소분류 내용 추가
-        }
-        // 다른 중분류 항목에 따라 소분류 내용 추가
+    // 선택된 중분류에 따라 소분류 내용을 설정
+    if (assyCode === '중분류1') {
+    partCodeOptions[1] = new Option('소분류1', '소분류1');
+    partCodeOptions[2] = new Option('소분류2', '소분류2');
+    // 다른 중분류 항목에 따라 소분류 내용 추가
+    } else if (assyCode === '다른 중분류1') {
+    partCodeOptions[1] = new Option('다른 소분류1', '다른 소분류1');
+    partCodeOptions[2] = new Option('다른 소분류2', '다른 소분류2');
+    // 다른 중분류 항목에 따라 소분류 내용 추가
+    }
+    // 다른 중분류 항목에 따라 소분류 내용 추가
     });
-</script>
+</script>-->
 </body>
 </html>
