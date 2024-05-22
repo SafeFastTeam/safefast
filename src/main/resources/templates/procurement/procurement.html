@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>계약 관리</title>
+    <title>조달계획등록</title>
     <link rel="stylesheet" href="/css/procurement.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-  
-  <header>
-    <h1>구매 조달 시스템</h1>
-    <div class="user-info">
-        <span class="username">[사용자의 이름] 님</span>
-        <a href="login.html" class="logout-btn">로그아웃</a>
-    </div>
-  </header>
+<th:block th:replace="~{/fragments/fragment1}"></th:block>
+
   <div class="container">
-      <nav class="sidebar">
+      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+   <!--   <nav class="sidebar">
           <ul>
-              <li><a th:href="@{/}">메인화면</a></li>
+              <li><a th:href="@{/index}">메인화면</a></li>
               <li>
                   <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
                   <ul class="dropdown">
@@ -41,13 +37,13 @@
                   <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
                   <ul class="dropdown">
                       <li><a th:href="@{/templates/receive}">자재 입출고</a></li>
-                      <li><a th:href="@{/invoicing}">거래 명세서 발행</a></li>
+                      <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
                       <li><a th:href="@{/inventory}">재고 산출</a></li>
                       <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
                   </ul>
               </li>
           </ul>
-      </nav>
+      </nav>-->
 
     <div class="content">
         <div class="registration-section">

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자재관리 - 거래 명세서 발행</title>
+  <link rel="stylesheet" href="/css/invoicing.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<th:block th:replace="~{/fragments/fragment1}"></th:block>
+  <div class="container">
+      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+    <div class="content">
+      <section class="purchase-order">
+        <h2>입고완료 품목 리스트</h2>
+        <div class="search-bar">
+          <div class="date-search">
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+            <input type="date" id="date-end" placeholder="종료 날짜">
+            <button id="date-search-btn">검색</button>
+          </div>
+          <div class="keyword-search">
+            <select id="keyword-search-type">
+              <option value="발주번호">발주번호</option>
+              <option value="품목코드">품목코드</option>
+              <option value="item">품목명</option>
+              <option value="company" checked>업체명</option>
+            </select>
+            <input type="text" id="keyword-search" placeholder="키워드 검색">
+            <button id="keyword-search-btn">검색</button>
+          </div>
+        </div>
+        <table class="main-table">
+          <thead>
+            <tr>
+              <th>선택</th>
+              <th>발주번호</th>
+              <th>업체명</th>
+              <th>품목코드</th>
+              <th>품목명</th>
+              <th>발주일</th>
+              <th>입고완료일</th>
+              <th>거래명세서발행</th>
+            </tr>
+          </thead>
+          <tbody id="purchase-order-list">
+              <tr th:each="order : ${purchaseOrders}">
+                  <td><input type="checkbox"></td>
+                  <td th:text="${order.purchOrderNumber}">발주번호</td>
+                  <td th:text="${order.coOpCompany.companyName}">업체명</td>
+                  <td th:text="${order.item.itemCode}">품목코드</td>
+                  <td th:text="${order.item.itemName}">품목명</td>
+                  <td th:text="${order.purchOrderDate}">발주일</td>
+                  <td th:text="${order.receiveDuedate}">입고완료일</td>
+                  <td>
+                      <button class="issue-btn" data-modal="modal1">발행</button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <!-- 모달 1: 검수계획 등록 -->
+  <div id="modal1" class="modal">
+      <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h3>검수 계획 등록</h3>
+          <div class="modal-header">
+              <p>발주번호: <span id="order-no" data-field="purchOrderNumber"></span></p>
+              <p>발주일자: <span data-field="orderDate"></span></p>
+              <p>납기일자: <span data-field="receiveDueDate"></span></p>
+              <p>업체명: <span data-field="companyName"></span></p>
+              <p>사업자등록번호: <span data-field="businessNumber"></span></p>
+              <p>품목코드: <span data-field="itemCode"></span></p>
+              <p>품목명: <span data-field="itemName"></span></p>
+              <p>발주수량: <span data-field="orderQuantity"></span></p>
+          </div>
+      <button id="email">전송</button>
+      <button id="printButton">인쇄</button>
+    </div>
+  </div>
+  <script src="/js/invoicing.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>

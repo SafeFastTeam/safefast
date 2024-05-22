@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자재관리 - 거래 명세서 발행</title>
+  <link rel="stylesheet" href="/css/po_status.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="icon" href="/image/favicon-32x32.png">
+</head>
+<body>
+      <th:block th:replace="~{/fragments/fragment1}"></th:block>
+  <div class="container">
+      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+
+    <div class="content">
+      <h2>현황 관리 그래프</h2>
+
+      <div class="date-search">
+        <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+        <input type="date" id="date-end" placeholder="종료 날짜">
+        <button id="date-search-btn">검색</button>
+      </div>
+        <div id="container1" style="height: 60%; width: 60%;"></div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+  <script type="text/javascript">
+      var dom = document.getElementById('container1');
+      var myChart = echarts.init(dom, null, {
+          renderer: 'canvas',
+          useDirtyRect: false
+      });
+      var app = {};
+
+      var option;
+
+      option = {
+          xAxis: {
+              type: 'category',
+              data: ['총 조달계획', '발주서 발행', '진척 검수', '조달 마감']
+          },
+          yAxis: {
+              type: 'value'
+          },
+          series: [
+              {
+                  data: [20, 10, 4, 3],
+                  type: 'bar',
+                  showBackground: true,
+                  backgroundStyle: {
+                      color: 'rgba(180, 180, 180, 0.2)'
+                  }
+              }
+          ]
+      };
+
+      if (option && typeof option === 'object') {
+          myChart.setOption(option);
+      }
+
+      window.addEventListener('resize', myChart.resize);
+  </script>
+
+  <script src="/js/index.js"></script>
+</body>
+</html>
