@@ -6,47 +6,13 @@
   <title>자재관리 - 거래 명세서 발행</title>
   <link rel="stylesheet" href="/css/po_status.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
+  <link rel="icon" href="/image/favicon-32x32.png">
 </head>
 <body>
-  <header>
-    <h1>구매 조달 시스템</h1>
-    <div class="user-info">
-        <span class="username">[사용자의 이름] 님</span>
-        <a href="login.html" class="logout-btn">로그아웃</a>
-    </div>
-  </header>
+      <th:block th:replace="~{/fragments/fragment1}"></th:block>
   <div class="container">
-      <nav class="sidebar">
-          <ul>
-              <li><a th:href="@{/}">메인화면</a></li>
-              <li>
-                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/item/register}">품목정보등록</a></li>
-                      <li><a th:href="@{/contract/register}">계약 등록</a></li>
-                      <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
-                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
-                      <li><a th:href="@{/po_status/po_status}">발주 진행 현황</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/receive}">자재 입출고</a></li>
-                      <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
-                      <li><a th:href="@{/inventory}">재고 산출</a></li>
-                      <li><a th:href="@{/inventory_management/inventory_management}">재고(금액) 관리</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </nav>
+      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+
     <div class="content">
       <h2>현황 관리 그래프</h2>
 
