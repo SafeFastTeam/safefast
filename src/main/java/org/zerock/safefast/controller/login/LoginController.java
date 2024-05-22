@@ -53,7 +53,7 @@ public class LoginController {
         Member authenticatedUser = loginService.authenticate(new LoginDTO(empNumber, password));
 
         if (authenticatedUser != null) {
-            modelAndView.setViewName("redirect:/member/home");
+            modelAndView.setViewName("redirect:/index");
             log.info("Login successful, redirecting to /member/home");
         } else {
             modelAndView.setViewName("member/login_form");
@@ -121,4 +121,11 @@ public class LoginController {
             return "member/forgot_id_form";
         }
     }
+
+/*    // 로그아웃 처리
+    @GetMapping("/logout")
+    public String logout() {
+        // 로그아웃 처리
+        return "redirect:/member/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
+    }*/
 }
