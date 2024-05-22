@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구매 조달 시스템 헤더</title>
-<!--    <link rel="stylesheet" href="/css/index.css">-->
+    <title>구매 조달 시스템 사이드바</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <style>
         body {
@@ -52,6 +51,12 @@
         .container {
             display: flex;
             height: calc(100vh - 80px);
+        }
+
+        .sidebar-container {
+            min-height: 100vh; /* 최소 높이를 뷰포트의 100%로 설정 */
+            height: auto; /* 자식 요소의 높이에 따라 동적으로 조절되도록 설정 */
+            background-color: #333; /* 원하는 배경색으로 변경 */
         }
 
         .sidebar {
@@ -182,35 +187,43 @@
     </style>
 </head>
 <body>
-    <div th:fragment="header">
-        <header>
-            <h1>
-                <a th:href="@{/index}">
-                <div class="logo">
-                    <img src="/image/sf_logo01.png" alt="세페스트">
-                </div>
-                </a>
-            </h1>
-            <div class="user-info">
-                <span class="username">[th:text="$username"] 님</span>
-                <a href="login.html" class="logout-btn">로그아웃</a>
-            </div>
-        </header>
-    </div>
 
-    <div th:fragment="subnav">
-        <div class="sub-navigation">
-            <div class="breadcrumb">
-                <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
-                <span> > </span>
-                <span>현재 페이지</span>
-            </div>
-            <div class="info-icon">
-                <i class="fas fa-info-circle"></i>
-            </div>
-        </div>
-    </div>
-<!--
+<div th:fragment="sidebar" class="sidebar-container" >
+
+    <nav class="sidebar">
+        <ul>
+            <li><a th:href="@{/}">메인화면</a></li>
+            <li>
+                <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                    <li><a th:href="@{/contract/register}">계약 등록</a></li>
+                    <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
+                    <li><a th:href="@{/progress-check/progress_check_item}">진척 검수 처리</a></li>
+                    <li><a th:href="@{/po_status/po_status}">발주 진행 현황</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
+                <ul class="dropdown">
+                    <li><a th:href="@{/receive/receive}">자재 입출고</a></li>
+                    <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
+                    <li><a th:href="@{/inventory}">재고 산출</a></li>
+                    <li><a th:href="@{/inventory_management/inventory_management}">재고(금액) 관리</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+</div>
+
 <script>
     // 드롭다운 메뉴 기능 구현
     const dropdownMenus = document.querySelectorAll('.sidebar li:has(ul)');
@@ -243,6 +256,6 @@
         }
     }
 
-</script>-->
+</script>
 </body>
 </html>
