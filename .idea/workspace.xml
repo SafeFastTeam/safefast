@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7040d94d-1147-49ba-93c3-0e7e428b1334" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/item.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/item.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/forgot_id_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/forgot_id_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/login_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/login_form.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +119,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716335741125</updated>
       <workItem from="1716335743981" duration="7964000" />
+      <workItem from="1716422545672" duration="9459000" />
     </task>
     <servers />
   </component>
