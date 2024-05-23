@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/contract/ContractController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/main/contract/ContractController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/receive/ReceiveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/receive/ReceiveController.java" afterDir="false" />
@@ -20,7 +19,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
-
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,13 +74,20 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Build safefast.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Language Plugins Notifications&quot;: &quot;Recommended language plugin available&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-WindowsDefender&quot;: &quot;Microsoft Defender configuration&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-Language Plugins Notifications&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-WindowsDefender&quot;: &quot;true&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.SafefastApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+
+    &quot;git-widget-placeholder&quot;: &quot;feat/dev/progressChkItem02&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/safefast/src/main/resources/templates/inventory_management&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -144,8 +149,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -161,8 +166,7 @@
       <workItem from="1716280739414" duration="64000" />
       <workItem from="1716280812390" duration="887000" />
       <workItem from="1716421356446" duration="864000" />
-      <workItem from="1716432348008" duration="430000" />
-
+      <workItem from="1716426512437" duration="6875000" />
     </task>
     <servers />
   </component>

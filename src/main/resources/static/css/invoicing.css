@@ -252,3 +252,14 @@ button:hover {
   float: right;
   margin: 50px 20px 0 0;
 }
+
+.modal-content span {
+  color: #888888;
+  float: right;
+  cursor: pointer;
+}
+
+.modal-header span {
+  color: black;
+}
+

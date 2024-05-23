@@ -1,5 +1,6 @@
 package org.zerock.safefast.controller.purchase_order;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/purchase_order")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PurchaseOrderController {
 
     @Autowired

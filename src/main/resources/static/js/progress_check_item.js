@@ -62,8 +62,34 @@ $(document).ready(function () {
 
     // 저장 버튼 클릭 이벤트 위임
     $(document).on("click", "#modal1 .save-btn", function () {
-        alert("저장되었습니다.");
-        $(this).closest(".modal").hide();
+        var rows = $("#modal1 .modal-table-3 tbody tr");
+        var purchOrderNumber = $("#modal1 #order-no").text();
+        var progressCheckItems = [];
+
+        rows.each(function (index, row) {
+            var date = $(row).find(".inspection-date").val();
+            if (date) {
+                progressCheckItems.push({
+                    progCheckDate: date,
+                    progCheckOrder: index + 1,
+                    purchOrderNumber: purchOrderNumber
+                });
+            }
+        });
+
+        $.ajax({
+            url: "/progress_check_item/save",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(progressCheckItems),
+            success: function (response) {
+                alert(response);
+                $("#modal1").hide();
+            },
+            error: function () {
+                alert("저장에 실패했습니다. 다시 시도해주세요.");
+            }
+        });
     });
 
     // 삭제 버튼 클릭 이벤트 위임
