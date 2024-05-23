@@ -117,21 +117,21 @@
               <tr th:each="productionPlan : ${productionPlans}">
                   <td th:text="${productionPlan.prodStartDate}"></td>
                   <td th:text="${productionPlan.prodEndDate}"></td>
-                  <td th:text="${productionPlan.product != null ? productionPlan.product.productCode : 'N/A'}"></td>
-                  <td th:text="${productionPlan.product != null ? productionPlan.product.productName : 'N/A'}"></td>
+                  <td th:text="${productionPlan.product.productCode}"></td>
+                  <td th:text="${productionPlan.product.productName}"></td>
                   <td th:text="${productionPlan.prodQuantity}"></td>
-                  <td th:text="${productionPlan.item != null ? productionPlan.item.itemCode : 'N/A'}"></td>
-                  <td th:text="${productionPlan.item != null ? productionPlan.item.itemName : 'N/A'}"></td>
+                  <td th:text="${productionPlan.item.itemCode}"></td>
+                  <td th:text="${productionPlan.item.itemName}"></td>
 
                   <td>
                       <button class="register-button"
                               th:data-prod-start-date="${productionPlan.prodStartDate}"
                               th:data-prod-end-date="${productionPlan.prodEndDate}"
-                              th:data-product-code="${productionPlan.product != null ? productionPlan.product.productCode : 'N/A'}"
-                              th:data-product-name="${productionPlan.product != null ? productionPlan.product.productName : 'N/A'}"
+                              th:data-product-code="${productionPlan.product.productCode}"
+                              th:data-product-name="${productionPlan.product.productName}"
                               th:data-prod-quantity="${productionPlan.prodQuantity}"
-                              th:data-item-code="${productionPlan.item != null ? productionPlan.item.itemCode : 'N/A'}"
-                              th:data-item-name="${productionPlan.item != null ? productionPlan.item.itemName : 'N/A'}">
+                              th:data-item-code="${productionPlan.item.itemCode}"
+                              th:data-item-name="${productionPlan.item.itemName}">
                           등록
                       </button>
                   </td>

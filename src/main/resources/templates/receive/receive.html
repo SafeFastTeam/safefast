@@ -43,7 +43,7 @@
               <td>0</td>
               <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
               <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
-<!--              <td th:text="${purchase.procurement.procProgress}" style="display: none;"></td>-->
+              <td th:text="${purchase.purchProgress}" style="display: none;"></td>
           </tr>
           </tbody>
         </table>
@@ -63,9 +63,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr th:each="receive: ${receives}">
               <td></td>
-              <td></td>
+              <td th:text="${receive.item.itemName}"></td>
               <td></td>
               <td></td>
               <td></td>
@@ -240,35 +240,39 @@
 
           });
 
-          $('#confirm-button').on('click', function() {
-              var procPlanNumber = $('#modal-content-body').find('td:eq(0)').text();
-              var itemName = $('#modal-content-body').find('td:eq(2)').text();
-              var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
+        $('#confirm-button').on('click', function() {
+          var purchOrderNumber = $('#modal-content-body').find('td:eq(0)').text();
+          var itemName = $('#modal-content-body').find('td:eq(2)').text();
+          var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
 
-              var receiveDTO = {
-                  receiveQuantity: procQuantity,
-                  procPlanNumber: procPlanNumber,
-                  itemName: itemName
-              };
+          if (!purchOrderNumber || !itemName || !procQuantity) {
+            alert('필수 정보를 입력해주세요.');
+            return;
+          }
 
-              $.ajax({
-                  type: "POST",
-                  contentType: "application/json",
-                  url: "/receive/receive",
-                  data: JSON.stringify(receiveDTO),
-                  dataType: 'json',
-                  success: function(response) {
-                      alert('등록되었습니다.');
-                      $('#myModal').hide();
-                  },
-                  error: function (xhr, status, error) {
-                      // 에러 처리
-                      var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
-                      alert(errorMessage);
-                      $('#myModal').hide();
-                  }
-              });
+          var receiveDTO = {
+            receiveQuantity: procQuantity,
+            purchOrderNumber: purchOrderNumber,
+            itemName: itemName
+          };
+
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/receive/receive",
+            data: JSON.stringify(receiveDTO),
+            dataType: 'json',
+            success: function(response) {
+              alert('등록되었습니다.');
+              $('#myModal').hide();
+            },
+            error: function (xhr, status, error) {
+              var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
+              alert(errorMessage);
+              $('#myModal').hide();
+            }
           });
+        });
       });
   </script>
 </body>

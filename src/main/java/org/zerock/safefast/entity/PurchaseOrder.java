@@ -36,6 +36,9 @@ public class PurchaseOrder {
     private LocalDateTime receiveDuedate;
 
     @Column
+    private Integer purchProgress;
+
+    @Column
     private String procPlanNumber;
 
     @ManyToOne
