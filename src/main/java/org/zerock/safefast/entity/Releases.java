@@ -26,7 +26,12 @@ public class Releases {
     @Column
     private Integer releaseQuantity;
 
-    @Column
-    private String itemCode;
+    @ManyToOne
+    @JoinColumn(name = "itemCode")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "receiveNumber")
+    private Receive receive;
 
 }
