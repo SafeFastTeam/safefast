@@ -261,3 +261,7 @@ td {
 .register-btn {
   float: right;
 }
+
+.modal-header span {
+  color: black;
+}

@@ -14,13 +14,15 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-/*@RequestMapping("/progress-check")*/
+@RequestMapping("/progress_check_item")
 public class ProgressCheckItemController {
 
     private final PurchaseOrderService purchaseOrderService;
+    private final ProgressCheckItemService progressCheckItemService;
 
-    public ProgressCheckItemController(PurchaseOrderService purchaseOrderService) {
+    public ProgressCheckItemController(PurchaseOrderService purchaseOrderService, ProgressCheckItemService progressCheckItemService) {
         this.purchaseOrderService = purchaseOrderService;
+        this.progressCheckItemService = progressCheckItemService;
     }
 
     @PostMapping("/progress_check/purchase_order_details")
@@ -35,15 +37,22 @@ public class ProgressCheckItemController {
         return purchaseOrderService.getPurchaseOrderDetails(purchOrderNumber);
     }
 
-    @GetMapping("/progress-check")
+    @GetMapping("/progress_check_item")
     public String progressCheck(Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderService.getAllPurchaseOrders();
         model.addAttribute("purchaseOrders", purchaseOrders);
-        return "/progress-check/progress_check_item";
+        return "/progress_check_item/progress_check_item";
     }
 
     @GetMapping("/purchaseOrders")
     public List<PurchaseOrderResponse> getPurchaseOrders() {
         return purchaseOrderService.getPurchaseOrders();
+    }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public String saveProgressCheckItems(@RequestBody List<ProgressCheckItem> progressCheckItems) {
+        progressCheckItemService.saveProgressCheckItems(progressCheckItems);
+        return "/progress_check_item/progress_check_item";
     }
 }
