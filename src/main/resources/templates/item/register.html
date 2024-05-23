@@ -22,23 +22,24 @@
                     <th rowspan="4" class="product-code">품목 분류</th>
                     <td><label for="unit">대분류</label></td>
                     <td>
-                    <select id="unit" name="unitCode" required>
-                    <option value="">대분류 선택</option>
-                     <!-- 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 -->
-                     <!-- 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. -->
-                    <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
-                    </select>
+
+                        <select id="unit" name="unitCode" required>
+                            <option value="">대분류 선택</option>
+                            <!-- 대분류 항목을 서버에서 받아와서 선택 옵션에 추가 -->
+                            <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
+                        </select>
                     </td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><label for="assyCode">중분류</label></td>
                     <td>
-                    <select id="assyCode" name="assyCode" required>
-                        <option value="">중분류 선택</option>
-                        <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
-                        <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
-                    </select>
+                        <select id="assyCode" name="assyCode" required>
+                            <option value="">중분류 선택</option>
+                            <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
+                            <!-- 수정된 부분: 동적 변경 기능을 비활성화하여, 서버에서 한 번에 받은 중분류 목록을 그대로 출력 -->
+                            <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
+                        </select>
                     </td>
                     <td></td>
                 </tr>
@@ -50,6 +51,34 @@
                             <!-- 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 -->
                             <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
                         </select>
+                   <!-- <select id="unit" name="unitCode" required>
+                    <option value="">대분류 선택</option>
+                     &lt;!&ndash; 대분류 항목을 unit 테이블에서 가져와서 선택 옵션에 추가 &ndash;&gt;
+                     &lt;!&ndash; 예시로 하나의 항목만 가져오도록 했습니다. 필요에 따라 수정하세요. &ndash;&gt;
+                    <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
+                    </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="assyCode">중분류</label></td>
+                    <td>
+                    <select id="assyCode" name="assyCode" required>
+                        <option value="">중분류 선택</option>
+                        &lt;!&ndash; 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 &ndash;&gt;
+                        <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
+                    </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="partCode">소분류</label></td>
+                    <td>
+                        <select id="partCode" name="partCode" required>
+                            <option value="">소분류 선택</option>
+                            &lt;!&ndash; 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 &ndash;&gt;
+                            <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
+                        </select>-->
                     </td>
                     <td></td>
                 </tr>
@@ -69,7 +98,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <th rowspan="4" class="product-spec">규격(mm)</th>
+                    <th rowspan="3" class="product-spec">규격(mm)</th>
                     <td><label for="width">가로</label></td>
                     <td><input type="number" id="width" name="width" required></td>
                     <td></td>
@@ -85,7 +114,8 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><label for="material">재질</label></td>
+                    <th><label for="material">재질</label></th>
+                    <td>재질</td>
                     <td><input type="text" id="material" name="material" required></td>
                 </tr>
                 <tr>
@@ -137,16 +167,22 @@
             </tr>
             </tbody>
         </table>
-          <div class="pagination">
+<!--          <div class="pagination">
               <button class="pagination-button">이전</button>
               <span>1/10 페이지</span>
               <button class="pagination-button">다음</button>
+          </div>-->
+
+          <div class="pagination">
+              <button class="pagination-button" onclick="previousPage()">이전</button>
+              <span style="text-decoration-color: #333333; color: #333333;" id="currentPage">1</span>/<span style="color: #333333;" id="totalPages">1</span> 페이지
+              <button class="pagination-button" onclick="nextPage()">다음</button>
           </div>
       </div>
     </div>
 </div>
 <script src="item.js"></script>
-<script src="index.js"></script>
+<!--<script src="index.js"></script>-->
 <!--<script>
 <div th:inline="javascript">
     // 대분류 선택에 따라 중분류 내용을 동적으로 변경하는 함수
