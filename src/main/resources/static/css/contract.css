@@ -155,6 +155,18 @@ th {
   color: #000;
 }
 
+#td-color span {
+  color: black;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 input[type="text"] {
   width: 200px;
   padding: 8px;

@@ -3,6 +3,7 @@ package org.zerock.safefast.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "procurementPlan")
 @DynamicUpdate
 public class Receive {
     @Id
@@ -21,15 +22,17 @@ public class Receive {
     private Integer receiveNumber;
 
     @Column
+    @CreatedDate
     private LocalDateTime receiveDate;
 
     @Column
     private Integer receiveQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "procPlanNumber")
-    private ProcurementPlan procurementPlan;
+    @JoinColumn(name = "purchOrderNumber")
+    private PurchaseOrder purchaseOrder;
 
-    @Column
-    private String itemCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemCode")
+    private Item item;
 }

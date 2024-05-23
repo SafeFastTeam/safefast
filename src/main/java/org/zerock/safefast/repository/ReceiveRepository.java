@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface ReceiveRepository extends JpaRepository<Receive, Integer> {
-    Optional<Receive> findByProcurementPlan(ProcurementPlan procurementPlan);
 
-    @Query("SELECT SUM(r.receiveQuantity) FROM Receive r WHERE r.itemCode = :itemCode")
+    @Query("SELECT SUM(r.receiveQuantity) FROM Receive r WHERE r.item = :itemCode")
     Integer sumQuantityByItem(Item item);
 }

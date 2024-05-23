@@ -74,6 +74,6 @@ public class ItemController {
         }
 
         model.addAttribute("successMessage", "아이템이 성공적으로 등록되었습니다.");
-        return "member/home";
+        return "redirect:item/register";
     }
 }

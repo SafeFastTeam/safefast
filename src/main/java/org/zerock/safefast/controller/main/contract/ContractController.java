@@ -1,4 +1,4 @@
-package org.zerock.safefast.controller.contract;
+package org.zerock.safefast.controller.main.contract;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

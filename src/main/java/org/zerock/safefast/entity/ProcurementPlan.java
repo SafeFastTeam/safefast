@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "receives")
 @DynamicUpdate
 public class ProcurementPlan {
 
@@ -51,8 +51,6 @@ public class ProcurementPlan {
     @Column
     private String itemCode;
 
-    @OneToMany(mappedBy = "procurementPlan")
-    private List<Receive> receives;
 
     public void generateProcPlanNumber() {
         // 임의의 키 생성 로직을 구현하여 값을 설정
