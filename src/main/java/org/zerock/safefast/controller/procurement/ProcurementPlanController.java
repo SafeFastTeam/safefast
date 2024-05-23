@@ -18,6 +18,7 @@ import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.procurement.ProductionPlanService;
 
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,7 @@ public class ProcurementPlanController {
             System.out.println("procDueDate: " + procurementPlan.getProcDuedate());
             System.out.println("procProgress: " + procurementPlan.getProcProgress());
             System.out.println("itemCode: " + procurementPlan.getItemCode());
+            System.out.println("productCode: " + procurementPlan.getProductCode());
 
             procurementPlanService.saveProcurementPlan(procurementPlan);
         } catch (Exception e) {

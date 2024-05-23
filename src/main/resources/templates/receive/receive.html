@@ -63,9 +63,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr th:each="receive: ${receives}">
               <td></td>
-              <td></td>
+              <td th:text="${receive.item.itemName}"></td>
+
               <td></td>
               <td></td>
               <td></td>
@@ -149,14 +150,14 @@
           var modal = document.getElementById("myModal");
           var span = document.getElementsByClassName("close")[0];
 
-          window.openModal = function(purchOrderNumber, companyName, itemName, purchOrderQuantity, procProgress) {
+          window.openModal = function(purchOrderNumber, companyName, itemName, purchOrderQuantity, purchProgress) {
               $('#modal-content-body').html(
                   "<tr>" +
                   "<td>" + purchOrderNumber + "</td>" +
                   "<td>" + companyName + "</td>" +
                   "<td>" + itemName + "</td>" +
                   "<td>" + purchOrderQuantity + "</td>" +
-                  "<td>" + procProgress + "</td>" +
+                  "<td>" + purchProgress + "</td>" +
                   "</tr>"
               );
               modal.style.display = "block";
@@ -205,25 +206,25 @@
 
           $('#close-button').on('click', function() {
               $('#procurement-plan-list tr').each(function() {
-                  var procPlanNumber = $(this).find("td:eq(0)").text();
+                  var purchOrderNumber = $(this).find("td:eq(0)").text();
                   var companyName = $(this).find("td:eq(1)").text();
                   var itemName = $(this).find("td:eq(2)").text();
                   var purchOrderDate = $(this).find("td:eq(3)").text();
                   var receiveDuedate = $(this).find("td:eq(4)").text();
                   var receiveQuantity = $(this).find("td:eq(5)").text();
-                  var procQuantity = $(this).find("td:eq(6)").text();
-                  var procProgress = $(this).find("td:eq(8)").text();
+                  var purchOrderQuantity = $(this).find("td:eq(6)").text();
+                  var purchProgress = $(this).find("td:eq(8)").text();
 
-                  if (procPlanNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && procQuantity && procProgress) {
+                  if (purchOrderNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && purchOrderQuantity && purchProgress) {
                       var newRow = "<tr>" +
-                          "<td>" + procPlanNumber + "</td>" +
+                          "<td>" + purchOrderNumber + "</td>" +
                           "<td>" + companyName + "</td>" +
                           "<td>" + itemName + "</td>" +
                           "<td>" + purchOrderDate + "</td>" +
                           "<td>" + receiveDuedate + "</td>" +
                           "<td>" + receiveQuantity + "</td>" +
-                          "<td>" + procQuantity + "</td>" +
-                          "<td style=\"display: none;\">" + procProgress + "</td>" +
+                          "<td>" + purchOrderQuantity + "</td>" +
+                          "<td style=\"display: none;\">" + purchProgress + "</td>" +
                           "<td><button onclick='openModal(" +
                           "$(this).closest(\"tr\").find(\"td:eq(0)\").text()," +
                           "$(this).closest(\"tr\").find(\"td:eq(1)\").text()," +
@@ -240,35 +241,39 @@
 
           });
 
-          $('#confirm-button').on('click', function() {
-              var procPlanNumber = $('#modal-content-body').find('td:eq(0)').text();
-              var itemName = $('#modal-content-body').find('td:eq(2)').text();
-              var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
+        $('#confirm-button').on('click', function() {
+          var purchOrderNumber = $('#modal-content-body').find('td:eq(0)').text();
+          var itemName = $('#modal-content-body').find('td:eq(2)').text();
+          var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
 
-              var receiveDTO = {
-                  receiveQuantity: procQuantity,
-                  procPlanNumber: procPlanNumber,
-                  itemName: itemName
-              };
+          if (!purchOrderNumber || !itemName || !procQuantity) {
+            alert('필수 정보를 입력해주세요.');
+            return;
+          }
 
-              $.ajax({
-                  type: "POST",
-                  contentType: "application/json",
-                  url: "/receive/receive",
-                  data: JSON.stringify(receiveDTO),
-                  dataType: 'json',
-                  success: function(response) {
-                      alert('등록되었습니다.');
-                      $('#myModal').hide();
-                  },
-                  error: function (xhr, status, error) {
-                      // 에러 처리
-                      var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
-                      alert(errorMessage);
-                      $('#myModal').hide();
-                  }
-              });
+          var receiveDTO = {
+            receiveQuantity: procQuantity,
+            purchOrderNumber: purchOrderNumber,
+            itemName: itemName
+          };
+
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/receive/receive",
+            data: JSON.stringify(receiveDTO),
+            dataType: 'json',
+            success: function(response) {
+              alert('등록되었습니다.');
+              $('#myModal').hide();
+            },
+            error: function (xhr, status, error) {
+              var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
+              alert(errorMessage);
+              $('#myModal').hide();
+            }
           });
+        });
       });
   </script>
 </body>
