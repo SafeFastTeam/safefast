@@ -18,6 +18,8 @@ public class ProgressCheckItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    private Integer progCheckNumber;
+
     private Integer progCheckOrder;
 
     private String progCheckDate;
@@ -28,7 +30,11 @@ public class ProgressCheckItem {
 
     private String supplementation;
 
-    private String purchOrderNumber;
+    @ManyToOne
+    @JoinColumn(name = "procPlanNumber")
+    private ProcurementPlan procurementPlan;
 
-    private String procPlanNumber;
+    @ManyToOne
+    @JoinColumn(name = "purchOrderNumber")
+    private PurchaseOrder purchaseOrder;
 }

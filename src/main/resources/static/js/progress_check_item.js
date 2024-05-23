@@ -15,7 +15,6 @@ $(document).ready(function () {
         // 모달 초기화
         resetModal();
 
-
         // AJAX 요청으로 발주서 세부 정보 가져오기
         $.ajax({
             url: "/purchase_order/" + purchOrderNumber,
@@ -46,6 +45,12 @@ $(document).ready(function () {
 
     // 검수 계획 행 추가 이벤트
     $(document).on("click", ".add-btn", function () {
+        var rowCount = $("#modal1 .modal-table-3 tbody tr").length;
+        if (rowCount >= 3) {
+            alert("최대 3개의 행만 추가할 수 있습니다.");
+            return;
+        }
+
         var newRow = `
             <tr>
                 <td></td>
@@ -100,7 +105,7 @@ $(document).ready(function () {
 
     // 닫기 버튼 클릭 이벤트
     $(".modal-footer .close-btn").click(function () {
-            $(this).closest(".modal").hide();
+        $(this).closest(".modal").hide();
     });
 
     // 행 인덱스 업데이트 함수
