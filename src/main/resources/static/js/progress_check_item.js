@@ -46,6 +46,12 @@ $(document).ready(function () {
 
     // 검수 계획 행 추가 이벤트
     $(document).on("click", ".add-btn", function () {
+        var rowCount = $("#modal1 .modal-table-3 tbody tr").length;
+        if (rowCount >= 3) {
+            alert("최대 3개의 행만 추가할 수 있습니다.");
+            return;
+        }
+
         var newRow = `
             <tr>
                 <td></td>
