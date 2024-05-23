@@ -210,10 +210,22 @@
             </div>
         </div>
     </div>
-<!--
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>페이지 이용방법</h2> <hr>
+            <p>이 페이지는 포탈 페이지입니다.</p>
+            <p>1. 측면 메뉴 선택지를 클릭하여, 각각의 항목으로 이동할 수 있습니다.</p>
+            <p>2. 메인 화면의 선택지를 클릭하여, 각각의 항목으로 이동할 수 있습니다.</p>
+            <p>3. 홈 버튼을 클릭하여, 언제든 메인 페이지로 이동할 수 있습니다.</p>
+            <p>4. 조달관리, 발주관리, 자재관리를 클릭하면 하위 메뉴를 계속 볼 수 있습니다.</p>
+            <p>5. 해당 항목을 다시 한 번 클릭하면, 하위 항목들을 닫을 수 있습니다.</p>
+        </div>
+    </div>
+
 <script>
     // 드롭다운 메뉴 기능 구현
-    const dropdownMenus = document.querySelectorAll('.sidebar li:has(ul)');
+/*    const dropdownMenus = document.querySelectorAll('.sidebar li:has(ul)');
     dropdownMenus.forEach(menu => {
         const dropdownMenu = menu.querySelector('ul');
         const dropdownToggle = menu.querySelector('a');
@@ -222,7 +234,7 @@
             event.preventDefault(); // 링크 이동 방지
             dropdownMenu.classList.toggle('show');
         });
-    });
+    });*/
 
     // 모달 창 열기/닫기 기능 추가
     var modal = document.getElementById("infoModal");
@@ -243,6 +255,6 @@
         }
     }
 
-</script>-->
+</script>
 </body>
 </html>

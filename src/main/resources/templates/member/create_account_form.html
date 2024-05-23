@@ -3,117 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-
-        main {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .sections {
-            display: flex;
-            justify-content: space-around;
-            margin: 40px 10px;
-            gap: 20px;
-        }
-
-        section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 30%;
-        }
-
-        section h2 {
-            color: #066278;
-        }
-
-        section a {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: larger;
-            font-weight: 600;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn {
-            background-color: #066278;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #054a5e;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        #create_account_form {
-            display: flex;
-            flex-direction: column;
-            width: 300px; /* 폼의 너비 조정 */
-            margin: auto; /* 가운데 정렬 */
-        }
+<!--    <style>
 
         label {
+            text-align: left;
             margin-bottom: 5px; /* 레이블 아래 간격 추가 */
         }
 
-        input, button {
-            margin-bottom: 10px; /* 인풋과 버튼 아래 간격 추가 */
-            padding: 5px; /* 간격 조정 */
-        }
-
-        input[type="text"], input[type="number"] , input[type="password"] , input[type="email"] {
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ccc;
-        }
-    </style>
+    </style>-->
 </head>
 <body>
     <main>
-        <h2>회원가입</h2>
-        <div class="logo">
-            <img src="/image/sf_logo01.png" alt="세페스트">
-        </div>
-        <div class="sections">
-            <section>
+        <div class="register-container">
+            <h4>구 매 조 달 시 스 템</h4>
+            <div class="logo">
+                <img src="/image/sf_logo01.png" alt="세페스트">
+            </div>
                 <form th:action="@{/member/create_account_form}" method="post" id="create_account_form">
                     <label for="empNumber">아이디</label>
-                    <input type="text" id="empNumber" name="empNumber" placeholder="아이디를 입력하세요" autofocus required>
-
-                    <label for="password">비밀번호</label>
-                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
-
-                    <label for="passwordAgain">비밀번호 확인</label>
-                    <input type="password" id="passwordAgain" name="passwordAgain" placeholder="비밀번호를 다시 입력하세요" required>
-
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
-
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+                    <input type="text" class="input-field" id="empNumber" name="empNumber" placeholder="아이디를 입력하세요" autofocus required>
                     <br>
-                    <button type="submit" class="btn">가입</button>
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="input-field" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                    <br>
+                    <label for="passwordAgain">비밀번호 확인</label>
+                    <input type="password" class="input-field" id="passwordAgain" name="passwordAgain" placeholder="비밀번호를 다시 입력하세요" required>
+                    <br>
+                    <label for="name">이름</label>
+                    <input type="text" class="input-field" id="name" name="name" placeholder="이름을 입력하세요" required>
+                    <br>
+                    <label for="email">이메일</label>
+                    <input type="email" class="input-field" id="email" name="email" placeholder="이메일을 입력하세요" required>
+                    <br>
+                    <button type="submit" class="register-btn">회원가입</button>
                 </form>
 
                 <script>
@@ -128,7 +53,6 @@
                         return true; // 폼 제출 허용
                     }
                 </script>
-            </section>
         </div>
     </main>
 </body>
