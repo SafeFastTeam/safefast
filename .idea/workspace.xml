@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProgressCheckItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProgressCheckItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" afterDir="false" />
-    </list>
+    <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
