@@ -6,10 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/progress/ProgressCheckItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/progress/ProgressCheckItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/progress/ProgressCheckItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/progress/ProgressCheckItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/progress_check_item.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/progress_check_item.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/progress_check_item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/progress-check/progress_check_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/progress_check_item/progress_check_item.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,14 +56,12 @@
     </option>
   </component>
   <component name="Git.Settings">
-
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2glmrIegZUWBfRgy7MsTsrstYwo" />
-
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -64,17 +69,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Build safefast.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Language Plugins Notifications&quot;: &quot;Recommended language plugin available&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-WindowsDefender&quot;: &quot;Microsoft Defender configuration&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-Language Plugins Notifications&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-WindowsDefender&quot;: &quot;true&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.SafefastApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/dev/progressChkItem01&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/dev/progressChkItem02&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/safefast/src/main/resources/templates/inventory_management&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -82,7 +92,6 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-
   }
 }</component>
   <component name="RecentsManager">
@@ -137,18 +146,15 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-
         <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
         <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
-
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-
-      <changelist id="7040d94d-1147-49ba-93c3-0e7e428b1334" name="Changes" comment="" />
+      <changelist id="fa655b51-9cd1-4d61-a6fd-0629ed292578" name="Changes" comment="" />
       <created>1716280737421</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -156,12 +162,11 @@
       <workItem from="1716280739414" duration="64000" />
       <workItem from="1716280812390" duration="887000" />
       <workItem from="1716421356446" duration="864000" />
-
+      <workItem from="1716426512437" duration="6875000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-
 </project>
