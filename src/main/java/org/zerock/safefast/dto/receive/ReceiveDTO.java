@@ -16,7 +16,9 @@ public class ReceiveDTO {
 
     private Integer receiveQuantity;
 
-    private String procPlanNumber;
+    private String purchOrderNumber;
 
     private String itemCode;
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
 import org.zerock.safefast.entity.ProcurementPlan;
+import org.zerock.safefast.entity.PurchaseOrder;
 import org.zerock.safefast.service.receive.ReceiveService;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class ReceiveController {
 
     @GetMapping("/receive")
     public String showReceivePage(Model model) {
-        List<ProcurementPlan> procurementPlanList = receiveService.getAllProcurementPlan();
-        model.addAttribute("procurements", procurementPlanList);
+        List<PurchaseOrder> purchaseOrderList = receiveService.getAllPurchaseOrder();
+        model.addAttribute("purchases", purchaseOrderList);
         return "receive/receive";
     }
 

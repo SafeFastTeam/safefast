@@ -29,8 +29,8 @@ public class Receive {
     private Integer receiveQuantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "procPlanNumber")
-    private ProcurementPlan procurementPlan;
+    @JoinColumn(name = "purchOrderNumber")
+    private PurchaseOrder purchaseOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemCode")

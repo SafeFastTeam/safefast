@@ -86,18 +86,58 @@
                     <th>계약서</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="td-color">
                 <tr th:each="item : ${items}">
                     <td class="item-row">
                         <span class="itemCode" th:text="${item.itemCode}"></span>
-                        <span class="itemName" th:text="${item.itemName}"></span>
+                        <span class="itemName" th:text="${item.itemName}" style="display: none;"></span>
                     </td>
                     <td th:text="${item.itemName}"></td>
-                    <td th:each="contract : ${item.contracts}" th:text="${contract.contractNumber}"></td>
-                    <td th:each="contract : ${item.contracts}" th:text="${contract.coOpCompany.companyName}"></td>
-                    <td th:each="contract : ${item.contracts}" th:text="${contract.coOpCompany.businessNumber}"></td>
-                    <td th:each="contract : ${item.contracts}" th:text="${contract.itemPrice}"></td>
-                    <td th:each="contract : ${item.contracts}" th:text="${contract.leadTime}"></td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contracts}">
+                                <li>
+                                    <span th:text="${contract.contractNumber}"></span>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contracts}">
+                                <li>
+                                    <span th:text="${contract.coOpCompany.companyName}"></span>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contracts}">
+                                <li>
+                                    <span th:text="${contract.coOpCompany.businessNumber}"></span>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contracts}">
+                                <li>
+                                    <span th:text="${contract.itemPrice}"></span>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contracts}">
+                                <li>
+                                    <span th:text="${contract.leadTime}"></span>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
                 </tr>
                 </tbody>
             </table>
