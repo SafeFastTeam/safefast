@@ -1,28 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sections {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 10px;
+            gap: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        section h2 {
+            color: #066278;
+        }
+
+        section a {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: larger;
+            font-weight: 600;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn {
+            background-color: #066278;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #054a5e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+        #find_container {
+            display: flex;
+            flex-direction: column;
+            width: 300px; /* 폼의 너비 조정 */
+            margin: auto; /* 가운데 정렬 */
+        }
+
+        label {
+            margin-bottom: 5px; /* 레이블 아래 간격 추가 */
+        }
+
+        input, button {
+            margin-bottom: 10px; /* 인풋과 버튼 아래 간격 추가 */
+            padding: 5px; /* 간격 조정 */
+        }
+
+        input[type="text"], input[type="email"] {
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
 </head>
-<body id="full_body">
-<div id="find_container">
-    <h3>아이디찾기</h3>
-    <div id="find_wrap">
-        <form method="post" action="/member/forgot_id">
-            <div class="form_list">
-                <div class="form_item">
-                    <label for="name"></label>
-                    <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
-                </div>
-                <hr>
-                <div class="form_item">
-                    <label for="email"></label>
-                    <input type="email" id="email" name="email" required placeholder="이메일을 입력하세요">
-                </div>
-            </div>
-            <button class="find_button" type="submit">아이디 찾기</button>
-        </form>
+<body>
+    <main>
+    <div id="find_container">
+        <h2>아이디찾기</h2>
+        <div class="logo">
+            <img src="/image/sf_logo01.png" alt="세페스트">
+        </div>
+        <div class="sections">
+            <section>
+                <form method="post" action="/member/forgot_id">
+                    <div class="form_list">
+                        <div class="form_item">
+                            <label for="name"></label>
+                            <input type="text" id="name" name="name" required placeholder="이름을 입력하세요">
+                        </div>
+                        <hr>
+                        <div class="form_item">
+                            <label for="email"></label>
+                            <input type="email" id="email" name="email" required placeholder="이메일을 입력하세요">
+                        </div>
+                    </div>
+                    <button class="btn" type="submit">아이디 찾기</button>
+                </form>
+
+                <script>
+                    function validateForm() {
+                        const inputs = document.querySelectorAll('input[required]');
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (!inputs[i].value) {
+                                alert("빈 칸을 채워주세요.");
+                                return false; // 폼 제출 방지
+                            }
+                        }
+                        return true; // 폼 제출 허용
+                    }
+                </script>
+
+            </section>
+        </div>
     </div>
-</div>
+    </main>
 </body>
 </html>
