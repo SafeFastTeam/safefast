@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구매 조달 시스템 헤더</title>
+<!--    <link rel="stylesheet" href="/css/index.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .username {
+            margin-right: 10px;
+        }
+
+        .logout-btn {
+            background-color: #066278;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #054a5e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar li a:hover {
+            background-color: #066278;
+        }
+
+        .sidebar li a i {
+            margin-right: 5px;
+        }
+
+        .dropdown li a {
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .dropdown li a i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .dropdown {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .sidebar li:hover .dropdown {
+            display: block;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            align-items: center; /* 수직 가운데 정렬 */
+        }
+
+        .logo img {
+            width: 200px;
+            height: 40px;
+        }
+
+        /* 추가 */
+
+        span {
+            color: white;
+        }
+
+        .sub-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px 30px;
+            background-color: #333;
+        }
+
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .info-icon {
+            cursor: pointer;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 7px;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div th:fragment="header">
+        <header>
+            <h1>
+                <a th:href="@{/index}">
+                <div class="logo">
+                    <img src="/image/sf_logo01.png" alt="세페스트">
+                </div>
+                </a>
+            </h1>
+            <div class="user-info">
+                <span class="username">[th:text="$username"] 님</span>
+                <a href="login.html" class="logout-btn">로그아웃</a>
+            </div>
+        </header>
+    </div>
+
+    <div th:fragment="subnav">
+        <div class="sub-navigation">
+            <div class="breadcrumb">
+                <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
+                <span> > </span>
+                <span>현재 페이지</span>
+            </div>
+            <div class="info-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+        </div>
+    </div>
+<!--
+<script>
+    // 드롭다운 메뉴 기능 구현
+    const dropdownMenus = document.querySelectorAll('.sidebar li:has(ul)');
+    dropdownMenus.forEach(menu => {
+        const dropdownMenu = menu.querySelector('ul');
+        const dropdownToggle = menu.querySelector('a');
+
+        dropdownToggle.addEventListener('click', (event) => {
+            event.preventDefault(); // 링크 이동 방지
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+
+    // 모달 창 열기/닫기 기능 추가
+    var modal = document.getElementById("infoModal");
+    var infoIcon = document.querySelector(".info-icon");
+    var closeBtn = document.querySelector(".close");
+
+    infoIcon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>-->
+</body>
+</html>

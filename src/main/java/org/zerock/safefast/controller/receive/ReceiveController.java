@@ -7,14 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.safefast.dto.receive.ProcurementDTO;
-import org.zerock.safefast.dto.receive.UpdateReceiveQuantityDTO;
+import org.zerock.safefast.dto.receive.ReceiveDTO;
 import org.zerock.safefast.entity.ProcurementPlan;
-import org.zerock.safefast.entity.Receive;
 import org.zerock.safefast.service.receive.ReceiveService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/receive")
@@ -31,31 +28,13 @@ public class ReceiveController {
         return "receive/receive";
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Void> registerReceive(@RequestBody List<UpdateReceiveQuantityDTO> receiveData) {
+    @PostMapping("/receive")
+    public ResponseEntity<String> addReceive(@RequestBody ReceiveDTO receiveDTO) {
         try {
-            log.info("Received request to register receive data: {}", receiveData);
-
-            // 입고 수량을 업데이트하는 메서드 호출
-            receiveService.updateStockFromReceive(receiveData);
-
-            log.info("Receive data registered successfully.");
-            return ResponseEntity.ok().build();
+            receiveService.addReceive(receiveDTO);
+            return ResponseEntity.ok("{\"message\": \"등록되었습니다.\"}");
         } catch (Exception e) {
-            log.error("Failed to register receive data.", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @GetMapping("/getProcurementData")
-    @ResponseBody
-    public ResponseEntity<List<ProcurementDTO>> getProcurementData() {
-        try {
-            List<ProcurementDTO> procurementData = receiveService.getProcurementData();
-            return ResponseEntity.ok().body(procurementData);
-        } catch (Exception e) {
-            log.error("Failed to fetch procurement data.", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(500).body("{\"message\": \"등록에 실패했습니다.\"}");
         }
     }
 
