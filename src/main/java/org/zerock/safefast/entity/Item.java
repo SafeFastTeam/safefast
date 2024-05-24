@@ -1,6 +1,8 @@
 package org.zerock.safefast.entity;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"unit", "assy", "part", "contracts"})
 @DynamicUpdate
 public class Item {
     @Id
@@ -56,4 +58,11 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Contract> contracts;
 
+    @OneToMany(mappedBy = "item")
+    @JsonIgnore
+    private List<Contract> contract;
+
+    @OneToMany(mappedBy = "item")
+    @JsonIgnore
+    private List<PurchaseOrder> purchaseOrder;
 }

@@ -1,5 +1,6 @@
 package org.zerock.safefast.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "item")
 @DynamicUpdate
 public class Contract {
 
@@ -40,10 +41,12 @@ public class Contract {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "businessNumber")
+    @JsonIgnore
     private CoOpCompany coOpCompany;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemCode")
+    @JsonIgnore
     private Item item;
 
 }

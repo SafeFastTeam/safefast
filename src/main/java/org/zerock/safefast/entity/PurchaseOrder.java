@@ -1,5 +1,6 @@
 package org.zerock.safefast.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"coOpCompany", "item"})
 @DynamicUpdate
 public class PurchaseOrder {
     @Id
