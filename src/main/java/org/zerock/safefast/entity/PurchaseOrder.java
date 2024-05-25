@@ -42,11 +42,11 @@ public class PurchaseOrder {
     @Column
     private String procPlanNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
     private CoOpCompany coOpCompany;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "itemCode")
     private Item item;
 
