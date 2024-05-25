@@ -7,7 +7,9 @@ import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
+import org.zerock.safefast.repository.ProgressCheckItemRepository;
 import org.zerock.safefast.repository.PurchaseOrderRepository;
+import org.zerock.safefast.repository.ReceiveRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +25,13 @@ public class PurchaseOrderService {
 
     @Autowired
     private ProcurementPlanRepository procurementPlanRepository;
+
+    //해당 레포지토리들은 그래프 그리기 위해 선언되었습니다.
+    @Autowired
+    private ProgressCheckItemRepository progressCheckItemRepository;
+
+    @Autowired
+    private ReceiveRepository receiveRepository;
 
     public List<PurchaseOrder> createPurchaseOrders(List<PurchaseOrderRequest> purchaseOrderRequests) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -98,5 +107,22 @@ public class PurchaseOrderService {
 
     public List<PurchaseOrder> findAll() {
         return purchaseOrderRepository.findAll();
+    }
+
+    // 그래프를 그리기 위해, 상태별 엔티티의 수를 세는 메소드를 정의합니다.
+    public long countTotalPlans(LocalDateTime startDate, LocalDateTime endDate) {
+        return procurementPlanRepository.countByDateRange(startDate, endDate);
+    }
+
+    public long countIssuedOrders(LocalDateTime startDate, LocalDateTime endDate) {
+        return purchaseOrderRepository.countByDateRange(startDate, endDate);
+    }
+
+    public long countProgressChecks(LocalDateTime startDate, LocalDateTime endDate) {
+        return progressCheckItemRepository.countByDateRange(startDate, endDate);
+    }
+
+    public long countCompletedProcurements(LocalDateTime startDate, LocalDateTime endDate) {
+        return receiveRepository.countByDateRange(startDate, endDate);
     }
 }

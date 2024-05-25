@@ -22,7 +22,7 @@ public class ProgressCheckItem {
 
     private Integer progCheckOrder;
 
-    private String progCheckDate;
+    private LocalDateTime progCheckDate;
 
     private String progCheckResult;
 
