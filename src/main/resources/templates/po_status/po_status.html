@@ -17,14 +17,13 @@
       <h2>현황 관리 그래프</h2>
 
       <div class="date-search">
-        <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+        <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
         <input type="date" id="date-end" placeholder="종료 날짜">
         <button id="date-search-btn">검색</button>
       </div>
         <div id="container1" style="height: 60%; width: 60%;"></div>
     </div>
   </div>
-
 
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 
@@ -52,10 +51,10 @@
                         series: [
                           {
                             data: [
-                              {value: data.totalPlans, itemStyle: {color: '#5470C6'}},
-                              {value: data.issuedOrders, itemStyle: {color: 'rgba(75, 192, 192, 0.8)'}},
-                              {value: data.progressChecks, itemStyle: {color: '#FAC858'}},
-                              {value: data.completedProcurements, itemStyle: {color: 'rgba(255, 99, 132, 0.8)'}}
+                              {value: data.totalPlans, itemStyle: {color: '#9FB2E2'}},
+                              {value: data.issuedOrders, itemStyle: {color: '#7A91D4'}},
+                              {value: data.progressChecks, itemStyle: {color: '#5470C6'}},
+                              {value: data.completedProcurements, itemStyle: {color: '#2A45A3'}}
                             ],
                             type: 'bar',
                             showBackground: true,
@@ -79,7 +78,7 @@
             var startDate = document.getElementById('date-start').value;
             var endDate = document.getElementById('date-end').value;
             if (startDate && endDate) {
-              fetchData(new Date(startDate).toISOString(), new Date(endDate).toISOString());
+              fetchData(startDate, endDate);
             } else {
               alert('날짜를 모두 선택하세요.');
             }

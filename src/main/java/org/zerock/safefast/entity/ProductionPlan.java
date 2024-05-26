@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,10 +21,10 @@ public class ProductionPlan {
     private String prodPlanCode;
 
     @Column
-    private LocalDateTime prodStartDate;
+    private LocalDate prodStartDate;
 
     @Column
-    private LocalDateTime prodEndDate;
+    private LocalDate prodEndDate;
 
     @Column
     private Integer prodQuantity;

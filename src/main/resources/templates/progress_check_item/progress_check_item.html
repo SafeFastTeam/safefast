@@ -56,7 +56,11 @@
                 <td th:text="${purchaseOrder.item.itemCode}"></td>
                 <td th:text="${purchaseOrder.item.itemName}"></td>
                 <td th:text="${purchaseOrder.purchOrderQuantity}"></td>
-                <td></td>
+                <td>
+                    <ul>
+                        <li th:each="progressCheckItem : ${purchaseOrder.progressCheckItems}" th:text="' / '+${progressCheckItem.progCheckOrder}"></li>
+                    </ul>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -93,7 +97,7 @@
                         <tbody>
                         <tr>
                             <td>1차</td>
-                            <td><input type="date" class="inspection-date"></td>
+                            <td><input type="date" class="inspection-date" required></td>
                             <td>
                                 <button class="btn add-btn">추가</button>
                                 <button class="btn delete-btn">삭제</button>
