@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,7 +23,7 @@ public class Contract {
     private String contractNumber;
 
     @Column
-    private LocalDateTime contractDate;
+    private LocalDate contractDate;
 
     @Column
     private String contractSaveName;

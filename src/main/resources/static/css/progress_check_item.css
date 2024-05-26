@@ -8,6 +8,10 @@ h1, h2 {
   color: #066278;
 }
 
+ul li {
+  list-style: none;
+}
+
 /* 헤더 */
 header {
   display: flex;
