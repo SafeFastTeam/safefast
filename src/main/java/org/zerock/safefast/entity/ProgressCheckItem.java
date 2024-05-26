@@ -1,10 +1,12 @@
 package org.zerock.safefast.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,7 +24,7 @@ public class ProgressCheckItem {
 
     private Integer progCheckOrder;
 
-    private LocalDateTime progCheckDate;
+    private LocalDate progCheckDate;
 
     private String progCheckResult;
 
@@ -36,5 +38,7 @@ public class ProgressCheckItem {
 
     @ManyToOne
     @JoinColumn(name = "purchOrderNumber")
+    @JsonBackReference
     private PurchaseOrder purchaseOrder;
+
 }

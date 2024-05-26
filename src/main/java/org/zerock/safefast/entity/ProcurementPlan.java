@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -27,13 +28,13 @@ public class ProcurementPlan {
     private Integer procQuantity;
 
     @Column(name = "procDuedate", nullable = false)
-    private LocalDateTime procDuedate;
+    private LocalDate procDuedate;
 
     @Column
     private Integer procProgress;
 
     @Column
-    private LocalDateTime procRegisterDate = LocalDateTime.now();
+    private LocalDate procRegisterDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "itemCode", referencedColumnName = "itemCode", insertable = false, updatable = false)

@@ -1,12 +1,14 @@
 package org.zerock.safefast.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +27,7 @@ public class PurchaseOrder {
     private String purchOrderNumber;
 
     @Column
-    private LocalDateTime purchOrderDate = LocalDateTime.now();
+    private LocalDate purchOrderDate = LocalDate.now();
 
     @Column
     private Integer purchOrderQuantity;
@@ -34,7 +36,7 @@ public class PurchaseOrder {
     private String note;
 
     @Column
-    private LocalDateTime receiveDuedate;
+    private LocalDate receiveDuedate;
 
     @Column
     private Integer purchProgress;
@@ -50,6 +52,9 @@ public class PurchaseOrder {
     @JoinColumn(name = "itemCode")
     private Item item;
 
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ProgressCheckItem> progressCheckItems;
 
     @PrePersist
     public void ensureId() {

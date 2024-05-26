@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,7 +24,7 @@ public class Receive {
 
     @Column
     @CreatedDate
-    private LocalDateTime receiveDate;
+    private LocalDate receiveDate;
 
     @Column
     private Integer receiveQuantity;

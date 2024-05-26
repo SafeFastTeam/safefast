@@ -8,6 +8,7 @@ import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.Receive;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface ReceiveRepository extends JpaRepository<Receive, Integer> {
     Integer sumQuantityByItem(Item item);
 
     @Query("SELECT COUNT(r) FROM Receive r WHERE r.receiveDate BETWEEN :startDate AND :endDate")
-    long countByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 
 }

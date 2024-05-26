@@ -71,16 +71,28 @@ $(document).ready(function () {
         var purchOrderNumber = $("#modal1 #order-no").text();
         var progressCheckItems = [];
 
+        var valid = true; // 검수 일자 입력 확인용 변수
+
         rows.each(function (index, row) {
             var date = $(row).find(".inspection-date").val();
-            if (date) {
-                progressCheckItems.push({
-                    progCheckDate: date,
-                    progCheckOrder: index + 1,
-                    purchOrderNumber: purchOrderNumber
-                });
+            if (!date) { // 검수 일자가 입력되지 않은 경우
+                valid = false;
+                return false; // 반복문 중지
             }
+
+            progressCheckItems.push({
+                progCheckDate: date,
+                progCheckOrder: index + 1,
+                purchaseOrder: { // purchaseOrder 객체 사용
+                    purchOrderNumber: purchOrderNumber
+                }
+            });
         });
+
+        if (!valid) {
+            alert("검수 일자를 모두 입력하세요.");
+            return;
+        }
 
         $.ajax({
             url: "/progress_check_item/save",
@@ -90,6 +102,7 @@ $(document).ready(function () {
             success: function (response) {
                 alert(response);
                 $("#modal1").hide();
+                window.location.href = "/progress_check_item/progress_check_item";
             },
             error: function () {
                 alert("저장에 실패했습니다. 다시 시도해주세요.");
@@ -99,8 +112,13 @@ $(document).ready(function () {
 
     // 삭제 버튼 클릭 이벤트 위임
     $(document).on("click", "#modal1 .delete-btn", function () {
-        $(this).closest("tr").remove();
-        updateRowIndices();
+        if ($("#modal1 .modal-table-3 tbody tr").length > 1) {
+            $(this).closest("tr").remove();
+            updateRowIndices();
+            updateDeleteButtons();
+        } else {
+            alert("최소 하나의 행이 남아있어야 합니다.");
+        }
     });
 
     // 닫기 버튼 클릭 이벤트
@@ -113,6 +131,12 @@ $(document).ready(function () {
         $("#modal1 .modal-table-3 tbody tr").each(function (index) {
             $(this).find("td:first-child").text((index + 1) + "차");
         });
+    }
+
+    // 삭제 버튼 상태 업데이트 함수
+    function updateDeleteButtons() {
+        var rows = $("#modal1 .modal-table-3 tbody tr");
+        rows.find(".delete-btn").prop('disabled', rows.length === 1);
     }
 
     // 모달 초기화 함수
@@ -130,5 +154,6 @@ $(document).ready(function () {
         `;
         // tbody 내용 비우고 초기 행 추가
         $("#modal1 .modal-table-3 tbody").html(initialRow);
+        updateDeleteButtons();
     }
 });

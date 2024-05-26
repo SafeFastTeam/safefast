@@ -53,6 +53,6 @@ public class ProgressCheckItemController {
     @ResponseBody
     public String saveProgressCheckItems(@RequestBody List<ProgressCheckItem> progressCheckItems) {
         progressCheckItemService.saveProgressCheckItems(progressCheckItems);
-        return "/progress_check_item/progress_check_item";
+        return "검수계획이 성공적으로 등록되었습니다.";
     }
 }

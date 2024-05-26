@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,6 +34,6 @@ public class ClosedProcPlan {
     private String itemName;
 
     @Column
-    private LocalDateTime purchOrderDate;
+    private LocalDate purchOrderDate;
 
 }

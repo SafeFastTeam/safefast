@@ -12,6 +12,7 @@ import org.zerock.safefast.repository.ItemRepository;
 import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.repository.ReceiveRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ReceiveService {
 
         // Receive 엔티티 생성 및 설정
         Receive receive = new Receive();
-        receive.setReceiveDate(LocalDateTime.now());
+        receive.setReceiveDate(LocalDate.now());
         receive.setReceiveQuantity(receiveDTO.getReceiveQuantity());
         receive.setReceiveNumber(receiveDTO.getReceiveNumber());
         log.info("Receive entity created: {}", receive);

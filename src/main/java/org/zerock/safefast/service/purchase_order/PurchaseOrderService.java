@@ -11,6 +11,7 @@ import org.zerock.safefast.repository.ProgressCheckItemRepository;
 import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.repository.ReceiveRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -40,7 +41,7 @@ public class PurchaseOrderService {
             PurchaseOrder purchaseOrder = new PurchaseOrder();
             purchaseOrder.setProcPlanNumber(request.procPlanNumber);
             purchaseOrder.setPurchOrderQuantity(request.purchaseOrderQuantity);
-            purchaseOrder.setReceiveDuedate(LocalDateTime.parse(request.receiveDuedate, formatter));
+            purchaseOrder.setReceiveDuedate(LocalDate.parse(request.receiveDuedate, formatter));
             return purchaseOrder;
         }).collect(Collectors.toList());
 
@@ -110,19 +111,19 @@ public class PurchaseOrderService {
     }
 
     // 그래프를 그리기 위해, 상태별 엔티티의 수를 세는 메소드를 정의합니다.
-    public long countTotalPlans(LocalDateTime startDate, LocalDateTime endDate) {
+    public long countTotalPlans(LocalDate startDate, LocalDate endDate) {
         return procurementPlanRepository.countByDateRange(startDate, endDate);
     }
 
-    public long countIssuedOrders(LocalDateTime startDate, LocalDateTime endDate) {
+    public long countIssuedOrders(LocalDate startDate, LocalDate endDate) {
         return purchaseOrderRepository.countByDateRange(startDate, endDate);
     }
 
-    public long countProgressChecks(LocalDateTime startDate, LocalDateTime endDate) {
+    public long countProgressChecks(LocalDate startDate, LocalDate endDate) {
         return progressCheckItemRepository.countByDateRange(startDate, endDate);
     }
 
-    public long countCompletedProcurements(LocalDateTime startDate, LocalDateTime endDate) {
+    public long countCompletedProcurements(LocalDate startDate, LocalDate endDate) {
         return receiveRepository.countByDateRange(startDate, endDate);
     }
 }

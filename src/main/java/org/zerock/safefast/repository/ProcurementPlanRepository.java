@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.zerock.safefast.entity.ProcurementPlan;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
 
     //    그래프를 그리기 위해 갯수를 세는 메소드를 정의합니다.
     @Query("SELECT COUNT(p) FROM ProcurementPlan p WHERE p.procDuedate BETWEEN :startDate AND :endDate")
-    long countByDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 
 }
