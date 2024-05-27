@@ -11,6 +11,9 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, String> {
 
+    @Query("SELECT MAX(i.itemCode) FROM Item i WHERE i.unit.unitCode = :unitCode AND i.assy.assyCode = :assyCode AND i.part.partCode = :partCode")
+    String findMaxItemCode(String unitCode, String assyCode, String partCode);
+
     Item findByItemCode(String itemCode);
 
 }

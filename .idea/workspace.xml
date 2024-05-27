@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="37b1de10-442a-43a0-961b-dd361b5d287f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/contract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/contract.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +67,9 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
+
     "git-widget-placeholder": "work/page",
+
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
     "node.js.detected.package.eslint": "true",
