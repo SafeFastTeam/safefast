@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>자재관리 - 거래 명세서 발행</title>
+  <title>자재 현황 관리 그래프</title>
   <link rel="stylesheet" href="/css/inventory_management.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="icon" href="/image/favicon-32x32.png">
@@ -12,6 +12,7 @@
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 재고(금액) 관리')}"></th:block>
   <div class="container">
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
     <div class="content">

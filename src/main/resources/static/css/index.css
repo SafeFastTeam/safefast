@@ -2,7 +2,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-image: url('../image/background01.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+/*  background-color: #f5f5f5;*/
 }
 
 header {

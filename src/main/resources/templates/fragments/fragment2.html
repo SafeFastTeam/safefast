@@ -184,6 +184,10 @@
             cursor: pointer;
         }
 
+        .sidebar a.active {
+            background-color: #066278;
+        }
+
     </style>
 </head>
 <body>
@@ -196,7 +200,7 @@
             <li>
                 <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
                 <ul class="dropdown">
-                    <li><a th:href="@{/item/register}">품목정보등록</a></li>
+                    <li><a th:href="@{/item/register}" >품목정보등록</a></li>
                     <li><a th:href="@{/contract/register}">계약 등록</a></li>
                     <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
                 </ul>
@@ -255,6 +259,22 @@
             modal.style.display = "none";
         }
     }
+
+    // 현재 페이지의 URL 가져오기
+    const currentUrl = window.location.pathname;
+
+    // 사이드바 메뉴의 각 링크에 대해 반복
+    document.querySelectorAll('.sidebar a').forEach(link => {
+        // 메뉴의 URL 가져오기
+        const menuUrl = link.getAttribute('href');
+
+        // 현재 페이지의 URL과 메뉴의 URL이 일치하는지 확인
+        if (currentUrl === menuUrl) {
+            // 일치하면 클래스를 추가하여 스타일을 변경
+            link.classList.add('active');
+        }
+    });
+
 
 </script>
 </body>
