@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="subnav">
+    <div class="sub-navigation">
+        <div class="breadcrumb">
+            <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
+            <span> > </span>
+            <span th:text="${currentPageName}"><i class="fas fa-home"></i> Home</span>
+            <!--<span>현재 페이지</span>-->
+        </div>
+        <div class="info-icon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+    </div>
+</div>
+</body>
+</html>

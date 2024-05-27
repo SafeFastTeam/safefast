@@ -11,6 +11,7 @@
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='조달 관리 > 조달 계획 등록')}"></th:block>
 
   <div class="container">
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
