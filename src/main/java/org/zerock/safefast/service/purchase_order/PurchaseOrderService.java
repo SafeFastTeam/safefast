@@ -2,6 +2,7 @@ package org.zerock.safefast.service.purchase_order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
 import org.zerock.safefast.entity.ProcurementPlan;
@@ -12,7 +13,6 @@ import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.repository.ReceiveRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -34,29 +34,52 @@ public class PurchaseOrderService {
     @Autowired
     private ReceiveRepository receiveRepository;
 
-    public List<PurchaseOrder> createPurchaseOrders(List<PurchaseOrderRequest> purchaseOrderRequests) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    @Autowired
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository) {
+        this.purchaseOrderRepository = purchaseOrderRepository;
+    }
 
+    @Transactional
+    public List<PurchaseOrder> createPurchaseOrders(List<PurchaseOrderRequest> purchaseOrderRequests) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRequests.stream().map(request -> {
             PurchaseOrder purchaseOrder = new PurchaseOrder();
-            purchaseOrder.setProcPlanNumber(request.procPlanNumber);
-            purchaseOrder.setPurchOrderQuantity(request.purchaseOrderQuantity);
-            purchaseOrder.setReceiveDuedate(LocalDate.parse(request.receiveDuedate, formatter));
-            return purchaseOrder;
-        }).collect(Collectors.toList());
+            purchaseOrder.setPurchOrderNumber(generateNextPurchOrderNumber());
+            purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
+            purchaseOrder.setNote(request.getNote());
+            purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
+            purchaseOrder.setPurchProgress(0);
+            purchaseOrder.setProcPlanNumber(request.getProcPlanNumber());
 
+            return purchaseOrder;
+        }).toList();
         return purchaseOrderRepository.saveAll(purchaseOrders);
     }
 
     public Optional<ProcurementPlan> getProcurementPlanByNumber(String procPlanNumber) {
-        return procurementPlanRepository.findByProcPlanNumber(procPlanNumber);
+        return Optional.ofNullable(purchaseOrderRepository.findProcurementPlanByNumber(procPlanNumber));
     }
 
     //모든 발주서를 리스트업 합니다.
     public List<PurchaseOrder> getAllPurchaseOrders() {
-
         return purchaseOrderRepository.findAll();
     }
+
+    private String generateNextPurchOrderNumber() {
+        String maxPurchOrderNumber = purchaseOrderRepository.findMaxPurchOrderNumber();
+        if (maxPurchOrderNumber == null) {
+            return "ORD-001";
+        }
+
+        try {
+            String[] parts = maxPurchOrderNumber.split("-");
+            int nextNumber = Integer.parseInt(parts[1]) + 1;
+            return String.format("ORD-%03d", nextNumber);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            // 예외 발생 시 기본값 반환
+            return "ORD-001";
+        }
+    }
+
 
     public List<PurchaseOrderResponse> getPurchaseOrders() {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.findAll();
@@ -87,6 +110,7 @@ public class PurchaseOrderService {
         response.setPurchOrderDate(String.valueOf(purchaseOrder.getPurchOrderDate()));
         response.setReceiveDuedate(String.valueOf(purchaseOrder.getReceiveDuedate()));
         response.setPurchOrderQuantity(purchaseOrder.getPurchOrderQuantity());
+        response.setProcPlanNumber(purchaseOrder.getProcPlanNumber());
         // 나머지 필드들도 필요에 따라 매핑
 
         return response;
