@@ -55,18 +55,5 @@ public class ProcurementPlan {
     @Column
     private String productCode;
 
-    public void generateProcPlanNumber() {
-        // 임의의 키 생성 로직을 구현하여 값을 설정
-        this.procPlanNumber = generateUniqueKey();
-    }
-
-    private String generateUniqueKey() {
-        // 임의의 키 생성 로직을 구현하여 반환
-        // 예: UUID.randomUUID()를 사용하여 UUID 생성
-        return UUID.randomUUID().toString();
-    }
-
-
-
 }
 

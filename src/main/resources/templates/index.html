@@ -10,6 +10,7 @@
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='메인 화면')}"></th:block>
 <!--    <div th:replace="~{/fragments/fragment1 :: header}"></div>-->
 <!--    <header>
         <h1>구매 조달 시스템</h1>

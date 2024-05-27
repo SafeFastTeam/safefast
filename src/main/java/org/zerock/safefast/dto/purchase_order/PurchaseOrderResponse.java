@@ -11,6 +11,7 @@ public class PurchaseOrderResponse {
     private int purchOrderQuantity;
     private int procCheckResult;
     private int procCheckOrder;
+    private String procPlanNumber;
 
     // 생성자, 게터, 세터 생략 (필요 시 추가)
 
@@ -26,4 +27,5 @@ public class PurchaseOrderResponse {
         this.purchOrderQuantity = purchaseOrder.getPurchOrderQuantity();
         // 다른 필드들 초기화...
     }
+
 }

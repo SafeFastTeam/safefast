@@ -58,7 +58,7 @@
                 <td th:text="${purchaseOrder.purchOrderQuantity}"></td>
                 <td>
                     <ul>
-                        <li th:each="progressCheckItem : ${purchaseOrder.progressCheckItems}" th:text="' / '+${progressCheckItem.progCheckOrder}"></li>
+                        <li th:each="progressCheckItem : ${purchaseOrder.progressCheckItems}" th:text="${progressCheckItem.progCheckResult + ' / ' + progressCheckItem.progCheckOrder}"></li>
                     </ul>
                 </td>
             </tr>

@@ -198,18 +198,19 @@
         </header>
     </div>
 
-    <div th:fragment="subnav">
+<!--    <div th:fragment="subnav">
         <div class="sub-navigation">
             <div class="breadcrumb">
                 <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
                 <span> > </span>
-                <span>현재 페이지</span>
+                <span th:text="${currentPageName}"><i class="fas fa-home"></i> Home</span>
+                &lt;!&ndash;<span>현재 페이지</span>&ndash;&gt;
             </div>
             <div class="info-icon">
                 <i class="fas fa-info-circle"></i>
             </div>
         </div>
-    </div>
+    </div>-->
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
