@@ -49,6 +49,9 @@ public class ItemController {
                                @RequestParam("height") Integer height,
                                @RequestParam("material") String material,
                                @RequestParam("blueprintOriginName") MultipartFile blueprintFile,
+                               @RequestParam("unitCode") Unit unitCode,
+                               @RequestParam("assyCode") Assy assyCode,
+                               @RequestParam("partCode") Part partCode,
                                Model model, RedirectAttributes redirectAttributes) {
 
         Item newItem = Item.builder()
@@ -60,6 +63,9 @@ public class ItemController {
                 .material(material)
                 .blueprintOriginName(blueprintFile.getOriginalFilename())
                 .blueprintSaveName(blueprintFile.getName())
+                .unit(unitCode)
+                .assy(assyCode)
+                .part(partCode)
                 .build();
 
         redirectAttributes.addFlashAttribute("unitCodes", itemService.getAllUnits());

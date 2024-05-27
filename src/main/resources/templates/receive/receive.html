@@ -44,6 +44,7 @@
               <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
               <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
               <td th:text="${purchase.purchProgress}" style="display: none;"></td>
+              <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
           </tr>
           </tbody>
         </table>
@@ -129,6 +130,7 @@
                       <th>품목명</th>
                       <th>발주 수량</th>
                       <th>검수 현황</th>
+                      <th>품목 코드</th>
                   </tr>
                   </thead>
                   <tbody id="modal-content-body">
@@ -150,7 +152,7 @@
           var modal = document.getElementById("myModal");
           var span = document.getElementsByClassName("close")[0];
 
-          window.openModal = function(purchOrderNumber, companyName, itemName, purchOrderQuantity, purchProgress) {
+          window.openModal = function(purchOrderNumber, companyName, itemName, purchOrderQuantity, purchProgress, itemCode) {
               $('#modal-content-body').html(
                   "<tr>" +
                   "<td>" + purchOrderNumber + "</td>" +
@@ -158,6 +160,7 @@
                   "<td>" + itemName + "</td>" +
                   "<td>" + purchOrderQuantity + "</td>" +
                   "<td>" + purchProgress + "</td>" +
+                  "<td>" + itemCode + "</td>" +
                   "</tr>"
               );
               modal.style.display = "block";
@@ -214,25 +217,28 @@
                   var receiveQuantity = $(this).find("td:eq(5)").text();
                   var purchOrderQuantity = $(this).find("td:eq(6)").text();
                   var purchProgress = $(this).find("td:eq(8)").text();
+                  var itemCode = $(this).find("td:eq(9)").text();
 
-                  if (purchOrderNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && purchOrderQuantity && purchProgress) {
-                      var newRow = "<tr>" +
-                          "<td>" + purchOrderNumber + "</td>" +
-                          "<td>" + companyName + "</td>" +
-                          "<td>" + itemName + "</td>" +
-                          "<td>" + purchOrderDate + "</td>" +
-                          "<td>" + receiveDuedate + "</td>" +
-                          "<td>" + receiveQuantity + "</td>" +
-                          "<td>" + purchOrderQuantity + "</td>" +
-                          "<td style=\"display: none;\">" + purchProgress + "</td>" +
-                          "<td><button onclick='openModal(" +
-                          "$(this).closest(\"tr\").find(\"td:eq(0)\").text()," +
-                          "$(this).closest(\"tr\").find(\"td:eq(1)\").text()," +
-                          "$(this).closest(\"tr\").find(\"td:eq(2)\").text()," +
-                          "$(this).closest(\"tr\").find(\"td:eq(6)\").text()," +
-                          "$(this).closest(\"tr\").find(\"td:eq(7)\").text()" +
-                          ")'>입고완료</button></td>" +
-                          "</tr>";
+                  if (purchOrderNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && purchOrderQuantity && purchProgress && itemCode) {
+                    var newRow = "<tr>" +
+                            "<td>" + purchOrderNumber + "</td>" +
+                            "<td>" + companyName + "</td>" +
+                            "<td>" + itemName + "</td>" +
+                            "<td>" + purchOrderDate + "</td>" +
+                            "<td>" + receiveDuedate + "</td>" +
+                            "<td>" + receiveQuantity + "</td>" +
+                            "<td>" + purchOrderQuantity + "</td>" +
+                            "<td style=\"display: none;\">" + purchProgress + "</td>" +
+                            "<td style=\"display: none;\">" + itemCode + "</td>" +
+                            "<td><button onclick='openModal(\"" +
+                            $(this).closest("tr").find("td:eq(0)").text() + "\", \"" +
+                            $(this).closest("tr").find("td:eq(1)").text() + "\", \"" +
+                            $(this).closest("tr").find("td:eq(2)").text() + "\", \"" +
+                            $(this).closest("tr").find("td:eq(6)").text() + "\", \"" +
+                            $(this).closest("tr").find("td:eq(8)").text() + "\", \"" +
+                            $(this).closest("tr").find("td:eq(9)").text() +
+                            "\")'>입고완료</button></td>" +
+                            "</tr>";
 
                       $('#purchase-order-list').append(newRow);
                   }
@@ -245,8 +251,9 @@
           var purchOrderNumber = $('#modal-content-body').find('td:eq(0)').text();
           var itemName = $('#modal-content-body').find('td:eq(2)').text();
           var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
+          var itemCode = $('#modal-content-body').find('td:eq(8)').text();
 
-          if (!purchOrderNumber || !itemName || !procQuantity) {
+          if (!purchOrderNumber || !itemName || !procQuantity ) {
             alert('필수 정보를 입력해주세요.');
             return;
           }
@@ -254,7 +261,7 @@
           var receiveDTO = {
             receiveQuantity: procQuantity,
             purchOrderNumber: purchOrderNumber,
-            itemName: itemName
+            itemCode: itemCode // itemCode를 포함
           };
 
           $.ajax({

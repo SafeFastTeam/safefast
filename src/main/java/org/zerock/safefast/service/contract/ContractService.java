@@ -38,8 +38,7 @@ public class ContractService {
 
     public void registerContract(Contract contract, MultipartFile file) {
 
-        String shortUuid = UUID.randomUUID().toString().substring(0, 8);
-        contract.setContractNumber(shortUuid);
+        contract.setContractNumber(generateNextContractNumber());
         contract.setContractDate(LocalDate.now());
 
         contractRepository.save(contract);
@@ -65,5 +64,13 @@ public class ContractService {
         }
     }
 
-
+    private String generateNextContractNumber() {
+        String maxContractNumber = contractRepository.findMaxContractNumber();
+        if (maxContractNumber != null && maxContractNumber.startsWith("CON-")) {
+            int nextNumber = Integer.parseInt(maxContractNumber.split("-")[1]) + 1;
+            return String.format("CON-%03d", nextNumber);
+        } else {
+            return "CON-001";
+        }
+    }
 }

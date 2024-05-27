@@ -1,4 +1,4 @@
-package org.zerock.safefast.controller.main.contract;
+package org.zerock.safefast.controller.contract;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -81,5 +81,4 @@ public class ContractController {
 
         return "redirect:/contract/register";
     }
-
 }

@@ -30,6 +30,12 @@ public class PurchaseOrderController {
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
 
+    @Autowired
+    public PurchaseOrderController(ProcurementPlanService procurementPlanService, PurchaseOrderService purchaseOrderService) {
+        this.procurementPlanService = procurementPlanService;
+        this.purchaseOrderService = purchaseOrderService;
+    }
+
     @PostMapping("/purchase_order")
     public String createPurchaseOrder(@ModelAttribute PurchaseOrder purchaseOrder, Model model) {
         model.addAttribute("purchaseOrder", purchaseOrder);

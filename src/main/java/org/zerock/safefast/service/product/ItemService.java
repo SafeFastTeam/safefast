@@ -77,7 +77,7 @@ public class ItemService {
     }
 
     public Item findItemByCode(String itemCode) {
-        Optional<Item> optionalItem = itemRepository.findByItemCode(itemCode);
+        Optional<Item> optionalItem = Optional.ofNullable(itemRepository.findByItemCode(itemCode));
         return optionalItem.orElse(null); // Optional을 사용하여 Item이 없을 경우 null을 반환하도록 처리
     }
 
