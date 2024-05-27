@@ -59,8 +59,6 @@ public class Contract {
     }
 
     private String generateUniqueKey() {
-        // 예시로 간단한 번호 생성 로직 구현 (실제 구현은 서비스 레이어에서 할 수 있음)
         return "CON-" + String.format("%03d", (int) (Math.random() * 1000));
     }
-
 }

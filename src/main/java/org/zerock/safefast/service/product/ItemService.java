@@ -27,7 +27,7 @@ import java.util.UUID;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
+    private static final Logger log = LoggerFactory.getLogger(ItemService.class);
 
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
@@ -49,15 +49,15 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public void registerItem(Item item, MultipartFile file) {
-        // 아이템 정보 저장
-        itemRepository.save(item);
+    public void registerItem(Item item, MultipartFile blueprintFile) {
 
-        // 파일 저장
-        if (!file.isEmpty()) {
+        String itemCode = generateNextItemCode(item.getUnit().getUnitCode(), item.getAssy().getAssyCode(), item.getPart().getPartCode());
+        item.setItemCode(itemCode);
+
+        if (!blueprintFile.isEmpty()) {
             try {
-                String uploadDir = "uploads"; // 파일 업로드 디렉토리
-                String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 파일 이름 생성
+                String uploadDir = "uploads";
+                String fileName = UUID.randomUUID().toString() + "_" + blueprintFile.getOriginalFilename();
                 Path uploadPath = Paths.get(uploadDir);
 
                 if (!Files.exists(uploadPath)) {
@@ -65,21 +65,25 @@ public class ItemService {
                 }
 
                 Path filePath = uploadPath.resolve(fileName);
-                Files.copy(file.getInputStream(), filePath);
-                item.setBlueprintOriginName(file.getOriginalFilename()); // 파일 원본 이름 저장
-                item.setBlueprintSaveName(fileName); // 파일 저장된 이름 저장
+                Files.copy(blueprintFile.getInputStream(), filePath);
+                item.setBlueprintOriginName(blueprintFile.getOriginalFilename());
+                item.setBlueprintSaveName(fileName);
             } catch (IOException e) {
-                // 파일 저장 과정에서 예외 발생 시 로깅
-                logger.error("파일을 저장하는 동안 오류가 발생했습니다.", e);
-
+                log.error("파일을 저장하는 동안 오류가 발생했습니다.", e);
             }
         }
+
+        itemRepository.save(item);
     }
 
-    public Item findItemByCode(String itemCode) {
-        Optional<Item> optionalItem = Optional.ofNullable(itemRepository.findByItemCode(itemCode));
-        return optionalItem.orElse(null); // Optional을 사용하여 Item이 없을 경우 null을 반환하도록 처리
+    private String generateNextItemCode(String unitCode, String assyCode, String partCode) {
+        String maxItemCode = itemRepository.findMaxItemCode(unitCode, assyCode, partCode);
+        String baseCode = unitCode + assyCode + partCode;
+        if (maxItemCode != null && maxItemCode.startsWith(baseCode)) {
+            int nextNumber = Integer.parseInt(maxItemCode.substring(baseCode.length() + 1)) + 1;
+            return String.format("%s-%03d", baseCode, nextNumber);
+        } else {
+            return String.format("%s-001", baseCode);
+        }
     }
-
-
 }

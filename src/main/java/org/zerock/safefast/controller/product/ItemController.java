@@ -1,5 +1,7 @@
 package org.zerock.safefast.controller.product;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,77 +13,69 @@ import org.zerock.safefast.entity.Assy;
 import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.entity.Part;
 import org.zerock.safefast.entity.Unit;
+import org.zerock.safefast.repository.AssyRepository;
+import org.zerock.safefast.repository.PartRepository;
+import org.zerock.safefast.repository.UnitRepository;
 import org.zerock.safefast.service.product.ItemService;
 
 
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
+@Log4j2
 @RequestMapping("/item")
 public class ItemController {
 
     private final ItemService itemService;
-
-    @Autowired
-    public ItemController(ItemService itemService) {
-        this.itemService = itemService;
-    }
+    private final UnitRepository unitRepository;
+    private final AssyRepository assyRepository;
+    private final PartRepository partRepository;
 
     @GetMapping("/register")
-    public String showItemForm(Model model) {
-        List<Unit> units = itemService.getAllUnits();
-        List<Assy> assies = itemService.getAllAssys();
-        List<Part> parts = itemService.getAllParts();
+    public String showItemRegisterPage(Model model) {
+        List<Unit> units = unitRepository.findAll();
+        List<Assy> assies = assyRepository.findAll();
+        List<Part> parts = partRepository.findAll();
         List<Item> items = itemService.getAllItems();
-        model.addAttribute("units", units); // 모델에 Unit 정보 추가
-        model.addAttribute("items", items);
+        model.addAttribute("units", units);
         model.addAttribute("assies", assies);
         model.addAttribute("parts", parts);
-        model.addAttribute("item", new Item());
+        model.addAttribute("items", items);
         return "item/register";
     }
 
     @PostMapping("/register")
-    public String registerItem(@RequestParam("itemCode") String itemCode,
+    public String registerItem(@RequestParam("unitCode") String unitCode,
+                               @RequestParam("assyCode") String assyCode,
+                               @RequestParam("partCode") String partCode,
                                @RequestParam("itemName") String itemName,
                                @RequestParam("width") Integer width,
                                @RequestParam("length") Integer length,
                                @RequestParam("height") Integer height,
                                @RequestParam("material") String material,
-                               @RequestParam("blueprintOriginName") MultipartFile blueprintFile,
-                               @RequestParam("unitCode") Unit unitCode,
-                               @RequestParam("assyCode") Assy assyCode,
-                               @RequestParam("partCode") Part partCode,
-                               Model model, RedirectAttributes redirectAttributes) {
+                               @RequestParam("blueprintOriginName") MultipartFile blueprintFile) {
 
-        Item newItem = Item.builder()
-                .itemCode(itemCode)
+        Unit unit = unitRepository.findById(unitCode)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Unit Code: " + unitCode));
+        Assy assy = assyRepository.findById(assyCode)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Assy Code: " + assyCode));
+        Part part = partRepository.findById(partCode)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Part Code: " + partCode));
+
+        Item item = Item.builder()
+                .unit(unit)
+                .assy(assy)
+                .part(part)
                 .itemName(itemName)
                 .width(width)
                 .length(length)
                 .height(height)
                 .material(material)
-                .blueprintOriginName(blueprintFile.getOriginalFilename())
-                .blueprintSaveName(blueprintFile.getName())
-                .unit(unitCode)
-                .assy(assyCode)
-                .part(partCode)
                 .build();
 
-        redirectAttributes.addFlashAttribute("unitCodes", itemService.getAllUnits());
+        itemService.registerItem(item, blueprintFile);
 
-        try {
-            itemService.registerItem(newItem, blueprintFile);
-        } catch (Exception e) {
-            List<Unit> unitCodes = itemService.getAllUnits();
-            model.addAttribute("unitCodes", unitCodes);
-            model.addAttribute("errorMessage", "아이템 등록 중 오류가 발생했습니다.");
-            return "item/register";
-        }
-
-        model.addAttribute("successMessage", "아이템이 성공적으로 등록되었습니다.");
-        return "item/register";
+        return "redirect:/item/register";
     }
-
-
 }
