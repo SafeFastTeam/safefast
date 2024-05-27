@@ -6,30 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="37b1de10-442a-43a0-961b-dd361b5d287f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
+
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/receive/ReceiveDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/receive/ReceiveDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Receive.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/receive/ReceiveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/receive/ReceiveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/main/contract/ContractController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/contract/ContractController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/procurement/ProcurementPlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/procurement/ProcurementPlanController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/ProcurementPlan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/PurchaseOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/entity/PurchaseOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ContractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ContractRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/ProcurementPlanRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/contract/ContractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/contract/ContractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/procurement/ProcurementPlanService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/purchase_order/PurchaseOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/purchase_order/PurchaseOrderService.java" afterDir="false" />
->>>>>>> fb196f59ec7ab43227f0e79d30864c26f4dacbfc
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/po_status.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/po_status.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/purchase_order.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/purchase_order.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment2.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/fragment2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/po_status/po_status.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/po_status/po_status.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/progress_check_item/progress_check_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/progress_check_item/progress_check_item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,13 +76,11 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-<<<<<<< HEAD
-    "git-widget-placeholder": "main",
-=======
-    "git-widget-placeholder": "feat/dev/details",
->>>>>>> fb196f59ec7ab43227f0e79d30864c26f4dacbfc
+
+    "git-widget-placeholder": "work/css",
+
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/safefast/src/main/resources/templates/inventory_management",
+    "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
