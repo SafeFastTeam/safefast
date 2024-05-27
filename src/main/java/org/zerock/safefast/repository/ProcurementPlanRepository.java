@@ -14,6 +14,12 @@ import java.util.Optional;
 public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan, String> {
     Optional<ProcurementPlan> findByProcPlanNumber(String procPlanNumber);
 
+    @Query("SELECT p.procPlanNumber FROM ProcurementPlan p ORDER BY p.procPlanNumber DESC LIMIT 1")
+    String findTopByOrderByProcPlanNumberDesc();
+
+    @Query("SELECT MAX(p.procPlanNumber) FROM ProcurementPlan p")
+    String findMaxProcPlanNumber();
+
     //    그래프를 그리기 위해 갯수를 세는 메소드를 정의합니다.
     @Query("SELECT COUNT(p) FROM ProcurementPlan p WHERE p.procDuedate BETWEEN :startDate AND :endDate")
     long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
