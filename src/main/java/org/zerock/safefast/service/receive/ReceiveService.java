@@ -28,12 +28,17 @@ public class ReceiveService {
     public void addReceive(ReceiveDTO receiveDTO) {
         log.info("addReceive called with DTO: {}", receiveDTO);
 
+        // PurchaseOrder 조회
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(receiveDTO.getPurchOrderNumber())
+                .orElseThrow(() -> new EntityNotFoundException("발주 번호를 찾을 수 없습니다."));
+
+
         // Receive 엔티티 생성 및 설정
         Receive receive = new Receive();
         receive.setReceiveDate(LocalDate.now());
         receive.setReceiveQuantity(receiveDTO.getReceiveQuantity());
-        receive.setReceiveNumber(receiveDTO.getReceiveNumber());
-        log.info("Receive entity created: {}", receive);
+        receive.setPurchaseOrder(purchaseOrder);
+        receive.setItem(purchaseOrder.getItem());
 
         // Receive 저장
         receiveRepository.save(receive);
@@ -43,6 +48,7 @@ public class ReceiveService {
     public List<PurchaseOrder> getAllPurchaseOrder() {
         return purchaseOrderRepository.findAll();
     }
+
 
     public List<Receive> getAllReceive() {
         return receiveRepository.findAll();

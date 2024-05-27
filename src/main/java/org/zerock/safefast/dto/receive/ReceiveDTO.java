@@ -2,7 +2,7 @@ package org.zerock.safefast.dto.receive;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ReceiveDTO {
     private Integer receiveNumber;
 
-    private LocalDateTime receiveDate;
+    private LocalDate receiveDate;
 
     private Integer receiveQuantity;
 

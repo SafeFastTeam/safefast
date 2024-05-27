@@ -36,4 +36,5 @@ public class Receive {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemCode")
     private Item item;
+
 }
