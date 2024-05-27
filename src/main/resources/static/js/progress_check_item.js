@@ -1,7 +1,6 @@
 $(document).ready(function () {
     // 모달 초기화 함수
     function resetModal(modalId) {
-        // 기본 행 정의
         var initialRow = modalId === "modal1" ? `
             <tr>
                 <td>1차</td>
@@ -25,7 +24,6 @@ $(document).ready(function () {
                 </td>
             </tr>
         `;
-        // tbody 내용 비우고 초기 행 추가
         $(`#${modalId} .modal-table-3 tbody`).html(initialRow);
         updateDeleteButtons(modalId);
     }
@@ -59,7 +57,6 @@ $(document).ready(function () {
     // "검수계획 등록" 및 "검수처리 등록" 버튼 클릭 시 모달 열기
     function openModal(buttonClass, modalId) {
         $(`.${buttonClass}`).click(function () {
-            // 선택된 행 찾기
             var selectedRow = $("input[type='checkbox']:checked").closest("tr");
 
             if (selectedRow.length !== 1) {
@@ -67,10 +64,8 @@ $(document).ready(function () {
                 return;
             }
 
-            // 선택된 행에서 데이터 가져오기
             var purchOrderNumber = selectedRow.find("td:nth-child(2)").text();
 
-            // 모달 초기화
             resetModal(modalId);
 
             // AJAX 요청으로 발주서 세부 정보 가져오기
@@ -78,9 +73,44 @@ $(document).ready(function () {
                 url: "/purchase_order/" + purchOrderNumber,
                 method: "GET",
                 success: function (data) {
-                    // 모달에 데이터 설정
                     setModalData(modalId, data);
-                    // 모달 표시
+
+                    if (modalId === "modal2") {
+                        // 검수계획 불러오기
+                        $.ajax({
+                            url: "/progress_check_item/list/" + purchOrderNumber,
+                            method: "GET",
+                            success: function (planData) {
+                                var tbody = $(`#${modalId} .modal-table-3 tbody`);
+                                tbody.empty();
+
+                                planData.forEach(function (item, index) {
+                                    var newRow = `
+                                        <tr>
+                                            <td>${index + 1}차</td>
+                                            <td><input type="date" class="inspection-date" value="${item.progCheckDate}"></td>
+                                            <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
+                                            <td><input type="text" class="progCheckResult" value="${item.progCheckResult}"></td>
+                                            <td><input type="text" class="supplementation" value="${item.supplementation}"></td>
+                                            <td>진척도</td>
+                                            <td>
+                                                <button class="btn add-btn">추가</button>
+                                                <button class="btn delete-btn">삭제</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    tbody.append(newRow);
+                                });
+
+                                updateRowIndices(modalId);
+                                updateDeleteButtons(modalId);
+                            },
+                            error: function () {
+                                alert("검수계획 데이터를 불러오는 데 실패했습니다.");
+                            }
+                        });
+                    }
+
                     $(`#${modalId}`).show();
                 },
                 error: function () {

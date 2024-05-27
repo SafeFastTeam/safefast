@@ -26,7 +26,8 @@ public class ProgressCheckItem {
 
     private LocalDate progCheckDate;
 
-    private String progCheckResult;
+    @Column(nullable = false)
+    private String progCheckResult = "0";
 
     private Integer CompletedQuantity;
 
