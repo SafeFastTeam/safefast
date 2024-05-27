@@ -26,8 +26,8 @@ public class ProgressCheckItemController {
     }
 
     @PostMapping("/progress_check/purchase_order_details")
+    @ResponseBody
     public List<PurchaseOrderResponse> getPurchaseOrderDetails(@RequestBody List<String> checkedOrders) {
-        // 체크된 발주에 대한 상세 정보를 가져오는 서비스 메서드 호출
         return purchaseOrderService.getPurchaseOrderDetails(checkedOrders);
     }
 
@@ -45,14 +45,21 @@ public class ProgressCheckItemController {
     }
 
     @GetMapping("/purchaseOrders")
+    @ResponseBody
     public List<PurchaseOrderResponse> getPurchaseOrders() {
         return purchaseOrderService.getPurchaseOrders();
+    }
+
+    @GetMapping("/list/{purchOrderNumber}")
+    @ResponseBody
+    public List<ProgressCheckItem> getProgressCheckItems(@PathVariable String purchOrderNumber) {
+        return progressCheckItemService.getProgressCheckItemsByPurchOrderNumber(purchOrderNumber);
     }
 
     @PostMapping("/save")
     @ResponseBody
     public String saveProgressCheckItems(@RequestBody List<ProgressCheckItem> progressCheckItems) {
-        progressCheckItemService.saveProgressCheckItems(progressCheckItems);
+        progressCheckItemService.saveOrUpdateProgressCheckItems(progressCheckItems);
         return "검수계획이 성공적으로 등록되었습니다.";
     }
 }

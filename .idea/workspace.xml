@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="37b1de10-442a-43a0-961b-dd361b5d287f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/procurement.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/procurement.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
@@ -13,6 +14,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +67,9 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
+
     "git-widget-placeholder": "work/bread",
+
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/safefast/src/main/resources/templates/inventory_management",
     "node.js.detected.package.eslint": "true",
