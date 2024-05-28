@@ -40,4 +40,7 @@ public class ProductionPlan {
     @JoinColumn(name = "productCode")
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "businessNumber")
+    private CoOpCompany coOpCompany;
 }
