@@ -1,9 +1,7 @@
 package org.zerock.safefast.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -44,16 +42,14 @@ public class PurchaseOrder {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
-    @JsonManagedReference
     private CoOpCompany coOpCompany;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "itemCode")
-    @JsonManagedReference
     private Item item;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference
     private List<ProgressCheckItem> progressCheckItems;
 
     public String getBusinessNumber() {
