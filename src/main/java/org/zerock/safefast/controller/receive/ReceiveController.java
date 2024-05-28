@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
-import org.zerock.safefast.entity.PurchaseOrder;
-import org.zerock.safefast.entity.Receive;
+import org.zerock.safefast.entity.*;
+import org.zerock.safefast.repository.ItemRepository;
+import org.zerock.safefast.repository.QuantityRepository;
 import org.zerock.safefast.service.receive.ReceiveService;
+import org.zerock.safefast.service.releases.ReleasesService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -21,13 +24,18 @@ import java.util.List;
 public class ReceiveController {
 
     private final ReceiveService receiveService;
+    private final ReleasesService releasesService;
+    private final ItemRepository itemRepository;
+    private final QuantityRepository quantityRepository;
 
     @GetMapping("/receive")
     public String showReceivePage(Model model) {
         List<PurchaseOrder> purchaseOrderList = receiveService.getAllPurchaseOrder();
-        List<Receive> receiveList = receiveService.getAllReceive();
+        List<Quantity> quantityList = receiveService.getAllQuantity();
+        List<Releases> releasesList = receiveService.getAllReleases();
         model.addAttribute("purchases", purchaseOrderList);
-        model.addAttribute("receives", receiveList);
+        model.addAttribute("quantities", quantityList);
+        model.addAttribute("releases", releasesList);
         return "receive/receive";
     }
 
@@ -41,6 +49,28 @@ public class ReceiveController {
             log.error("Error while adding receive: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"등록에 실패했습니다.\"}");
         }
+    }
+
+    @PostMapping("/add")
+    public String addRelease(@RequestParam("releaseQuantity") Integer releaseQuantity,
+                             @RequestParam("itemCode") String itemCode,
+                             @RequestParam("quantityId") Integer quantityId) {
+
+        Item item = itemRepository.findById(itemCode)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Item: " + itemCode));
+
+        Quantity quantity = quantityRepository.findById(quantityId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid quantityId: " + quantityId));
+
+        Releases releases = Releases.builder()
+                .item(item)
+                .releaseQuantity(releaseQuantity)
+                .quantity(quantity)
+                .build();
+
+        releasesService.registerReleases(releases);
+
+        return "receive/receive";
     }
 
 }

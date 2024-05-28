@@ -49,34 +49,34 @@
         </tbody>
       </table>
       <h2>자재 출고</h2>
-      <div class="save-btn">
-        <button id="issue-order-btn-2" class="button">저장</button>
-      </div>
       <table>
         <thead>
         <tr>
           <th>생산계획번호</th>
           <th>제품명</th>
           <th>품목명</th>
-          <th>소요량</th>
+          <th>품목 코드</th>
           <th>재고 수량</th>
           <th>출고 수량</th>
+          <th>저장</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="receive: ${receives}">
-          <td></td>
-          <td></td>
-          <td th:text="${receive.item.itemName}"></td>
-          <td></td>
-          <td></td>
-          <td><input type="text"></td>
+        <tr th:each="quantity: ${quantities}" >
+          <td th:text="${quantity.productionPlan.prodPlanCode}"></td>
+          <td th:text="${quantity.productionPlan.product.productName}"></td>
+          <td th:text="${quantity.item.itemName}"></td>
+          <td th:text="${quantity.item.itemCode}"></td>
+          <td th:text="${quantity.allQuantity}"></td>
+          <td><input type="text" class="release-quantity-input"></td>
+          <td><button id="save-button" class="button">저장</button></td>
+          <td th:text="${quantity.quantityId}" style="display: none;"></td>
         </tr>
         </tbody>
       </table>
     </section>
     <section class="purchase-order">
-      <h2>자재 입출고 리스트</h2>
+      <h2>자재 입고 리스트</h2>
       <div class="search-bar">
         <div class="date-search">
           <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
@@ -106,6 +106,51 @@
         </thead>
         <tbody id="purchase-order-list">
 
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button class="pagination-button">이전</button>
+        <span>1/10 페이지</span>
+        <button class="pagination-button">다음</button>
+      </div>
+    </section>
+
+    <section class="purchase-order2">
+      <h2>자재 출고 리스트</h2>
+      <div class="search-bar">
+        <div class="date-search">
+          <input type="date" id="date-start2" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
+          <input type="date" id="date-end2" placeholder="종료 날짜">
+          <button id="date-search-btn2">검색</button>
+        </div>
+        <div class="keyword-search">
+          <select id="keyword-search-type2">
+            <option value="품목코드" checked>품목코드</option>
+            <option value="company">업체명</option>
+            <option value="item">품목명</option>
+          </select>
+          <input type="text" id="keyword-search2" placeholder="키워드 검색">
+          <button id="keyword-search-btn2">검색</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+        <tr>
+          <th>제품명</th>
+          <th>품목명</th>
+          <th>품목 코드</th>
+          <th>출고일</th>
+          <th>출고 수량</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="release: ${releases}" >
+          <td th:text="${release.quantity.productionPlan.product.productName}"></td>
+          <td th:text="${release.quantity.item.itemName}"></td>
+          <td th:text="${release.quantity.item.itemCode}"></td>
+          <td th:text="${release.releaseDate}"></td>
+          <td th:text="${release.releaseQuantity}"></td>
+        </tr>
         </tbody>
       </table>
       <div class="pagination">
@@ -280,6 +325,53 @@
           var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
           alert(errorMessage);
           $('#myModal').hide();
+        }
+      });
+    });
+
+    $('#save-button').on('click', function () {
+      var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기
+      var releaseQuantity = row.find('.release-quantity-input').val(); // 출고 수량 가져오기
+      var itemCode = row.find("td:eq(3)").text();
+      var quantityId = row.find("td:eq(7)").text();
+
+
+      if (!releaseQuantity) {
+        alert('출고 수량을 입력해주세요.'); // 출고 수량이 없는 경우 경고를 표시합니다.
+        return;
+      }
+
+      // 출고 처리 등의 작업 수행
+      var data  = {
+        releaseQuantity: releaseQuantity,
+        itemCode: itemCode,
+        quantityId: quantityId // quantityId로 수정
+        // 기타 필요한 데이터 추가
+      };
+
+      // Ajax를 사용하여 서버로 데이터 전송
+      $.ajax({
+        type: "POST",
+        url: "/receive/add",
+        data: {
+          releaseQuantity: releaseQuantity,
+          itemCode: itemCode,
+          quantityId: quantityId
+        },
+        success: function (response) {
+          // 서버로부터의 응답 데이터를 콘솔에 출력합니다.
+          console.log(response);
+          // 성공적인 메시지를 사용자에게 표시할 수 있습니다.
+          alert('출고가 성공적으로 등록되었습니다.');
+          // 성공적으로 처리되었다는 메시지 등을 표시할 수 있습니다.
+          window.location.href = "/receive/receive"
+        },
+        error: function (xhr, status, error) {
+          // 오류 메시지를 콘솔에 출력합니다.
+          console.error(xhr, status, error);
+          // 오류 메시지를 사용자에게 표시할 수 있습니다.
+          alert('출고 등록 중 오류가 발생했습니다.');
+          // 오류 처리를 수행할 수 있습니다.
         }
       });
     });

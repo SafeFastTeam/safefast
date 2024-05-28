@@ -5,12 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
-import org.zerock.safefast.entity.Item;
-import org.zerock.safefast.entity.PurchaseOrder;
-import org.zerock.safefast.entity.Receive;
-import org.zerock.safefast.repository.ItemRepository;
-import org.zerock.safefast.repository.PurchaseOrderRepository;
-import org.zerock.safefast.repository.ReceiveRepository;
+import org.zerock.safefast.entity.*;
+import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +19,9 @@ public class ReceiveService {
 
     private final ReceiveRepository receiveRepository;
     private final PurchaseOrderRepository purchaseOrderRepository;
-    private final ItemRepository itemRepository;
+    private final QuantityRepository quantityRepository;
+    private final ProductionPlanRepository productionPlanRepository;
+    private final ReleasesRepository releasesRepository;
 
     public void addReceive(ReceiveDTO receiveDTO) {
         log.info("addReceive called with DTO: {}", receiveDTO);
@@ -43,6 +41,25 @@ public class ReceiveService {
         // Receive 저장
         receiveRepository.save(receive);
         log.info("Receive entity saved successfully: {}", receive);
+
+        // Quantity 엔티티 업데이트
+        updateQuantity(receive.getItem(), receive.getReceiveQuantity());
+    }
+
+    // Quantity 엔티티 업데이트 메서드 추가
+    private void updateQuantity(Item item, int quantity) {
+        Quantity quantityEntity = quantityRepository.findByItem(item);
+        if (quantityEntity == null) {
+            // Quantity 엔티티가 없는 경우 새로 생성
+            quantityEntity = new Quantity();
+            quantityEntity.setItem(item);
+            quantityEntity.setAllQuantity(quantity);
+        } else {
+            // Quantity 엔티티가 있는 경우 수량 업데이트
+            quantityEntity.setAllQuantity(quantityEntity.getAllQuantity() + quantity);
+        }
+        quantityRepository.save(quantityEntity);
+        log.info("Quantity entity updated successfully: {}", quantityEntity);
     }
 
     public List<PurchaseOrder> getAllPurchaseOrder() {
@@ -50,7 +67,11 @@ public class ReceiveService {
     }
 
 
-    public List<Receive> getAllReceive() {
-        return receiveRepository.findAll();
+    public List<Quantity> getAllQuantity() {
+        return quantityRepository.findAll();
+    }
+
+    public List<Releases> getAllReleases() {
+        return releasesRepository.findAll();
     }
 }
