@@ -62,6 +62,7 @@ public class ReceiveService {
         log.info("Quantity entity updated successfully: {}", quantityEntity);
     }
 
+
     public List<PurchaseOrder> getAllPurchaseOrder() {
         return purchaseOrderRepository.findAll();
     }
