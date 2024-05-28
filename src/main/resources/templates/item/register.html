@@ -138,14 +138,25 @@
         <br>
       <div class="item-management">
         <h2>품목 정보 관리</h2>
-        <div class="search-item">
+<!--        <div class="search-item">
             <select name="search-option" id="search-option">
                 <option value="code">품목코드</option>
                 <option value="name">품목명</option>
             </select>
             <input type="text" id="searchInput" placeholder="검색어 입력" class="search-input">
             <button onclick="searchItem()" class="search-button">검색</button>
-        </div>
+        </div>-->
+
+          <div class="search-item">
+              <form action="#" th:action="@{/item/list}" method="get">
+                  <select name="search-option" id="search-option">
+                      <option value="code">품목코드</option>
+                      <option value="name">품목명</option>
+                  </select>
+                  <input type="text" id="searchInput" name="keyword" placeholder="검색어 입력" class="search-input">
+                  <button type="submit" class="search-button">검색</button>
+              </form>
+          </div>
         <table id="itemTable">
             <thead>
             <tr>
@@ -169,17 +180,61 @@
             </tbody>
         </table>
 <!--          <div class="pagination">
-              <button class="pagination-button">이전</button>
-              <span>1/10 페이지</span>
-              <button class="pagination-button">다음</button>
+              <button class="pagination-button" onclick="previousPage()">이전</button>
+              <span style="text-decoration-color: #333333; color: #333333;" id="currentPage">1</span>/<span style="color: #333333;" id="totalPages">1</span> 페이지
+              <button class="pagination-button" onclick="nextPage()">다음</button>
           </div>-->
-
           <div class="pagination">
               <button class="pagination-button" onclick="previousPage()">이전</button>
               <span style="text-decoration-color: #333333; color: #333333;" id="currentPage">1</span>/<span style="color: #333333;" id="totalPages">1</span> 페이지
               <button class="pagination-button" onclick="nextPage()">다음</button>
           </div>
       </div>
+        <hr>
+        <div class="item-management">
+            <h2>품목 정보 관리 페이징 처리 테스트</h2>
+<!--            <div class="search-item">
+                <select name="search-option" id="search-option">
+                    <option value="code">품목코드</option>
+                    <option value="name">품목명</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="검색어 입력" class="search-input">
+                <button onclick="searchItem()" class="search-button">검색</button>
+            </div>-->
+            <table id="itemTable2">
+                <thead>
+                <tr>
+                    <th>품목코드</th>
+                    <th>품목명</th>
+                    <th>규격(mm)</th>
+                    <th>재질</th>
+                    <th>도면</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dto : ${result.dtoList}">
+                    <th scope="row" th:text="${dto.itemCode}"></th>
+                    <td th:text="${dto.itemName}"></td>
+                    <td>
+                        <span th:text="${dto.width + 'x' + dto.length + 'x' + dto.height}"></span>
+                    </td>
+                    <td th:text="${dto.material}"></td>
+                    <td th:text="${dto.blueprintOriginName}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--          <div class="pagination">
+                          <button class="pagination-button">이전</button>
+                          <span>1/10 페이지</span>
+                          <button class="pagination-button">다음</button>
+                      </div>-->
+
+<!--            <div class="pagination">
+                <button class="pagination-button" onclick="previousPage()">이전</button>
+                <span style="text-decoration-color: #333333; color: #333333;" id="currentPage">1</span>/<span style="color: #333333;" id="totalPages">1</span> 페이지
+                <button class="pagination-button" onclick="nextPage()">다음</button>
+            </div>-->
+        </div>
     </div>
 </div>
 <script src="item.js"></script>

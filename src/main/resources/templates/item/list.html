@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품목 정보 리스트</title>
+    <link rel="stylesheet" href="/css/item.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="/image/favicon-32x32.png">
+</head>
+<body>
+<th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='조달 관리 > 품목 정보 리스트')}"></th:block>
+
+<div class="container">
+    <th:block th:replace="~{/fragments/fragment2}"></th:block>
+    <div class="content">
+        <div class="item-management">
+            <h2>품목 정보 리스트</h2>
+            <div class="search-item">
+                <select name="search-option" id="search-option">
+                    <option value="code">품목코드</option>
+                    <option value="name">품목명</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="검색어 입력" class="search-input">
+                <button onclick="searchItem()" class="search-button">검색</button>
+            </div>
+            <table id="itemTable">
+                <thead>
+                <tr>
+                    <th>품목코드</th>
+                    <th>품목명</th>
+                    <th>규격(mm)</th>
+                    <th>재질</th>
+                    <th>도면</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
+                <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
+                <tr th:each="item : ${result.dtoList}">
+                    <td th:text="${item.itemCode}"></td>
+                    <td th:text="${item.itemName}"></td>
+                    <td th:text="${item.width} + 'x' + ${item.length} + 'x' + ${item.height}"></td>
+                    <td th:text="${item.material}"></td>
+                    <td th:text="${item.blueprintOriginName}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="pagination-button" onclick="previousPage()">이전</button>
+                <span style="text-decoration-color: #333333; color: #333333;" th:text="${result.pageRequestDTO.page}" id="currentPage">1</span>/<span style="color: #333333;" th:text="${result.totalPages}" id="totalPages">1</span> 페이지
+                <button class="pagination-button" onclick="nextPage()">다음</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="item.js"></script>
+</body>
+</html>
