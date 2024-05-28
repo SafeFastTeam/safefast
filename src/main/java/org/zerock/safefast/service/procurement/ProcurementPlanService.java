@@ -20,7 +20,6 @@ public class ProcurementPlanService {
     }
 
     public List<ProcurementPlan> getAllProcurementPlans() {
-
         return procurementPlanRepository.findAll();
     }
 

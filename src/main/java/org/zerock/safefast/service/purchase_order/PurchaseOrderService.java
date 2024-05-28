@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
+import org.zerock.safefast.entity.CoOpCompany;
+import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
-import org.zerock.safefast.repository.ProcurementPlanRepository;
-import org.zerock.safefast.repository.ProgressCheckItemRepository;
-import org.zerock.safefast.repository.PurchaseOrderRepository;
-import org.zerock.safefast.repository.ReceiveRepository;
+import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +32,8 @@ public class PurchaseOrderService {
 
     @Autowired
     private ReceiveRepository receiveRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Autowired
     public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository) {
@@ -49,6 +50,12 @@ public class PurchaseOrderService {
             purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
             purchaseOrder.setPurchProgress(0);
             purchaseOrder.setProcPlanNumber(request.getProcPlanNumber());
+
+            purchaseOrder.setCoOpCompany(request.getCoOpCompany());
+            purchaseOrder.setBusinessNumber(request.getCoOpCompany().getBusinessNumber());
+            purchaseOrder.setItem(request.getItem());
+            purchaseOrder.setItemCode(request.getItem().getItemCode());
+
 
             return purchaseOrder;
         }).toList();
@@ -111,6 +118,8 @@ public class PurchaseOrderService {
         response.setReceiveDuedate(String.valueOf(purchaseOrder.getReceiveDuedate()));
         response.setPurchOrderQuantity(purchaseOrder.getPurchOrderQuantity());
         response.setProcPlanNumber(purchaseOrder.getProcPlanNumber());
+        response.setBusinessNumber(purchaseOrder.getBusinessNumber());
+        response.setItemCode(purchaseOrder.getItemCode());
         // 나머지 필드들도 필요에 따라 매핑
 
         return response;

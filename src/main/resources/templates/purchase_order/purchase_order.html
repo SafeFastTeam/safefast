@@ -42,6 +42,8 @@
               <th>품목명</th>
               <th>구매주문수량</th>
               <th>조달납기일</th>
+              <th>사업자 번호</th> <!-- 새로 추가된 열 -->
+              <th>품목 코드</th>
             </tr>
           </thead>
           <tbody id="procurement-plan-list">
@@ -52,6 +54,8 @@
               <td th:text="${plan.item.itemName}"></td>
               <td><input type="number" name="procQuantity" class="input-field"></input></td>
               <td><input type="date" name="procDuedate" class="input-field"></input></td>
+              <td th:text="${plan.coOpCompany.businessNumber}"></td>
+              <td th:text="${plan.item.itemCode}"></td>
 <!--              <td th:text="${plan.procQuantity}"></td>-->
 <!--              <td th:text="${plan.procDuedate}"></td>-->
             </tr>
@@ -82,6 +86,8 @@
             <tr>
               <th><input type="checkbox"></th>
               <th>발주번호</th>
+              <th>업체명</th>
+              <th>품목명</th>
               <th>발주수량</th>
               <th>입고예정일</th>
               <th>발주일</th>
@@ -104,7 +110,6 @@
       <!-- 모달 창 -->
       <div id="orderModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
           <div class="modal-header">
             <h3>구매 발주서 관리 - 발주서 작성</h3>
             <div class="btn-group">
@@ -121,76 +126,74 @@
     </div>
   </div>
   <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
-              checkbox.addEventListener('change', function () {
-                  if (this.checked) {
-                      let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+          if (this.checked) {
+            let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
 
-                      fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
-                          .then(response => {
-                              if (response.ok) {
-                                  return response.json();
-                              } else {
-                                  throw new Error('조달계획 정보를 불러오지 못했습니다.');
-                              }
-                          })
-                          .then(data => {
-                              let row = this.closest('tr');
-                              row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
-                              row.querySelector('input[name="procDuedate"]').value = new Date(data.procDuedate).toISOString().split('T')[0];
-                          })
-                          .catch(error => {
-                              alert(error.message);
-                          });
-                  }
-              });
-          });
-
-          document.getElementById('issue-order-btn').addEventListener('click', function () {
-              let selectedPlans = [];
-              document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
-                  let row = checkbox.closest('tr');
-                  selectedPlans.push({
-                      procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
-                      companyName: row.querySelector('td:nth-child(3)').innerText,
-                      itemName: row.querySelector('td:nth-child(4)').innerText,
-                      purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
-                      receiveDuedate: row.querySelector('input[name="procDuedate"]').value + 'T00:00:00'
-                  });
-              });
-
-              fetch('/purchase_order/create', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(selectedPlans)
-              })
-                  .then(response => {
+            fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
+                    .then(response => {
                       if (response.ok) {
-                          return response.json();
+                        return response.json();
                       } else {
-                          throw new Error('발주서 생성을 실패했습니다.');
+                        throw new Error('조달계획 정보를 불러오지 못했습니다.');
                       }
-                  })
-                  .then(data => {
-                      alert('발주서가 성공적으로 생성되었습니다.');
-                  })
-                  .catch(error => {
+                    })
+                    .then(data => {
+                      let row = this.closest('tr');
+                      row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
+                      row.querySelector('input[name="procDuedate"]').value = data.procDuedate;
+
+                    })
+                    .catch(error => {
                       alert(error.message);
-                  });
-          });
+                    });
+          }
+        });
       });
+
+      document.getElementById('issue-order-btn').addEventListener('click', function () {
+        let selectedPlans = [];
+        document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
+          let row = checkbox.closest('tr');
+          selectedPlans.push({
+            procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
+            companyName: row.querySelector('td:nth-child(3)').innerText,
+            itemName: row.querySelector('td:nth-child(4)').innerText,
+            purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
+            receiveDuedate: row.querySelector('input[name="procDuedate"]').value,
+            businessNumber: row.querySelector('td:nth-child(7)').innerText,
+            itemCode: row.querySelector('td:nth-child(8)').innerText
+          });
+        });
+
+        fetch('/purchase_order/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(selectedPlans)
+        })
+                .then(response => {
+                  if (response.ok) {
+                    return response.json();
+                  } else {
+                    throw new Error('발주서 생성을 실패했습니다.');
+                  }
+                })
+                .then(data => {
+                  alert('발주서가 성공적으로 생성되었습니다.');
+                })
+                .catch(error => {
+                  alert(error.message);
+                });
+      });
+    });
 
       // 모달 창 닫기 기능
       document.addEventListener('DOMContentLoaded', function () {
           var modal = document.getElementById('orderModal');
-          var span = document.getElementsByClassName('close')[0];
-
-          span.onclick = function () {
-              modal.style.display = 'none';
-          };
 
           window.onclick = function (event) {
               if (event.target == modal) {
@@ -228,9 +231,11 @@
                   var row = $('<tr>');
                   row.append('<td><input type="checkbox"></td>');
                   row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
+                  row.append('<td>' + purchaseOrder.coOpCompany.companyName + '</td>')
+                  row.append('<td>' + purchaseOrder.item.itemName + '</td>')
                   row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
-                  row.append('<td>' + purchaseOrder.receiveDuedate.split('T')[0]  + '</td>');
-                  row.append('<td>' + purchaseOrder.purchOrderDate.split('T')[0]  + '</td>');
+                  row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
+                  row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
                   tableBody.append(row);
               });
           }
