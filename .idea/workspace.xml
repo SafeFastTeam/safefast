@@ -25,8 +25,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -76,8 +77,9 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
+
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\safefast\src\main\resources\static\image" />
@@ -150,7 +152,12 @@
       <workItem from="1716531445942" duration="1840000" />
       <workItem from="1716629296345" duration="17338000" />
       <workItem from="1716775019517" duration="10251000" />
-      <workItem from="1716852553413" duration="2920000" />
+      <workItem from="1716855052560" duration="6071000" />
+      <workItem from="1716861169859" duration="448000" />
+      <workItem from="1716861628611" duration="1239000" />
+      <workItem from="1716862886945" duration="787000" />
+      <workItem from="1716863687758" duration="16633000" />
+      <workItem from="1716882648291" duration="2041000" />
     </task>
     <servers />
   </component>

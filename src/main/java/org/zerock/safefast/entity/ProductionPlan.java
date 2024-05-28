@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,6 +40,9 @@ public class ProductionPlan {
     @ManyToOne
     @JoinColumn(name = "productCode")
     private Product product;
+
+    @OneToMany(mappedBy = "productionPlan")
+    private List<Quantity> quantity;
 
     @ManyToOne
     @JoinColumn(name = "businessNumber")
