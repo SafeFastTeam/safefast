@@ -69,7 +69,7 @@
                     <td><input type="text" class="input-field" id="reg-prodQuantity" disabled></td>
                     <td><input type="text" class="input-field" id="reg-itemCode" name="itemCode" readonly></td>
                     <td><input type="text" class="input-field" id="reg-itemName" disabled></td>
-                    <td hidden><input type="text" class="input-field" id="reg-businessNumber"></td>
+                    <td hidden><input type="text" class="input-field" id="reg-businessNumber" name="businessNumber"></td>
                 </tr>
 
           </table>
@@ -111,6 +111,7 @@
                       <th>생산수량</th>
                       <th>품목코드</th>
                       <th>품목명</th>
+                      <th hidden>사업자번호</th>
                       <th>조달계획등록</th>
                   </tr>
               </thead>
@@ -124,7 +125,7 @@
                   <td th:text="${productionPlan.prodQuantity}"></td>
                   <td th:text="${productionPlan.item.itemCode}"></td>
                   <td th:text="${productionPlan.item.itemName}"></td>
-
+                  <td hidden th:text="${productionPlan.coOpCompany.businessNumber}"></td>
                   <td>
                       <button class="register-button"
                               th:data-prod-start-date="${productionPlan.prodStartDate}"
@@ -133,7 +134,8 @@
                               th:data-product-name="${productionPlan.product.productName}"
                               th:data-prod-quantity="${productionPlan.prodQuantity}"
                               th:data-item-code="${productionPlan.item.itemCode}"
-                              th:data-item-name="${productionPlan.item.itemName}">
+                              th:data-item-name="${productionPlan.item.itemName}"
+                              th:data-business-number="${productionPlan.coOpCompany.businessNumber}">
                           등록
                       </button>
                   </td>
@@ -160,6 +162,7 @@
               var prodQuantity = $(this).data('prod-quantity');
               var itemCode = $(this).data('item-code');
               var itemName = $(this).data('item-name');
+              var businessNumber = $(this).data('business-number');
 
               // 입력 필드에 데이터 설정
               $('#reg-prodStartDate').val(prodStartDate);
@@ -169,6 +172,7 @@
               $('#reg-prodQuantity').val(prodQuantity);
               $('#reg-itemCode').val(itemCode);
               $('#reg-itemName').val(itemName);
+              $('#reg-businessNumber').val(businessNumber);
           });
       });
   </script>

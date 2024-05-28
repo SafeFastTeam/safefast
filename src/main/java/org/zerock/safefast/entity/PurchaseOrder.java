@@ -1,17 +1,15 @@
 package org.zerock.safefast.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,7 +17,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"coOpCompany", "item"})
+@ToString(exclude = {"coOpCompany", "item", "progressCheckItems"})
 @DynamicUpdate
 public class PurchaseOrder {
     @Id
@@ -46,16 +44,34 @@ public class PurchaseOrder {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
+    @JsonManagedReference
     private CoOpCompany coOpCompany;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "itemCode")
+    @JsonManagedReference
     private Item item;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     private List<ProgressCheckItem> progressCheckItems;
 
-    // Getter and Setter methods
+    public String getBusinessNumber() {
+        return coOpCompany != null ? coOpCompany.getBusinessNumber() : null;
+    }
 
+    public String getItemCode() {
+        return item != null ? item.getItemCode() : null;
+    }
+
+    public void setBusinessNumber(String businessNumber) {
+        if (this.coOpCompany == null) {
+            this.coOpCompany = new CoOpCompany();
+        }
+        this.coOpCompany.setBusinessNumber(businessNumber);
+    }
+
+    public void setItemCode(String itemCode) {
+        this.item = item;
+    }
 }

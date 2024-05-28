@@ -45,8 +45,7 @@ public class ProcurementPlan {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
-    @JsonIgnore
+    @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber", insertable=false, updatable=false)
     private CoOpCompany coOpCompany;
 
     @Column
@@ -55,5 +54,7 @@ public class ProcurementPlan {
     @Column
     private String productCode;
 
+    @Column
+    private String businessNumber;
 }
 

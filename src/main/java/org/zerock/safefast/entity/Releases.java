@@ -3,6 +3,7 @@ package org.zerock.safefast.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -31,7 +32,7 @@ public class Releases {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "receiveNumber")
-    private Receive receive;
+    @JoinColumn(name = "quantityId")
+    private Quantity quantity;
 
 }

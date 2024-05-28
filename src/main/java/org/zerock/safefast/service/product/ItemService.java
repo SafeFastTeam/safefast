@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import org.zerock.safefast.dto.ItemDTO;
 import org.zerock.safefast.dto.PageRequestDTO;
 import org.zerock.safefast.dto.PageResultDTO;
@@ -24,6 +25,10 @@ import org.zerock.safefast.repository.ItemRepository;
 import org.zerock.safefast.repository.PartRepository;
 import org.zerock.safefast.repository.UnitRepository;
 import org.zerock.safefast.service.SafefastService;
+
+import org.zerock.safefast.entity.*;
+import org.zerock.safefast.repository.*;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,6 +51,7 @@ public class ItemService implements SafefastService {
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
     private final PartRepository partRepository;
+    private final QuantityRepository quantityRepository;
 
     public List<Unit> getAllUnits() {
         return unitRepository.findAll();
@@ -146,7 +152,38 @@ public class ItemService implements SafefastService {
             }
         }
 
-        itemRepository.save(item);
+        Optional<Item> existingItemOpt = itemRepository.findByItemCode(item.getItemCode());
+        if (existingItemOpt.isPresent()) {
+            Item existingItem = existingItemOpt.get();
+            // 기존 Item이 존재하면 병합하여 업데이트
+            existingItem.setUnit(item.getUnit());
+            existingItem.setAssy(item.getAssy());
+            existingItem.setPart(item.getPart());
+            existingItem.setItemName(item.getItemName());
+            existingItem.setWidth(item.getWidth());
+            existingItem.setLength(item.getLength());
+            existingItem.setHeight(item.getHeight());
+            existingItem.setMaterial(item.getMaterial());
+            existingItem.setBlueprintOriginName(item.getBlueprintOriginName());
+            existingItem.setBlueprintSaveName(item.getBlueprintSaveName());
+            itemRepository.save(existingItem);
+
+            // 기존 상품의 수량 업데이트
+            Quantity existingQuantity = quantityRepository.findByItem(existingItem);
+            if (existingQuantity != null) {
+                existingQuantity.setAllQuantity(0); // 기본적으로 수량을 0으로 설정
+                quantityRepository.save(existingQuantity);
+            }
+        } else {
+            // 새로운 Item을 저장
+            itemRepository.save(item);
+
+            // 새로운 상품의 수량 생성
+            Quantity quantity = new Quantity();
+            quantity.setItem(item);
+            quantity.setAllQuantity(0); // 새로운 상품이므로 수량은 0으로 설정
+            quantityRepository.save(quantity);
+        }
     }
 
     private String generateNextItemCode(String unitCode, String assyCode, String partCode) {
