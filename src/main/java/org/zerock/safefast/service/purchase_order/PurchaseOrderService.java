@@ -71,7 +71,7 @@ public class PurchaseOrderService {
         return purchaseOrderRepository.findAll();
     }
 
-    private String generateNextPurchOrderNumber() {
+    public String generateNextPurchOrderNumber() {
         String maxPurchOrderNumber = purchaseOrderRepository.findMaxPurchOrderNumber();
         if (maxPurchOrderNumber == null) {
             return "ORD-001";
