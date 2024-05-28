@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
+import org.zerock.safefast.repository.ProcurementPlanRepository;
 import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
@@ -20,6 +21,9 @@ import java.util.Optional;
 @RequestMapping("/purchase_order")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PurchaseOrderController {
+
+    @Autowired
+    private ProcurementPlanRepository procurementPlanRepository;
 
     @Autowired
     private ProcurementPlanService procurementPlanService;
@@ -43,9 +47,25 @@ public class PurchaseOrderController {
     }
 
     @PostMapping("/create")
-    @ResponseBody
-    public List<PurchaseOrder> createPurchaseOrder(@RequestBody List<PurchaseOrderRequest> purchaseOrderRequests) {
-        return purchaseOrderService.createPurchaseOrders(purchaseOrderRequests);
+    public String createPurchaseOrder(@RequestBody List<PurchaseOrderRequest> purchaseOrderRequests) {
+        for (PurchaseOrderRequest request : purchaseOrderRequests) {
+            ProcurementPlan procurementPlan = procurementPlanRepository.findById(request.getProcPlanNumber()).orElseThrow(() -> new IllegalArgumentException("Invalid procurement plan number"));
+
+            String purchOrderNumber = purchaseOrderService.generateNextPurchOrderNumber();
+
+            PurchaseOrder purchaseOrder = PurchaseOrder.builder()
+                    .purchOrderNumber(purchOrderNumber)
+                    .purchOrderQuantity(request.getPurchOrderQuantity())
+                    .receiveDuedate(request.getReceiveDuedate())
+                    .procPlanNumber(request.getProcPlanNumber())
+                    .purchOrderDate(request.getReceiveDuedate())
+                    .coOpCompany(procurementPlan.getCoOpCompany())
+                    .item(procurementPlan.getItem())
+                    .build();
+
+            purchaseOrderRepository.save(purchaseOrder);
+        }
+        return "Purchase orders created successfully";
     }
 
 
