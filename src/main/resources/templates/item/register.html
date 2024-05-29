@@ -89,9 +89,11 @@
                     <th><label for="blueprintOriginName">도면 파일</label></th>
                     <td colspan="3">
                         <div class="file-upload">
-                            <input type="file" id="blueprintOriginName" name="blueprintOriginName" accept=".pdf,.jpg,.png" required>
+                            <input type="file" id="blueprintOriginName" name="blueprintOriginName" accept=".pdf,.jpg,.png" onchange="displayFileName()" required>
                             <label for="blueprintOriginName" class="button">파일 선택</label>
+                            <div id="fileName" class="file-name"></div>
                         </div>
+
                     </td>
                 </tr>
             </table>
@@ -151,13 +153,20 @@
           <!-- 페이지네이션 영역 -->
           <div class="pagination">
               <button id="prevButton" class="pagination-button" onclick="previousPage()">이전</button>
-              <span id="currentPage"></span>/<span id="totalPages"></span> 페이지
+              <span id="currentPage" class="page">1</span>/<span id="totalPages" class="page">1</span> 페이지
               <button id="nextButton" class="pagination-button" onclick="nextPage()">다음</button>
           </div>
       </div>
 
     </div>
 </div>
+<script>
+    function displayFileName() {
+        var input = document.getElementById('blueprintOriginName');
+        var fileName = input.files[0].name;
+        document.getElementById('fileName').innerHTML = '선택한 파일: ' + fileName;
+    }
+</script>
 <script src="item.js"></script>
 
 </body>
