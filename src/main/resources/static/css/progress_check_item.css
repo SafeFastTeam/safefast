@@ -269,3 +269,7 @@ td {
 .modal-header span {
   color: black;
 }
+
+tbody td span {
+  color: black;
+}

@@ -58,8 +58,14 @@ public class ProgressCheckItemController {
 
     @PostMapping("/save")
     @ResponseBody
-    public String saveProgressCheckItems(@RequestBody List<ProgressCheckItem> progressCheckItems) {
+    public String saveProgressCheckItems(@RequestBody List<ProgressCheckItem> progressCheckItems, @RequestParam("type") String type) {
         progressCheckItemService.saveOrUpdateProgressCheckItems(progressCheckItems);
-        return "검수계획이 성공적으로 등록되었습니다.";
+        if (type.equals("plan")) {
+            return "검수계획이 성공적으로 등록되었습니다.";
+        } else if (type.equals("process")) {
+            return "검수처리가 완료되었습니다.";
+        } else {
+            return "잘못된 요청입니다.";
+        }
     }
 }
