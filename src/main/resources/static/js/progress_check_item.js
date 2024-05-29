@@ -88,10 +88,10 @@ $(document).ready(function () {
                                     var newRow = `
                                         <tr>
                                             <td>${index + 1}차</td>
-                                            <td><input type="date" class="inspection-date" value="${item.progCheckDate}"></td>
+                                            <td><input type="date" class="inspection-date" value="${item.progCheckDate}" readonly></td>
                                             <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
-                                            <td><input type="text" class="progCheckResult" value="${item.progCheckResult}"></td>
-                                            <td><input type="text" class="supplementation" value="${item.supplementation}"></td>
+                                            <td><input type="text" class="progCheckResult" value="${index + 1}" readonly></td>
+                                            <td><input type="text" class="supplementation" value="없음"></td>
                                             <td>진척도</td>
                                             <td>
                                                 <button class="btn add-btn">추가</button>
@@ -180,7 +180,7 @@ $(document).ready(function () {
             var item = {
                 progCheckDate: date,
                 progCheckOrder: index + 1,
-                purchaseOrder: { purchOrderNumber: purchOrderNumber }
+                purchaseOrder: {purchOrderNumber: purchOrderNumber}
             };
 
             if (modalId === "modal2") {
@@ -206,8 +206,10 @@ $(document).ready(function () {
             return;
         }
 
+        var ajaxUrl = modalId === "modal1" ? "/progress_check_item/save?type=plan" : "/progress_check_item/save?type=process";
+
         $.ajax({
-            url: "/progress_check_item/save",
+            url: ajaxUrl,
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(dataItems),
