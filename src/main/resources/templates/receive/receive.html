@@ -16,10 +16,10 @@
   <div class="content">
     <section class="procurement-plan">
       <h2>자재 입고</h2>
-      <div class="save-btn">
-        <button id="issue-order-btn" class="button">저장</button>
-        <button id="close-button" style="display: none;">마감</button>
-      </div>
+<!--      <div class="save-btn">-->
+<!--        <button id="issue-order-btn" class="button">저장</button>-->
+<!--        <button id="close-button" style="display: none;">마감</button>-->
+<!--      </div>-->
       <table>
         <thead>
         <tr>
@@ -31,20 +31,25 @@
           <th>재고</th>
           <th>발주 수량</th>
           <th>입고 수량</th>
+          <th>작업</th>
         </tr>
         </thead>
         <tbody id="procurement-plan-list">
-        <tr th:each="purchase : ${purchases}">
-          <td th:text="${purchase.purchOrderNumber}"></td>
-          <td th:text="${purchase.coOpCompany.companyName}"></td>
-          <td th:text="${purchase.item.itemName}"></td>
-          <td th:text="${purchase.purchOrderDate}"></td>
-          <td th:text="${purchase.receiveDuedate}"></td>
+        <tr th:each="progressCheckItem : ${progressCheckItems}">
+          <td th:text="${progressCheckItem.purchaseOrder.purchOrderNumber}"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.coOpCompany.companyName}"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.item.itemName}"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.purchOrderDate}"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.receiveDuedate}"></td>
           <td>0</td>
-          <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
           <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
-          <td th:text="${purchase.purchProgress}" style="display: none;"></td>
-          <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
+          <td th:text="${progressCheckItem.progCheckResult}" style="display: none;"></td>
+          <td th:text="${progressCheckItem.purchaseOrder.item.itemCode}" style="display: none;"></td>
+          <td> <div class="save-btn">
+            <button class="issue-order-btn button">저장</button>
+            <button id="close-button" style="display: none;">마감</button>
+          </div> </td>
         </tr>
         </tbody>
       </table>
@@ -219,7 +224,7 @@
       }
     }
 
-    $('#issue-order-btn').on('click', function() {
+    $(document).on('click', '.issue-order-btn', function () {
 
       $('.procurement-quantity-input').each(function() {
         var inputQuantity = parseFloat($(this).val());
@@ -329,7 +334,7 @@
       });
     });
 
-    $('#save-button').on('click', function () {
+    $(document).on('click', '#save-button', function () {
       var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기
       var releaseQuantity = row.find('.release-quantity-input').val(); // 출고 수량 가져오기
       var itemCode = row.find("td:eq(3)").text();

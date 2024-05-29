@@ -107,7 +107,7 @@
                     <td th:text="${item.itemName}"></td>
                     <td>
                         <ul>
-                            <th:block th:each="contract : ${item.contracts}">
+                            <th:block th:each="contract : ${item.contract}">
                                 <li>
                                     <span th:text="${contract.contractNumber}"></span>
                                 </li>
@@ -116,7 +116,7 @@
                     </td>
                     <td>
                         <ul>
-                            <th:block th:each="contract : ${item.contracts}">
+                            <th:block th:each="contract : ${item.contract}">
                                 <li>
                                     <span th:text="${contract.coOpCompany.companyName}"></span>
                                 </li>
@@ -125,7 +125,7 @@
                     </td>
                     <td>
                         <ul>
-                            <th:block th:each="contract : ${item.contracts}">
+                            <th:block th:each="contract : ${item.contract}">
                                 <li>
                                     <span th:text="${contract.coOpCompany.businessNumber}"></span>
                                 </li>
@@ -134,7 +134,7 @@
                     </td>
                     <td>
                         <ul>
-                            <th:block th:each="contract : ${item.contracts}">
+                            <th:block th:each="contract : ${item.contract}">
                                 <li>
                                     <span th:text="${contract.itemPrice}"></span>
                                 </li>
@@ -143,7 +143,7 @@
                     </td>
                     <td>
                         <ul>
-                            <th:block th:each="contract : ${item.contracts}">
+                            <th:block th:each="contract : ${item.contract}">
                                 <li>
                                     <span th:text="${contract.leadTime}"></span>
                                 </li>
