@@ -1,6 +1,9 @@
 package org.zerock.safefast.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -15,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "businessNumber")
 public class CoOpCompany {
 
     @Id
@@ -40,6 +44,5 @@ public class CoOpCompany {
     private String companyAccount;
 
     @OneToMany(mappedBy = "coOpCompany")
-    @JsonIgnore
     private List<PurchaseOrder> purchaseOrders;
 }

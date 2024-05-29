@@ -1,7 +1,6 @@
 package org.zerock.safefast.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "progCheckNumber")
 public class ProgressCheckItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
