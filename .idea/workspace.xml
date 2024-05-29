@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b1de10-442a-43a0-961b-dd361b5d287f" name="Changes" comment="">
+    <list default="true" id="050fa938-14b6-4244-b3c2-a6f3ec1d7e66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
-
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/invoicing.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/invoicing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/invoicing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
-
->>>>>>> origin/main
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/invoicing/invoicing.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/invoicing/invoicing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/list.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,21 +23,26 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="Interface" />
-        <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -56,110 +58,44 @@
   }
 }</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2gtY7IH2sYoANzihGqjU6LkI3o1" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="2h7TFc8POCL56D9NrkuQY5uAlk2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
     "Gradle.Build safefast.executor": "Run",
-    "Notification.DisplayName-DoNotAsk-WindowsDefender": "Microsoft Defender configuration",
-    "Notification.DoNotAsk-WindowsDefender": "true",
+    "JavaScript Debug.register.html.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "work/today",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
-=======
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Gradle.Build safefast.executor&quot;: &quot;Run&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-WindowsDefender&quot;: &quot;Microsoft Defender configuration&quot;,
-    &quot;Notification.DoNotAsk-WindowsDefender&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SafefastApplication.executor&quot;: &quot;Run&quot;,
-
-    &quot;git-widget-placeholder&quot;: &quot;work/page&quot;,
-
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/safefast/src/main/resources/static/image&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
->>>>>>> origin/main
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\safefast\src\main\resources\static\image" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\css" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\js" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\image" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\safefast\safefast\src\main\resources\templates\receive" />
-      <recent name="C:\safefast\safefast\src\main\resources\templates" />
-      <recent name="C:\safefast\safefast\src\main\resources\receive" />
-      <recent name="C:\safefast\safefast\src\main\resources\static\css" />
-      <recent name="C:\safefast\safefast\src\main\resources\templates\progress_check" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Spring Boot.SafefastApplication">
-    <configuration name="SafefastApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.zerock.safefast.SafefastApplication" />
-      <module name="org.zerock.safefast.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.zerock.safefast.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SafefastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="SafefastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="safefast.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.zerock.safefast.SafefastApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.zerock.safefast.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.SafefastApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -172,43 +108,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="37b1de10-442a-43a0-961b-dd361b5d287f" name="Changes" comment="" />
-      <created>1716280737421</created>
+      <changelist id="050fa938-14b6-4244-b3c2-a6f3ec1d7e66" name="Changes" comment="" />
+      <created>1716944015231</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1716280737421</updated>
-      <workItem from="1716280739414" duration="64000" />
-      <workItem from="1716280812390" duration="887000" />
-      <workItem from="1716421356446" duration="864000" />
-      <workItem from="1716432348008" duration="1985000" />
-      <workItem from="1716518176806" duration="2229000" />
-      <workItem from="1716531445942" duration="1840000" />
-      <workItem from="1716629296345" duration="17338000" />
-      <workItem from="1716775019517" duration="10251000" />
-      <workItem from="1716855052560" duration="6071000" />
-      <workItem from="1716861169859" duration="448000" />
-      <workItem from="1716861628611" duration="1239000" />
-      <workItem from="1716862886945" duration="787000" />
-      <workItem from="1716863687758" duration="16633000" />
-      <workItem from="1716882648291" duration="2041000" />
-
-      <workItem from="1716940627282" duration="1901000" />
-
+      <updated>1716944015231</updated>
+      <workItem from="1716944017322" duration="2629000" />
+      <workItem from="1716946805349" duration="10768000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

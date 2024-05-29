@@ -1,64 +1,67 @@
+let currentPage = 1;
+let totalPages = 1;
 
-document.addEventListener('DOMContentLoaded', function() {
-  // 기존의 renderPagination 호출을 fetchItems 호출로 변경
-  fetchItems(1);
+function searchItems() {
+  const searchOption = document.getElementById('search-option').value;
+  const keyword = document.getElementById('searchInput').value;
+  fetchItems(currentPage, searchOption, keyword);
+}
 
-  // 검색 폼의 이벤트 리스너 추가
-  document.getElementById('search-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const keyword = document.getElementById('keyword').value;
-    fetchItems(1, keyword);
-  });
-});
-
-function fetchItems(page, keyword = '') {
-  // keyword 파라미터를 추가하여 URL을 생성
-  const url = `/item/search?page=${page}&keyword=${encodeURIComponent(keyword)}`;
+function fetchItems(page, searchOption = 'itemCode', keyword = '') {
+  const url = `/item/search?page=${page}&searchOption=${searchOption}&keyword=${encodeURIComponent(keyword)}`;
 
   fetch(url)
       .then(response => response.json())
       .then(data => {
-        renderItems(data.dtoList); // 항목 렌더링
-        renderPagination(data); // 페이지네이션 렌더링
+        renderItems(data.dtoList); // 아이템 목록 렌더링
+        totalPages = data.totalPage;
+        document.getElementById('currentPage').textContent = data.page;
+        document.getElementById('totalPages').textContent = totalPages;
+        togglePaginationButtons(); // 페이지네이션 버튼 상태 갱신
       })
       .catch(error => console.error('Error fetching items:', error));
 }
 
 function renderItems(items) {
-  const itemList = document.getElementById('item-list');
-  itemList.innerHTML = ''; // 기존 항목 초기화
+  const itemTableBody = document.querySelector('#itemTable tbody');
+  itemTableBody.innerHTML = ''; // 기존 항목 초기화
 
   items.forEach(item => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${item.itemName} - ${item.itemCode}`;
-    itemList.appendChild(listItem);
+    const row = document.createElement('tr');
+    row.innerHTML = `
+            <td>${item.itemCode}</td>
+            <td>${item.itemName}</td>
+            <td>${item.width} x ${item.length} x ${item.height}</td>
+            <td>${item.material}</td>
+            <td>${item.blueprintOriginName}</td>
+        `;
+    itemTableBody.appendChild(row);
   });
 }
 
-function renderPagination(data) {
-  const paginationContainer = document.getElementById('pagination');
-  paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
-
-  const pageList = data.pageList;
-  const currentPage = data.page;
-
-  pageList.forEach(page => {
-    const pageItem = document.createElement('li');
-    const pageLink = document.createElement('a');
-    pageLink.textContent = page;
-    pageLink.href = '#';
-    pageLink.classList.add('page-link');
-    if (page === currentPage) {
-      pageLink.classList.add('active');
-    }
-    pageLink.addEventListener('click', function(event) {
-      event.preventDefault();
-      fetchItems(page);
-    });
-    pageItem.appendChild(pageLink);
-    paginationContainer.appendChild(pageItem);
-  });
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    searchItems();
+  }
 }
+
+function nextPage() {
+  if (currentPage < totalPages) {
+    currentPage++;
+    searchItems();
+  }
+}
+
+function togglePaginationButtons() {
+  document.getElementById('prevButton').disabled = currentPage <= 1;
+  document.getElementById('nextButton').disabled = currentPage >= totalPages;
+}
+
+// 초기 로드 시 기본 아이템 목록을 가져옴
+document.addEventListener('DOMContentLoaded', function() {
+  searchItems();
+});
 
 
 /*
