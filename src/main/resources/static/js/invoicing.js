@@ -35,11 +35,61 @@ $(document).ready(function () {
     });
   });
 
-  var printButton = document.getElementById('printButton');
+/*  var printButton = document.getElementById('printButton');
 
   printButton.addEventListener('click', function() {
     window.print(); // 페이지 프린트
+  });*/
+
+  var printButton = document.getElementById('printButton');
+
+  printButton.addEventListener('click', function() {
+    $("#modal1").show(); // 모달 열기
+    printModalContent(); // 모달 창 내용 프린트 함수 호출
   });
+
+  function printModalContent() {
+    var modal = document.getElementById('modal1'); // 현재 모달 선택
+    var modalContent = modal.querySelector('.modal-content'); // 모달 콘텐츠 요소 선택
+    var printableContent = modalContent.innerHTML; // 모달 콘텐츠 내용 저장
+
+    // 모달 외의 내용을 숨김
+    var otherContent = document.querySelectorAll('body > *:not(#modal1)');
+    otherContent.forEach(function(element) {
+      element.style.display = 'none';
+    });
+
+    // 프린트용 스타일 생성
+    var printStyle = document.createElement('style');
+    printStyle.innerHTML = `
+    @media print {
+      body > *:not(#modal1) {
+        display: none !important;
+      }
+    }
+  `;
+    document.head.appendChild(printStyle);
+
+    // 임시 HTML을 새 창에 열어 프린트
+    var printWindow = window.open('', '_blank');
+    printWindow.document.open();
+    printWindow.document.write('<html><head><title>모달 창 프린트</title><link rel="stylesheet" type="text/css" href="/css/invoicing.css"></head><body>' + printableContent + '</body></html>');
+    printWindow.document.close();
+
+    // 프린트 후에도 원래 상태로 복원
+    setTimeout(function() {
+      printWindow.print();
+      printWindow.close();
+
+      // 다른 내용들을 다시 표시
+      otherContent.forEach(function(element) {
+        element.style.display = '';
+      });
+
+      // 프린트용 스타일 제거
+      document.head.removeChild(printStyle);
+    }, 1000);
+  }
 
   document.getElementById('email').addEventListener('click', function() {
     // 이메일 클라이언트가 없는 경우에는 다른 방법으로 이메일을 전송할 수 있도록 안내

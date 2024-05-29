@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>자재관리 - 거래 명세서 발행</title>
   <link rel="stylesheet" href="/css/invoicing.css">
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 거래 명세서 발행')}"></th:block>
   <div class="container">
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
     <div class="content">
@@ -65,11 +67,11 @@
     </div>
   </div>
 
-  <!-- 모달 1: 검수계획 등록 -->
+  <!-- 모달 1: 거래명세서 발행 -->
   <div id="modal1" class="modal">
       <div class="modal-content">
           <span class="close-btn">&times;</span>
-          <h3>검수 계획 등록</h3>
+          <h3>거래명세서 발행</h3>
           <div class="modal-header">
               <p>발주번호: <span id="order-no" data-field="purchOrderNumber"></span></p>
               <p>발주일자: <span data-field="orderDate"></span></p>
@@ -84,6 +86,9 @@
       <button id="printButton">인쇄</button>
     </div>
   </div>
+
+<!-- 모달 CSS적용 버전 -->
+
   <script src="/js/invoicing.js"></script>
   <script src="/js/index.js"></script>
 </body>
