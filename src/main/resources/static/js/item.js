@@ -42,14 +42,16 @@ function renderItems(items) {
 function previousPage() {
   if (currentPage > 1) {
     currentPage--;
-    searchItems();
+    /*searchItems();*/
+      fetchItems(currentPage); // 현재 페이지로 데이터 다시 불러오기
   }
 }
 
 function nextPage() {
   if (currentPage < totalPages) {
     currentPage++;
-    searchItems();
+    /*searchItems();*/
+      fetchItems(currentPage); // 현재 페이지로 데이터 다시 불러오기
   }
 }
 
@@ -119,41 +121,24 @@ function changePage(page) {
   });
 }
 
-// 이전 페이지로 이동하는 함수
-function previousPage() {
-  if (currentPage > 1) {
-    changePage(currentPage - 1);
-  }
-}
-
-// 다음 페이지로 이동하는 함수
-function nextPage() {
-  if (currentPage < totalPages) {
-    changePage(currentPage + 1);
-  }
-}
+ */
 
 // 페이지네이션 초기화 함수
 function renderPagination() {
-  var currentPageSpan = document.getElementById('currentPage');
-  var totalPagesSpan = document.getElementById('totalPages');
+    // 현재 페이지와 총 페이지 정보를 가져와서 HTML에 표시
+    document.getElementById('currentPage').textContent = currentPage;
+    document.getElementById('totalPages').textContent = totalPages;
 
-  // 현재 페이지 및 전체 페이지 수 표시
-  currentPageSpan.textContent = currentPage;
-  totalPagesSpan.textContent = totalPages;
+    // 현재 페이지가 첫 번째 페이지인 경우 이전 버튼 비활성화
+    document.getElementById('prevButton').disabled = currentPage <= 1;
 
-  // 현재 페이지가 첫 번째 페이지이면 이전 버튼 비활성화
-  var previousButton = document.querySelector('.pagination-button:first-child');
-  previousButton.disabled = (currentPage === 1);
-
-  // 현재 페이지가 마지막 페이지이면 다음 버튼 비활성화
-  var nextButton = document.querySelector('.pagination-button:last-child');
-  nextButton.disabled = (currentPage === totalPages);
+    // 현재 페이지가 마지막 페이지인 경우 다음 버튼 비활성화
+    document.getElementById('nextButton').disabled = currentPage >= totalPages;
 }
 
-// 페이지네이션 초기화
+// 페이지 초기화 함수 호출
 renderPagination();
-*/
+
 
 /*
 처음에 있던 코드

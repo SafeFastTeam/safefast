@@ -53,6 +53,9 @@ public class ItemController {
         model.addAttribute("parts", parts);
         // 페이징 처리된 결과를 모델에 추가
         model.addAttribute("result", result);
+        // 현재 페이지와 전체 페이지 정보를 모델에 추가
+        model.addAttribute("currentPage", result.getPage());
+        model.addAttribute("totalPages", result.getTotalPage());
         return "item/register";
     }
 

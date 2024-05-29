@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
+    <style>
+        span {
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div th:fragment="subnav">
     <div class="sub-navigation">
         <div class="breadcrumb">
             <a th:href="@{/}"><i class="fas fa-home"></i> Home</a>
-            <span> > </span>
-            <span th:text="${currentPageName}"><i class="fas fa-home"></i> Home</span>
+            <span style="color: white;"> > </span>
+            <span th:text="${currentPageName}" style="color: white;"><i class="fas fa-home"></i> Home</span>
             <!--<span>현재 페이지</span>-->
         </div>
         <div class="info-icon">

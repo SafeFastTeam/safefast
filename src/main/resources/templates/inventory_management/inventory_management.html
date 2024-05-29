@@ -39,75 +39,104 @@
 
   <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 
-  <script type="text/javascript">
-      var dom = document.getElementById('container3');
-      var myChart = echarts.init(dom, null, {
-          renderer: 'canvas',
-          useDirtyRect: false
-      });
-      var app = {};
 
-      var option;
+<script type="text/javascript">
+  // 데이터 정의
+  const categoryData = {
+    large: [1200, 600, 400, 0, 800, 50],
+    medium: [800, 500, 300, 200, 600, 400],
+    small: [300, 200, 100, 50, 400, 300]
+  };
 
-      option = {
-          xAxis: {
-              type: 'category',
-              data: ['볼트', '너트', '안테나', '모듈', '기어', '센서']
-          },
-          yAxis: {
-              type: 'value'
-          },
-          series: [
-              {
-                  data: [1200, 600, 400, 0, 800, 50],
-                  type: 'bar',
-                  showBackground: true,
-                  backgroundStyle: {
-                      color: 'rgba(180, 180, 180, 0.2)'
-                  }
-              }
-          ]
-      };
+  const labels = {
+    large: ['충전부', '용접부', '취출부', '주입부', '장착부', '제어부'],
+    medium: ['히터', '커넥터', '고정대', '구동축', '모터', '펌프'],
+    small: ['벨트', '기어', '핀', '체인', '케이블', '볼트']
+  };
 
-      if (option && typeof option === 'object') {
-          myChart.setOption(option);
-      }
+  // Echarts 차트 초기화
+  const echartsContainer = document.getElementById('container3');
+  const myChartEcharts = echarts.init(echartsContainer, null, { renderer: 'canvas', useDirtyRect: false });
 
-      window.addEventListener('resize', myChart.resize);
-  </script>
-  <script type="text/javascript">
-      // 차트 데이터
-      var data = {
-          labels: ['볼트', '너트', '안테나', '모듈', '기어', '센서'],
-          datasets: [{
-              data: [1200, 600, 400, 0, 800, 50],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.8)',
-                  'rgba(54, 162, 235, 0.8)',
-                  'rgba(255, 206, 86, 0.8)',
-                  'rgba(75, 192, 192, 0.8)',
-                  'rgba(153, 102, 255, 0.8)',
-                  'rgba(255, 159, 64, 0.8)'
-              ],
-              hoverOffset: 4 // 마우스 호버 효과
-          }]
-      };
+  const updateEchartsChart = (data, labels) => {
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: labels,
+        axisLabel: {
+          interval: 0, // 모든 레이블 표시
+/*          rotate: 30, */ // 필요한 경우 레이블 회전 (회전 각도는 필요에 따라 조정)
+        }
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: data,
+        type: 'bar',
+        showBackground: true,
+        backgroundStyle: { color: 'rgba(180, 180, 180, 0.2)' }
+      }]
+    };
 
-      // 도넛 차트 설정
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: data,
-          options: {
-              responsive: false, // 반응형 설정
-              plugins: {
-                  legend: {
-                      position: 'right' // 범례 위치 설정
-                  }
-              }
-          }
-      });
-  </script>
+    if (option && typeof option === 'object') {
+      myChartEcharts.setOption(option);
+    }
+
+    window.addEventListener('resize', myChartEcharts.resize);
+  };
+
+  // Chart.js 도넛 차트 초기화
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChartDoughnut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels.large,
+      datasets: [{
+        data: categoryData.large,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: false,
+      plugins: { legend: { position: 'right' } }
+    }
+  });
+
+  const updateDoughnutChart = (data, labels) => {
+    myChartDoughnut.data.labels = labels;
+    myChartDoughnut.data.datasets[0].data = data;
+    myChartDoughnut.update();
+  };
+
+  // 버튼 클릭 이벤트 핸들러
+  document.getElementById('issue-order-btn-large').addEventListener('click', () => {
+    updateEchartsChart(categoryData.large, labels.large);
+    updateDoughnutChart(categoryData.large, labels.large);
+  });
+
+  document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
+    updateEchartsChart(categoryData.medium, labels.medium);
+    updateDoughnutChart(categoryData.medium, labels.medium);
+  });
+
+  document.getElementById('issue-order-btn-small').addEventListener('click', () => {
+    updateEchartsChart(categoryData.small, labels.small);
+    updateDoughnutChart(categoryData.small, labels.small);
+  });
+
+  // 초기 차트 로드
+  updateEchartsChart(categoryData.large, labels.large);
+  updateDoughnutChart(categoryData.large, labels.large);
+</script>
 
   <script src="/js/index.js"></script>
   <script src="/js/inventory_management.js"></script>
