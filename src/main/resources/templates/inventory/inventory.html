@@ -50,24 +50,22 @@
           </thead>
           <tbody id="inventory-calculation-list">
           <!-- 반복문을 통해 서버에서 받아온 데이터를 동적으로 표시 -->
-            <tr th:each="item : ${inventoryItems}">
-              <td th:text="${item.item.getItemCode()}"></td>
-              <td th:text="${item.item.getItemName()}"></td>
-              <td th:text="${item.item.getWidth() + 'x' + item.item.getLength() + 'x' + item.item.getHeight()}"></td>
-              <td th:text="${item.item.getMaterial()}"></td>
+            <tr th:each="release : ${releases}">
+              <td th:text="${release.item.getItemCode()}"></td>
+              <td th:text="${release.item.getItemName()}"></td>
+              <td th:text="${release.item.getWidth() + 'x' + release.item.getLength() + 'x' + release.item.getHeight()}"></td>
+              <td th:text="${release.item.getMaterial()}"></td>
               <td>0</td>
-                <td>600</td>
-                <td>500</td>
-                <td>100</td>
-                <td>300</td>
-              <!-- 입고출고수량을 서버에서 받아온 값으로 대체 -->
-              <!--<td th:text="${item.receive != null ? item.receive.receiveQuantity : 'N/A'}"></td>
-              <td th:text="${item.releases != null ? item.releases.releaseQuantity : 'N/A'}"></td>
-              <td>100</td>
-              <td th:text="${item.contract != null ? item.contract.itemPrice : 'N/A'}"></td>-->
-              <td></td>
+              <td th:text="${#lists.isEmpty(release.item.receive) ? 'N/A' : release.item.receive.get(0).receiveQuantity}"></td>
+              <td ></td>
+              <td th:text="${release.quantity.allQuantity}"></td>
+              <td th:text="${#lists.isEmpty(release.item.contract) ? 'N/A' : release.item.contract.get(0).itemPrice}"></td>
+              <td th:text="${#lists.isEmpty(release.item.contract) ? 'N/A' : release.quantity.allQuantity * release.item.contract.get(0).itemPrice}"></td>
             </tr>
-          </tbody>
+<!--            <tr th:each="entry : ${itemCodeQuantities}">-->
+<!--              <td th:text="${entry.key}"></td>-->
+<!--              <td th:text="${entry.value}"></td>-->
+<!--            </tr>-->
         </table>
           <div class="pagination">
               <button class="pagination-button">이전</button>
@@ -79,14 +77,7 @@
   </div>
 
   <script>
-    // 기말 재고를 자동으로 계산합니다.
-    // 이 함수는 기말 재고와 단가를 곱하여 자동으로 재고 금액을 산출합니다.
-    function calculateInventoryAmount() {
-    }
-  
-    window.onload = function() {
-      calculateInventoryAmount();
-    };
+
   </script>
   <script src="/js/inventory.js"></script>
   <script src="/js/index.js"></script>

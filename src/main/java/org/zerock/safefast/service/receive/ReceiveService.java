@@ -22,6 +22,7 @@ public class ReceiveService {
     private final QuantityRepository quantityRepository;
     private final ProductionPlanRepository productionPlanRepository;
     private final ReleasesRepository releasesRepository;
+    private final ProgressCheckItemRepository progressCheckItemRepository;
 
     public void addReceive(ReceiveDTO receiveDTO) {
         log.info("addReceive called with DTO: {}", receiveDTO);
@@ -74,5 +75,9 @@ public class ReceiveService {
 
     public List<Releases> getAllReleases() {
         return releasesRepository.findAll();
+    }
+
+    public List<ProgressCheckItem> getAllProgressCheckItem() {
+        return progressCheckItemRepository.findAll();
     }
 }

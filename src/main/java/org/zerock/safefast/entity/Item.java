@@ -61,12 +61,16 @@ public class Item {
     private Part part;
 
     @OneToMany(mappedBy = "item")
-    private List<Contract> contracts;
-
-    @OneToMany(mappedBy = "item")
     private List<Contract> contract;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
+    private List<Receive> receive;
+
+
+    @OneToMany(mappedBy = "item")
+    @JsonIgnore
     private List<PurchaseOrder> purchaseOrder;
+
+
 }

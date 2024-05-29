@@ -114,4 +114,7 @@ public class InventoryService {
         return searchResults;
     }
 
+    public List<Releases> getAllReleases() {
+        return releasesRepository.findAll();
+    }
 }

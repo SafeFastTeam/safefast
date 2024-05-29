@@ -3,14 +3,11 @@ package org.zerock.safefast.service.product;
 /*import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.tyoes.dsl.BooleanExpression;*/
 
-import com.fasterxml.jackson.databind.util.ArrayBuilders;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -40,7 +37,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.function.Function;
 
 @Service

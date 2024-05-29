@@ -41,9 +41,6 @@ public class ProductionPlan {
     @JoinColumn(name = "productCode")
     private Product product;
 
-    @OneToMany(mappedBy = "productionPlan")
-    private List<Quantity> quantity;
-
     @ManyToOne
     @JoinColumn(name = "businessNumber")
     private CoOpCompany coOpCompany;
