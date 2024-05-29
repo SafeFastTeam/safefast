@@ -2,12 +2,15 @@ package org.zerock.safefast.service.product;
 
 /*import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.tyoes.dsl.BooleanExpression;*/
+
 import com.fasterxml.jackson.databind.util.ArrayBuilders;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -73,7 +76,7 @@ public class ItemService implements SafefastService {
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("itemCode").descending());
         Page<Item> result = itemRepository.findAll(pageable);
-        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
+        Function<Item, ItemDTO> fn = this::entityToDto;
         return new PageResultDTO<>(result, fn);
     }
 
@@ -110,7 +113,7 @@ public class ItemService implements SafefastService {
 
     @Override
     public ItemDTO entityToDto(Item entity) {
-        ItemDTO dto  = ItemDTO.builder()
+        ItemDTO dto = ItemDTO.builder()
                 .itemCode(entity.getItemCode())
                 .itemName(entity.getItemName())
                 .width(entity.getWidth())
@@ -121,11 +124,6 @@ public class ItemService implements SafefastService {
                 .build();
 
         return dto;
-    }
-
-    @Override
-    public PageResultDTO<ItemDTO, Item> searchItems(PageRequestDTO pageRequestDTO, String keyword) {
-        return null;
     }
 
     public void registerItem(Item item, MultipartFile blueprintFile) {
@@ -197,6 +195,19 @@ public class ItemService implements SafefastService {
         }
     }
 
+    @Override
+    public PageResultDTO<ItemDTO, Item> searchItems(PageRequestDTO pageRequestDTO, String keyword) {
+        // PageRequestDTO를 이용하여 Pageable 객체 생성
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("itemCode").descending());
 
+        // itemRepository를 사용하여 keyword를 포함하는 아이템을 검색하고 페이징 처리하여 결과를 가져옴
+        Page<Item> result = itemRepository.findByItemNameContaining(keyword, pageable);
+
+        // 검색 결과를 ItemDTO로 변환하는 Function 객체 생성
+        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
+
+        // PageResultDTO 객체 생성하여 반환
+        return new PageResultDTO<>(result, fn);
+    }
 
 }

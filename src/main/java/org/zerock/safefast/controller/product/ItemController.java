@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,10 +37,27 @@ public class ItemController {
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
     private final PartRepository partRepository;
-    @Qualifier("safefastService")
-    private final SafefastService service;
+
+
+    // 페이징 처리된 결과 받아오도록 수정
 
     @GetMapping("/register")
+    public String showItemRegisterPage(PageRequestDTO pageRequestDTO, Model model) {
+        List<Unit> units = unitRepository.findAll();
+        List<Assy> assies = assyRepository.findAll();
+        List<Part> parts = partRepository.findAll();
+        // 페이징 처리된 결과를 받아옴
+        PageResultDTO<ItemDTO, Item> result = itemService.getList(pageRequestDTO);
+        model.addAttribute("units", units);
+        model.addAttribute("assies", assies);
+        model.addAttribute("parts", parts);
+        // 페이징 처리된 결과를 모델에 추가
+        model.addAttribute("result", result);
+        return "item/register";
+    }
+
+    // 아래 거가 원본
+/*    @GetMapping("/register")
     public String showItemRegisterPage(Model model) {
         List<Unit> units = unitRepository.findAll();
         List<Assy> assies = assyRepository.findAll();
@@ -50,7 +68,7 @@ public class ItemController {
         model.addAttribute("parts", parts);
         model.addAttribute("items", items);
         return "item/register";
-    }
+    }*/
 
     @PostMapping("/register")
     public String registerItem(@RequestParam("unitCode") String unitCode,
@@ -61,7 +79,8 @@ public class ItemController {
                                @RequestParam("length") Integer length,
                                @RequestParam("height") Integer height,
                                @RequestParam("material") String material,
-                               @RequestParam("blueprintOriginName") MultipartFile blueprintFile) {
+                               @RequestParam("blueprintOriginName") MultipartFile blueprintFile,
+                               PageRequestDTO pageRequestDTO, Model model) {
 
         Unit unit = unitRepository.findById(unitCode)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Unit Code: " + unitCode));
@@ -83,34 +102,26 @@ public class ItemController {
 
         itemService.registerItem(item, blueprintFile);
 
+        // 등록 후 페이지를 다시 조회하여 최신 데이터를 반영
+        PageResultDTO<ItemDTO, Item> result = itemService.getList(pageRequestDTO);
+        List<Unit> units = unitRepository.findAll();
+        List<Assy> assies = assyRepository.findAll();
+        List<Part> parts = partRepository.findAll();
+        model.addAttribute("result", result); // 페이징 결과를 모델에 담아서 전달
+        model.addAttribute("units", units);
+        model.addAttribute("assies", assies);
+        model.addAttribute("parts", parts);
+
         return "redirect:/item/register";
     }
 
-    // 테이블 조회를 페이징하여 보여주는 컨트롤러 메서드
-    @GetMapping("/list")
-    public String list(PageRequestDTO pageRequestDTO, Model model) {
-        log.info("list................." + pageRequestDTO);
-        PageResultDTO<ItemDTO, Item> result = service.getList(pageRequestDTO);
-        model.addAttribute("result", result); // 페이징 결과를 모델에 담아서 전달
-        return "item/list";
-    }
-
     @GetMapping("/search")
-    public String list(@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
-                       @RequestParam(value = "keyword", required = false) String keyword,
-                       Model model) {
-        log.info("list................." + pageRequestDTO);
-
-// 검색어가 존재하면 검색 기능을 수행하고, 아니면 일반 리스트 조회를 수행합니다.
-        PageResultDTO<ItemDTO, Item> result;
-        if (keyword != null && !keyword.isEmpty()) {
-            result = service.searchItems(pageRequestDTO, keyword);
-        } else {
-            result = service.getList(pageRequestDTO);
-        }
-
-        model.addAttribute("result", result); // 페이징 결과를 모델에 담아서 전달
-        return "item/list";
+    public ResponseEntity<PageResultDTO<ItemDTO, Item>> searchItems(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword) {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(page).build();
+        PageResultDTO<ItemDTO, Item> result = itemService.searchItems(pageRequestDTO, keyword);
+        return ResponseEntity.ok().body(result);
     }
 
 
