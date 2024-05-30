@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="050fa938-14b6-4244-b3c2-a6f3ec1d7e66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/contract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/contract/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/purchase_order/PurchaseOrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/purchase_order/PurchaseOrderRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" afterDir="false" />
@@ -90,6 +96,7 @@
       <change beforePath="$PROJECT_DIR$/uploads/f62b62ff-fb32-41e9-a54d-67931b88b514_직렬화 순환참조 에러.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/f62b62ff-fb32-41e9-a54d-67931b88b514_직렬화 순환참조 에러.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uploads/f8662ce6-dfa3-40c5-a548-413190012fa6_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/f8662ce6-dfa3-40c5-a548-413190012fa6_logo_orange_Removal.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uploads/fe89d6a6-392a-42f4-978d-7111d6045b60_충전잭.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/fe89d6a6-392a-42f4-978d-7111d6045b60_충전잭.png" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +164,10 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
+
+    "git-widget-placeholder": "work/image",
     "git-widget-placeholder": "feat/dev/pci02",
+
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "list.type.of.created.stylesheet": "CSS",
@@ -201,7 +211,11 @@
       <updated>1716944015231</updated>
       <workItem from="1716944017322" duration="2629000" />
       <workItem from="1716946805349" duration="10768000" />
+
+      <workItem from="1717027771325" duration="12718000" />
+
       <workItem from="1717027299969" duration="12452000" />
+
     </task>
     <servers />
   </component>

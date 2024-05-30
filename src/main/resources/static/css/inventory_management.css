@@ -125,10 +125,10 @@ header {
   gap: 10px;
 }
 
-span {
+/*span {
   margin-top: 7px;
   font-size: large;
-}
+}*/
 
 .save-btn {
   display: flex;

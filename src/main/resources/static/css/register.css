@@ -40,18 +40,20 @@ main {
 }
 
 .register-container {
-  text-align: center;
+  text-align: left;
   width: 500px;
   height: 700px;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
 .register-container h4 {
   font-size: 24px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .register-container h2 {
@@ -73,7 +75,7 @@ main {
   width: 90%;
   height: 30px;
   padding: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f5f5f5;
@@ -84,6 +86,15 @@ main {
 .input-field:focus {
   outline: none;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(6, 98, 120, 0.5);
+}
+
+.input-container {
+  margin-bottom: 5px; /* 각 입력 요소 사이의 간격 조정 */
+}
+
+.input-container label {
+  display: block; /* 라벨을 블록 요소로 변환하여 위에서 아래로 정렬 */
+  margin-bottom: 5px; /* 라벨과 입력 필드 사이의 간격 조정 */
 }
 
 .register-btn {
@@ -128,4 +139,20 @@ main {
   left: calc(100% + 10px); /* 파일 선택 버튼의 우측에 위치하도록 설정 */
   margin-top: 0; /* 선택한 파일 이름과 버튼 사이의 간격을 조정할 수 있습니다. */
   font-size: 14px;
+}
+
+.ten {
+  position: relative; /* 부모 요소의 상대적 위치 설정 */
+  text-transform: uppercase;
+}
+
+.ten::before {
+  content: ''; /* 가상 요소 내용 초기화 */
+  position: absolute; /* 절대적 위치 설정 */
+  top: 0; /* 상단에 정렬 */
+  left: -10px; /* 왼쪽으로 이동하여 여백을 두고 선의 시작 위치 조정 */
+  height: 100%; /* 세로로 가득 채우도록 높이 설정 */
+  width: 4px; /* 세로 선의 너비 설정 */
+  margin-left: 10px;
+  background-color: #066278; /* 선의 색상 설정 */
 }
