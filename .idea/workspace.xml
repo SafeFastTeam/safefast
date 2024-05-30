@@ -11,6 +11,85 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/repository/PurchaseOrderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/inventory/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/inventory/InventoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/controller/product/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/ItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/dto/ItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/zerock/safefast/service/product/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/receive/receive.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/05f2bc97-ee72-4725-92ae-dce1e8d168d6_Graph.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/05f2bc97-ee72-4725-92ae-dce1e8d168d6_Graph.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/0692a127-3e71-475d-ae7e-ec8699e65957_계약서.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/0692a127-3e71-475d-ae7e-ec8699e65957_계약서.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/09d4a61a-4956-419f-ac3f-a80f9738fbb7_gotoBtn.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/09d4a61a-4956-419f-ac3f-a80f9738fbb7_gotoBtn.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/0b2c4b4a-4531-46e4-93c7-c8ebe0b6cadf_SAFE-FAST_logo_01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/0b2c4b4a-4531-46e4-93c7-c8ebe0b6cadf_SAFE-FAST_logo_01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/10a0e9f7-3e17-46d0-8b97-686bdb6555c6_ASSY.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/10a0e9f7-3e17-46d0-8b97-686bdb6555c6_ASSY.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/10fd930b-32fa-4303-8c4e-f489396d7879_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/10fd930b-32fa-4303-8c4e-f489396d7879_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/248f9ff6-c7b2-45a1-9f6c-74a348c68816_kakao.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/248f9ff6-c7b2-45a1-9f6c-74a348c68816_kakao.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/27bcd5bb-e840-4266-9b49-e95362f398bd_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/27bcd5bb-e840-4266-9b49-e95362f398bd_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/287839ec-226a-41b2-9888-36ddb04e7d3e_jeju.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/287839ec-226a-41b2-9888-36ddb04e7d3e_jeju.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/2f3dbe3d-358e-48c5-9e02-1aef7f7aaeee_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/2f3dbe3d-358e-48c5-9e02-1aef7f7aaeee_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/363582af-8e21-464a-82dc-9860d2f4e766_notice2.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/363582af-8e21-464a-82dc-9860d2f4e766_notice2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/3a837320-bc90-4c80-8345-ae23f0be0967_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/3a837320-bc90-4c80-8345-ae23f0be0967_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/406a238c-561f-4dbc-b817-43cada2409c2_SAFE-FAST_logo_07.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/406a238c-561f-4dbc-b817-43cada2409c2_SAFE-FAST_logo_07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/4385fca7-e664-4ac4-94ab-37db4f41a639_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/4385fca7-e664-4ac4-94ab-37db4f41a639_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/4ddc2570-10a0-4a07-ae32-fa973dbe50e5_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/4ddc2570-10a0-4a07-ae32-fa973dbe50e5_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/50719cf2-1e75-4568-a72e-a3f3a2e5a507_gangwon.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/50719cf2-1e75-4568-a72e-a3f3a2e5a507_gangwon.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/5086955f-c534-4d1e-989c-72f4d172c15f_favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/5086955f-c534-4d1e-989c-72f4d172c15f_favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/53488ad6-e04d-44fa-81d6-66ec9cdad61a_Volt.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/53488ad6-e04d-44fa-81d6-66ec9cdad61a_Volt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/545c58fa-5de3-45dd-8fd9-cac0a909fcb2_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/545c58fa-5de3-45dd-8fd9-cac0a909fcb2_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/59454545-427e-4dec-a7cc-6686f6de833e_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/59454545-427e-4dec-a7cc-6686f6de833e_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/5c2594b9-05f4-48d9-8a70-4b3130fa2ce8_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/5c2594b9-05f4-48d9-8a70-4b3130fa2ce8_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/5f4b047a-f553-4600-9bda-1c7755bde42b_seoul.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/5f4b047a-f553-4600-9bda-1c7755bde42b_seoul.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/6361118b-78f0-4b56-9664-0828a6da0e4c_SAFE-FAST_logo_05.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/6361118b-78f0-4b56-9664-0828a6da0e4c_SAFE-FAST_logo_05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/65c42191-b714-4645-8b9d-1bff8cecb79b_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/65c42191-b714-4645-8b9d-1bff8cecb79b_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/69044561-a75f-429b-9ca4-258ac1b4d59d_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/69044561-a75f-429b-9ca4-258ac1b4d59d_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/6d5f0938-1b6c-48e4-baa9-1f5e9b5178e0_ASSY.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/6d5f0938-1b6c-48e4-baa9-1f5e9b5178e0_ASSY.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/6e864b27-c3af-4966-9c85-b8f72fe3fe18_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/6e864b27-c3af-4966-9c85-b8f72fe3fe18_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/704361ef-a261-4fd9-8351-d7469b90c5de_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/704361ef-a261-4fd9-8351-d7469b90c5de_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/70c1ccea-8df6-4967-b6d5-1fe2492d9387_너트.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/70c1ccea-8df6-4967-b6d5-1fe2492d9387_너트.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/760eb1b6-3a53-4741-bc5d-e59ece6fcd62_SAFE-FAST_logo_01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/760eb1b6-3a53-4741-bc5d-e59ece6fcd62_SAFE-FAST_logo_01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/7ab934ba-14c0-47fc-897f-aaa977481de4_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/7ab934ba-14c0-47fc-897f-aaa977481de4_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/7c808677-8705-459b-b31b-60e86bf8e760_SAFE-FAST_logo_07.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/7c808677-8705-459b-b31b-60e86bf8e760_SAFE-FAST_logo_07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8641066c-5710-44b5-b9a5-137a0c27ad96_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8641066c-5710-44b5-b9a5-137a0c27ad96_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/867ff674-e48e-4ea3-a135-243dc29a6e96_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/867ff674-e48e-4ea3-a135-243dc29a6e96_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8702b2a9-c5d6-444e-b6bc-9b55e8d62cae_table.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8702b2a9-c5d6-444e-b6bc-9b55e8d62cae_table.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/88158c06-b4e6-4af0-95bb-e4c8b5b37c70_notice1.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/88158c06-b4e6-4af0-95bb-e4c8b5b37c70_notice1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8a0e30cb-7085-4cae-938b-68fceb145b5b_ASSY.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8a0e30cb-7085-4cae-938b-68fceb145b5b_ASSY.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8a6e060a-bc65-4f31-b10b-aae07f0eb0d3_Volt.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8a6e060a-bc65-4f31-b10b-aae07f0eb0d3_Volt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8b1258a2-593f-48fb-8c0a-f13ebcc79ba0_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8b1258a2-593f-48fb-8c0a-f13ebcc79ba0_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/8c3b0757-f668-4ff2-ac88-f192998c1cd5_ASSY.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/8c3b0757-f668-4ff2-ac88-f192998c1cd5_ASSY.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/9252c30e-a36d-4d45-8a0d-be09ccd34432_볼트.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/9252c30e-a36d-4d45-8a0d-be09ccd34432_볼트.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/92c4aa39-cccb-4ce4-85cd-d317a90cb4e3_PART.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/92c4aa39-cccb-4ce4-85cd-d317a90cb4e3_PART.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/9b974462-80a2-4392-a419-4c954fc8a15f_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/9b974462-80a2-4392-a419-4c954fc8a15f_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/9c1ee9a2-138c-437a-8e0a-6674a6883a6b_직렬화 순환참조 에러.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/9c1ee9a2-138c-437a-8e0a-6674a6883a6b_직렬화 순환참조 에러.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/9dfecd6e-01fe-4dc7-805a-386ab8164265_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/9dfecd6e-01fe-4dc7-805a-386ab8164265_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/9e59deca-0bd8-4c9d-a1c9-460a3cec813f_Graph.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/9e59deca-0bd8-4c9d-a1c9-460a3cec813f_Graph.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/a555be27-9431-4f02-8670-b3e3523e8845_notice1.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/a555be27-9431-4f02-8670-b3e3523e8845_notice1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/aaa173a5-6c42-4edb-8e89-0acd8154f7d2_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/aaa173a5-6c42-4edb-8e89-0acd8154f7d2_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ac864973-7154-4d6f-9c43-432ac3f10bd0_너트.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/ac864973-7154-4d6f-9c43-432ac3f10bd0_너트.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ae7ec2f8-9d30-4366-9172-f091d7d32f80_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/ae7ec2f8-9d30-4366-9172-f091d7d32f80_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/b300ca50-b302-4b65-a2d4-01665bb0e063_Nut.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/b300ca50-b302-4b65-a2d4-01665bb0e063_Nut.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/b6a0540e-d79e-4d81-a4e9-2265796f37ee_Nut.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/b6a0540e-d79e-4d81-a4e9-2265796f37ee_Nut.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/b867b556-f194-467e-9f46-af37e1714418_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/b867b556-f194-467e-9f46-af37e1714418_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/be5aa32f-4ca8-4938-9597-a62ee9ea37cf_SAFE-FAST_logo_01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/be5aa32f-4ca8-4938-9597-a62ee9ea37cf_SAFE-FAST_logo_01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/c10130df-40af-40f5-bc2c-9573ea0563c3_notice1.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/c10130df-40af-40f5-bc2c-9573ea0563c3_notice1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/cb769242-7291-45de-8358-bb520ff1116b_SAFE-FAST_logo_06.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/cb769242-7291-45de-8358-bb520ff1116b_SAFE-FAST_logo_06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/d0baf830-0e8c-46c5-8f44-9663dc9c398a_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/d0baf830-0e8c-46c5-8f44-9663dc9c398a_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/d346b1a6-358a-4ace-a975-add0e6309f77_SAFE-FAST_logo_08.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/d346b1a6-358a-4ace-a975-add0e6309f77_SAFE-FAST_logo_08.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/d6f6f5dc-021c-44c2-b031-cb11c27e9a35_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/d6f6f5dc-021c-44c2-b031-cb11c27e9a35_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/da4772f0-e4c6-471e-91e1-413330ef97c7_Graph.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/da4772f0-e4c6-471e-91e1-413330ef97c7_Graph.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/dba2d362-6fbc-4661-976e-d66df7385620_계약서.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/dba2d362-6fbc-4661-976e-d66df7385620_계약서.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/e030ef43-6aaf-4d7d-a217-66ce5c485449_볼트.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/e030ef43-6aaf-4d7d-a217-66ce5c485449_볼트.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/e301a8b0-1bad-49bd-829a-5acb539b76d5_sf_logo01.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/e301a8b0-1bad-49bd-829a-5acb539b76d5_sf_logo01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/e395e2c6-fa5a-4a9c-8080-ca0fdcff60a9_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/e395e2c6-fa5a-4a9c-8080-ca0fdcff60a9_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/e658120c-2319-4e03-bfdf-702919b04dd7_유닛.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/e658120c-2319-4e03-bfdf-702919b04dd7_유닛.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ec6453c5-e4c1-49cb-ad71-fdc3ec515549_SAFE-FAST_logo_02.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/ec6453c5-e4c1-49cb-ad71-fdc3ec515549_SAFE-FAST_logo_02.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ec78e090-0415-4e4f-89a9-221333aeeaa1_유닛.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/ec78e090-0415-4e4f-89a9-221333aeeaa1_유닛.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/ec886e1f-75f0-4dc5-9712-56dcb8a6917f_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/ec886e1f-75f0-4dc5-9712-56dcb8a6917f_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/f0ebb2c9-77e0-4427-8cb2-298a98fdb11c_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/f0ebb2c9-77e0-4427-8cb2-298a98fdb11c_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/f62b62ff-fb32-41e9-a54d-67931b88b514_직렬화 순환참조 에러.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/f62b62ff-fb32-41e9-a54d-67931b88b514_직렬화 순환참조 에러.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/f8662ce6-dfa3-40c5-a548-413190012fa6_logo_orange_Removal.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/f8662ce6-dfa3-40c5-a548-413190012fa6_logo_orange_Removal.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/fe89d6a6-392a-42f4-978d-7111d6045b60_충전잭.png" beforeDir="false" afterPath="$PROJECT_DIR$/uploads/fe89d6a6-392a-42f4-978d-7111d6045b60_충전잭.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +169,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\safefast\src\main\resources\webapp" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="SafefastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="safefast.main" />

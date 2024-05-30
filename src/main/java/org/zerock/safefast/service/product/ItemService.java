@@ -7,15 +7,17 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.zerock.safefast.dto.ItemDTO;
-import org.zerock.safefast.dto.PageRequestDTO;
-import org.zerock.safefast.dto.PageResultDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.Assy;
 import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.entity.Part;
@@ -31,6 +33,7 @@ import org.zerock.safefast.repository.*;
 
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,6 +49,8 @@ public class ItemService implements SafefastService {
 
     private final ItemRepository itemRepository;
     private static final Logger log = LoggerFactory.getLogger(ItemService.class);
+
+    private final Path uploadDir = Paths.get("upload");
 
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
@@ -200,12 +205,26 @@ public class ItemService implements SafefastService {
         Page<Item> result = itemRepository.findByItemNameContaining(keyword, pageable);
 
         // 검색 결과를 ItemDTO로 변환하는 Function 객체 생성
-        Function<Item, ItemDTO> fn = (entity -> entityToDto(entity));
+        Function<Item, ItemDTO> fn = this::entityToDto;
 
         // PageResultDTO 객체 생성하여 반환
         return new PageResultDTO<>(result, fn);
     }
 
+    public Resource loadFileAsResource(String fileName) throws IOException {
+        try {
+            Path filePath = uploadDir.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new IOException("File not found: " + fileName);
+            }
+        } catch (MalformedURLException ex) {
+            throw new IOException("File not found: " + fileName, ex);
+        }
+    }
 
 
 }

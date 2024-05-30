@@ -50,17 +50,17 @@
           </thead>
           <tbody id="inventory-calculation-list">
           <!-- 반복문을 통해 서버에서 받아온 데이터를 동적으로 표시 -->
-            <tr th:each="release : ${releases}">
-              <td th:text="${release.item.getItemCode()}"></td>
-              <td th:text="${release.item.getItemName()}"></td>
-              <td th:text="${release.item.getWidth() + 'x' + release.item.getLength() + 'x' + release.item.getHeight()}"></td>
-              <td th:text="${release.item.getMaterial()}"></td>
-              <td>0</td>
-              <td th:text="${#lists.isEmpty(release.item.receive) ? 'N/A' : release.item.receive.get(0).receiveQuantity}"></td>
-              <td ></td>
-              <td th:text="${release.quantity.allQuantity}"></td>
-              <td th:text="${#lists.isEmpty(release.item.contract) ? 'N/A' : release.item.contract.get(0).itemPrice}"></td>
-              <td th:text="${#lists.isEmpty(release.item.contract) ? 'N/A' : release.quantity.allQuantity * release.item.contract.get(0).itemPrice}"></td>
+            <tr th:each="entry : ${inventoryData.entrySet()}">
+              <td th:text="${entry.key}"></td>
+              <td th:text="${entry.value.get('itemName')}"></td>
+              <td th:text="${entry.value.get('dimensions')}"></td>
+              <td th:text="${entry.value.get('material')}"></td>
+              <td th:text="${entry.value.get('initialQuantity')}"></td>
+              <td th:text="${entry.value.get('receiveQuantity')}"></td>
+              <td th:text="${entry.value.get('releaseQuantity')}"></td>
+              <td th:text="${entry.value.get('finalQuantity')}"></td>
+              <td th:text="${entry.value.get('price')}"></td>
+              <td th:text="${entry.value.get('totalAmount')}"></td>
             </tr>
 <!--            <tr th:each="entry : ${itemCodeQuantities}">-->
 <!--              <td th:text="${entry.key}"></td>-->
