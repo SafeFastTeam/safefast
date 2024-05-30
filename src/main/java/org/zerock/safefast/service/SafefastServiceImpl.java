@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.zerock.safefast.dto.ItemDTO;
-import org.zerock.safefast.dto.PageRequestDTO;
-import org.zerock.safefast.dto.PageResultDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.repository.ItemRepository;
 

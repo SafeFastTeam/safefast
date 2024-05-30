@@ -11,15 +11,16 @@
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
+<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 자재 입출고')}"></th:block>
 <div class="container">
   <th:block th:replace="~{/fragments/fragment2}"></th:block>
   <div class="content">
     <section class="procurement-plan">
       <h2>자재 입고</h2>
-<!--      <div class="save-btn">-->
-<!--        <button id="issue-order-btn" class="button">저장</button>-->
-<!--        <button id="close-button" style="display: none;">마감</button>-->
-<!--      </div>-->
+      <div class="save-btn">
+        <button id="issue-order-btn" class="button">저장</button>
+        <button id="close-button" style="display: none;">마감</button>
+      </div>
       <table>
         <thead>
         <tr>
@@ -31,7 +32,6 @@
           <th>재고</th>
           <th>발주 수량</th>
           <th>입고 수량</th>
-          <th>작업</th>
         </tr>
         </thead>
         <tbody id="procurement-plan-list">
@@ -46,10 +46,6 @@
           <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
           <td th:text="${progressCheckItem.progCheckResult}" style="display: none;"></td>
           <td th:text="${progressCheckItem.purchaseOrder.item.itemCode}" style="display: none;"></td>
-          <td> <div class="save-btn">
-            <button class="issue-order-btn button">저장</button>
-            <button id="close-button" style="display: none;">마감</button>
-          </div> </td>
         </tr>
         </tbody>
       </table>
@@ -224,7 +220,7 @@
       }
     }
 
-    $(document).on('click', '.issue-order-btn', function () {
+    $('#issue-order-btn').on('click', function() {
 
       $('.procurement-quantity-input').each(function() {
         var inputQuantity = parseFloat($(this).val());

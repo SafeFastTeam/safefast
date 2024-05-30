@@ -22,8 +22,11 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, St
     @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.procPlanNumber = :procPlanNumber")
     ProcurementPlan findProcurementPlanByNumber(String procPlanNumber);
 
-//    그래프를 그리기 위해 갯수를 세는 메소드를 정의합니다.
-@Query("SELECT COUNT(p) FROM PurchaseOrder p WHERE p.purchOrderDate BETWEEN :startDate AND :endDate")
-long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    //    그래프를 그리기 위해 갯수를 세는 메소드를 정의합니다.
+    @Query("SELECT COUNT(p) FROM PurchaseOrder p WHERE p.purchOrderDate BETWEEN :startDate AND :endDate")
+    long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
+    void deleteAllByPurchOrderNumberIn(List<String> orderNumbers);
 
 }

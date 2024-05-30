@@ -2,26 +2,24 @@ package org.zerock.safefast.controller.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.safefast.dto.ItemDTO;
-import org.zerock.safefast.dto.PageRequestDTO;
-import org.zerock.safefast.dto.PageResultDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.AssyRepository;
 import org.zerock.safefast.repository.PartRepository;
 import org.zerock.safefast.repository.UnitRepository;
-import org.zerock.safefast.service.SafefastService;
 import org.zerock.safefast.service.product.ItemService;
 
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -34,6 +32,7 @@ public class ItemController {
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
     private final PartRepository partRepository;
+
 
 
     // 페이징 처리된 결과 받아오도록 수정
@@ -100,6 +99,7 @@ public class ItemController {
                 .material(material)
                 .build();
 
+
         itemService.registerItem(item, blueprintFile);
 
         // 등록 후 페이지를 다시 조회하여 최신 데이터를 반영
@@ -122,6 +122,12 @@ public class ItemController {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(page).build();
         PageResultDTO<ItemDTO, Item> result = itemService.searchItems(pageRequestDTO, keyword);
         return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/item/image/{fileName}")
+    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
+        Resource resource = itemService.loadFileAsResource(fileName);
+        return ResponseEntity.ok().body(resource);
     }
 
 

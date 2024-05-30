@@ -1,4 +1,4 @@
-package org.zerock.safefast.dto;
+package org.zerock.safefast.dto.page;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 @Data
 public class PageResultDTO<DTO, EN> {
 
-    private Object pageRequestDTO = null;
     //DTO리스트
     private List<DTO> dtoList;
 
@@ -30,27 +29,36 @@ public class PageResultDTO<DTO, EN> {
     //이전, 다음
     private boolean prev, next;
 
-    //페이지 번호 목록
+    //페이지 번호  목록
     private List<Integer> pageList;
 
-    public PageResultDTO(Page<EN> result , Function<EN, DTO> fn){
-        dtoList = result.stream().map(en -> fn.apply(en)).collect(Collectors.toList());
+    public PageResultDTO(Page<EN> result, Function<EN,DTO> fn ){
+
+        dtoList = result.stream().map(fn).collect(Collectors.toList());
+
         totalPage = result.getTotalPages();
+
         makePageList(result.getPageable());
-        this.pageRequestDTO = pageRequestDTO; // 추가된 부분
     }
 
-    private void makePageList(Pageable pageable) {
-        this.page = pageable.getPageNumber() + 1; //0부터 시작하므로 1을 추가
+
+    private void makePageList(Pageable pageable){
+
+        this.page = pageable.getPageNumber() + 1; // 0부터 시작하므로 1을 추가
         this.size = pageable.getPageSize();
 
         //temp end page
         int tempEnd = (int)(Math.ceil(page/10.0)) * 10;
 
         start = tempEnd - 9;
+
         prev = start > 1;
-        end = totalPage > tempEnd ? tempEnd : totalPage;
+
+        end = totalPage > tempEnd ? tempEnd: totalPage;
+
         next = totalPage > tempEnd;
-        pageList = IntStream.rangeClosed(start, end).boxed(). collect(Collectors.toList());
+
+        pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+
     }
 }
