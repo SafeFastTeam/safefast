@@ -1,6 +1,7 @@
 package org.zerock.safefast.controller.login;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,20 +26,6 @@ import java.io.PrintWriter;
 public class LoginController {
 
     private final LoginService loginService;
-    private final PasswordEncoder passwordEncoder;
-
-//    @GetMapping("/login")
-//    public String loginPage(@RequestParam(value = "error", required = false) String error,
-//                            @RequestParam(value = "exception", required = false) String exception, Model model,
-//                            HttpSession session) {
-//        model.addAttribute("error", error);
-//        model.addAttribute("exception", exception);
-//
-//        // 세션에 로그인 상태를 저장합니다. 로그인이 성공했을 때 이를 확인하여 리다이렉트합니다.
-//        session.setAttribute("isLoggedIn", true);
-//
-//        return "member/login_form";
-//    }
 
     @GetMapping("/login")
     public String showLogin() {
@@ -46,20 +33,21 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam String empNumber, @RequestParam String password) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String processLogin(LoginDTO loginDTO, HttpSession session, HttpServletResponse response) throws IOException {
+        Member member = loginService.authenticate(loginDTO);
 
-        // 사용자를 인증
-        Member authenticatedUser = loginService.authenticate(new LoginDTO(empNumber, password));
-
-        if (authenticatedUser != null) {
-            modelAndView.setViewName("redirect:/index");
-            log.info("Login successful, redirecting to /member/home");
+        if (member != null) {
+            // 세션에 사용자 정보 저장
+            session.setAttribute("member", member);
+            return "/index"; // 로그인 성공 시 이동할 페이지
         } else {
-            modelAndView.setViewName("member/login_form");
-            log.info("Login failed, returning to login form");
+            // 로그인 실패 시 처리
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
+            writer.println("<script>alert('아이디 또는 비밀번호가 올바르지 않습니다.');</script>");
+            writer.flush();
+            return "member/login_form";
         }
-        return modelAndView;
     }
 
     @GetMapping("/home")
@@ -80,8 +68,8 @@ public class LoginController {
 
         if (member != null) {
             loginService.sendPasswordResetMail(email);
-            response.setContentType("text/html; charset=UTF-8"); //응답의 content type을 설정, "text/html"은 전송될 데이터의 종류가 HTML임을 나타냄
-            PrintWriter writer = response.getWriter(); //이 PrintWriter를 통해 HTML 코드나 다른 텍스트 데이터를 클라이언트로 전송
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter writer = response.getWriter();
             writer.println("<script>alert('비밀번호 재설정 이메일이 전송되었습니다.');</script>");
             writer.flush();
             return "member/login_form";
@@ -122,10 +110,8 @@ public class LoginController {
         }
     }
 
-/*    // 로그아웃 처리
     @GetMapping("/logout")
     public String logout() {
-        // 로그아웃 처리
-        return "redirect:/member/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
-    }*/
+        return "redirect:/member/login";
+    }
 }

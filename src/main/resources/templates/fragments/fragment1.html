@@ -192,8 +192,8 @@
                 </a>
             </h1>
             <div class="user-info">
-                <span class="username">[th:text="$username"] 님</span>
-                <a href="login.html" class="logout-btn">로그아웃</a>
+                <span class="name" th:text="${#authentication.name} + ' 님'"></span>
+                <a href="member/logout" class="logout-btn">로그아웃</a>
             </div>
         </header>
     </div>
