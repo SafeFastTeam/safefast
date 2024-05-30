@@ -6,60 +6,60 @@
     <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
-<!--    <style>
+    <!--    <style>
 
-        label {
-            text-align: left;
-            margin-bottom: 5px; /* 레이블 아래 간격 추가 */
-        }
+            label {
+                text-align: left;
+                margin-bottom: 5px; /* 레이블 아래 간격 추가 */
+            }
 
-    </style>-->
+        </style>-->
 </head>
 <body>
-    <main>
-        <div class="register-container">
-            <h4>구 매 조 달 시 스 템</h4>
-            <div class="logo">
-                <img src="/image/sf_logo01.png" alt="세페스트">
-            </div>
-            <br>
-                <form th:action="@{/member/create_account_form}" method="post" id="create_account_form">
-                    <div class="input-container">
-                    <label for="empNumber"><span class="ten">　아이디</span></label>
-                    <input type="text" class="input-field" id="empNumber" name="empNumber" placeholder="아이디를 입력하세요" autofocus required>
-                    </div>
-                    <div class="input-container">
-                        <label for="password"><span class="ten">　비밀번호</span></label>
-                    <input type="password" class="input-field" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="passwordAgain"><span class="ten">　비밀번호 확인</span></label>
-                    <input type="password" class="input-field" id="passwordAgain" name="passwordAgain" placeholder="비밀번호를 다시 입력하세요" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="name"><span class="ten">　이름</span></label>
-                    <input type="text" class="input-field" id="name" name="name" placeholder="이름을 입력하세요" required>
-                    </div>
-                    <div class="input-container">
-                        <label for="email"><span class="ten">　이메일</span></label>
-                    <input type="email" class="input-field" id="email" name="email" placeholder="이메일을 입력하세요" required>
-                    </div>
-                    <button type="submit" class="register-btn">회원가입</button>
-                </form>
-
-                <script>
-                    function validateForm() {
-                        const inputs = document.querySelectorAll('input[required]');
-                        for (let i = 0; i < inputs.length; i++) {
-                            if (!inputs[i].value) {
-                                alert("빈 칸을 채워주세요.");
-                                return false; // 폼 제출 방지
-                            }
-                        }
-                        return true; // 폼 제출 허용
-                    }
-                </script>
+<main>
+    <div class="register-container">
+        <h4>구 매 조 달 시 스 템</h4>
+        <div class="logo">
+            <img src="/image/sf_logo01.png" alt="세페스트">
         </div>
-    </main>
+        <br>
+        <form th:action="@{/member/create_account_form}" method="post" id="create_account_form">
+            <div class="input-container">
+                <label for="empNumber"><span class="ten">　사번</span></label>
+                <input type="text" class="input-field" id="empNumber" name="empNumber" placeholder="사번을 입력하세요" autofocus required>
+            </div>
+            <div class="input-container">
+                <label for="password"><span class="ten">　비밀번호</span></label>
+                <input type="password" class="input-field" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+            </div>
+            <div class="input-container">
+                <label for="passwordAgain"><span class="ten">　비밀번호 확인</span></label>
+                <input type="password" class="input-field" id="passwordAgain" name="passwordAgain" placeholder="비밀번호를 다시 입력하세요" required>
+            </div>
+            <div class="input-container">
+                <label for="name"><span class="ten">　이름</span></label>
+                <input type="text" class="input-field" id="name" name="name" placeholder="이름을 입력하세요" required>
+            </div>
+            <div class="input-container">
+                <label for="email"><span class="ten">　이메일</span></label>
+                <input type="email" class="input-field" id="email" name="email" placeholder="이메일을 입력하세요" required>
+            </div>
+            <button type="submit" class="register-btn">회원가입</button>
+        </form>
+
+        <script>
+            function validateForm() {
+                const inputs = document.querySelectorAll('input[required]');
+                for (let i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].value) {
+                        alert("빈 칸을 채워주세요.");
+                        return false; // 폼 제출 방지
+                    }
+                }
+                return true; // 폼 제출 허용
+            }
+        </script>
+    </div>
+</main>
 </body>
 </html>
