@@ -8,37 +8,38 @@
     <link rel="icon" href="/image/favicon-32x32.png">
 </head>
 <body>
-    <main>
-        <div class="login-container">
-            <h4>구 매 조 달 시 스 템</h4>
-            <div class="logo">
-                <img src="/image/sf_logo01.png" alt="세페스트">
+<main>
+    <div class="login-container">
+        <h4>구 매 조 달 시 스 템</h4>
+        <div class="logo">
+            <img src="/image/sf_logo01.png" alt="세페스트">
+        </div>
+        <h2>아 이 디 찾 기</h2>
+        <form th:action="@{/member/forgot_id}" method="post">
+            <div class="input-container">
+                <label for="name"><span class="ten">　이름</span></label>
+                <input type="text" id="name" class="input-field" name="name" required placeholder="이름을 입력하세요">
             </div>
-            <p>아 이 디 찾 기</p>
-                <br>
-                <br>
-                    <form th:action="@{/member/forgot_id}" method="post">
-                        <label for="name">이름</label>
-                        <input type="text" id="name" class="input-field" name="name" required placeholder="이름을 입력하세요">
-                        <br>
-                        <label for="email">이메일</label>
-                        <input type="email" id="email" class="input-field" name="email" required placeholder="이메일 주소를 입력하세요">
-                        <button class="login-btn" type="submit">아이디 찾기</button>
-                    </form>
+            <div class="input-container">
+                <label for="email"><span class="ten">　이메일</span></label>
+                <input type="email" id="email" class="input-field" name="email" required placeholder="이메일 주소를 입력하세요">
+            </div>
+            <button class="login-btn" type="submit">아이디 찾기</button>
+        </form>
 
-                    <script>
-                        function validateForm() {
-                            const inputs = document.querySelectorAll('input[required]');
-                            for (let i = 0; i < inputs.length; i++) {
-                                if (!inputs[i].value) {
-                                    alert("빈 칸을 채워주세요.");
-                                    return false; // 폼 제출 방지
-                                }
-                            }
-                            return true; // 폼 제출 허용
-                        }
-                    </script>
-         </div>
-    </main>
+        <script>
+            function validateForm() {
+                const inputs = document.querySelectorAll('input[required]');
+                for (let i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].value) {
+                        alert("빈 칸을 채워주세요.");
+                        return false; // 폼 제출 방지
+                    }
+                }
+                return true; // 폼 제출 허용
+            }
+        </script>
+    </div>
+</main>
 </body>
 </html>

@@ -90,6 +90,7 @@ main {
 
 .input-container {
   margin-bottom: 5px; /* 각 입력 요소 사이의 간격 조정 */
+  margin-left: 20px; /* 각 입력 요소 사이의 간격 조정 */
 }
 
 .input-container label {
@@ -103,7 +104,7 @@ main {
   height: 55px;
   font-size: 22px;
   color: #fff;
-  margin: 20px 0px 40px;
+  margin: 20px 15px 40px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
