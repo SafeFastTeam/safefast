@@ -35,9 +35,6 @@ public class PurchaseOrder {
     private LocalDate receiveDuedate;
 
     @Column
-    private Integer purchProgress;
-
-    @Column
     private String procPlanNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
