@@ -5,15 +5,17 @@ import org.zerock.safefast.entity.CoOpCompany;
 import org.zerock.safefast.entity.Item;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class PurchaseOrderRequest {
     public String procPlanNumber;
-    public int purchaseOrderQuantity;
-    public String receiveDuedate;
+    public int purchOrderQuantity;
+    public LocalDate receiveDuedate;
     private CoOpCompany coOpCompany;
     private Item item;
     private String businessNumber;
     private String itemCode;
+    private LocalDate purchOrderDate;
 
     // Getters and Setters
 
@@ -25,20 +27,26 @@ public class PurchaseOrderRequest {
         this.procPlanNumber = procPlanNumber;
     }
 
-    public void setPurchaseOrderQuantity(int purchaseOrderQuantity) {
-        this.purchaseOrderQuantity = purchaseOrderQuantity;
-    }
+
 
     public LocalDate getReceiveDuedate() {
-        return LocalDate.parse(receiveDuedate);
+        return receiveDuedate;
     }
 
-    public Integer getPurchOrderQuantity() {
-        return purchaseOrderQuantity;
+    public void setReceiveDuedate(LocalDate receiveDuedate) {
+        this.receiveDuedate = receiveDuedate;
+    }
+
+    public int getPurchOrderQuantity() {
+        return purchOrderQuantity;
+    }
+
+    public void setPurchOrderQuantity(int purchaseOrderQuantity) {
+        this.purchOrderQuantity = purchaseOrderQuantity;
     }
 
     public String getNote() {
-        return purchaseOrderQuantity + "";
+        return purchOrderQuantity + "";
     }
 
     public CoOpCompany getCoOpCompany() {
@@ -67,5 +75,13 @@ public class PurchaseOrderRequest {
             return item.getItemCode();
         }
         return null;
+    }
+
+    public LocalDate getPurchOrderDate() {
+        return purchOrderDate;
+    }
+
+    public void setPurchOrderDate(LocalDate purchOrderDate) {
+        this.purchOrderDate = purchOrderDate;
     }
 }

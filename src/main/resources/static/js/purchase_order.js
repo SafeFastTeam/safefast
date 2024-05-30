@@ -106,52 +106,62 @@ keywordSearchBtns.forEach(btn => {
 });
 
 
-  document.getElementById('issue-order-btn').addEventListener('click', function () {
-    // 발주 데이터를 수집하고 객체로 만듭니다.
-    var orderData = {
-      // 데이터 수집
-    };
+document.getElementById('issue-order-btn').addEventListener('click', function () {
+  var orderData = {
+    // 데이터 수집
+  };
 
-    // AJAX 요청을 만듭니다.
-    var xhr = new XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/purchase_order', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // POST 방식으로 서버에 요청을 보냅니다. URL은 적절하게 변경해야 합니다.
-    xhr.open('POST', '/purchase_order', true);
+  xhr.onload = function () {
+    if (xhr.status === 201) {
+      var response = JSON.parse(xhr.responseText);
+      console.log(response.message);
+    } else {
+      console.error('주문 전송 중 오류가 발생했습니다.');
+    }
+  };
 
-    // 서버로 보낼 데이터의 형식을 지정합니다. 이 예제에서는 JSON으로 보냅니다.
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-
-    // 요청이 완료되었을 때의 콜백 함수를 정의합니다.
-    xhr.onload = function () {
-      // 응답을 확인하고 적절한 작업을 수행합니다.
-      if (xhr.status === 200) {
-        // 성공적으로 처리된 경우의 작업
-        console.log('주문이 성공적으로 전송되었습니다.');
-      } else {
-        // 오류 처리
-        console.error('주문 전송 중 오류가 발생했습니다.');
-      }
-    };
-
-    // 데이터를 JSON 문자열로 변환하여 요청 본문에 추가합니다.
-    xhr.send(JSON.stringify(orderData));
-  });
-
+  xhr.send(JSON.stringify(orderData));
+});
 
 // 삭제 버튼 클릭 이벤트
-  const deleteOrderBtn = document.getElementById('delete-order-btn');
-
-  deleteOrderBtn.addEventListener('click', () => {
-    const selectedRows = Array.from(document.querySelectorAll('#purchase-order-list tr'))
-        .filter(row => row.querySelector('input[type="checkbox"]').checked);
-
-    selectedRows.forEach(row => {
-      // 선택한 행 삭제
-      row.remove();
+$(document).ready(function() {
+  // 삭제 버튼 클릭 이벤트 핸들러
+  $('#delete-order-btn').click(function() {
+    var selectedOrders = [];
+    $('#purchase-order-list input[type="checkbox"]:checked').each(function() {
+      var row = $(this).closest('tr');
+      var orderNumber = row.find('td:nth-child(2)').text(); // 발주번호를 가져옴
+      selectedOrders.push(orderNumber);
     });
-  });
 
+    if (selectedOrders.length === 0) {
+      alert('삭제할 발주서를 선택하세요.');
+      return;
+    }
+
+    if (confirm('선택한 발주서를 삭제하시겠습니까?')) {
+      $.ajax({
+        url: '/purchase_order/delete',
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(selectedOrders),
+        success: function(response) {
+          alert(response);
+          // 삭제 후에 발주서 목록을 갱신하는 등의 작업 수행
+          window.location.href="/purchase_order/purchase_order"
+        },
+        error: function(xhr, status, error) {
+          console.error('Failed to delete purchase orders:', error);
+          alert('발주서 삭제 중 오류가 발생했습니다: ' + xhr.responseText);
+        }
+      });
+    }
+  });
+});
 
 // 발주 버튼 클릭 이벤트
   const issueOrderBtn = document.getElementById('issue-order-btn');
@@ -244,11 +254,11 @@ document.getElementById('checkOrder').addEventListener('click', () => {
 
       // 해당 항목에 따른 이미지 경로 설정
       var imgSrc;
-      if (itemName === "bolt") {
+      if (itemName === "볼트") {
         imgSrc = "/image/bal01.png";
-      } else if (itemName === "cable") {
+      } else if (itemName === "충전잭") {
         imgSrc = "/image/bal02.png";
-      } else if (itemName === "nut") {
+      } else if (itemName === "너트") {
         imgSrc = "/image/bal03.png";
       }// 이하 계속해서 필요한 항목과 이미지에 대한 조건 추가
 
@@ -281,3 +291,5 @@ document.getElementById('checkOrder').addEventListener('click', () => {
     });
 
 });
+
+  // 수정 기능
