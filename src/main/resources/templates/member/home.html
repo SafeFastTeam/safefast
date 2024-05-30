@@ -66,22 +66,51 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             transform: translateY(-2px);
         }
+
+        h1.sixth { position: relative; }
+
+        h1.sixth:before,
+        h1.sixth:after {
+            content: '◀';
+            display: inline-block;
+            position: relative;
+            top: 1px;
+            height: 100%;
+            font-size: 1.25em;
+            color: #054a5e;
+
+            transition: all 0.5s ease;
+        }
+
+        h1.sixth:after { content: '▶'; }
+
+        h1.sixth:hover:before {
+            transform: translateX(-5px);
+        }
+
+        h1.sixth:hover:after {
+            transform: translateX(5px);
+        }
     </style>
 </head>
 <body>
-    <main>
-    <h3>구 매 조 달 시 스 템</h3>
+<main>
+    <h4>안 전 하 고 신 속 한</h4>
+    <h2>구 매 조 달 시 스 템</h2>
     <div class="logo">
         <img src="/image/sf_logo01.png" alt="세페스트">
     </div>
     <div class="sections">
         <section>
-            <br><br>
+            <div class="container">
+                <h1 class="sixth">　세페스트　</h1>
+            </div>
+            <br>
             <a th:href="@{/member/create_account_form}" class="btn">회원가입</a><br>
             <a th:href="@{/member/login}" class="btn">로그인</a><br>
             <p>2024 ⓒ 팀 세페스트</p>
         </section>
     </div>
-    </main>
+</main>
 </body>
 </html>

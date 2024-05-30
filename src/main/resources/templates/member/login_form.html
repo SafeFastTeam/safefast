@@ -6,82 +6,45 @@
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
-<!--    <style>
-        .sections {
-            display: flex;
-            justify-content: space-around;
-            margin: 40px 10px;
-            gap: 20px;
-        }
-
-        section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 30%;
-        }
-
-        section h2 {
-            color: #066278;
-        }
-
-
-        #login_form {
-            display: flex;
-            flex-direction: column;
-            width: 300px; /* 폼의 너비 조정 */
-            margin: auto; /* 가운데 정렬 */
-        }
-
-        label {
-            margin-bottom: 5px; /* 레이블 아래 간격 추가 */
-        }
-
-        input, button {
-            margin-bottom: 10px; /* 인풋과 버튼 아래 간격 추가 */
-            padding: 5px; /* 간격 조정 */
-        }
-
-        input[type="text"], input[type="password"] {
-            padding: 5px;
-            border-radius: 3px;
-            border: 1px solid #ccc;
-        }
-    </style>-->
 </head>
 <body>
-    <main>
-        <div class="login-container">
-            <h4>구 매 조 달 시 스 템</h4>
-            <div class="logo">
-                <img src="/image/sf_logo01.png" alt="세페스트">
-            </div>
-            <br>
-                <form th:action="@{/member/login}" method="post" id="login_form">
-                    <input type="text" name="empNumber" placeholder="아이디를 입력하세요" autofocus required class="input-field">
-                    <input type="password" name="password" placeholder="비밀번호를 입력하세요" required class="input-field">
-                    <button type="submit" class="login-btn">로그인</button>
-                </form>
-                <script>
-                    function validateForm() {
-                        const inputs = document.querySelectorAll('input[required]');
-                        for (let i = 0; i < inputs.length; i++) {
-                            if (!inputs[i].value) {
-                                alert("빈 칸을 채워주세요.");
-                                return false; // 폼 제출 방지
-                            }
-                        }
-                        return true; // 폼 제출 허용
-                    }
-                </script>
-<!--                <script th:src="@{/js/login.js}"></script>-->
-                <div>
-                    <a th:href="@{/member/forgot_id}">아이디 찾기</a>
-                    <a th:href="@{/member/reset_password_form}">비밀번호 찾기</a>
-                    <a th:href="@{/member/create_account_form}">회원가입</a>
-                </div>
+<main>
+    <div class="login-container">
+        <h4>구 매 조 달 시 스 템</h4>
+        <div class="logo">
+            <img src="/image/sf_logo01.png" alt="세페스트">
         </div>
-    </main>
+        <br>
+        <form th:action="@{/member/login}" method="post" id="login_form">
+            <div class="input-container">
+                <label for="empNumber"><span class="ten">　사번</span></label>
+                <input type="text" id="empNumber" name="empNumber" placeholder="사번을 입력하세요" autofocus required class="input-field">
+            </div>
+            <div class="input-container">
+                <label for="password"><span class="ten">　비밀번호</span></label>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required class="input-field">
+            </div>
+            <button type="submit" class="login-btn">로그인</button>
+        </form>
+        <script>
+            function validateForm() {
+                const inputs = document.querySelectorAll('input[required]');
+                for (let i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].value) {
+                        alert("빈 칸을 채워주세요.");
+                        return false; // 폼 제출 방지
+                    }
+                }
+                return true; // 폼 제출 허용
+            }
+        </script>
+        <!--                <script th:src="@{/js/login.js}"></script>-->
+        <div class="login-links">
+            <a th:href="@{/member/forgot_id}">아이디 찾기</a>
+            <a th:href="@{/member/reset_password_form}">비밀번호 찾기</a>
+            <a th:href="@{/member/create_account_form}">회원가입</a>
+        </div>
+    </div>
+</main>
 </body>
 </html>
