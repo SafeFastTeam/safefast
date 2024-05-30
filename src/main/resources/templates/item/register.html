@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/item.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
+    <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
@@ -135,7 +136,7 @@
                 <td th:text="${item.itemName}"></td>
                 <td th:text="${item.width} + 'x' + ${item.length} + 'x' + ${item.height}"></td>
                 <td th:text="${item.material}"></td>
-                <td th:text="${item.blueprintOriginName}"></td>
+                <td><a href="#" id="modalLink" class="modalLink" th:text="${item.blueprintOriginName}"></a></td>
             </tr>
             <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
             <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
@@ -150,22 +151,55 @@
             </tbody>
         </table>
       </div>
-          <!-- 페이지네이션 영역 -->
+          <!-- 여기에 페이징 처리를 추가합니다 -->
           <div class="pagination">
-              <button id="prevButton" class="pagination-button" onclick="previousPage()">이전</button>
-              <span id="currentPage" class="page">1</span>/<span id="totalPages" class="page">1</span> 페이지
-              <button id="nextButton" class="pagination-button" onclick="nextPage()">다음</button>
+              <ul>
+                  <!-- 이전 페이지 링크 -->
+                  <li th:if="${result.page > 1}">
+                      <a th:href="@{'/item/register?page=' + ${result.page - 1}}">Previous</a>
+                  </li>
+                  <!-- 페이지 번호 링크 -->
+                  <li th:each="pageNum : ${#numbers.sequence(1, result.totalPage)}" th:class="${pageNum == result.page} ? 'active' : ''">
+                      <a th:href="@{'/item/register?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                  </li>
+                  <!-- 다음 페이지 링크 -->
+                  <li th:if="${result.page < result.totalPage}">
+                      <a th:href="@{'/item/register?page=' + ${result.page + 1}}">Next</a>
+                  </li>
+              </ul>
           </div>
       </div>
 
     </div>
 </div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Image">
+    </div>
+</div>
 <script>
-    function displayFileName() {
-        var input = document.getElementById('blueprintOriginName');
-        var fileName = input.files[0].name;
-        document.getElementById('fileName').innerHTML = '선택한 파일: ' + fileName;
-    }
+    // 모달 열기
+    $(document).on("click", ".modalLink", function() {
+        var blueprintSaveName = $(this).text(); // 클릭된 링크의 텍스트 (파일 이름)
+        var imageUrl = "/item/image/" + blueprintSaveName; // 이미지 URL (서버에서 이미지를 제공하는 엔드포인트)
+
+        $("#modalImage").attr("src", imageUrl); // 모달 내 이미지 엘리먼트에 이미지 URL 설정
+        $("#myModal").css("display", "block"); // 모달 표시
+    });
+    // 모달 닫기
+    $(document).on("click", ".close", function() {
+        $("#myModal").css("display", "none"); // 모달 숨기기
+    });
+
+    // 배경 클릭 시 모달 닫기
+    $(document).on("click", function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target === modal) {
+            $("#myModal").css("display", "none"); // 모달 숨기기
+        }
+    });
 </script>
 <script src="item.js"></script>
 

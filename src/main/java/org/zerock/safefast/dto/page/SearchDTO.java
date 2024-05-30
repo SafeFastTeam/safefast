@@ -1,4 +1,4 @@
-package org.zerock.safefast.dto;
+package org.zerock.safefast.dto.page;
 
 public class SearchDTO {
 
