@@ -36,6 +36,24 @@
             useDirtyRect: false
           });
 
+            // 현재 날짜와 한 달 전 날짜를 구하는 함수
+            function getDefaultDates() {
+                const today = new Date();
+                const oneMonthAfter = new Date();
+                oneMonthAfter.setMonth(today.getMonth() + 1);
+
+                const formatDate = (date) => date.toISOString().split('T')[0];
+                return {
+                    startDate: formatDate(today),
+                    endDate: formatDate(oneMonthAfter)
+                };
+            }
+
+            // 기본 날짜 설정
+            const defaultDates = getDefaultDates();
+            document.getElementById('date-start').value = defaultDates.startDate;
+            document.getElementById('date-end').value = defaultDates.endDate;
+
           function fetchData(startDate, endDate) {
             let url = `/api/stats/counts?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
             fetch(url)
@@ -85,8 +103,8 @@
             }
           });
 
-          // 초기 데이터 로드
-          fetchData('', '');
+            // 초기 데이터 로드
+            fetchData(defaultDates.startDate, defaultDates.endDate);
         });
       </script>
 
