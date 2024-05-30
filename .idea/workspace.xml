@@ -58,6 +58,9 @@
     &quot;accountId&quot;: &quot;80eaff78-0c67-48f4-850e-fa4f5c0ded53&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -83,6 +86,7 @@
     "git-widget-placeholder": "feat/logout/start",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/safefast/src/main/resources/static/image",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -93,6 +97,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\safefast\src\main\resources\static\image" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\safefast\src\main\resources\webapp" />
     </key>

@@ -48,7 +48,6 @@ public class PurchaseOrderService {
             purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
             purchaseOrder.setNote(request.getNote());
             purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
-            purchaseOrder.setPurchProgress(0);
             purchaseOrder.setProcPlanNumber(request.getProcPlanNumber());
 
             purchaseOrder.setCoOpCompany(request.getCoOpCompany());

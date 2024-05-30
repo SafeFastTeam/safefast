@@ -111,41 +111,41 @@ public class PurchaseOrderController {
         }
     }
 
-    @PutMapping("/{purchOrderNumber}")
-    @Transactional
-    public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrderNumber, @RequestBody PurchaseOrderRequest request) {
-        try {
-            Optional<PurchaseOrder> optionalPurchaseOrder = Optional.ofNullable(purchaseOrderRepository.findByPurchOrderNumber(purchOrderNumber));
-
-            if (optionalPurchaseOrder.isPresent()) {
-                PurchaseOrder purchaseOrder = optionalPurchaseOrder.get();
-
-                // 업데이트할 데이터 설정
-                purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
-                purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
-                purchaseOrder.setPurchOrderDate(request.getPurchOrderDate());
-
-                // 업데이트된 발주서 저장
-                purchaseOrderRepository.save(purchaseOrder);
-
-                // 로그 출력
-                System.out.println("발주서가 성공적으로 업데이트되었습니다.");
-
-                return ResponseEntity.ok("발주서가 성공적으로 업데이트되었습니다.");
-            } else {
-                // 로그 출력
-                System.out.println("발주서가 발견되지 않았습니다.");
-
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            // 예외 로그 출력
-            e.printStackTrace();
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("발주서 업데이트 중 오류가 발생했습니다: " + e.getMessage());
-        }
-    }
+//    @PutMapping("/{purchOrderNumber}")
+//    @Transactional
+//    public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrderNumber, @RequestBody PurchaseOrderRequest request) {
+//        try {
+//            Optional<PurchaseOrder> optionalPurchaseOrder = Optional.ofNullable(purchaseOrderRepository.findByPurchOrderNumber(purchOrderNumber));
+//
+//            if (optionalPurchaseOrder.isPresent()) {
+//                PurchaseOrder purchaseOrder = optionalPurchaseOrder.get();
+//
+//                // 업데이트할 데이터 설정
+//                purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
+//                purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
+//                purchaseOrder.setPurchOrderDate(request.getPurchOrderDate());
+//
+//                // 업데이트된 발주서 저장
+//                purchaseOrderRepository.save(purchaseOrder);
+//
+//                // 로그 출력
+//                System.out.println("발주서가 성공적으로 업데이트되었습니다.");
+//
+//                return ResponseEntity.ok("발주서가 성공적으로 업데이트되었습니다.");
+//            } else {
+//                // 로그 출력
+//                System.out.println("발주서가 발견되지 않았습니다.");
+//
+//                return ResponseEntity.notFound().build();
+//            }
+//        } catch (Exception e) {
+//            // 예외 로그 출력
+//            e.printStackTrace();
+//
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("발주서 업데이트 중 오류가 발생했습니다: " + e.getMessage());
+//        }
+//    }
 
     @DeleteMapping("/delete")
     @Transactional

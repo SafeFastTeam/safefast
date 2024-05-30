@@ -203,13 +203,6 @@ $(document).ready(function() {
     }
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var printButton = document.getElementById('printOrder');
-
-    printButton.addEventListener('click', function () {
-      window.print(); // 페이지 프린트
-    });
-  });
 
 // 확인 버튼 클릭 이벤트 핸들러
 document.getElementById('checkOrder').addEventListener('click', () => {
@@ -265,6 +258,11 @@ document.getElementById('checkOrder').addEventListener('click', () => {
       // 이미지 요소 생성
       var img = document.createElement("img");
       img.src = imgSrc;
+
+      // 이미지 크기 조절
+      img.style.width = "600px";
+      img.style.height = "450px";
+      img.style.objectFit = "contain";
 
       // 이미지를 추가할 공간에 이미지 요소 추가
       imageContainer.appendChild(img);

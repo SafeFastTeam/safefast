@@ -15,22 +15,6 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.signup-btn {
-  background-color: #066278;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.signup-btn:hover {
-  background-color: #054a5e;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-}
-
 main {
   display: flex;
   justify-content: center;
@@ -38,45 +22,29 @@ main {
   height: calc(100vh - 80px);
 }
 
-a {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: medium;
-  font-weight: 600;
-  text-decoration: none;
-  color: #333;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
 .login-container {
-  text-align: center;
+  text-align: left;
+  width: 500px;
   height: 500px;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
 }
 
 .login-container h4 {
   font-size: 24px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .login-container h2 {
-  font-size: 36px;
-  margin-bottom: 50px;
+  font-size: 14px;
+  margin-bottom: 10px;
   color: #066278;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.login-container h2::after {
-  content: "";
-  display: block;
-  width: 80%;
-  background-color: #066278;
-  margin: 10px auto 0 auto;
+  text-align: center;
 }
 
 .input-field {
@@ -96,12 +64,23 @@ a {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 5px rgba(6, 98, 120, 0.5);
 }
 
+.input-container {
+  margin-bottom: 5px; /* 각 입력 요소 사이의 간격 조정 */
+  margin-left: 20px; /* 각 입력 요소 사이의 간격 조정 */
+}
+
+.input-container label {
+  display: block; /* 라벨을 블록 요소로 변환하여 위에서 아래로 정렬 */
+  margin-bottom: 5px; /* 라벨과 입력 필드 사이의 간격 조정 */
+}
+
 .login-btn {
   background-color: #066278;
-  width: 95%;
+  width: 93%;
   height: 50px;
   font-size: 18px;
   color: #fff;
+  margin: 5px 16px 30px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -125,4 +104,39 @@ a {
 .logo img {
   width: 200px;
   height: 40px;
+}
+
+.ten {
+  position: relative; /* 부모 요소의 상대적 위치 설정 */
+  text-transform: uppercase;
+}
+
+.ten::before {
+  content: ''; /* 가상 요소 내용 초기화 */
+  position: absolute; /* 절대적 위치 설정 */
+  top: 0; /* 상단에 정렬 */
+  left: -10px; /* 왼쪽으로 이동하여 여백을 두고 선의 시작 위치 조정 */
+  height: 100%; /* 세로로 가득 채우도록 높이 설정 */
+  width: 4px; /* 세로 선의 너비 설정 */
+  margin-left: 10px;
+  background-color: #066278; /* 선의 색상 설정 */
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.login-links a {
+  color: #066278;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.login-links a:hover {
+  color: #054a5e;
 }

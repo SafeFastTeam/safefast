@@ -249,15 +249,13 @@ td {
 }
 
 .close-btn {
-  color: #aaa;
+  color: white;
   float: right;
-  font-size: 28px;
   font-weight: bold;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-  color: black;
   text-decoration: none;
   cursor: pointer;
 }
