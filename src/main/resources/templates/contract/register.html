@@ -8,6 +8,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
+    <style>
+        .modal {
+            display: none; /* 숨기기 */
+            position: fixed; /* 위치 고정 */
+            z-index: 1; /* 다른 요소들보다 위에 표시 */
+            padding-top: 60px; /* 화면 위로부터의 패딩 */
+            left: 0;
+            top: 0;
+            width: 100%; /* 전체 너비 */
+            height: 100%; /* 전체 높이 */
+            overflow: auto; /* 스크롤바 추가 */
+            background-color: rgb(0, 0, 0); /* 배경 색상 */
+            background-color: rgba(0, 0, 0, 0.4); /* 배경 색상 (투명도) */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
@@ -156,9 +194,26 @@
                             </th:block>
                         </ul>
                     </td>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <th:block th:each="contract : ${item.contract}">
+                                <li>
+                                    <a href="javascript:void(0);" th:data-contract-save-name="${contract.contractSaveName}"
+                                       th:text="${contract.contractOriginName}" class="contract-link"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </td>
                 </tr>
                 </tbody>
             </table>
+            <!-- 모달 구조 추가 -->
+            <div id="imageModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="modalImage">
+            </div>
+
             <div class="pagination">
                 <button class="pagination-button">이전</button>
                 <span>1/10 페이지</span>
@@ -243,6 +298,37 @@
                 // 페이지 리다이렉션
                 window.location.href = '/contract/register';
             }, 500); // 0.5초를 밀리초로 표기
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        document.querySelectorAll('.contract-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                var contractSaveName = this.getAttribute("data-contract-save-name");
+                var imageUrl = "/contract/file/" + contractSaveName;
+
+                // 이미지 URL 설정
+                modalImage.src = imageUrl;
+                // 모달 표시
+                modal.style.display = "block";
+            });
+        });
+
+        // 닫기 버튼 클릭 시 모달 닫기
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        // 모달 바깥 클릭 시 모달 닫기
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         });
     });
 </script>
