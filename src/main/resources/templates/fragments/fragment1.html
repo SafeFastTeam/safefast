@@ -198,8 +198,8 @@
                 </a>
             </h1>
             <div class="user-info">
-                <span class="username">세페스트 님, 환영합니다.</span>
-                <a href="login.html" class="logout-btn">로그아웃</a>
+                <span class="name" th:text="${#authentication.name} + ' 님'"></span>
+                <a href="member/logout" class="logout-btn">로그아웃</a>
             </div>
         </header>
     </div>
