@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DynamicUpdate
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "businessNumber")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "businessNumber")
 public class CoOpCompany {
 
     @Id
@@ -42,7 +42,7 @@ public class CoOpCompany {
 
     @Column
     private String companyAccount;
-
-    @OneToMany(mappedBy = "coOpCompany")
-    private List<PurchaseOrder> purchaseOrders;
+//
+//    @OneToMany(mappedBy = "coOpCompany")
+//    private List<PurchaseOrder> purchaseOrders;
 }

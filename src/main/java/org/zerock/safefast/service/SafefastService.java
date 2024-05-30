@@ -1,9 +1,9 @@
 package org.zerock.safefast.service;
 
 import org.springframework.stereotype.Repository;
-import org.zerock.safefast.dto.ItemDTO;
-import org.zerock.safefast.dto.PageRequestDTO;
-import org.zerock.safefast.dto.PageResultDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.Item;
 
 @Repository

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.safefast.entity.InventoryItem;
+import org.zerock.safefast.entity.Receive;
 import org.zerock.safefast.entity.Releases;
 import org.zerock.safefast.service.inventory.InventoryService;
 import org.zerock.safefast.service.releases.ReleasesService;
@@ -33,16 +34,40 @@ public class InventoryController {
         // InventoryService를 통해 재고 데이터를 가져옵니다.
         List<Releases> releasesList = inventoryService.getAllReleases();
 
-        Map<String, Integer> itemCodeQuantities  = new HashMap<>();
+        Map<String, Map<String, Object>> inventoryData = new HashMap<>();
+
         for (Releases release : releasesList) {
             String itemCode = release.getItem().getItemCode();
-            Integer quantity = release.getReleaseQuantity();
-            itemCodeQuantities.put(itemCode, itemCodeQuantities.getOrDefault(itemCode, 0) + quantity);
+            int receiveQuantity = release.getItem().getReceive().stream()
+                    .mapToInt(receive -> receive.getReceiveQuantity())
+                    .sum();
+            int releaseQuantity = release.getReleaseQuantity();
+            int price = release.getItem().getContract().isEmpty() ? 0 : release.getItem().getContract().get(0).getItemPrice();
+            int initialQuantity = 0; // Assuming initial quantity is 0
+            int finalQuantity = initialQuantity + receiveQuantity - releaseQuantity;
+            int totalAmount = finalQuantity * price;
+
+            if (!inventoryData.containsKey(itemCode)) {
+                inventoryData.put(itemCode, new HashMap<>());
+                inventoryData.get(itemCode).put("itemName", release.getItem().getItemName());
+                inventoryData.get(itemCode).put("dimensions", release.getItem().getWidth() + "x" + release.getItem().getLength() + "x" + release.getItem().getHeight());
+                inventoryData.get(itemCode).put("material", release.getItem().getMaterial());
+                inventoryData.get(itemCode).put("initialQuantity", initialQuantity);
+                inventoryData.get(itemCode).put("receiveQuantity", receiveQuantity);
+                inventoryData.get(itemCode).put("releaseQuantity", releaseQuantity);
+                inventoryData.get(itemCode).put("finalQuantity", finalQuantity);
+                inventoryData.get(itemCode).put("price", price);
+                inventoryData.get(itemCode).put("totalAmount", totalAmount);
+            } else {
+                inventoryData.get(itemCode).put("releaseQuantity", (int)inventoryData.get(itemCode).get("releaseQuantity") + releaseQuantity);
+                finalQuantity = initialQuantity + (int)inventoryData.get(itemCode).get("receiveQuantity") - (int)inventoryData.get(itemCode).get("releaseQuantity");
+                totalAmount = finalQuantity * price;
+                inventoryData.get(itemCode).put("finalQuantity", finalQuantity);
+                inventoryData.get(itemCode).put("totalAmount", totalAmount);
+            }
         }
 
-        // 모델에 재고 데이터를 추가하여 뷰에 전달합니다.
-        model.addAttribute("releases", releasesList);
-        model.addAttribute("itemCodeQuantities", itemCodeQuantities);
+        model.addAttribute("inventoryData", inventoryData);
 
         return "/inventory/inventory"; // inventory.html 템플릿을 반환합니다.
     }

@@ -1,4 +1,4 @@
-package org.zerock.safefast.dto;
+package org.zerock.safefast.dto.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,12 +17,15 @@ public class PageRequestDTO {
     private String type;
     private String keyword;
 
+
     public PageRequestDTO(){
         this.page = 1;
         this.size = 5;
     }
 
     public Pageable getPageable(Sort sort){
+
         return PageRequest.of(page -1, size, sort);
+
     }
 }
