@@ -6,17 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="050fa938-14b6-4244-b3c2-a6f3ec1d7e66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/purchase_order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/item/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/create_account_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/forgot_id_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/forgot_id_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/login_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/login_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/member/reset_password_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/member/reset_password_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/item.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/item.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +77,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "feat/dev/design01",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "list.type.of.created.stylesheet": "CSS",

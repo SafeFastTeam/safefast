@@ -124,11 +124,11 @@ select option {
   flex-grow: 1;
   margin-right: 10px;
 }
-
-.search-button {
-  width: 80px;
-}
 */
+.search-button[type="button"] {
+  margin-right: 0;
+}
+
 
 .product-spec input {
   border-radius: 3px;
@@ -275,4 +275,8 @@ button:hover {
 
 .page {
   text-decoration-color: #333333;
+}
+
+ul > li {
+  list-style: none;
 }
