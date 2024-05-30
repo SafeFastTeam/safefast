@@ -18,33 +18,28 @@
     <div class="content">
       <div class="item-registration">
         <h2>품목 정보 등록</h2>
-        <form action="/item/register" method="post" enctype="multipart/form-data">
-            <table>
-                <tr>
-                    <th rowspan="4" class="product-code">품목 분류</th>
-                    <td><label for="unit">대분류</label></td>
-                    <td>
-
-                        <select id="unit" name="unitCode" required>
-                            <option value="">대분류 선택</option>
-                            <!-- 대분류 항목을 서버에서 받아와서 선택 옵션에 추가 -->
-                            <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
-                        </select>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><label for="assyCode">중분류</label></td>
-                    <td>
-                        <select id="assyCode" name="assyCode" required>
-                            <option value="">중분류 선택</option>
-                            <!-- 서버에서 받은 중분류 목록을 반복하여 옵션으로 추가 -->
-                            <!-- 수정된 부분: 동적 변경 기능을 비활성화하여, 서버에서 한 번에 받은 중분류 목록을 그대로 출력 -->
-                            <option th:each="assy : ${assies}" th:value="${assy.assyCode}" th:text="${assy.assyName}"></option>
-                        </select>
-                    </td>
-                    <td></td>
-                </tr>
+          <form action="/item/register" method="post" enctype="multipart/form-data">
+              <table>
+                  <tr>
+                      <th rowspan="4" class="product-code">품목 분류</th>
+                      <td><label for="unit">대분류</label></td>
+                      <td>
+                          <select id="unit" name="unitCode" required>
+                              <option value="">대분류 선택</option>
+                              <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
+                          </select>
+                      </td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td><label for="assyCode">중분류</label></td>
+                      <td>
+                          <select id="assyCode" name="assyCode" required>
+                              <option value="">중분류 선택</option>
+                          </select>
+                      </td>
+                      <td></td>
+                  </tr>
                 <tr>
                     <td><label for="partCode">소분류</label></td>
                     <td>
@@ -179,6 +174,198 @@
         <img id="modalImage" src="" alt="Image">
     </div>
 </div>
+
+<script>
+    const units = [
+        { code: 'CG', name: '충전부' },
+        { code: 'CP', name: '압착부' },
+        { code: 'CR', name: '관제부' },
+        { code: 'CT', name: '절단부' },
+        { code: 'CU', name: '제어부' },
+        { code: 'IJ', name: '주입부' },
+        { code: 'IP', name: '투입부' },
+        { code: 'MS', name: '측정부' },
+        { code: 'MT', name: '장착부' },
+        { code: 'ST', name: '정렬부' },
+        { code: 'TO', name: '취출부' },
+        { code: 'WA', name: '용접부' }
+    ];
+
+    const assemblies = {
+        'CG': [
+            { code: 'A01', name: 'CableHeader접속부포함' },
+            { code: 'A02', name: 'Heater' }
+        ],
+        'CP': [
+            { code: 'A03', name: 'iNDEXUNiTDRiVE' },
+            { code: 'A04', name: 'LASER' }
+        ],
+        'CR': [
+            { code: 'A05', name: 'MOTOR' },
+            { code: 'A06', name: 'POWERSUPPLY' }
+        ],
+        'CT': [
+            { code: 'A07', name: 'PULLEY' },
+            { code: 'A08', name: 'PUMP' }
+        ],
+        'CU': [
+            { code: 'A09', name: 'PUSHER' },
+            { code: 'A10', name: 'robot arm' }
+        ],
+        'IJ': [
+            { code: 'A11', name: 'SERVOMOTOR' },
+            { code: 'A12', name: 'TOUTCHSCREEN' }
+        ],
+        'IP': [
+            { code: 'A13', name: 'VSCONTROLLER' },
+            { code: 'A14', name: '감지기' }
+        ],
+        'MS': [
+            { code: 'A15', name: '고정대' },
+            { code: 'A16', name: '구동축' }
+        ],
+        'MT': [
+            { code: 'A17', name: '실린더CYLINDER' },
+            { code: 'A18', name: '여과장치' }
+        ],
+        'ST': [
+            { code: 'A19', name: '이동 컨베이어' },
+            { code: 'A20', name: '전자저울WEIGHIGINDICATOR' }
+        ],
+        'TO': [
+            { code: 'A21', name: '제어판 이슈' },
+            { code: 'A22', name: '커넥터' }
+        ],
+        'WA': [
+            { code: 'A23', name: '컴퓨터COMPUTER' },
+            { code: 'A24', name: '투영기' }
+        ]
+    };
+
+    const parts = {
+        'A01': [
+            { code: '100', name: 'BEARiNG' },
+            { code: '101', name: 'BELT' }
+        ],
+        'A02': [
+            { code: '102', name: 'BOLTNUT' },
+            { code: '103', name: 'BRACKET' }
+        ],
+        'A03': [
+            { code: '200', name: 'CABLE' },
+            { code: '201', name: 'CHAiN' }
+        ],
+        'A04': [
+            { code: '202', name: 'CLUTCHBRAKE' },
+            { code: '203', name: 'COUPLiNG' },
+            { code: '204', name: 'CUTTER' }
+        ],
+        'A05': [
+            { code: '300', name: 'FILTERHOUSING' }
+        ],
+        'A06': [
+            { code: '301', name: 'FITTING류' }
+        ],
+        'A07': [
+            { code: '302', name: 'FLASHLAMP' },
+            { code: '303', name: 'FLOATiNGJOiNT' }
+        ],
+        'A08': [
+            { code: '400', name: 'GEAR' }
+        ],
+        'A09': [
+            { code: '401', name: 'GRIPPER' },
+            { code: '402', name: 'GUIDE' }
+        ],
+        'A10': [
+            { code: '435', name: 'HOSE' }
+        ],
+        'A11': [
+            { code: '446', name: 'JIG' }
+        ],
+        'A12': [
+            { code: '470', name: 'NOZZLE' }
+        ],
+        'A13': [
+            { code: '500', name: 'PiN' },
+            { code: '501', name: 'PLC' }
+        ],
+        'A14': [
+            { code: '572', name: 'SENSOR' }
+        ],
+        'A15': [
+            { code: '573', name: 'SERVOCONTROLLER' }
+        ],
+        'A16': [
+            { code: '574', name: 'SHAFT' }
+        ],
+        'A17': [
+            { code: '575', name: 'STOPPER' }
+        ],
+        'A18': [
+            { code: '600', name: 'Transmission변감속기' }
+        ],
+        'A19': [
+            { code: '601', name: 'TRAY' }
+        ],
+        'A20': [
+            { code: '692', name: 'VACUUMPAD' }
+        ],
+        'A21': [
+            { code: '700', name: '릴레이Relay' }
+        ],
+        'A22': [
+            { code: '701', name: '솔레노이드밸브SolenoidValve' }
+        ],
+        'A23': [
+            { code: '702', name: '엔코더Encoder' }
+        ],
+        'A24': [
+            { code: '703', name: '진공밸부VacuumValve' },
+            { code: '704', name: '퓨즈Fuse' }
+        ]
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const unitSelect = document.getElementById('unit');
+        const assySelect = document.getElementById('assyCode');
+        const partSelect = document.getElementById('partCode');
+
+        unitSelect.addEventListener('change', function() {
+            const selectedUnitCode = this.value;
+            const assembliesForUnit = assemblies[selectedUnitCode] || [];
+
+            // 중분류 옵션 초기화
+            assySelect.innerHTML = '<option value="">중분류 선택</option>';
+            partSelect.innerHTML = '<option value="">소분류 선택</option>';
+
+            // 중분류 옵션 추가
+            assembliesForUnit.forEach(assembly => {
+                const option = document.createElement('option');
+                option.value = assembly.code;
+                option.text = assembly.name;
+                assySelect.add(option);
+            });
+        });
+
+        assySelect.addEventListener('change', function() {
+            const selectedAssyCode = this.value;
+            const partsForAssembly = parts[selectedAssyCode] || [];
+
+            // 소분류 옵션 초기화
+            partSelect.innerHTML = '<option value="">소분류 선택</option>';
+
+            // 소분류 옵션 추가
+            partsForAssembly.forEach(part => {
+                const option = document.createElement('option');
+                option.value = part.code;
+                option.text = part.name;
+                partSelect.add(option);
+            });
+        });
+    });
+</script>
+
 <script>
     // 모달 열기
     $(document).on("click", ".modalLink", function() {
