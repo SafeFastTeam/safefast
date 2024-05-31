@@ -29,7 +29,8 @@ public class ProgressCheckItem {
     @Column(nullable = false)
     private String progCheckResult = "0";
 
-    private Integer CompletedQuantity;
+    @Column
+    private Integer completedQuantity = 0;
 
     private String supplementation;
 

@@ -166,5 +166,10 @@ public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrde
                     .body("발주서 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
+    @GetMapping("/progress_check_item")
+    public String showProgressCheckItemPage(Model model) {
+        List<PurchaseOrder> purchaseOrders = purchaseOrderService.findAll();
+        model.addAttribute("purchaseOrders", purchaseOrders);
+        return "/progress_check_item/progress_check_item";
+    }
 }
