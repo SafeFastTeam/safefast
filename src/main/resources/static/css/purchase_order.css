@@ -242,6 +242,8 @@ th {
   border: 1px solid #888;
   width: 50%;
   height: 800px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation: modalFadeIn 0.5s;
 }
 
 .close {
@@ -332,4 +334,121 @@ th {
   height: 600px;
   display: block;
   margin: 0 auto;
+}
+
+/*수정 모달창에 관한 css */
+
+#modifyOrderModal .modal-content {
+  padding: 20px;
+  border: 1px solid #888;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+#modifyOrderModal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+}
+
+#modifyOrderModal .close:hover {
+  color: #333; /* 호버 시 색상 변경 */
+}
+
+#modifyOrderForm {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+#modifyOrderModal.modal .modal-content {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+#modifyOrderModal.modal .button {
+  background-color: #066278;
+}
+
+.button {
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 모달 창 등장 애니메이션 */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#modifyOrderModal h3 {
+  text-align: center;
+}
+
+#modifyOrderForm label {
+  font-size: 18px;
+  margin-bottom: 5px;
+  width: 120px;
+  text-align: left;
+}
+
+#modifyOrderForm .form-group {
+  display: flex;
+  align-items: center;
+}
+
+#modifyOrderForm input[type="text"],
+#modifyOrderForm input[type="number"],
+#modifyOrderForm input[type="date"] {
+  flex: 1;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#modifyOrderForm input[type="text"]:focus,
+#modifyOrderForm input[type="number"]:focus,
+#modifyOrderForm input[type="date"]:focus {
+  border-color: #066278;
+  box-shadow: 0 0 5px rgba(6, 98, 120, 0.5);
+  outline: none;
+}
+
+/* 호버 효과 */
+#modifyOrderForm input[type="text"]:hover,
+#modifyOrderForm input[type="number"]:hover,
+#modifyOrderForm input[type="date"]:hover,
+#modifyOrderForm .button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#modifyOrderForm .button:active {
+  transform: translateY(2px);
+  box-shadow: none;
 }
