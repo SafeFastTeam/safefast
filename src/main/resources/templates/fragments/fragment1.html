@@ -119,6 +119,7 @@
             display: flex;
             justify-content: center; /* 수평 가운데 정렬 */
             align-items: center; /* 수직 가운데 정렬 */
+            margin-left: 10px; /* 로고 이미지를 우측으로 조금 이동 */
         }
 
         .logo img {
@@ -198,7 +199,7 @@
                 </a>
             </h1>
             <div class="user-info">
-                <span class="name" th:text="${#authentication.name} + ' 님'"></span>
+                <span class="name" th:text="${#authentication.name} + ' 님, 접속을 환영합니다.　'"></span>
                 <a href="member/logout" class="logout-btn">로그아웃</a>
             </div>
         </header>
