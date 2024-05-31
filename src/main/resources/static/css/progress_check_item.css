@@ -271,3 +271,12 @@ td {
 tbody td span {
   color: black;
 }
+
+.main-table td:nth-child(8) {
+  text-align: center;
+}
+
+.main-table td:nth-child(8) ul {
+  list-style-type: none;
+  padding-left: 0;
+}
