@@ -56,7 +56,13 @@ public class FileController {
             Path imagePath = Paths.get(uploadDir, filename);
             byte[] imageBytes = Files.readAllBytes(imagePath);
 
-            return ResponseEntity.ok().contentType(MediaType.ALL).body(imageBytes);
+            // PDF 파일인 경우
+            if (filename.endsWith(".pdf")) {
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(imageBytes);
+            }
+
+            // 이미지 파일인 경우
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imageBytes);
         } catch (IOException e) {
             log.error("파일을 불러오는 동안 오류가 발생했습니다.", e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
