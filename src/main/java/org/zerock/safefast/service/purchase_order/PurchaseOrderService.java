@@ -32,6 +32,7 @@ public class PurchaseOrderService {
 
     @Autowired
     private ReceiveRepository receiveRepository;
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -136,8 +137,19 @@ public class PurchaseOrderService {
             return new PurchaseOrderResponse();  // 기본 생성자 사용
         }
     }
+    @Transactional
+    public void updatePurchaseOrder(String purchOrderNumber, PurchaseOrder modifiedOrder) {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(purchOrderNumber)
+                .orElseThrow(() -> new RuntimeException("발주서를 찾을 수 없습니다."));
 
+        // 필요한 필드 업데이트
+        purchaseOrder.setPurchOrderQuantity(modifiedOrder.getPurchOrderQuantity());
+        purchaseOrder.setReceiveDuedate(modifiedOrder.getReceiveDuedate());
+        purchaseOrder.setPurchOrderDate(modifiedOrder.getPurchOrderDate());
+        // 기타 필드들도 업데이트
 
+        purchaseOrderRepository.save(purchaseOrder);
+    }
     public List<PurchaseOrder> findAll() {
         return purchaseOrderRepository.findAll();
     }
