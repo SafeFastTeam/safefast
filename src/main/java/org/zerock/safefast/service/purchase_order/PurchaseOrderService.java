@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
-import org.zerock.safefast.entity.CoOpCompany;
-import org.zerock.safefast.entity.Item;
-import org.zerock.safefast.entity.ProcurementPlan;
-import org.zerock.safefast.entity.PurchaseOrder;
+import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
@@ -169,5 +166,18 @@ public class PurchaseOrderService {
 
     public long countCompletedProcurements(LocalDate startDate, LocalDate endDate) {
         return receiveRepository.countByDateRange(startDate, endDate);
+    }
+
+    /*
+     *      진척도를 계산하는 서비스 메서드입니다. no usages라고 표시되는 에러가 있습니다만,
+     *      이 메서드를 삭제하면 template parsing 에러가 발생합니다.
+     */
+    public int calculateProgressForPurchaseOrder(PurchaseOrder purchaseOrder) {
+        List<ProgressCheckItem> progressCheckItems = purchaseOrder.getProgressCheckItems();
+        int totalCompletedQuantity = progressCheckItems.stream()
+                .mapToInt(ProgressCheckItem::getCompletedQuantity)
+                .sum();
+        int progress = (int) ((double) totalCompletedQuantity / purchaseOrder.getPurchOrderQuantity() * 100);
+        return progress;
     }
 }
