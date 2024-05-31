@@ -1,0 +1,5 @@
+INSERT INTO product (product_code, product_name)
+VALUES 
+('pdc001', '모니터'),
+('pdc213', '마우스'),
+('pdc500', '노트북');

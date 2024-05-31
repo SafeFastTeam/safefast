@@ -2,9 +2,8 @@ package org.zerock.safefast.controller.contract;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -117,13 +116,29 @@ public class ContractController {
 
     @GetMapping("/file/{fileName}")
     @ResponseBody
-    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
-        Resource resource = contractService.loadFileAsResource(fileName);
-        String encodedFileName = encodeFileName(resource.getFilename());
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename*=UTF-8''" + encodedFileName)
-                .body(resource);
+    public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists()) {
+                throw new RuntimeException("File not found " + fileName);
+            }
+
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (IOException ex) {
+            throw new RuntimeException("Error reading file " + fileName, ex);
+        }
     }
+
     private String encodeFileName(String fileName) {
         try {
             return URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()).replace("+", "%20");

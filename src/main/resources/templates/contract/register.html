@@ -199,8 +199,18 @@
                         <ul>
                             <th:block th:each="contract : ${item.contract}">
                                 <li>
-                                    <a href="javascript:void(0);" th:data-contract-save-name="${contract.contractSaveName}"
-                                       th:text="${contract.contractOriginName}" class="contract-link"></a>
+                                    <a th:if="${contract.contractOriginName.endsWith('.pdf')}"
+                                       href="#"
+                                       th:data-contract-save-name="${contract.contractSaveName}"
+                                       th:text="${contract.contractOriginName}"
+                                       onclick="downloadFile(this); return false;">
+                                    </a>
+                                    <a th:unless="${contract.contractOriginName.endsWith('.pdf')}"
+                                       href="javascript:void(0);"
+                                       th:data-contract-save-name="${contract.contractSaveName}"
+                                       th:text="${contract.contractOriginName}"
+                                       class="contract-link">
+                                    </a>
                                 </li>
                             </th:block>
                         </ul>
@@ -331,6 +341,36 @@
             }
         });
     });
+</script>
+<script>
+    async function downloadFile(link) {
+        var contractSaveName = link.getAttribute('data-contract-save-name');
+        var fileUrl = '/file/' + contractSaveName;
+
+        try {
+            const response = await fetch(fileUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+
+            // 파일 이름 설정
+            a.download = contractSaveName;
+
+            document.body.appendChild(a);
+            a.click();
+
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    }
 </script>
 <script src="contract.js"></script>
 <script src="index.js"></script>
