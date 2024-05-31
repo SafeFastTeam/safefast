@@ -214,3 +214,28 @@ span {
   font-weight: bold;
   cursor: pointer;
 }
+
+h2.sixth { position: relative; }
+
+h2.sixth:before,
+h2.sixth:after {
+  content: '◀ ';
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  height: 100%;
+  font-size: 1.25em;
+  color: #054a5e;
+
+  transition: all 0.5s ease;
+}
+
+h2.sixth:after { content: ' ▶'; }
+
+h2.sixth:hover:before {
+  transform: translateX(-5px);
+}
+
+h2.sixth:hover:after {
+  transform: translateX(5px);
+}
