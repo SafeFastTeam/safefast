@@ -6,4 +6,5 @@ import org.zerock.safefast.entity.Part;
 
 @Repository
 public interface PartRepository extends JpaRepository<Part, String> {
+    Part findByPartCode(String partCode);
 }
