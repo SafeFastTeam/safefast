@@ -19,7 +19,7 @@
       <h2>현황 관리 그래프</h2>
       <div class="head-box">
         <div class="date-search">
-          <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;</span> 
+          <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;</span>
           <input type="date" id="date-end" placeholder="종료 날짜">
           <button id="date-search-btn">검색</button>
         </div>
@@ -30,8 +30,8 @@
         </div>
       </div>
         <div class="graph">
-          <canvas id="myChart" width="400" height="400"></canvas>
-          <canvas id="container3" width="400" height="400"></canvas>
+          <canvas id="myChart" width="700" height="400"></canvas>
+          <canvas id="container3" width="700" height="400"></canvas>
         </div>
     </div>
   </div>
@@ -42,16 +42,16 @@
 
 <script type="text/javascript">
   // 데이터 정의
-  const categoryData = {
-    large: [1200, 600, 400, 0, 800, 50],
-    medium: [800, 500, 300, 200, 600, 400],
-    small: [300, 200, 100, 50, 400, 300]
+  let categoryData = {
+    large: [],
+    medium: [],
+    small: []
   };
 
-  const labels = {
-    large: ['충전부', '용접부', '취출부', '주입부', '장착부', '제어부'],
-    medium: ['히터', '커넥터', '고정대', '구동축', '모터', '펌프'],
-    small: ['벨트', '기어', '핀', '체인', '케이블', '볼트']
+  let labels = {
+    large: [],
+    medium: [],
+    small: []
   };
 
   // Echarts 차트 초기화
@@ -65,7 +65,6 @@
         data: labels,
         axisLabel: {
           interval: 0, // 모든 레이블 표시
-/*          rotate: 30, */ // 필요한 경우 레이블 회전 (회전 각도는 필요에 따라 조정)
         }
       },
       yAxis: {
@@ -91,9 +90,9 @@
   const myChartDoughnut = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: labels.large,
+      labels: [],
       datasets: [{
-        data: categoryData.large,
+        data: [],
         backgroundColor: [
           'rgba(255, 99, 132, 0.8)',
           'rgba(54, 162, 235, 0.8)',
@@ -117,25 +116,58 @@
     myChartDoughnut.update();
   };
 
-  // 버튼 클릭 이벤트 핸들러
-  document.getElementById('issue-order-btn-large').addEventListener('click', () => {
-    updateEchartsChart(categoryData.large, labels.large);
-    updateDoughnutChart(categoryData.large, labels.large);
-  });
+  // 서버에서 데이터 가져오고 차트 업데이트
+  const fetchAndUpdateCharts = async (endpoint) => {
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
 
-  document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
-    updateEchartsChart(categoryData.medium, labels.medium);
-    updateDoughnutChart(categoryData.medium, labels.medium);
-  });
+      const labels = data.map(item => item.category);
+      const values = data.map(item => item.inventoryValue);
 
-  document.getElementById('issue-order-btn-small').addEventListener('click', () => {
-    updateEchartsChart(categoryData.small, labels.small);
-    updateDoughnutChart(categoryData.small, labels.small);
-  });
+      categoryData.large = [];
+      categoryData.medium = [];
+      categoryData.small = [];
 
-  // 초기 차트 로드
-  updateEchartsChart(categoryData.large, labels.large);
-  updateDoughnutChart(categoryData.large, labels.large);
+      labels.large = [];
+      labels.medium = [];
+      labels.small = [];
+
+      if (endpoint === '/inventory_management/unit') {
+        categoryData.large = values;
+        labels.large = labels;
+      } else if (endpoint === '/inventory_management/assy') {
+        categoryData.medium = values;
+        labels.medium = labels;
+      } else if (endpoint === '/inventory_management/part') {
+        categoryData.small = values;
+        labels.small = labels;
+      }
+
+      updateEchartsChart(values, labels);
+      updateDoughnutChart(values, labels);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  window.onload = function() {
+    // 버튼 클릭 이벤트 핸들러
+    document.getElementById('issue-order-btn-large').addEventListener('click', () => {
+      fetchAndUpdateCharts('/inventory_management/unit');
+    });
+
+    document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
+      fetchAndUpdateCharts('/inventory_management/assy');
+    });
+
+    document.getElementById('issue-order-btn-small').addEventListener('click', () => {
+      fetchAndUpdateCharts('/inventory_management/part');
+    });
+
+    // 초기 차트 로드
+    fetchAndUpdateCharts('/inventory_management/unit');
+  };
 </script>
 
   <script src="/js/index.js"></script>

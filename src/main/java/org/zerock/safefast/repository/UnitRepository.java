@@ -6,4 +6,5 @@ import org.zerock.safefast.entity.Unit;
 
 @Repository
 public interface UnitRepository extends JpaRepository<Unit, String> {
+    Unit findByUnitCode(String unitCode);
 }

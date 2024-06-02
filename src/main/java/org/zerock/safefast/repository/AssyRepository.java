@@ -6,5 +6,5 @@ import org.zerock.safefast.entity.Assy;
 
 @Repository
 public interface AssyRepository extends JpaRepository<Assy, String> {
-
+    Assy findByAssyCode(String assyCode);
 }
