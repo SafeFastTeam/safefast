@@ -22,5 +22,6 @@ public interface ReceiveRepository extends JpaRepository<Receive, Integer> {
     @Query("SELECT COUNT(r) FROM Receive r WHERE r.receiveDate BETWEEN :startDate AND :endDate")
     long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-
+    @Query("SELECT r FROM Receive r WHERE r.receiveDate BETWEEN :startDate AND :endDate")
+    List<Receive> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
