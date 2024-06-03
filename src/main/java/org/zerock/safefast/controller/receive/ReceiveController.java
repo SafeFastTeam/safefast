@@ -37,13 +37,11 @@ public class ReceiveController {
     @GetMapping("/receive")
     public String showReceivePage(Model model) {
         List<PurchaseOrder> purchaseOrderList = receiveService.getAllPurchaseOrder();
-        List<ProgressCheckItem> progressCheckItemList = receiveService.getAllProgressCheckItem();
         List<Quantity> quantityList = receiveService.getAllQuantity();
         List<Releases> releasesList = receiveService.getAllReleases();
         model.addAttribute("purchases", purchaseOrderList);
         model.addAttribute("quantities", quantityList);
         model.addAttribute("releases", releasesList);
-        model.addAttribute("progressCheckItems", progressCheckItemList);
         return "receive/receive";
     }
 
