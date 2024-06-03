@@ -8,6 +8,22 @@ h1, h2 {
   color: #066278;
 }
 
+
+.ten h2 {
+  position: relative; /* 부모 요소의 상대적 위치 설정 */
+  text-transform: uppercase;
+}
+
+.ten h2::before {
+  content: ''; /* 가상 요소 내용 초기화 */
+  position: absolute; /* 절대적 위치 설정 */
+  top: 0; /* 상단에 정렬 */
+  left: -10px; /* 왼쪽으로 이동하여 여백을 두고 선의 시작 위치 조정 */
+  height: 100%; /* 세로로 가득 채우도록 높이 설정 */
+  width: 4px; /* 세로 선의 너비 설정 */
+  background-color: #066278; /* 선의 색상 설정 */
+}
+
 ul li {
   list-style: none;
 }
