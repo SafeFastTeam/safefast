@@ -6,6 +6,7 @@ import org.zerock.safefast.dto.inventory_management.InventoryValueDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ public interface InventoryManagementService {
     List<InventoryValueDTO> getTop6InventoryValueByAssy();
 
     List<InventoryValueDTO> getTop6InventoryValueByPart();
+
+    List<InventoryValueDTO> getInventoryValuesByDateRange(LocalDate startDate, LocalDate endDate);
 
 //    public Map<String, Object> getTop6Items(String category) {
 //        List<Object[]> result;
