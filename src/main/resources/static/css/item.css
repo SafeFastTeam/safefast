@@ -280,3 +280,9 @@ button:hover {
 ul > li {
   list-style: none;
 }
+
+.file-name {
+  font-size: 16px;
+  color: #333;
+  margin-left: 15px; /* 좌측 여백 추가 */
+}
