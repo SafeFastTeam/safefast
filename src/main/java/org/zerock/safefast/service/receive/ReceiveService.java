@@ -80,4 +80,8 @@ public class ReceiveService {
     public List<ProgressCheckItem> getAllProgressCheckItem() {
         return progressCheckItemRepository.findAll();
     }
+
+    public List<Receive> getReceivesByDateRange(LocalDate startDate, LocalDate endDate) {
+        return receiveRepository.findByDateRange(startDate, endDate);
+    }
 }

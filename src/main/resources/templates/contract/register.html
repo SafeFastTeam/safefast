@@ -65,11 +65,25 @@
                     <!--        <input type="hidden" name="item" value="itemValue">-->
                     <tr>
                         <th>계약서/첨부파일</th>
-                        <td><input type="file" name="contractOriginName"></td>
+                        <td>
+                            <div class="file-upload">
+                                <input type="file" id="contractOriginName" name="contractOriginName" accept=".pdf,.jpg,.png" onchange="displayFileName()" required>
+                                <label for="contractOriginName" class="button"><i class="fas fa-upload">&nbsp;</i>파일 선택</label>
+                                <span id="fileName" class="file-name">선택된 파일이 없습니다.</span>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <th>사업자 번호</th>
-                        <td><input type="text" name="coOpCompany" class="input-field"></td>
+                        <td>
+                            <div class="custom-select">
+                                <select id="coOpCompanySelect" name="coOpCompany" class="input-field" required>
+                                    <option value="" disabled selected>사업자 번호를 선택하세요</option>
+                                    <!-- Thymeleaf를 이용하여 옵션 추가 -->
+                                    <option th:each="company : ${coOpCompanies}" th:value="${company.businessNumber}" th:text="${company.businessNumber}"></option>
+                                </select>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <th>업체명</th>
@@ -236,8 +250,8 @@
             });
         });
 
-        // 사업자 번호를 입력했을 때 해당 업체 정보를 자동으로 채우기
-        $("input[name='coOpCompany']").on("change", function () {
+        // 사업자 번호를 선택했을 때 해당 업체 정보를 자동으로 채우기
+        $("#coOpCompanySelect").on("change", function () {
             var businessNumber = $(this).val();
             console.log("Business Number: " + businessNumber);
             $.ajax({
@@ -256,6 +270,21 @@
                 }
             });
         });
+
+        // // 서버에서 사업자 번호 목록을 가져와서 select에 추가
+        // $.ajax({
+        //     url: "/api/coOpCompanies",
+        //     method: "GET",
+        //     success: function (response) {
+        //         response.forEach(function (company) {
+        //             $("#coOpCompanySelect").append(new Option(company.businessNumber, company.businessNumber));
+        //         });
+        //     },
+        //     error: function () {
+        //         alert("사업자 번호를 불러올 수 없습니다.");
+        //     }
+        // });
+
         // 확인 버튼 클릭 이벤트 핸들러
         document.getElementById('save-contract-button').addEventListener('click', () => {
             // 0.5초의 지연 추가
@@ -326,6 +355,43 @@
             console.error('There has been a problem with your fetch operation:', error);
         }
     }
+</script>
+<script>
+    function displayFileName() {
+        const input = document.getElementById('contractOriginName');
+        const fileNameDiv = document.getElementById('fileName');
+        if (input.files.length > 0) {
+            fileNameDiv.textContent = input.files[0].name;
+        } else {
+            fileNameDiv.textContent = '선택된 파일이 없습니다.';
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        // 사업자 번호를 선택했을 때 해당 업체 정보를 자동으로 채우기
+        $("#coOpCompanySelect").on("change", function () {
+            var businessNumber = $(this).val();
+            console.log("Business Number: " + businessNumber);
+            $.ajax({
+                url: "/contract/company",
+                method: "GET",
+                data: {
+                    businessNumber: businessNumber,
+                },
+                success: function (response) {
+                    console.log(response); // 서버 응답을 콘솔에 출력하여 확인
+                    $("input[name='companyName']").val(response.companyName);
+                    $("input[name='companyAccount']").val(response.companyAccount);
+                },
+                error: function () {
+                    alert("업체 정보를 불러올 수 없습니다.");
+                }
+            });
+        });
+
+
+    });
 </script>
 <script src="contract.js"></script>
 <script src="index.js"></script>

@@ -53,7 +53,8 @@ public class ContractController {
         model.addAttribute("items", items);
         model.addAttribute("contracts", contracts);
         model.addAttribute("result", result);
-
+        List<CoOpCompany> coOpCompanies = coOpCompanyRepository.findAll();
+        model.addAttribute("coOpCompanies", coOpCompanies);
         return "contract/register";
     }
 

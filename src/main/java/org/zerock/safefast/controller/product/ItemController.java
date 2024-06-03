@@ -2,7 +2,11 @@ package org.zerock.safefast.controller.product;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,9 @@ import org.zerock.safefast.service.product.ItemService;
 
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -28,12 +35,13 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController {
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     private final ItemService itemService;
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
     private final PartRepository partRepository;
-
-
 
     // 페이징 처리된 결과 받아오도록 수정
 
@@ -121,11 +129,36 @@ public class ItemController {
         return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("/item/image/{fileName}")
+/*    @GetMapping("/file/{fileName}")
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
         Resource resource = itemService.loadFileAsResource(fileName);
         return ResponseEntity.ok().body(resource);
-    }
+    }*/
 
+
+    @GetMapping("/file/{fileName}")
+    @ResponseBody
+    public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists()) {
+                throw new RuntimeException("File not found " + fileName);
+            }
+
+            String contentType = Files.probeContentType(filePath);
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (IOException ex) {
+            throw new RuntimeException("Error reading file " + fileName, ex);
+        }
+    }
 
 }

@@ -199,8 +199,15 @@
                 </a>
             </h1>
             <div class="user-info">
-                <span class="name" th:text="${#authentication.name} + ' 님, 접속을 환영합니다.　'"></span>
-                <a href="member/logout" class="logout-btn">로그아웃</a>
+                <div th:if="${session.member}">
+                    <span th:text="${session.member.name} + ' 님, 접속을 환영합니다.　'"></span>
+                    <a class="logout-btn" href="/member/logout">로그아웃</a>
+                </div>
+                <div th:unless="${session.member}">
+                    <a href="/member/login">로그인</a>
+                </div>
+<!--                <span class="name" th:text="${member.empNumber} + ' 님, 접속을 환영합니다.　'"></span>-->
+<!--                <a href="member/logout" class="logout-btn">로그아웃</a>-->
             </div>
         </header>
     </div>
