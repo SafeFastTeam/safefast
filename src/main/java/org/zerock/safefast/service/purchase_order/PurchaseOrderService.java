@@ -9,7 +9,6 @@ import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public class PurchaseOrderService {
     @Autowired
     private ProcurementPlanRepository procurementPlanRepository;
 
-    //해당 레포지토리들은 그래프 그리기 위해 선언되었습니다.
+    // 해당 레포지토리들은 그래프 그리기 위해 선언되었습니다.
     @Autowired
     private ProgressCheckItemRepository progressCheckItemRepository;
 
@@ -53,6 +52,8 @@ public class PurchaseOrderService {
             purchaseOrder.setItem(request.getItem());
             purchaseOrder.setItemCode(request.getItem().getItemCode());
 
+            // 현재 날짜로 설정
+            purchaseOrder.setPurchOrderDate(LocalDate.now());
 
             return purchaseOrder;
         }).toList();
@@ -63,7 +64,7 @@ public class PurchaseOrderService {
         return Optional.ofNullable(purchaseOrderRepository.findProcurementPlanByNumber(procPlanNumber));
     }
 
-    //모든 발주서를 리스트업 합니다.
+    // 모든 발주서를 리스트업 합니다.
     public List<PurchaseOrder> getAllPurchaseOrders() {
         return purchaseOrderRepository.findAll();
     }
@@ -83,7 +84,6 @@ public class PurchaseOrderService {
             return "ORD-001";
         }
     }
-
 
     public List<PurchaseOrderResponse> getPurchaseOrders() {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepository.findAll();
@@ -105,7 +105,6 @@ public class PurchaseOrderService {
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
-
 
     // PurchaseOrder를 PurchaseOrderResponse로 매핑하는 메서드
     private PurchaseOrderResponse mapToResponse(PurchaseOrder purchaseOrder) {
@@ -134,6 +133,7 @@ public class PurchaseOrderService {
             return new PurchaseOrderResponse();  // 기본 생성자 사용
         }
     }
+
     @Transactional
     public void updatePurchaseOrder(String purchOrderNumber, PurchaseOrder modifiedOrder) {
         PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(purchOrderNumber)
@@ -147,6 +147,7 @@ public class PurchaseOrderService {
 
         purchaseOrderRepository.save(purchaseOrder);
     }
+
     public List<PurchaseOrder> findAll() {
         return purchaseOrderRepository.findAll();
     }

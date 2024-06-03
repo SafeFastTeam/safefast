@@ -23,7 +23,7 @@ public class PurchaseOrder {
     private String purchOrderNumber;
 
     @Column
-    private LocalDate purchOrderDate = LocalDate.now();
+    private LocalDate purchOrderDate;
 
     @Column
     private Integer purchOrderQuantity;
