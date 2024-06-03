@@ -6,6 +6,7 @@ import com.querydsl.core.tyoes.dsl.BooleanExpression;*/
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -47,10 +48,13 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class ItemService implements SafefastService {
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     private final ItemRepository itemRepository;
     private static final Logger log = LoggerFactory.getLogger(ItemService.class);
 
-    private final Path uploadDir = Paths.get("upload");
+/*    private final Path uploadDir = Paths.get("uploads");*/
 
     private final UnitRepository unitRepository;
     private final AssyRepository assyRepository;
@@ -211,9 +215,14 @@ public class ItemService implements SafefastService {
         return new PageResultDTO<>(result, fn);
     }
 
-    public Resource loadFileAsResource(String fileName) throws IOException {
+    public byte[] getItemFile(String filename) throws IOException {
+        Path filePath = Paths.get(uploadDir, filename);
+        return Files.readAllBytes(filePath);
+    }
+
+/*    public Resource loadFileAsResource(String fileName) throws IOException {
         try {
-            Path filePath = uploadDir.resolve(fileName).normalize();
+            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
@@ -223,6 +232,22 @@ public class ItemService implements SafefastService {
             }
         } catch (MalformedURLException ex) {
             throw new IOException("File not found: " + fileName, ex);
+        }
+    }*/
+
+    public Resource loadFileAsResource(String blueprintFileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(blueprintFileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new IOException("File not found " + blueprintFileName);
+            }
+        } catch (MalformedURLException ex) {
+            throw new RuntimeException("File not found " + blueprintFileName, ex);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
