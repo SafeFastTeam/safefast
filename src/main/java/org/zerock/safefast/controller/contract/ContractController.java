@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.safefast.dto.contract.ContractDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.service.contract.ContractService;
 import org.zerock.safefast.entity.CoOpCompany;
 import org.zerock.safefast.entity.Contract;
@@ -42,11 +45,15 @@ public class ContractController {
     private final ItemRepository itemRepository;
 
     @GetMapping("/register")
-    public String showContract(Model model) {
+    public String showContract(PageRequestDTO pageRequestDTO, Model model) {
         List<Item> items = contractService.getAllItems();
         List<Contract> contracts = contractService.getAllContracts();
+        PageResultDTO<ContractDTO, Contract> result = contractService.getLists(pageRequestDTO);
+
         model.addAttribute("items", items);
         model.addAttribute("contracts", contracts);
+        model.addAttribute("result", result);
+
         return "contract/register";
     }
 
