@@ -72,14 +72,14 @@ public class SecurityConfig {
                                 authorizeHttpRequests
                                         .requestMatchers("/member/**","/css/**","/js/**","/image/**","/contract/**","/item/**","/inventory/**",
                                                 "/inventory_management/**","/invoicing/**","/po_status/**","/api/stats/**","/procurement/**",
-                                                "/production/**","/item/**","/progress_check_item/**","/purchase_order/**","/receive/**").permitAll()
+                                                "/production/**","/item/**","/progress_check_item/**","/purchase_order/**","/receive/**", "/file/**", "/index").permitAll()
                                         .requestMatchers("/**").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 );
         http
                 .formLogin((formLogin) ->
                         formLogin
-                                .loginPage("/member/login")
+                                .loginPage("/member/home")
                                 .loginProcessingUrl("/login") // 이 URL로 로그인 폼이 POST 요청을 보냄
                                 .usernameParameter("empNumber")
                                 .passwordParameter("password")

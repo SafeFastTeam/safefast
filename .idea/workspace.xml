@@ -26,9 +26,6 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -51,24 +48,24 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-    &quot;lastFilter&quot;: {
+  &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;songoffeather&quot;
-    }
-    }</component>
+  }
+}</component>
   <component name="GithubPullRequestsUISettings">{
-    &quot;selectedUrlAndAccountId&quot;: {
+  &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/SafeFastTeam/safefast.git&quot;,
     &quot;accountId&quot;: &quot;80eaff78-0c67-48f4-850e-fa4f5c0ded53&quot;
-    }
-    }</component>
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/resources/templates/purchase_order/purchase_order.html" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
-    &quot;customColor&quot;: &quot;&quot;,
-    &quot;associatedIndex&quot;: 8
-    }</component>
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2h7TFc8POCL56D9NrkuQY5uAlk2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -167,10 +164,6 @@
       <workItem from="1716946805349" duration="10768000" />
       <workItem from="1717027771325" duration="12718000" />
       <workItem from="1717027299969" duration="12452000" />
-      <workItem from="1717112539740" duration="9450000" />
-      <workItem from="1717205199328" duration="7977000" />
-      <workItem from="1717266492359" duration="2774000" />
-      <workItem from="1717327850720" duration="16115000" />
     </task>
     <servers />
   </component>

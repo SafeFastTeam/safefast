@@ -146,7 +146,15 @@ public class PurchaseOrderController {
 //                    .body("발주서 업데이트 중 오류가 발생했습니다: " + e.getMessage());
 //        }
 //    }
-
+@PutMapping("/{purchOrderNumber}")
+public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrderNumber, @RequestBody PurchaseOrder modifiedOrder) {
+    try {
+        purchaseOrderService.updatePurchaseOrder(purchOrderNumber, modifiedOrder);
+        return ResponseEntity.ok("발주서가 성공적으로 수정되었습니다.");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("발주서 수정 중 오류가 발생했습니다.");
+    }
+}
     @DeleteMapping("/delete")
     @Transactional
     public ResponseEntity<String> deletePurchaseOrders(@RequestBody List<String> orderNumbers) {
@@ -158,5 +166,10 @@ public class PurchaseOrderController {
                     .body("발주서 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
-
+    @GetMapping("/progress_check_item")
+    public String showProgressCheckItemPage(Model model) {
+        List<PurchaseOrder> purchaseOrders = purchaseOrderService.findAll();
+        model.addAttribute("purchaseOrders", purchaseOrders);
+        return "/progress_check_item/progress_check_item";
+    }
 }

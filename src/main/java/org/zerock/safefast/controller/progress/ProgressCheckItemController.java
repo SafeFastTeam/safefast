@@ -12,6 +12,8 @@ import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/progress_check_item")
@@ -40,7 +42,29 @@ public class ProgressCheckItemController {
     @GetMapping("/progress_check_item")
     public String progressCheck(Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderService.getAllPurchaseOrders();
+
+        // 각 PurchaseOrder에 대해 maxProgCheckOrder와 maxProgCheckResult 계산
+        Map<String, Integer> maxProgCheckOrders = purchaseOrders.stream()
+                .collect(Collectors.toMap(
+                        PurchaseOrder::getPurchOrderNumber,
+                        po -> po.getProgressCheckItems().stream()
+                                .mapToInt(ProgressCheckItem::getProgCheckOrder)
+                                .max()
+                                .orElse(0) // 비어 있는 경우 0으로 설정
+                ));
+
+        Map<String, String> maxProgCheckResults = purchaseOrders.stream()
+                .collect(Collectors.toMap(
+                        PurchaseOrder::getPurchOrderNumber,
+                        po -> po.getProgressCheckItems().stream()
+                                .map(ProgressCheckItem::getProgCheckResult)
+                                .max(String::compareTo)
+                                .orElse("") // 비어 있는 경우 빈 문자열로 설정
+                ));
+
         model.addAttribute("purchaseOrders", purchaseOrders);
+        model.addAttribute("maxProgCheckOrders", maxProgCheckOrders);
+        model.addAttribute("maxProgCheckResults", maxProgCheckResults);
         return "/progress_check_item/progress_check_item";
     }
 

@@ -17,7 +17,6 @@ $(document).ready(function () {
                 <td><input type="number" class="completedQuantity" placeholder="수량 입력"></td>
                 <td><input type="text" class="progCheckResult"></td>
                 <td><input type="text" class="supplementation"></td>
-                <td>진척도</td>
                 <td>
                     <button class="btn add-btn">추가</button>
                     <button class="btn delete-btn">삭제</button>
@@ -92,7 +91,6 @@ $(document).ready(function () {
                                             <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
                                             <td><input type="text" class="progCheckResult" value="${index + 1}" readonly></td>
                                             <td><input type="text" class="supplementation" value="없음"></td>
-                                            <td>진척도</td>
                                             <td>
                                                 <button class="btn add-btn">추가</button>
                                                 <button class="btn delete-btn">삭제</button>
@@ -150,7 +148,6 @@ $(document).ready(function () {
                 <td><input type="number" class="completedQuantity" placeholder="수량 입력"></td>
                 <td><input type="text" class="progCheckResult"></td>
                 <td><input type="text" class="supplementation"></td>
-                <td>진척도</td>
                 <td>
                     <button class="btn add-btn">추가</button>
                     <button class="btn delete-btn">삭제</button>

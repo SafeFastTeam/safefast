@@ -46,6 +46,7 @@
                 <th>품목명</th>
                 <th>발주수량</th>
                 <th>검수현황</th>
+                <th>진척도</th>
             </tr>
             </thead>
             <tbody>
@@ -57,11 +58,9 @@
                 <td th:text="${purchaseOrder.item.itemCode}"></td>
                 <td th:text="${purchaseOrder.item.itemName}"></td>
                 <td th:text="${purchaseOrder.purchOrderQuantity}"></td>
-                <td>
-                    <ul>
-                        <li th:each="progressCheckItem : ${purchaseOrder.progressCheckItems}" th:text="${progressCheckItem.progCheckResult + ' / ' + progressCheckItem.progCheckOrder}"></li>
-                    </ul>
-                </td>
+                <td th:if="${maxProgCheckOrders[purchaseOrder.purchOrderNumber] != 0}" th:text="${maxProgCheckResults[purchaseOrder.purchOrderNumber] + ' / ' + maxProgCheckOrders[purchaseOrder.purchOrderNumber]}"></td>
+                <td th:if="${maxProgCheckOrders[purchaseOrder.purchOrderNumber] == 0}"></td>
+                <td th:text="${@purchaseOrderService.calculateProgressForPurchaseOrder(purchaseOrder)} + '%'"></td>
             </tr>
             </tbody>
         </table>

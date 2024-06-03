@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
-import org.zerock.safefast.entity.CoOpCompany;
-import org.zerock.safefast.entity.Item;
-import org.zerock.safefast.entity.ProcurementPlan;
-import org.zerock.safefast.entity.PurchaseOrder;
+import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
@@ -32,6 +29,7 @@ public class PurchaseOrderService {
 
     @Autowired
     private ReceiveRepository receiveRepository;
+
     @Autowired
     private ItemRepository itemRepository;
 
@@ -136,8 +134,19 @@ public class PurchaseOrderService {
             return new PurchaseOrderResponse();  // 기본 생성자 사용
         }
     }
+    @Transactional
+    public void updatePurchaseOrder(String purchOrderNumber, PurchaseOrder modifiedOrder) {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(purchOrderNumber)
+                .orElseThrow(() -> new RuntimeException("발주서를 찾을 수 없습니다."));
 
+        // 필요한 필드 업데이트
+        purchaseOrder.setPurchOrderQuantity(modifiedOrder.getPurchOrderQuantity());
+        purchaseOrder.setReceiveDuedate(modifiedOrder.getReceiveDuedate());
+        purchaseOrder.setPurchOrderDate(modifiedOrder.getPurchOrderDate());
+        // 기타 필드들도 업데이트
 
+        purchaseOrderRepository.save(purchaseOrder);
+    }
     public List<PurchaseOrder> findAll() {
         return purchaseOrderRepository.findAll();
     }
@@ -157,5 +166,18 @@ public class PurchaseOrderService {
 
     public long countCompletedProcurements(LocalDate startDate, LocalDate endDate) {
         return receiveRepository.countByDateRange(startDate, endDate);
+    }
+
+    /*
+     *      진척도를 계산하는 서비스 메서드입니다. no usages라고 표시되는 에러가 있습니다만,
+     *      이 메서드를 삭제하면 template parsing 에러가 발생합니다.
+     */
+    public int calculateProgressForPurchaseOrder(PurchaseOrder purchaseOrder) {
+        List<ProgressCheckItem> progressCheckItems = purchaseOrder.getProgressCheckItems();
+        int totalCompletedQuantity = progressCheckItems.stream()
+                .mapToInt(ProgressCheckItem::getCompletedQuantity)
+                .sum();
+        int progress = (int) ((double) totalCompletedQuantity / purchaseOrder.getPurchOrderQuantity() * 100);
+        return progress;
     }
 }
