@@ -8,6 +8,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
+    <style>
+        .modal {
+            display: none; /* 숨기기 */
+            position: fixed; /* 위치 고정 */
+            z-index: 1; /* 다른 요소들보다 위에 표시 */
+            padding-top: 60px; /* 화면 위로부터의 패딩 */
+            left: 0;
+            top: 0;
+            width: 100%; /* 전체 너비 */
+            height: 100%; /* 전체 높이 */
+            overflow: auto; /* 스크롤바 추가 */
+            background-color: rgb(0, 0, 0); /* 배경 색상 */
+            background-color: rgba(0, 0, 0, 0.4); /* 배경 색상 (투명도) */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
@@ -132,7 +170,7 @@
                 <td th:text="${item.itemName}"></td>
                 <td th:text="${item.width} + 'x' + ${item.length} + 'x' + ${item.height}"></td>
                 <td th:text="${item.material}"></td>
-                <td><a href="#" id="modalLink" class="modalLink" th:text="${item.blueprintOriginName}"></a></td>
+                <td><a href="#" class="item-link" th:text="${item.blueprintOriginName}" th:attr="data-item-save-name=${item.blueprintSaveName}"></a></td>
             </tr>
             <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
             <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
@@ -168,13 +206,19 @@
 
     </div>
 </div>
-
+<!-- 모달 구조 추가 -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+<!--
 <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <img id="modalImage" src="" alt="Image">
     </div>
 </div>
+-->
 
 <script>
     const units = [
@@ -368,7 +412,38 @@
 </script>
 
 <script>
-    // 모달 열기
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        document.querySelectorAll('.item-link').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // 기본 동작 막기
+                var blueprintSaveName = this.getAttribute("data-item-save-name");
+                var imageUrl = "/item/file/" + blueprintSaveName;
+
+                // 이미지 URL 설정
+                modalImage.src = imageUrl;
+                // 모달 표시
+                modal.style.display = "block";
+            });
+        });
+
+        // 닫기 버튼 클릭 시 모달 닫기
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        // 모달 바깥 클릭 시 모달 닫기
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+
+/*    해준 스크립트 잠시 주석 처리 // 모달 열기
     $(document).on("click", ".modalLink", function() {
         var blueprintSaveName = $(this).text(); // 클릭된 링크의 텍스트 (파일 이름)
         var imageUrl = "/item/image/" + blueprintSaveName; // 이미지 URL (서버에서 이미지를 제공하는 엔드포인트)
@@ -387,7 +462,7 @@
         if (event.target === modal) {
             $("#myModal").css("display", "none"); // 모달 숨기기
         }
-    });
+    });*/
 </script>
 <script>
     function displayFileName() {
@@ -401,6 +476,7 @@
     }
 </script>
 <script src="item.js"></script>
+<script src="index.js"></script>
 
 </body>
 </html>
