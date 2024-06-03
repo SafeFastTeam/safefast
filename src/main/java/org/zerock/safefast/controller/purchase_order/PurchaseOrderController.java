@@ -16,6 +16,7 @@ import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class PurchaseOrderController {
                         .purchOrderQuantity(request.getPurchOrderQuantity())
                         .receiveDuedate(request.getReceiveDuedate())
                         .procPlanNumber(request.getProcPlanNumber())
-                        .purchOrderDate(request.getReceiveDuedate())
+                        .purchOrderDate(LocalDate.now())
                         .coOpCompany(procurementPlan.getCoOpCompany())
                         .item(procurementPlan.getItem())
                         .build();

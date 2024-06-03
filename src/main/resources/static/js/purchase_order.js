@@ -3,15 +3,14 @@ const startDateInputs = document.querySelectorAll('#start-date');
 const endDateInputs = document.querySelectorAll('#end-date');
 
 startDateInputs.forEach(input => {
-  input.addEventListener('click', () => showCalendar('start-date', input));
+  input.addEventListener('click', () => showCalendar(input));
 });
 
 endDateInputs.forEach(input => {
-  input.addEventListener('click', () => showCalendar('end-date', input));
+  input.addEventListener('click', () => showCalendar(input));
 });
 
-// 달력 UI 구현
-function showCalendar(inputId, input) {
+function showCalendar(input) {
   const calendar = document.createElement('div');
   calendar.classList.add('calendar');
 
@@ -41,19 +40,16 @@ function showCalendar(inputId, input) {
 
   document.body.appendChild(calendar);
 
-  // 현재 월 렌더링
   renderDays();
 
-  // 달력 UI 클릭 이벤트 처리
   calendar.addEventListener('click', (e) => {
     if (e.target.classList.contains('day')) {
-      const selectedDate = `${getCurrentMonthYear().split(' ')[1]}-${(getCurrentMonthYear().split(' ')[0] + 1).toString().padStart(2, '0')}-${e.target.textContent.padStart(2, '0')}`;
+      const selectedDate = `${getCurrentMonthYear().split(' ')[1]}-${(parseInt(getCurrentMonthYear().split(' ')[0], 10) + 1).toString().padStart(2, '0')}-${e.target.textContent.padStart(2, '0')}`;
       input.value = selectedDate;
       document.body.removeChild(calendar);
     }
   });
 
-  // 월 변경 함수
   function changeMonth(offset) {
     const currentDate = new Date(getCurrentMonthYear().split(' ')[1], getCurrentMonthYear().split(' ')[0]);
     currentDate.setMonth(currentDate.getMonth() + offset);
@@ -61,7 +57,6 @@ function showCalendar(inputId, input) {
     renderDays(currentDate);
   }
 
-  // 현재 월 렌더링 함수
   function renderDays(currentDate = new Date()) {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -84,7 +79,6 @@ function showCalendar(inputId, input) {
     }
   }
 
-  // 현재 월년 가져오기 함수
   function getCurrentMonthYear(currentDate = new Date()) {
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();
@@ -92,49 +86,109 @@ function showCalendar(inputId, input) {
   }
 }
 
-// 키워드 검색 기능
 const keywordSearchTypes = document.querySelectorAll('#keyword-search-type');
 const keywordSearchInputs = document.querySelectorAll('#keyword-search');
 const keywordSearchBtns = document.querySelectorAll('#keyword-search-btn');
 
-keywordSearchBtns.forEach(btn => {
+keywordSearchBtns.forEach((btn, index) => {
   btn.addEventListener('click', () => {
-    const searchType = keywordSearchTypes[btn.closest('section').classList.contains('procurement-plan') ? 0 : 1].value;
-    const searchKeyword = keywordSearchInputs[btn.closest('section').classList.contains('procurement-plan') ? 0 : 1].value;
-    // 선택한 검색 유형과 키워드로 데이터 필터링 및 테이블 업데이트
+    const searchType = keywordSearchTypes[index].value;
+    const searchKeyword = keywordSearchInputs[index].value;
+    // 선택한 검색 유형과 키워드로 데이터 필터링 및 테이블 업데이트 로직 추가
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const issueOrderBtn = document.getElementById('issue-order-btn');
+  const orderModal = document.getElementById('orderModal');
+  const closeModal = document.querySelector('.close');
 
-document.getElementById('issue-order-btn').addEventListener('click', function () {
-  var orderData = {
-    // 데이터 수집
-  };
+  issueOrderBtn.addEventListener('click', () => {
+    const selectedPlan = document.querySelector('.plan-row input[type="checkbox"]:checked');
+    if (selectedPlan) {
+      const row = selectedPlan.closest('tr');
+      const purchOrderNumber= row.children[0].innerText;
+      const procDuedate = row.children[1].innerText;
+      const companyName = row.children[2].innerText;
+      const itemName = row.children[3].innerText;
+      const orderQuantity = row.querySelector('input[name="procQuantity"]').value;
+      const receiveDueDate = row.querySelector('input[name="procDuedate"]').value;
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/purchase_order', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+      document.getElementById('modal-purch-order-number').innerText = purchOrderNumber;
+      document.getElementById('modal-proc-duedate').innerText = procDuedate;
+      document.getElementById('modal-company-name').innerText = companyName;
+      document.getElementById('modal-item-name').innerText = itemName;
+      document.getElementById('modal-purchase-order-quantity').innerText = orderQuantity;
+      document.getElementById('modal-receive-duedate').innerText = receiveDueDate;
 
-  xhr.onload = function () {
-    if (xhr.status === 201) {
-      var response = JSON.parse(xhr.responseText);
-      console.log(response.message);
+      // const imageContainer = document.getElementById("image-container");
+      // imageContainer.innerHTML = '';
+      // const ItemName = row.children[3].innerText.trim();
+      // let imgSrc;
+      // if (itemName === "볼트") {
+      //   imgSrc = "/image/bal01.png";
+      // } else if (itemName === "충전잭") {
+      //   imgSrc = "/image/bal02.png";
+      // } else if (itemName === "너트") {
+      //   imgSrc = "/image/bal03.png";
+      // }
+      // const img = document.createElement("img");
+      // img.src = imgSrc;
+      // img.style.width = "600px";
+      // img.style.height = "450px";
+      // img.style.objectFit = "contain";
+      // imageContainer.appendChild(img);
+
+      orderModal.style.display = 'block';
     } else {
-      console.error('주문 전송 중 오류가 발생했습니다.');
+      alert('발주할 조달 계획을 선택하세요.');
     }
-  };
+  });
 
-  xhr.send(JSON.stringify(orderData));
+  closeModal.addEventListener('click', () => {
+    orderModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target === orderModal) {
+      orderModal.style.display = 'none';
+    }
+  });
+
+  document.getElementById('checkOrder').addEventListener('click', () => {
+    orderModal.style.display = 'none';
+    window.location.href = '/purchase_order/purchase_order';
+  });
+
+  document.getElementById('saveOrder').addEventListener('click', () => {
+    const modalContent = document.querySelector('.modal-content');
+    const pdf = new jsPDF();
+    html2canvas(modalContent).then(canvas => {
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('order.pdf');
+    });
+  });
+
+  document.getElementById('sendOrder').addEventListener('click', function () {
+    const emailAddress = 'ekzmemforhs3@naver.com';
+    const dummyInput = document.createElement('input');
+    document.body.appendChild(dummyInput);
+    dummyInput.setAttribute('value', emailAddress);
+    dummyInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummyInput);
+    alert('이메일 주소가 복사되었습니다: ' + emailAddress);
+  });
 });
 
-// 삭제 버튼 클릭 이벤트
 $(document).ready(function() {
-  // 삭제 버튼 클릭 이벤트 핸들러
   $('#delete-order-btn').click(function() {
-    var selectedOrders = [];
+    const selectedOrders = [];
     $('#purchase-order-list input[type="checkbox"]:checked').each(function() {
-      var row = $(this).closest('tr');
-      var orderNumber = row.find('td:nth-child(2)').text(); // 발주번호를 가져옴
+      const row = $(this).closest('tr');
+      const orderNumber = row.find('td:nth-child(2)').text();
       selectedOrders.push(orderNumber);
     });
 
@@ -151,8 +205,7 @@ $(document).ready(function() {
         data: JSON.stringify(selectedOrders),
         success: function(response) {
           alert(response);
-          // 삭제 후에 발주서 목록을 갱신하는 등의 작업 수행
-          window.location.href="/purchase_order/purchase_order"
+          window.location.href = "/purchase_order/purchase_order";
         },
         error: function(xhr, status, error) {
           console.error('Failed to delete purchase orders:', error);
@@ -162,132 +215,3 @@ $(document).ready(function() {
     }
   });
 });
-
-// 발주 버튼 클릭 이벤트
-  const issueOrderBtn = document.getElementById('issue-order-btn');
-  const orderModal = document.getElementById('orderModal');
-  const closeModal = document.getElementsByClassName('close')[0];
-
-  issueOrderBtn.addEventListener('click', () => {
-    const selectedRows = Array.from(document.querySelectorAll('#procurement-plan-list tr'))
-        .filter(row => row.querySelector('input[type="checkbox"]').checked)
-        .map(row => {
-          // 선택한 행의 데이터 추출 및 반환
-          const cells = row.querySelectorAll('td');
-          return {
-            procurementPlanNo: cells[0].textContent,
-            company: cells[1].textContent,
-            item: cells[2].textContent,
-            dueDate: cells[3].textContent
-          };
-        });
-
-    // 선택된 항목이 없거나 2개 이상일 때는 발주 버튼 동작하지 않도록 처리
-    if (selectedRows.length === 0 || selectedRows.length > 1) {
-      return;
-    }
-    // 모달 창에 데이터 추가
-
-
-    orderModal.style.display = 'block';
-  });
-
-// 모달 창 닫기
-  closeModal.addEventListener('click', () => {
-    orderModal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (event) => {
-    if (event.target === orderModal) {
-      orderModal.style.display = 'none';
-    }
-  });
-
-
-// 확인 버튼 클릭 이벤트 핸들러
-document.getElementById('checkOrder').addEventListener('click', () => {
-  // 모달을 닫음
-  document.getElementById('orderModal').style.display = 'none';
-
-  // 페이지 리다이렉션
-  window.location.href = '/purchase_order/purchase_order';
-});
-
-
-
-// 메일 전송
-  document.getElementById('sendOrder').addEventListener('click', function () {
-    // 이메일 클라이언트가 없는 경우에는 다른 방법으로 이메일을 전송할 수 있도록 안내
-    var emailAddress = 'ekzmemforhs3@naver.com';
-    // 사용자에게 이메일 주소를 복사하도록 안내
-    var dummyInput = document.createElement('input');
-    document.body.appendChild(dummyInput);
-    dummyInput.setAttribute('value', emailAddress);
-    dummyInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(dummyInput);
-    alert('이메일 주소가 복사되었습니다: ' + emailAddress);
-  });
-
-// 발주 버튼 클릭 시 모달에 이미지 추가
-  document.getElementById("issue-order-btn").addEventListener("click", function () {
-    // 선택된 항목을 가져오기
-    var selectedItems = document.querySelectorAll("#procurement-plan-list input[type=checkbox]:checked");
-
-    // 이미지를 추가할 공간 찾기
-    var imageContainer = document.getElementById("image-container");
-
-    // 이미지 컨테이너 초기화
-    imageContainer.innerHTML = '';
-
-    // 선택된 항목에 대해 반복하여 이미지 추가
-    selectedItems.forEach(function (item) {
-      // 선택된 항목에 대한 정보 가져오기
-      var itemName = item.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.innerText.trim();
-
-      // 해당 항목에 따른 이미지 경로 설정
-      var imgSrc;
-      if (itemName === "볼트") {
-        imgSrc = "/image/bal01.png";
-      } else if (itemName === "충전잭") {
-        imgSrc = "/image/bal02.png";
-      } else if (itemName === "너트") {
-        imgSrc = "/image/bal03.png";
-      }// 이하 계속해서 필요한 항목과 이미지에 대한 조건 추가
-
-      // 이미지 요소 생성
-      var img = document.createElement("img");
-      img.src = imgSrc;
-
-      // 이미지 크기 조절
-      img.style.width = "600px";
-      img.style.height = "450px";
-      img.style.objectFit = "contain";
-
-      // 이미지를 추가할 공간에 이미지 요소 추가
-      imageContainer.appendChild(img);
-    });
-
-  });
-
-  document.getElementById('saveOrder').addEventListener('click', () => {
-    // 모달 내용 가져오기
-    const modalContent = document.querySelector('.modal-content');
-
-    // 새로운 PDF 문서 생성
-    const pdf = new jsPDF();
-
-    // HTML을 Canvas로 렌더링
-    html2canvas(modalContent).then(canvas => {
-      // Canvas를 PDF로 추가하고 이미지 크기 조정
-      const imgWidth = pdf.internal.pageSize.getWidth(); // PDF 페이지의 너비
-      const imgHeight = pdf.internal.pageSize.getHeight(); // PDF 페이지의 높이
-      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, imgWidth, imgHeight);
-
-      // PDF 저장
-      pdf.save('order.pdf');
-    });
-
-});
-
-  // 수정 기능

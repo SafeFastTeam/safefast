@@ -42,7 +42,7 @@
               <th>품목명</th>
               <th>구매주문수량</th>
               <th>조달납기일</th>
-              <th>사업자 번호</th> <!-- 새로 추가된 열 -->
+              <th>사업자 번호</th>
               <th>품목 코드</th>
             </tr>
           </thead>
@@ -113,7 +113,7 @@
           <div class="modal-header">
             <h2>발주서</h2>
             <div class="btn-group">
-              <button id="saveOrder" class="button">저장</button>
+<!--              <button id="saveOrder" class="button">저장</button>-->
               <button id="sendOrder" class="button">전송</button>
               <button id="printOrder" class="button" onclick="window.print()">인쇄</button>
             </div>
@@ -124,8 +124,8 @@
               <table class="order-table">
                 <thead>
                 <tr>
-                  <th colspan="2">발주번호:</th>
-                  <th colspan="2">발주일자: </th>
+                  <th colspan="2">발주번호: <span id="modal-proc-duedate"></span></th>
+                  <th colspan="2">발주일자: <span id="modal-purch-order-number"></span></th>
                 </tr>
                 <tr>
                   <th colspan="2">수주처</th>
@@ -137,7 +137,7 @@
                   <td>상호</td>
                   <td>세페스트</td>
                   <td>상호</td>
-                  <td>company</td>
+                  <td id="modal-company-name">company</td>
                 </tr>
                 <tr>
                   <td>담당자</td>
@@ -152,7 +152,7 @@
                   <td>010-3333-3333</td>
                 </tr>
                 <tr>
-                  <td colspan="4">납기일자: 2024년 n월 n일</td>
+                  <td colspan="4">납기일자:<span id="modal-receive-duedate"></span></td>
                 </tr>
                 </tbody>
               </table>
@@ -175,19 +175,19 @@
                 <!-- 예시 데이터 행 추가 -->
                 <tr>
                   <td>1</td>
-                  <td>품목 A</td>
-                  <td>규격 A</td>
-                  <td>단위 A</td>
-                  <td>10</td>
-                  <td>1,000</td>
-                  <td>비고 A</td>
+                  <td id="modal-item-name"></td>
+                  <td>5x5x10</td>
+                  <td>1EA</td>
+                  <td id="modal-purchase-order-quantity"></td>
+                  <td id="unit-price">1,000</td>
+                  <td>없음</td>
                 </tr>
                 <!-- 추가 행은 여기에 삽입 -->
                 </tbody>
                 <tfoot>
                 <tr>
                   <td colspan="6" style="text-align:right;"><strong>합계</strong></td>
-                  <td>SUM</td>
+                  <td id="total-sum">SUM</td>
                 </tr>
                 </tfoot>
               </table>
@@ -289,6 +289,33 @@
       });
     });
 
+    $(document).ready(function() {
+      // 발주 버튼 클릭 시 모달 창에 현재 날짜 설정
+      $('#issue-order-btn').on('click', function() {
+        // 현재 날짜 가져오기
+        var today = new Date();
+        var day = today.getDate().toString().padStart(2, '0');
+        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        var year = today.getFullYear();
+        var currentDate = year + '-' + month + '-' + day;
+
+        // 모달 창의 발주일자 요소에 현재 날짜 설정
+        $('#modal-purch-order-number').text(currentDate);
+
+        // 수량과 단가 가져오기
+        var quantity = parseInt($('#modal-purchase-order-quantity').text(), 10);
+        var unitPrice = parseInt($('#unit-price').text().replace(/,/g, ''), 10);
+
+        // 합계 계산
+        var totalSum = quantity * unitPrice;
+
+        // 합계 표시
+        $('#total-sum').text(totalSum.toLocaleString());
+
+        // 모달 창 열기 (기존 모달 창 열기 코드가 여기에 있어야 합니다)
+        $('#orderModal').show();
+      });
+    });
       // 모달 창 닫기 기능
       document.addEventListener('DOMContentLoaded', function () {
           var modal = document.getElementById('orderModal');
