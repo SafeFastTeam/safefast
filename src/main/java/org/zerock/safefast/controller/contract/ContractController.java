@@ -45,8 +45,10 @@ public class ContractController {
     public String showContract(Model model) {
         List<Item> items = contractService.getAllItems();
         List<Contract> contracts = contractService.getAllContracts();
+        List<CoOpCompany> coOpCompanies = coOpCompanyRepository.findAll();
         model.addAttribute("items", items);
         model.addAttribute("contracts", contracts);
+        model.addAttribute("coOpCompanies", coOpCompanies);
         return "contract/register";
     }
 

@@ -286,3 +286,51 @@ button:hover {
   border-radius: 5px; /* 모서리를 둥글게 만듦 */
 }
 
+
+/* 셀렉트 박스 & file upload input에 대한 css */
+.custom-select {
+  position: relative;
+}
+
+.custom-select select {
+  appearance: none;
+  width: 218px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+
+.file-upload label.button {
+  background-color: #066278;
+  color: #fff;
+  padding: 5px 15px; /* 상하 여백을 조정하여 버튼의 높이를 늘립니다. */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block; /* 라벨을 블록 요소로 변환하여 너비와 높이를 조정할 수 있도록 합니다. */
+  text-align: center; /* 텍스트를 가운데 정렬합니다. */
+  line-height: 1.5; /* 텍스트의 높이를 조정하여 버튼의 높이와 일치시킵니다. */
+  font-size: 16px; /* 텍스트 크기를 조정합니다. */
+}
+
+.file-upload label.button:hover {
+  background-color: #054a5e;
+}
+
+.file-name {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+}
