@@ -242,22 +242,54 @@ button:hover {
   text-decoration-color: #333333;
 }
 
+/* 페이징 css */
 .pagination {
-  margin-top: 30px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 }
 
-.pagination span {
-  margin: 8px 20px;
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px;
 }
 
-.pagination-button {
-  margin-right: 5px;
-  width: 60px;
-  height: 40px;
+.pagination li {
+  display: inline;
 }
 
+.pagination .page-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 5px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #066278;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.pagination .page-btn:hover {
+  background-color: #054a5e;
+  transform: translateY(-2px);
+}
+
+.pagination .active .page-btn {
+  background-color: #0c9bb8;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.pagination .active .page-btn:hover {
+  background-color: #0a87a0; /* 호버 시에도 동일한 색상 유지 */
+  transform: none;
+}
+
+/* 버튼 스타일 */
 .delete-button, .contract-button {
   background-color: #066278;
   color: white;
@@ -273,6 +305,30 @@ button:hover {
   transition: background-color 0.3s ease;
 }
 
+.delete-button:hover, .contract-button:hover {
+  background-color: #054a5e;
+}
+
+
+/* 버튼 스타일 */
+.delete-button, .contract-button {
+  background-color: #066278;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover, .contract-button:hover {
+  background-color: #054a5e;
+}
 .delete-button:hover, .contract-button:hover {
   background-color: #044258;
 }

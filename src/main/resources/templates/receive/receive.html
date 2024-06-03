@@ -332,9 +332,15 @@
     $(document).on('click', '#save-button', function () {
       var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기
       var releaseQuantity = row.find('.release-quantity-input').val(); // 출고 수량 가져오기
+      var stockQuantity = parseFloat(row.find("td:eq(4)").text()); // 재고 수량 가져오기
       var itemCode = row.find("td:eq(3)").text();
       var quantityId = row.find("td:eq(7)").text();
 
+      // 출고 수량이 재고 수량보다 많은 경우 전송을 막고 알림창을 띄웁니다.
+      if (parseFloat(releaseQuantity) > stockQuantity) {
+        alert('출고 수량이 재고 수량보다 많습니다. 다시 입력해주세요.');
+        return;
+      }
 
       if (!releaseQuantity) {
         alert('출고 수량을 입력해주세요.'); // 출고 수량이 없는 경우 경고를 표시합니다.
