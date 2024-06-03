@@ -2,10 +2,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url('../image/background01.jpg');
-  background-size: cover;
+  background-image: url('../image/background.jpg');
+  background-size: 80%;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: right;
 /*  background-color: #f5f5f5;*/
 }
 

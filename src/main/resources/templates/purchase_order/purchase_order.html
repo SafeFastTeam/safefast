@@ -111,14 +111,88 @@
       <div id="orderModal" class="modal">
         <div class="modal-content">
           <div class="modal-header">
-            <h3>구매 발주서 관리 - 발주서 작성</h3>
+            <h2>발주서</h2>
             <div class="btn-group">
               <button id="saveOrder" class="button">저장</button>
               <button id="sendOrder" class="button">전송</button>
               <button id="printOrder" class="button" onclick="window.print()">인쇄</button>
             </div>
           </div>
-            <div id="image-container" class="print-area"></div>
+<!--            <div id="image-container" class="print-area"></div>-->
+          <div>
+            <div class="order-info">
+              <table class="order-table">
+                <thead>
+                <tr>
+                  <th colspan="2">발주번호:</th>
+                  <th colspan="2">발주일자: </th>
+                </tr>
+                <tr>
+                  <th colspan="2">수주처</th>
+                  <th colspan="2">발주처</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>상호</td>
+                  <td>세페스트</td>
+                  <td>상호</td>
+                  <td>company</td>
+                </tr>
+                <tr>
+                  <td>담당자</td>
+                  <td>허준혁</td>
+                  <td>담당자</td>
+                  <td>이민지</td>
+                </tr>
+                <tr>
+                  <td>전화</td>
+                  <td>010-1111-1111</td>
+                  <td>전화</td>
+                  <td>010-3333-3333</td>
+                </tr>
+                <tr>
+                  <td colspan="4">납기일자: 2024년 n월 n일</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="order-detail">
+              <table class="order-table">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>품명</th>
+                  <th>규격</th>
+                  <th>단위</th>
+                  <th>수량</th>
+                  <th>단가</th>
+                  <th>비고</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- 예시 데이터 행 추가 -->
+                <tr>
+                  <td>1</td>
+                  <td>품목 A</td>
+                  <td>규격 A</td>
+                  <td>단위 A</td>
+                  <td>10</td>
+                  <td>1,000</td>
+                  <td>비고 A</td>
+                </tr>
+                <!-- 추가 행은 여기에 삽입 -->
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td colspan="6" style="text-align:right;"><strong>합계</strong></td>
+                  <td>SUM</td>
+                </tr>
+                </tfoot>
+              </table>
+
+          </div>
           <button id="checkOrder" class="button">확인</button>
         </div>
       </div>
