@@ -15,25 +15,22 @@ public interface QuantityRepository extends JpaRepository <Quantity, Integer> {
             "FROM Quantity q " +
             "JOIN q.item.contract c " +
             "GROUP BY q.item.unit.unitName " +
-            "ORDER BY totalInventoryValue DESC " +
-            "LIMIT 6")
-    List<Object[]> findTop6InventoryValueByUnit();
+            "ORDER BY totalInventoryValue DESC")
+    List<Object[]> findInventoryValueByUnit();
 
     // 중분류 상위 6개 재고금액 조회
     @Query("SELECT q.item.assy.assyName, SUM(q.allQuantity * c.itemPrice) AS totalInventoryValue " +
             "FROM Quantity q " +
             "JOIN q.item.contract c " +
             "GROUP BY q.item.assy.assyName " +
-            "ORDER BY totalInventoryValue DESC " +
-            "LIMIT 6")
-    List<Object[]> findTop6InventoryValueByAssy();
+            "ORDER BY totalInventoryValue DESC")
+    List<Object[]> findInventoryValueByAssy();
 
     // 소분류 상위 6개 재고금액 조회
     @Query("SELECT q.item.part.partName, SUM(q.allQuantity * c.itemPrice) AS totalInventoryValue " +
             "FROM Quantity q " +
             "JOIN q.item.contract c " +
             "GROUP BY q.item.part.partName " +
-            "ORDER BY totalInventoryValue DESC " +
-            "LIMIT 6")
-    List<Object[]> findTop6InventoryValueByPart();
+            "ORDER BY totalInventoryValue DESC")
+    List<Object[]> findInventoryValueByPart();
 }
