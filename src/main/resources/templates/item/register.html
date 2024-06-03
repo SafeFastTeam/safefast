@@ -170,7 +170,9 @@
                 <td th:text="${item.itemName}"></td>
                 <td th:text="${item.width} + 'x' + ${item.length} + 'x' + ${item.height}"></td>
                 <td th:text="${item.material}"></td>
-                <td><a href="#" class="item-link" th:text="${item.blueprintOriginName}" th:attr="data-item-save-name=${item.blueprintSaveName}"></a></td>
+                <td>
+                    <a href="#" class="item-link" th:text="${item.blueprintOriginName}" th:attr="data-blueprint-save-name=${item.blueprintSaveName}"></a>
+                </td>
             </tr>
             <!-- 모델에 담겨있는 아이템 목록을 반복하여 테이블에 출력 -->
             <!-- 아이템 정보가 담긴 리스트는 모델에 itemList라는 이름으로 전달되었다고 가정합니다. -->
@@ -418,10 +420,9 @@
         var modalImage = document.getElementById("modalImage");
         var closeBtn = document.getElementsByClassName("close")[0];
 
-        document.querySelectorAll('.item-link').forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // 기본 동작 막기
-                var blueprintSaveName = this.getAttribute("data-item-save-name");
+        document.querySelectorAll('.item-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                var blueprintSaveName = this.getAttribute("data-blueprint-save-name");
                 var imageUrl = "/item/file/" + blueprintSaveName;
 
                 // 이미지 URL 설정
@@ -431,18 +432,26 @@
             });
         });
 
-        // 닫기 버튼 클릭 시 모달 닫기
-        closeBtn.addEventListener('click', function() {
+        closeBtn.addEventListener('click', function () {
             modal.style.display = "none";
         });
 
-        // 모달 바깥 클릭 시 모달 닫기
-        window.addEventListener('click', function(event) {
+        window.addEventListener('click', function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         });
     });
+
+    function displayFileName() {
+        const input = document.getElementById('blueprintOriginName');
+        const fileNameDiv = document.getElementById('fileName');
+        if (input.files.length > 0) {
+            fileNameDiv.textContent = input.files[0].name;
+        } else {
+            fileNameDiv.textContent = '선택된 파일이 없습니다.';
+        }
+    }
 
 /*    해준 스크립트 잠시 주석 처리 // 모달 열기
     $(document).on("click", ".modalLink", function() {

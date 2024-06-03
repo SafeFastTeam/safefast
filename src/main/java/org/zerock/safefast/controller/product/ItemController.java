@@ -3,9 +3,11 @@ package org.zerock.safefast.controller.product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,12 @@ import org.zerock.safefast.repository.UnitRepository;
 import org.zerock.safefast.service.product.ItemService;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,6 +109,8 @@ public class ItemController {
                 .length(length)
                 .height(height)
                 .material(material)
+                .blueprintOriginName(blueprintFile.getOriginalFilename())
+                .blueprintSaveName(blueprintFile.getOriginalFilename())
                 .build();
 
 
@@ -129,13 +138,6 @@ public class ItemController {
         return ResponseEntity.ok().body(result);
     }
 
-/*    @GetMapping("/file/{fileName}")
-    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
-        Resource resource = itemService.loadFileAsResource(fileName);
-        return ResponseEntity.ok().body(resource);
-    }*/
-
-
     @GetMapping("/file/{fileName}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
@@ -154,11 +156,51 @@ public class ItemController {
 
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(contentType))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                     .body(resource);
         } catch (IOException ex) {
             throw new RuntimeException("Error reading file " + fileName, ex);
         }
     }
+
+    private String encodeFileName(String fileName) {
+        try {
+            return URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()).replace("+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Failed to encode file name", e);
+        }
+    }
+
+/*    @GetMapping("/file/{fileName}")
+    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
+        Resource resource = itemService.loadFileAsResource(fileName);
+        return ResponseEntity.ok().body(resource);
+    }*/
+
+
+//    @GetMapping("/file/{fileName}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
+//        try {
+//            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
+//            Resource resource = new UrlResource(filePath.toUri());
+//
+//            if (!resource.exists()) {
+//                throw new RuntimeException("File not found " + fileName);
+//            }
+//
+//            String contentType = Files.probeContentType(filePath);
+//            if (contentType == null) {
+//                contentType = "application/octet-stream";
+//            }
+//
+//            return ResponseEntity.ok()
+//                    .contentType(MediaType.parseMediaType(contentType))
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+//                    .body(resource);
+//        } catch (IOException ex) {
+//            throw new RuntimeException("Error reading file " + fileName, ex);
+//        }
+//    }
 
 }
