@@ -93,6 +93,7 @@ public class ItemService {
                 .height(entity.getHeight())
                 .material(entity.getMaterial())
                 .blueprintOriginName(entity.getBlueprintOriginName())
+                .blueprintSaveName(entity.getBlueprintSaveName())
                 .build();
 
         return dto;
