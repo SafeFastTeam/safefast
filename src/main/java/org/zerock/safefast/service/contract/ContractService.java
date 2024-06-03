@@ -6,8 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.safefast.dto.contract.ContractDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.Contract;
 import org.zerock.safefast.entity.Item;
 import org.zerock.safefast.repository.ContractRepository;
@@ -21,6 +27,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +36,33 @@ public class ContractService {
     private static final Logger log = LoggerFactory.getLogger(ContractService.class);
     private final ContractRepository contractRepository;
     private final ItemRepository itemRepository;
+
+    public PageResultDTO<ContractDTO, Contract> getLists(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("contractNumber").descending());
+        Page<Contract> result = contractRepository.findAll(pageable);
+
+        // Contract를 ContractDTO로 변환하는 함수 정의
+        Function<Contract, ContractDTO> fn = this::entityDto;
+
+        // 변환 함수를 이용하여 PageResultDTO 생성 후 반환
+        return new PageResultDTO<>(result, fn);
+    }
+
+    public ContractDTO entityDto(Contract entity) {
+        ContractDTO dto = ContractDTO.builder()
+                .contractNumber(entity.getContractNumber())
+                .itemPrice(entity.getItemPrice())
+                .leadTime(entity.getLeadTime())
+                .note(entity.getNote())
+                .itemName(entity.getItem().getItemName())
+                .businessNumber(entity.getCoOpCompany().getBusinessNumber())
+                .itemCode(entity.getItem().getItemCode())
+                .companyName(entity.getCoOpCompany().getCompanyName())
+                .contractOriginName(entity.getContractOriginName())
+                .contractSaveName(entity.getContractSaveName())
+                .build();
+        return dto;
+    }
 
     @Value("${file.upload-dir}")
     private String uploadDir;
@@ -40,6 +74,7 @@ public class ContractService {
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
+
 
     public void registerContract(Contract contract, MultipartFile file) {
         contract.setContractNumber(generateNextContractNumber());
@@ -98,4 +133,5 @@ public class ContractService {
             throw new RuntimeException(e);
         }
     }
+
 }

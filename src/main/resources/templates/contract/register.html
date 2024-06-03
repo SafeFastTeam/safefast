@@ -122,15 +122,6 @@
             <div class="ten">
             <h2>계약 관리</h2>
             </div>
-<!--            <div class="search-bar">
-                <select name="search-option" id="search-option">
-                    <option value="계약번호">계약번호</option>
-                    <option value="품목명">품목명</option>
-                    <option value="업체명">업체명</option>
-                </select>
-                <input type="text" placeholder="검색..." class="search-input">
-                <button class="search-button">검색</button>
-            </div>-->
 
             <div class="search-bar">
                 <select name="search-option" id="search-option">
@@ -142,109 +133,73 @@
                 <button id="search-button" class="search-button">검색</button>
             </div>
 
-            <table id="contractManagementTable">
-                <thead>
-                <tr>
-                    <th>품목코드</th>
-                    <th>품목명</th>
-                    <th>계약번호</th>
-                    <th>업체명</th>
-                    <th>사업자번호</th>
-                    <th>단가</th>
-                    <th>L/T(일)</th>
-                    <th>수정</th>
-                    <th>계약서</th>
-                </tr>
-                </thead>
-                <tbody id="td-color">
-                <tr th:each="item : ${items}">
-                    <td class="item-row">
-                        <span class="itemCode" th:text="${item.itemCode}"></span>
-                        <span class="itemName" th:text="${item.itemName}" style="display: none;"></span>
-                    </td>
-                    <td th:text="${item.itemName}"></td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <span th:text="${contract.contractNumber}"></span>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <span th:text="${contract.coOpCompany.companyName}"></span>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <span th:text="${contract.coOpCompany.businessNumber}"></span>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <span th:text="${contract.itemPrice}"></span>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <span th:text="${contract.leadTime}"></span>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                    <td></td>
-                    <td>
-                        <ul>
-                            <th:block th:each="contract : ${item.contract}">
-                                <li>
-                                    <a th:if="${contract.contractOriginName.endsWith('.pdf')}"
-                                       href="#"
-                                       th:data-contract-save-name="${contract.contractSaveName}"
-                                       th:text="${contract.contractOriginName}"
-                                       onclick="downloadFile(this); return false;">
-                                    </a>
-                                    <a th:unless="${contract.contractOriginName.endsWith('.pdf')}"
-                                       href="javascript:void(0);"
-                                       th:data-contract-save-name="${contract.contractSaveName}"
-                                       th:text="${contract.contractOriginName}"
-                                       class="contract-link">
-                                    </a>
-                                </li>
-                            </th:block>
-                        </ul>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- 모달 구조 추가 -->
-            <div id="imageModal" class="modal">
-                <span class="close">&times;</span>
-                <img class="modal-content" id="modalImage">
-            </div>
-
-            <div class="pagination">
-                <button class="pagination-button">이전</button>
-                <span>1/10 페이지</span>
-                <button class="pagination-button">다음</button>
+            <div>
+                <table id="contractManagementTable">
+                    <thead>
+                    <tr>
+                        <th>품목코드</th>
+                        <th>품목명</th>
+                        <th>계약번호</th>
+                        <th>업체명</th>
+                        <th>사업자번호</th>
+                        <th>단가</th>
+                        <th>L/T(일)</th>
+                        <th>계약서</th>
+                    </tr>
+                    </thead>
+                    <tbody id="td-color">
+                    <tr th:each="contract : ${result.dtoList}">
+                            <td class="item-row">
+                                <span class="itemCode" th:text="${contract.itemCode}"></span>
+                                <span class="itemName" th:text="${contract.itemName}" style="display: none;"></span>
+                            </td>
+                            <td th:text="${contract.itemName}"></td>
+                            <td th:text="${contract.contractNumber}"></td>
+                            <td th:text="${contract.companyName}"></td>
+                            <td th:text="${contract.businessNumber}"></td>
+                            <td th:text="${contract.itemPrice}"></td>
+                            <td th:text="${contract.leadTime}"></td>
+                            <td>
+                                <a th:if="${contract.contractOriginName.endsWith('.pdf')}"
+                                   href="#"
+                                   th:data-contract-save-name="${contract.contractSaveName}"
+                                   th:text="${contract.contractOriginName}"
+                                   onclick="downloadFile(this); return false;">
+                                </a>
+                                <a th:unless="${contract.contractOriginName.endsWith('.pdf')}"
+                                   href="javascript:void(0);"
+                                   th:data-contract-save-name="${contract.contractSaveName}"
+                                   th:text="${contract.contractOriginName}"
+                                   class="contract-link">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <ul>
+                        <!-- 이전 페이지 링크 -->
+                        <li th:if="${result.page > 1}">
+                            <a th:href="@{'/contract/register?page=' + ${result.page - 1}}">Previous</a>
+                        </li>
+                        <!-- 페이지 번호 링크 -->
+                        <li th:each="pageNum : ${#numbers.sequence(1, result.totalPage)}" th:class="${pageNum == result.page} ? 'active' : ''">
+                            <a th:href="@{'/contract/register?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                        </li>
+                        <!-- 다음 페이지 링크 -->
+                        <li th:if="${result.page < result.totalPage}">
+                            <a th:href="@{'/contract/register?page=' + ${result.page + 1}}">Next</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+</div>
+<!-- 모달 구조 추가 -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
 </div>
 <script>
     $(document).ready(function () {

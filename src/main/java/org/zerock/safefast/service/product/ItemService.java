@@ -46,7 +46,7 @@ import java.util.function.Function;
 @Service
 @Primary
 @RequiredArgsConstructor
-public class ItemService implements SafefastService {
+public class ItemService {
 
     @Value("${file.upload-dir}")
     private String uploadDir;
@@ -77,7 +77,6 @@ public class ItemService implements SafefastService {
         return itemRepository.findAll();
     }
 
-    @Override
     public PageResultDTO<ItemDTO, Item> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("itemCode").descending());
         Page<Item> result = itemRepository.findAll(pageable);
@@ -85,38 +84,6 @@ public class ItemService implements SafefastService {
         return new PageResultDTO<>(result, fn);
     }
 
-/*    public PageResultDTO<ItemDTO, Item> searchItems(String keyword, PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable();
-        Page<Item> result = itemRepository.findByItemNameContaining(keyword, pageable);
-        return new PageResultDTO<>(result, ItemDTO::new);
-    }*/
-
-    @Override
-    public String register(ItemDTO dto) {
-        log.info("DTO------------------");
-
-        Item entity = dtoToEntity(dto);
-
-        itemRepository.save(entity);
-
-        return entity.getItemCode();
-    }
-
-    @Override
-    public Item dtoToEntity(ItemDTO dto) {
-        Item entity = Item.builder()
-                .itemCode(dto.getItemCode())
-                .itemName(dto.getItemName())
-                .width(dto.getWidth())
-                .length(dto.getLength())
-                .height(dto.getHeight())
-                .material(dto.getMaterial())
-                .blueprintOriginName(dto.getBlueprintOriginName())
-                .build();
-        return entity;
-    }
-
-    @Override
     public ItemDTO entityToDto(Item entity) {
         ItemDTO dto = ItemDTO.builder()
                 .itemCode(entity.getItemCode())
@@ -200,7 +167,6 @@ public class ItemService implements SafefastService {
         }
     }
 
-    @Override
     public PageResultDTO<ItemDTO, Item> searchItems(PageRequestDTO pageRequestDTO, String keyword) {
         // PageRequestDTO를 이용하여 Pageable 객체 생성
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("itemCode").descending());
