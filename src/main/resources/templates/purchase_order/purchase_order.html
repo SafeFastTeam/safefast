@@ -16,11 +16,13 @@
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
     <div class="content">
       <section class="procurement-plan">
+        <div class="ten">
         <h2>구매 발주서 관리 - 조달 계획 리스트</h2>
+        </div>
         <button id="issue-order-btn" class="button">발주</button>
         <div class="search-bar">
           <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
             <input type="date" id="date-end" placeholder="종료 날짜">
             <button id="date-search-btn">검색</button>
           </div>
@@ -53,7 +55,7 @@
               <td th:text="${plan.coOpCompany.companyName}"></td>
               <td th:text="${plan.item.itemName}"></td>
               <td><input type="number" name="procQuantity" class="input-field"></input></td>
-              <td><input type="date" name="procDuedate" class="input-field"></input></td>
+              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>
               <td th:text="${plan.coOpCompany.businessNumber}"></td>
               <td th:text="${plan.item.itemCode}"></td>
 <!--              <td th:text="${plan.procQuantity}"></td>-->
@@ -63,12 +65,14 @@
         </table>
       </section>
       <section class="purchase-order">
+        <div class="ten">
         <h2>구매 발주서 관리 - 구매 발주서 리스트</h2>
+        </div>
         <button id="delete-order-btn" class="button">삭제</button>
         <button id="modify-order-btn" class="button">수정</button>
         <div class="search-bar">
           <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
             <input type="date" id="date-end" placeholder="종료 날짜">
             <button id="date-search-btn">검색</button>
           </div>
@@ -191,7 +195,7 @@
                 </tr>
                 </tfoot>
               </table>
-
+            </div>
           </div>
           <button id="checkOrder" class="button">확인</button>
         </div>
