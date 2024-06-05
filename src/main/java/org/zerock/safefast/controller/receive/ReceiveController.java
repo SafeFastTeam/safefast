@@ -39,9 +39,11 @@ public class ReceiveController {
         List<PurchaseOrder> purchaseOrderList = receiveService.getAllPurchaseOrder();
         List<Quantity> quantityList = receiveService.getAllQuantity();
         List<Releases> releasesList = receiveService.getAllReleases();
+        List<Receive> receiveList = receiveService.getAllReceive();
         model.addAttribute("purchases", purchaseOrderList);
         model.addAttribute("quantities", quantityList);
         model.addAttribute("releases", releasesList);
+        model.addAttribute("receives", receiveList);
         return "receive/receive";
     }
 

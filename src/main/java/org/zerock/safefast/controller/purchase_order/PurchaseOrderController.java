@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
+import org.zerock.safefast.entity.Quantity;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
 import org.zerock.safefast.repository.PurchaseOrderRepository;
+import org.zerock.safefast.repository.QuantityRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
 
@@ -41,6 +43,9 @@ public class PurchaseOrderController {
     private PurchaseOrderRepository purchaseOrderRepository;
 
     @Autowired
+    private QuantityRepository quantityRepository;
+
+    @Autowired
     public PurchaseOrderController(ProcurementPlanService procurementPlanService, PurchaseOrderService purchaseOrderService) {
         this.procurementPlanService = procurementPlanService;
         this.purchaseOrderService = purchaseOrderService;
@@ -53,10 +58,11 @@ public class PurchaseOrderController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> createPurchaseOrder(@RequestBody List<PurchaseOrderRequest> purchaseOrderRequests) {
+    public ResponseEntity<Map<String, String>> createPurchaseOrderWithQuantity(@RequestBody List<PurchaseOrderRequest> purchaseOrderRequests) {
         try {
             for (PurchaseOrderRequest request : purchaseOrderRequests) {
-                ProcurementPlan procurementPlan = procurementPlanRepository.findById(request.getProcPlanNumber()).orElseThrow(() -> new IllegalArgumentException("Invalid procurement plan number"));
+                ProcurementPlan procurementPlan = procurementPlanRepository.findById(request.getProcPlanNumber())
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid procurement plan number"));
 
                 String purchOrderNumber = purchaseOrderService.generateNextPurchOrderNumber();
 
@@ -71,11 +77,21 @@ public class PurchaseOrderController {
                         .build();
 
                 purchaseOrderRepository.save(purchaseOrder);
+
+                // Quantity 생성 및 저장
+                Quantity quantity = new Quantity();
+                quantity.setItem(procurementPlan.getItem());
+                quantity.setAllQuantity(0);
+                quantity.setPurchaseOrder(purchaseOrder);
+                quantityRepository.save(quantity);
             }
             Map<String, String> response = new HashMap<>();
             response.put("message", "Purchase orders created successfully");
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
+            // 예외를 콘솔에 출력
+            e.printStackTrace();
+
             Map<String, String> response = new HashMap<>();
             response.put("error", "Failed to create purchase orders: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);

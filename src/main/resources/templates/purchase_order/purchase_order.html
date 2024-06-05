@@ -16,11 +16,13 @@
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
     <div class="content">
       <section class="procurement-plan">
+        <div class="ten">
         <h2>구매 발주서 관리 - 조달 계획 리스트</h2>
+        </div>
         <button id="issue-order-btn" class="button">발주</button>
         <div class="search-bar">
           <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
             <input type="date" id="date-end" placeholder="종료 날짜">
             <button id="date-search-btn">검색</button>
           </div>
@@ -36,7 +38,7 @@
         <table>
           <thead>
             <tr>
-              <th><input type="checkbox"></th>
+              <th></th>
               <th>조달계획번호</th>
               <th>업체명</th>
               <th>품목명</th>
@@ -53,7 +55,7 @@
               <td th:text="${plan.coOpCompany.companyName}"></td>
               <td th:text="${plan.item.itemName}"></td>
               <td><input type="number" name="procQuantity" class="input-field"></input></td>
-              <td><input type="date" name="procDuedate" class="input-field"></input></td>
+              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>
               <td th:text="${plan.coOpCompany.businessNumber}"></td>
               <td th:text="${plan.item.itemCode}"></td>
 <!--              <td th:text="${plan.procQuantity}"></td>-->
@@ -63,12 +65,14 @@
         </table>
       </section>
       <section class="purchase-order">
+        <div class="ten">
         <h2>구매 발주서 관리 - 구매 발주서 리스트</h2>
+        </div>
         <button id="delete-order-btn" class="button">삭제</button>
         <button id="modify-order-btn" class="button">수정</button>
         <div class="search-bar">
           <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span> 
+            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
             <input type="date" id="date-end" placeholder="종료 날짜">
             <button id="date-search-btn">검색</button>
           </div>
@@ -84,7 +88,7 @@
         <table>
           <thead>
             <tr>
-              <th><input type="checkbox"></th>
+              <th></th>
               <th>발주번호</th>
               <th>업체명</th>
               <th>품목명</th>
@@ -124,12 +128,22 @@
               <table class="order-table">
                 <thead>
                 <tr>
+                  <td colspan="4"></td>
+                </tr>
+                <tr>
+                  <th colspan="2" style="background-color: white;"></th>
+                  <th colspan="2" style="background-color: white;"><strong>납기일자: <span id="modal-receive-duedate"></span></strong></th>
+                </tr>
+                <tr>
+                  <td colspan="4"></td>
+                </tr>
+                <tr>
                   <th colspan="2">발주번호: <span id="modal-proc-duedate"></span></th>
                   <th colspan="2">발주일자: <span id="modal-purch-order-number"></span></th>
                 </tr>
                 <tr>
-                  <th colspan="2">수주처</th>
                   <th colspan="2">발주처</th>
+                  <th colspan="2">수주처</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -152,7 +166,7 @@
                   <td>010-3333-3333</td>
                 </tr>
                 <tr>
-                  <td colspan="4">납기일자:<span id="modal-receive-duedate"></span></td>
+                  <td colspan="4"></td>
                 </tr>
                 </tbody>
               </table>
@@ -191,7 +205,7 @@
                 </tr>
                 </tfoot>
               </table>
-
+            </div>
           </div>
           <button id="checkOrder" class="button">확인</button>
         </div>

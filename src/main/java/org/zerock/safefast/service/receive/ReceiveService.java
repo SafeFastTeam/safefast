@@ -84,4 +84,10 @@ public class ReceiveService {
     public List<Receive> getReceivesByDateRange(LocalDate startDate, LocalDate endDate) {
         return receiveRepository.findByDateRange(startDate, endDate);
     }
+
+    public List<Receive> getAllReceive() {
+        return receiveRepository.findAll();
+    }
+
+
 }

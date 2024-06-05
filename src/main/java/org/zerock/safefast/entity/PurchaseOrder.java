@@ -45,6 +45,14 @@ public class PurchaseOrder {
     @JoinColumn(name = "itemCode")
     private Item item;
 
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Quantity> quantities;
+
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Receive> receives;
+
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<ProgressCheckItem> progressCheckItems;

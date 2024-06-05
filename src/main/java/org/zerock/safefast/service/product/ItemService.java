@@ -100,7 +100,6 @@ public class ItemService {
     }
 
     public void registerItem(Item item, MultipartFile blueprintFile) {
-
         String itemCode = generateNextItemCode(item.getUnit().getUnitCode(), item.getAssy().getAssyCode(), item.getPart().getPartCode());
         item.setItemCode(itemCode);
 
@@ -123,38 +122,8 @@ public class ItemService {
             }
         }
 
-        Optional<Item> existingItemOpt = itemRepository.findByItemCode(item.getItemCode());
-        if (existingItemOpt.isPresent()) {
-            Item existingItem = existingItemOpt.get();
-            // 기존 Item이 존재하면 병합하여 업데이트
-            existingItem.setUnit(item.getUnit());
-            existingItem.setAssy(item.getAssy());
-            existingItem.setPart(item.getPart());
-            existingItem.setItemName(item.getItemName());
-            existingItem.setWidth(item.getWidth());
-            existingItem.setLength(item.getLength());
-            existingItem.setHeight(item.getHeight());
-            existingItem.setMaterial(item.getMaterial());
-            existingItem.setBlueprintOriginName(item.getBlueprintOriginName());
-            existingItem.setBlueprintSaveName(item.getBlueprintSaveName());
-            itemRepository.save(existingItem);
-
-            // 기존 상품의 수량 업데이트
-            Quantity existingQuantity = quantityRepository.findByItem(existingItem);
-            if (existingQuantity != null) {
-                existingQuantity.setAllQuantity(0); // 기본적으로 수량을 0으로 설정
-                quantityRepository.save(existingQuantity);
-            }
-        } else {
-            // 새로운 Item을 저장
-            itemRepository.save(item);
-
-            // 새로운 상품의 수량 생성
-            Quantity quantity = new Quantity();
-            quantity.setItem(item);
-            quantity.setAllQuantity(0); // 새로운 상품이므로 수량은 0으로 설정
-            quantityRepository.save(quantity);
-        }
+        // 새로운 Item을 저장
+        itemRepository.save(item);
     }
 
     private String generateNextItemCode(String unitCode, String assyCode, String partCode) {
