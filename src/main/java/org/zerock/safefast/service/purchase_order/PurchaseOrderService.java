@@ -22,6 +22,9 @@ public class PurchaseOrderService {
     @Autowired
     private ProcurementPlanRepository procurementPlanRepository;
 
+    @Autowired
+    private QuantityRepository quantityRepository;
+
     // 해당 레포지토리들은 그래프 그리기 위해 선언되었습니다.
     @Autowired
     private ProgressCheckItemRepository progressCheckItemRepository;
@@ -37,28 +40,6 @@ public class PurchaseOrderService {
         this.purchaseOrderRepository = purchaseOrderRepository;
     }
 
-    @Transactional
-    public List<PurchaseOrder> createPurchaseOrders(List<PurchaseOrderRequest> purchaseOrderRequests) {
-        List<PurchaseOrder> purchaseOrders = purchaseOrderRequests.stream().map(request -> {
-            PurchaseOrder purchaseOrder = new PurchaseOrder();
-            purchaseOrder.setPurchOrderNumber(generateNextPurchOrderNumber());
-            purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
-            purchaseOrder.setNote(request.getNote());
-            purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
-            purchaseOrder.setProcPlanNumber(request.getProcPlanNumber());
-
-            purchaseOrder.setCoOpCompany(request.getCoOpCompany());
-            purchaseOrder.setBusinessNumber(request.getCoOpCompany().getBusinessNumber());
-            purchaseOrder.setItem(request.getItem());
-            purchaseOrder.setItemCode(request.getItem().getItemCode());
-
-            // 현재 날짜로 설정
-            purchaseOrder.setPurchOrderDate(LocalDate.now());
-
-            return purchaseOrder;
-        }).toList();
-        return purchaseOrderRepository.saveAll(purchaseOrders);
-    }
 
     public Optional<ProcurementPlan> getProcurementPlanByNumber(String procPlanNumber) {
         return Optional.ofNullable(purchaseOrderRepository.findProcurementPlanByNumber(procPlanNumber));

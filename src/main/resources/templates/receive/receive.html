@@ -17,12 +17,12 @@
   <div class="content">
     <section class="procurement-plan">
       <div class="ten">
-      <h2>자재 입고</h2>
+        <h2>자재 입고</h2>
       </div>
-      <div class="save-btn">
-        <button id="issue-order-btn" class="button">저장</button>
-        <button id="close-button" style="display: none;">마감</button>
-      </div>
+      <!--      <div class="save-btn">-->
+      <!--        <button id="issue-order-btn" class="button">저장</button>-->
+      <!--        <button id="close-button" style="display: none;">마감</button>-->
+      <!--      </div>-->
       <table>
         <thead>
         <tr>
@@ -34,25 +34,27 @@
           <th>재고</th>
           <th>발주 수량</th>
           <th>입고 수량</th>
+          <th>저장</th>
         </tr>
         </thead>
         <tbody id="procurement-plan-list">
-        <tr th:each="purchase : ${purchases}">
-          <td th:text="${purchase.purchOrderNumber}"></td>
-          <td th:text="${purchase.coOpCompany.companyName}"></td>
-          <td th:text="${purchase.item.itemName}"></td>
-          <td th:text="${purchase.purchOrderDate}"></td>
-          <td th:text="${purchase.receiveDuedate}"></td>
-          <td>0</td>
-          <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
-          <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
-<!--          <td th:text="${purchase}" style="display: none;"></td>-->
-          <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
-        </tr>
+          <tr th:each="purchase : ${purchases}"
+              th:classappend="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity == purchase.purchOrderQuantity} ? 'hidden' : ''">
+            <td th:text="${purchase.purchOrderNumber}"></td>
+            <td th:text="${purchase.coOpCompany.companyName}"></td>
+            <td th:text="${purchase.item.itemName}"></td>
+            <td th:text="${purchase.purchOrderDate}"></td>
+            <td th:text="${purchase.receiveDuedate}"></td>
+            <td th:text="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity}"></td>
+            <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
+            <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
+            <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
+            <td><button id="issue-order-btn" class="button">저장</button></td>
+          </tr>
         </tbody>
       </table>
       <div class="ten">
-      <h2>자재 출고</h2>
+        <h2>자재 출고</h2>
       </div>
       <table>
         <thead>
@@ -67,7 +69,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="quantity: ${quantities}" >
+        <tr th:each="quantity: ${quantities}" th:classappend="${quantity.allQuantity == 0} ? 'hidden' : ''">
           <td th:text="${quantity.productionPlan.prodPlanCode}"></td>
           <td th:text="${quantity.productionPlan.product.productName}"></td>
           <td th:text="${quantity.item.itemName}"></td>
@@ -82,7 +84,7 @@
     </section>
     <section class="purchase-order">
       <div class="ten">
-      <h2>자재 입고 리스트</h2>
+        <h2>자재 입고 리스트</h2>
       </div>
       <div class="search-bar">
         <div class="date-search">
@@ -106,13 +108,18 @@
           <th>발주번호</th>
           <th>업체명</th>
           <th>품목명</th>
-          <th>발주일</th>
-          <th>조달납기일</th>
-          <th>입고</th>
+          <th>입고일</th>
+          <th>입고 수량</th>
         </tr>
         </thead>
         <tbody id="purchase-order-list">
-
+          <tr th:each="receive : ${receives}">
+            <td th:text="${receive.purchaseOrder.purchOrderNumber}"></td>
+            <td th:text="${receive.purchaseOrder.coOpCompany.companyName}"></td>
+            <td th:text="${receive.purchaseOrder.item.itemName}"></td>
+            <td th:text="${receive.receiveDate}"></td>
+            <td th:text="${receive.receiveQuantity}"></td>
+          </tr>
         </tbody>
       </table>
       <div class="pagination">
@@ -124,7 +131,7 @@
 
     <section class="purchase-order2">
       <div class="ten">
-      <h2>자재 출고 리스트</h2>
+        <h2>자재 출고 리스트</h2>
       </div>
       <div class="search-bar">
         <div class="date-search">
@@ -170,27 +177,6 @@
     </section>
 
   </div>
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <table>
-        <thead>
-        <tr>
-          <th>발주번호</th>
-          <th>업체명</th>
-          <th>품목명</th>
-          <th>발주 수량</th>
-          <th>품목 코드</th>
-        </tr>
-        </thead>
-        <tbody id="modal-content-body">
-
-        </tbody>
-
-      </table>
-      <button id="confirm-button">확인</button>
-    </div>
-  </div>
 
 </div>
 
@@ -200,123 +186,24 @@
 <script src="/js/index.js"></script>
 <script>
   $(document).ready(function() {
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
 
-    window.openModal = function(purchOrderNumber, companyName, itemName, purchOrderQuantity, itemCode) {
-      $('#modal-content-body').html(
-              "<tr>" +
-              "<td>" + purchOrderNumber + "</td>" +
-              "<td>" + companyName + "</td>" +
-              "<td>" + itemName + "</td>" +
-              "<td>" + purchOrderQuantity + "</td>" +
-              // "<td>" + purchProgress + "</td>" +
-              "<td>" + itemCode + "</td>" +
-              "</tr>"
-      );
-      modal.style.display = "block";
-    }
+    $(document).on('click', '#issue-order-btn', function () {
+      var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기
+      var purchOrderNumber = row.find("td:eq(0)").text(); // 발주번호
+      var receiveQuantityInput = row.find(".procurement-quantity-input"); // 입고 수량 입력란
+      var receiveQuantity = parseInt(receiveQuantityInput.val()); // 입고 수량 입력 값
+      var itemCode = row.find("td:eq(8)").text(); // 품목 코드
 
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    $('#issue-order-btn').on('click', function() {
-
-      $('.procurement-quantity-input').each(function() {
-        var inputQuantity = parseFloat($(this).val());
-        var rowIndex = $(this).closest('tr').index();
-        var procurementQuantity = parseFloat($('tbody#procurement-plan-list tr').eq(rowIndex).find('td:eq(6)').text());
-        if (!isNaN(procurementQuantity)) {
-          var stockQuantity = parseFloat($(this).closest('tr').find('td:eq(5)').text());
-          var newStockQuantity = isNaN(stockQuantity) ? 0 : stockQuantity;
-          newStockQuantity += inputQuantity;
-          $(this).closest('tr').find('td:eq(5)').text(newStockQuantity);
-        }
-      });
-
-      var allMatch = true;
-      $('#procurement-plan-list tr').each(function() {
-        var procurementQuantity = $(this).find('td:eq(6)').text();
-        var stockQuantity = $(this).find('td:eq(5)').text();
-
-        if (isNaN(procurementQuantity) || isNaN(stockQuantity) || procurementQuantity !== stockQuantity) {
-          allMatch = false;
-          return false;
-        }
-      });
-
-      if (allMatch) {
-        $('#close-button').show();
-      } else {
-        $('#close-button').hide();
-      }
-    });
-
-    $('#close-button').on('click', function() {
-      // 자재 입고 정보를 추가하기 전에 이전 정보를 제거합니다.
-      $('#purchase-order-list').empty();
-
-      $('#procurement-plan-list tr').each(function() {
-        var purchOrderNumber = $(this).find("td:eq(0)").text();
-        var companyName = $(this).find("td:eq(1)").text();
-        var itemName = $(this).find("td:eq(2)").text();
-        var purchOrderDate = $(this).find("td:eq(3)").text();
-        var receiveDuedate = $(this).find("td:eq(4)").text();
-        var receiveQuantity = $(this).find("td:eq(5)").text();
-        var purchOrderQuantity = $(this).find("td:eq(6)").text();
-        // var purchProgress = $(this).find("td:eq(8)").text();
-        var itemCode = $(this).find("td:eq(8)").text();
-
-
-        if (purchOrderNumber && companyName && itemName && purchOrderDate && receiveDuedate && receiveQuantity && purchOrderQuantity && itemCode) {
-          var newRow = "<tr>" +
-                  "<td>" + purchOrderNumber + "</td>" +
-                  "<td>" + companyName + "</td>" +
-                  "<td>" + itemName + "</td>" +
-                  "<td>" + purchOrderDate + "</td>" +
-                  "<td>" + receiveDuedate + "</td>" +
-                  // "<td style=\"display: none;\">" + purchProgress + "</td>" +
-                  "<td style=\"display: none;\">" + itemCode + "</td>" +
-                  "<td><button onclick='openModal(\"" +
-                  $(this).closest("tr").find("td:eq(0)").text() + "\", \"" +
-                  $(this).closest("tr").find("td:eq(1)").text() + "\", \"" +
-                  $(this).closest("tr").find("td:eq(2)").text() + "\", \"" +
-                  $(this).closest("tr").find("td:eq(6)").text() + "\", \"" +
-                  // $(this).closest("tr").find("td:eq(8)").text() + "\", \"" +
-                  $(this).closest("tr").find("td:eq(8)").text() +
-                  "\")'>입고완료</button></td>" +
-                  "</tr>";
-
-          $('#purchase-order-list').append(newRow);
-        }
-      });
-
-      // 이전에 있던 정보를 모두 제거합니다.
-      $('#procurement-plan-list').empty();
-    });
-
-    $('#confirm-button').on('click', function() {
-      var purchOrderNumber = $('#modal-content-body').find('td:eq(0)').text();
-      var itemName = $('#modal-content-body').find('td:eq(2)').text();
-      var procQuantity = $('#modal-content-body').find('td:eq(3)').text();
-      var itemCode = $('#modal-content-body').find('td:eq(7)').text();
-
-      if (!purchOrderNumber || !itemName || !procQuantity ) {
-        alert('필수 정보를 입력해주세요.');
-        return;
+      // 입력된 입고 수량이 0 이하인 경우 처리
+      if (receiveQuantity <= 0) {
+        alert('입고 수량은 0보다 커야 합니다.');
+        return; // 입고 수량이 0 이하면 함수 종료
       }
 
       var receiveDTO = {
-        receiveQuantity: procQuantity,
+        receiveQuantity: receiveQuantity,
         purchOrderNumber: purchOrderNumber,
-        itemCode: itemCode // itemCode를 포함
+        itemCode: itemCode
       };
 
       $.ajax({
@@ -327,15 +214,14 @@
         dataType: 'json',
         success: function(response) {
           alert('등록되었습니다.');
-          $('#myModal').hide();
         },
         error: function (xhr, status, error) {
           var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
           alert(errorMessage);
-          $('#myModal').hide();
         }
       });
     });
+
 
     $(document).on('click', '#save-button', function () {
       var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기

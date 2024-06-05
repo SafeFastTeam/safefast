@@ -301,3 +301,7 @@ button:hover {
 #confirm-button {
   margin-left: 650px;
 }
+
+.hidden {
+  display: none;
+}
