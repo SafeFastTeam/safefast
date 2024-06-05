@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Progress Check Item</title>
+    <title>진척 검수 처리</title>
     <link rel="stylesheet" href="/css/progress_check_item.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
@@ -76,17 +76,40 @@
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
-                <h3>검수 계획 등록</h3>
-                <div class="modal-header">
-                    <p>발주번호: <span id="order-no" data-field="purchOrderNumber"></span></p>
-                    <p>발주일자: <span data-field="orderDate"></span></p>
-                    <p>납기일자: <span data-field="receiveDueDate"></span></p>
-                    <p>업체명: <span data-field="companyName"></span></p>
-                    <p>사업자등록번호: <span data-field="businessNumber"></span></p>
-                    <p>품목코드: <span data-field="itemCode"></span></p>
-                    <p>품목명: <span data-field="itemName"></span></p>
-                    <p>발주수량: <span data-field="orderQuantity"></span></p>
-                </div>
+                <h2>검수 계획 등록</h2>
+                <table class="modal-table">
+                    <thead>
+                    <tr>
+                        <th colspan="4">발주 내용</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>발주번호</td>
+                        <td><span id="order-no" data-field="purchOrderNumber"></span></td>
+                        <td>업체명</td>
+                        <td><span data-field="companyName"></span></td>
+                    </tr>
+                    <tr>
+                        <td>발주일자</td>
+                        <td><span data-field="orderDate"></span></td>
+                        <td>사업자등록번호</td>
+                        <td><span data-field="businessNumber"></span></td>
+                    </tr>
+                    <tr>
+                        <td>납기일자</td>
+                        <td><span data-field="receiveDueDate"></span></td>
+                        <td>품목명</td>
+                        <td><span data-field="itemName"></span></td>
+                    </tr>
+                    <tr>
+                        <td>발주수량</td>
+                        <td><span data-field="orderQuantity"></span></td>
+                        <td>품목코드</td>
+                        <td><span data-field="itemCode"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <div class="modal-body">
                     <table class="modal-table-3">
                         <thead>
@@ -119,19 +142,51 @@
         <div id="modal2" class="modal">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
-                <h3>검수 처리</h3>
+                <h2>검수 처리</h2>
                 <div class="modal-header">
-                    <p>발주번호: <span id="modal2-order-no" data-field="purchOrderNumber"></span></p>
-                    <p>발주일자: <span data-field="orderDate"></span></p>
-                    <p>납기일자: <span data-field="receiveDueDate"></span></p>
-                    <p>업체명: <span data-field="companyName"></span></p>
-                    <p>사업자등록번호: <span data-field="businessNumber"></span></p>
-                    <p>품목코드: <span data-field="itemCode"></span></p>
-                    <p>품목명: <span data-field="itemName"></span></p>
-                    <p>발주수량: <span data-field="orderQuantity"></span></p>
+                    <table class="modal-table">
+                        <table class="modal-table">
+                            <thead>
+                            <tr>
+                                <th colspan="4">발주 내용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>발주번호</td>
+                                <td><span id="modal2-order-no" data-field="purchOrderNumber"></span></td>
+                                <td>업체명</td>
+                                <td><span data-field="companyName"></span></td>
+                            </tr>
+                            <tr>
+                                <td>발주일자</td>
+                                <td><span data-field="orderDate"></span></td>
+                                <td>사업자등록번호</td>
+                                <td><span data-field="businessNumber"></span></td>
+                            </tr>
+                            <tr>
+                                <td>납기일자</td>
+                                <td><span data-field="receiveDueDate"></span></td>
+                                <td>품목명</td>
+                                <td><span data-field="itemName"></span></td>
+                            </tr>
+                            <tr>
+                                <td>발주수량</td>
+                                <td><span data-field="orderQuantity"></span></td>
+                                <td>품목코드</td>
+                                <td><span data-field="itemCode"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </table>
                 </div>
                 <div class="modal-body">
                     <table class="modal-table-3">
+                        <thead>
+                        <tr>
+                            <th colspan="5">검수 계획</th>
+                        </tr>
+                        </thead>
                         <thead>
                         <tr>
                             <th>차수</th>
@@ -139,7 +194,7 @@
                             <th>완료수량</th>
                             <th>검수결과</th>
                             <th>보완사항</th>
-                            <th>작업</th>
+<!--                            <th>작업</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -149,10 +204,10 @@
                             <td><input type="number" class="completedQuantity" placeholder="수량 입력"></td>
                             <td><input type="text" class="progCheckResult"></td>
                             <td><input type="text" class="supplementation"></td>
-                            <td>
+<!--                            <td>
                                 <button class="btn add-btn">추가</button>
                                 <button class="btn delete-btn">삭제</button>
-                            </td>
+                            </td>-->
                         </tr>
                         </tbody>
                     </table>
