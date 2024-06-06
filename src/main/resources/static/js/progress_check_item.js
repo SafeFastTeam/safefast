@@ -89,7 +89,7 @@ $(document).ready(function () {
                                             <td>${index + 1}차</td>
                                             <td><input type="date" class="inspection-date" value="${item.progCheckDate}" readonly></td>
                                             <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
-                                            <td><input type="text" class="progCheckResult" value="${index + 1}" readonly></td>
+                                            <td><input type="text" class="progCheckResult" value="${1}" readonly></td>
                                             <td><input type="text" class="supplementation" value="없음"></td>
 <!--                                            <td>
                                                 <button class="btn add-btn">추가</button>

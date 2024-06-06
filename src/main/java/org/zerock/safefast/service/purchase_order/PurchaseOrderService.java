@@ -142,8 +142,8 @@ public class PurchaseOrderService {
         return purchaseOrderRepository.countByDateRange(startDate, endDate);
     }
 
-    public long countProgressChecks(LocalDate startDate, LocalDate endDate) {
-        return progressCheckItemRepository.countByDateRange(startDate, endDate);
+    public long countProgressChecks(String purchOrderNumber, LocalDate startDate, LocalDate endDate) {
+        return progressCheckItemRepository.countCompletedProgressChecksByDateRange(purchOrderNumber, startDate, endDate);
     }
 
     public long countCompletedProcurements(LocalDate startDate, LocalDate endDate) {

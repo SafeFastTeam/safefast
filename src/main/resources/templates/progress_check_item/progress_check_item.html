@@ -60,7 +60,7 @@
                 <td th:text="${purchaseOrder.item.itemCode}"></td>
                 <td th:text="${purchaseOrder.item.itemName}"></td>
                 <td th:text="${purchaseOrder.purchOrderQuantity}"></td>
-                <td th:if="${maxProgCheckOrders[purchaseOrder.purchOrderNumber] != 0}" th:text="${maxProgCheckResults[purchaseOrder.purchOrderNumber] + ' / ' + maxProgCheckOrders[purchaseOrder.purchOrderNumber]}"></td>
+                <td th:if="${maxProgCheckOrders[purchaseOrder.purchOrderNumber] != 0}" th:text="${sumProgCheckResults[purchaseOrder.purchOrderNumber] + ' / ' + maxProgCheckOrders[purchaseOrder.purchOrderNumber]}"></td>
                 <td th:if="${maxProgCheckOrders[purchaseOrder.purchOrderNumber] == 0}"></td>
                 <td th:text="${@purchaseOrderService.calculateProgressForPurchaseOrder(purchaseOrder)} + '%'"></td>
             </tr>

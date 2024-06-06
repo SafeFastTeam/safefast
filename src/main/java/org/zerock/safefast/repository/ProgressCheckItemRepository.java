@@ -19,8 +19,7 @@ public interface ProgressCheckItemRepository extends JpaRepository<ProgressCheck
     Optional<ProgressCheckItem> findByPurchOrderNumberAndProgCheckOrder(String purchOrderNumber, int progCheckOrder);
 
 
-    @Query("SELECT COUNT(p) FROM ProgressCheckItem p WHERE p.progCheckDate BETWEEN :startDate AND :endDate")
-    long countByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
+    @Query("SELECT COUNT(DISTINCT p.progCheckResult) FROM ProgressCheckItem p WHERE p.progCheckResult = '1' AND p.purchaseOrder.purchOrderNumber = :purchOrderNumber AND p.progCheckDate BETWEEN :startDate AND :endDate")
+    long countCompletedProgressChecksByDateRange(@Param("purchOrderNumber") String purchOrderNumber, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }
