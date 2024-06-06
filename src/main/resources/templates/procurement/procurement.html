@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
+    <!-- jQuery 라이브러리 로드 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery UI 라이브러리 로드 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- jQuery UI 기본 CSS 로드 -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
+
 </head>
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
@@ -83,7 +90,7 @@
               </tr>
               <tr>
                   <td><input type="text" class="input-field" id="reg-procureQuantity" name="procQuantity"></td>
-                  <td><input type="date" class="input-field" id="reg-procureTerm" name="procDuedate" ></td>
+                  <td><input type="text" class="input-field" id="reg-procureTerm" name="procDuedate" ></td>
               </tr>
               <!-- Add more rows as needed -->
             </table>
@@ -177,6 +184,36 @@
               $('#reg-itemCode').val(itemCode);
               $('#reg-itemName').val(itemName);
               $('#reg-businessNumber').val(businessNumber);
+
+              // 조달납기일 가져오기
+              var procureTerm = new Date($('#reg-procureTerm').val());
+              // 생산 시작일 가져오기
+              var prodStart = new Date($('#reg-prodStartDate').val());
+
+              // 조달납기일이 생산 시작일 이전인지 확인
+              if (procureTerm < prodStart) {
+                  alert("조달납기일은 생산 시작일 이후여야 합니다.");
+                  // 조달납기일 입력 필드 초기화
+                  $('#reg-procureTerm').val('');
+              }
+
+              // 달력 설정
+              // datepicker를 초기화하고 옵션 설정
+              $("#reg-procureTerm, #reg-prodStartDate").datepicker({
+                  maxDate: prodStartDate, // 생산계획일 보다 이전의 날짜만 선택 가능
+                  dateFormat: 'yy-mm-dd', // 날짜 형식 설정 (예: 2022-06-01)
+                  onSelect: function (selectedDate) {
+                      var prodStart = new Date($('#reg-prodStartDate').val());
+                      var procureTerm = new Date(selectedDate);
+
+                      // 조달납기일이 생산 시작일 이전인지 확인
+                      if (procureTerm > prodStart - 1) {
+                          alert("조달납기일은 생산 시작일 이전이어야 합니다.");
+                          // 조달납기일 입력 필드 초기화
+                          $('#reg-procureTerm').val('');
+                      }
+                  }
+              });
           });
       });
   </script>
