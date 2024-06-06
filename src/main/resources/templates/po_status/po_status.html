@@ -23,7 +23,18 @@
         <input type="date" id="date-end" placeholder="종료 날짜">
         <button id="date-search-btn">검색</button>
       </div>
-        <div id="container1" style="height: 60%; width: 60%;"></div>
+      <div id="container1" style="height: 60%; width: 60%;"></div>
+      <table>
+        <thead>
+        <tr>
+          <th>항목</th>
+          <th>갯수</th>
+        </tr>
+        </thead>
+        <tbody id="data-table-body">
+        <!-- 데이터가 여기에 추가될 것입니다. -->
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -37,23 +48,23 @@
             useDirtyRect: false
           });
 
-            // 현재 날짜와 한 달 전 날짜를 구하는 함수
-            function getDefaultDates() {
-                const today = new Date();
-                const oneMonthAfter = new Date();
-                oneMonthAfter.setMonth(today.getMonth() + 1);
+          // 현재 날짜와 한 달 전 날짜를 구하는 함수
+          function getDefaultDates() {
+            const today = new Date();
+            const oneMonthAfter = new Date();
+            oneMonthAfter.setMonth(today.getMonth() + 1);
 
-                const formatDate = (date) => date.toISOString().split('T')[0];
-                return {
-                    startDate: formatDate(today),
-                    endDate: formatDate(oneMonthAfter)
-                };
-            }
+            const formatDate = (date) => date.toISOString().split('T')[0];
+            return {
+              startDate: formatDate(today),
+              endDate: formatDate(oneMonthAfter)
+            };
+          }
 
-            // 기본 날짜 설정
-            const defaultDates = getDefaultDates();
-            document.getElementById('date-start').value = defaultDates.startDate;
-            document.getElementById('date-end').value = defaultDates.endDate;
+          // 기본 날짜 설정
+          const defaultDates = getDefaultDates();
+          document.getElementById('date-start').value = defaultDates.startDate;
+          document.getElementById('date-end').value = defaultDates.endDate;
 
           function fetchData(startDate, endDate) {
             let url = `/api/stats/counts?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
@@ -63,7 +74,7 @@
                       var option = {
                         xAxis: {
                           type: 'category',
-                          data: ['총 조달계획', '발주서 발행', '진척 검수', '조달 마감']
+                          data: ['총 조달계획', '미발행 발주서' ,'발주서 발행', '진척 검수', '조달 마감']
                         },
                         yAxis: {
                           type: 'value'
@@ -72,8 +83,9 @@
                           {
                             data: [
                               {value: data.totalPlans, itemStyle: {color: '#9FB2E2'}},
-                              {value: data.issuedOrders, itemStyle: {color: '#7A91D4'}},
-                              {value: data.progressChecks, itemStyle: {color: '#5470C6'}},
+                              {value: data.totalPlans - data.issuedOrders, itemStyle: {color: '#92a2da'}},
+                              {value: data.issuedOrders - data.progressChecks, itemStyle: {color: '#7A91D4'}},
+                              {value: data.progressChecks - data.completedProcurements, itemStyle: {color: '#5470C6'}},
                               {value: data.completedProcurements, itemStyle: {color: '#2A45A3'}}
                             ],
                             type: 'bar',
@@ -90,6 +102,7 @@
                       }
 
                       window.addEventListener('resize', myChart.resize);
+                      displayDataInTable(data); // 데이터를 표에 표시
                     })
                     .catch(error => console.error('Error fetching data:', error));
           }
@@ -104,9 +117,35 @@
             }
           });
 
-            // 초기 데이터 로드
-            fetchData(defaultDates.startDate, defaultDates.endDate);
+          // 초기 데이터 로드
+          fetchData(defaultDates.startDate, defaultDates.endDate);
         });
+
+        function displayDataInTable(data) {
+          var dataTableBody = document.getElementById('data-table-body');
+          dataTableBody.innerHTML = ''; // 기존 데이터 초기화
+
+          // 데이터 항목과 갯수를 배열로 만듭니다.
+          var dataEntries = [
+            {name: '총 조달계획', value: data.totalPlans},
+            {name: '미발행 발주서', value: data.totalPlans - data.issuedOrders},
+            {name: '발주서 발행', value: data.issuedOrders - data.progressChecks},
+            {name: '진척 검수', value: data.progressChecks - data.completedProcurements},
+            {name: '조달 마감', value: data.completedProcurements}
+          ];
+
+          // 각 항목을 테이블에 추가합니다.
+          dataEntries.forEach(function (entry) {
+            var row = document.createElement('tr');
+            var nameCell = document.createElement('td');
+            nameCell.textContent = entry.name;
+            var valueCell = document.createElement('td');
+            valueCell.textContent = entry.value;
+            row.appendChild(nameCell);
+            row.appendChild(valueCell);
+            dataTableBody.appendChild(row);
+          });
+        }
       </script>
 
   <script src="/js/index.js"></script>

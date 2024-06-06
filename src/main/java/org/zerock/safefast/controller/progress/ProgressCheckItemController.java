@@ -53,6 +53,14 @@ public class ProgressCheckItemController {
                                 .orElse(0) // 비어 있는 경우 0으로 설정
                 ));
 
+        Map<String, Integer> sumProgCheckResults = purchaseOrders.stream()
+                .collect(Collectors.toMap(
+                        PurchaseOrder::getPurchOrderNumber,
+                        po -> po.getProgressCheckItems().stream()
+                                .mapToInt(item -> Integer.parseInt(item.getProgCheckResult())) // 문자열을 정수로 변환
+                                .sum() // 합계 계산
+                ));
+
         Map<String, String> maxProgCheckResults = purchaseOrders.stream()
                 .collect(Collectors.toMap(
                         PurchaseOrder::getPurchOrderNumber,
@@ -62,8 +70,10 @@ public class ProgressCheckItemController {
                                 .orElse("") // 비어 있는 경우 빈 문자열로 설정
                 ));
 
+
         model.addAttribute("purchaseOrders", purchaseOrders);
         model.addAttribute("maxProgCheckOrders", maxProgCheckOrders);
+        model.addAttribute("sumProgCheckResults", sumProgCheckResults);
         model.addAttribute("maxProgCheckResults", maxProgCheckResults);
         return "/progress_check_item/progress_check_item";
     }
