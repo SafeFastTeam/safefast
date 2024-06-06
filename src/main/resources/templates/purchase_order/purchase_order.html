@@ -54,8 +54,10 @@
               <td th:text="${plan.procPlanNumber}"></td>
               <td th:text="${plan.coOpCompany.companyName}"></td>
               <td th:text="${plan.item.itemName}"></td>
-              <td><input type="number" name="procQuantity" class="input-field"></input></td>
-              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>
+              <td name="procQuantity" class="input-field" th:text="${plan.procQuantity}"></td>
+              <td name="procDuedate" class="input-field" th:text="${plan.procDuedate}"></td>
+<!--              <td><input type="number" name="procQuantity" class="input-field"></input></td>-->
+<!--              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>-->
               <td th:text="${plan.coOpCompany.businessNumber}"></td>
               <td th:text="${plan.item.itemCode}"></td>
 <!--              <td th:text="${plan.procQuantity}"></td>-->
@@ -237,11 +239,76 @@
     </div>
   </div>
   <script>
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
+    //     checkbox.addEventListener('change', function () {
+    //       if (this.checked) {
+    //         let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
+    //
+    //         fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
+    //                 .then(response => {
+    //                   if (response.ok) {
+    //                     return response.json();
+    //                   } else {
+    //                     throw new Error('조달계획 정보를 불러오지 못했습니다.');
+    //                   }
+    //                 })
+    //                 .then(data => {
+    //                   let row = this.closest('tr');
+    //                   row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
+    //                   row.querySelector('input[name="procDuedate"]').value = data.procDuedate;
+    //
+    //                 })
+    //                 .catch(error => {
+    //                   alert(error.message);
+    //                 });
+    //       }
+    //     });
+    //   });
+    //
+    //   document.getElementById('issue-order-btn').addEventListener('click', function () {
+    //     let selectedPlans = [];
+    //     document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
+    //       let row = checkbox.closest('tr');
+    //       selectedPlans.push({
+    //         procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
+    //         companyName: row.querySelector('td:nth-child(3)').innerText,
+    //         itemName: row.querySelector('td:nth-child(4)').innerText,
+    //         purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
+    //         receiveDuedate: row.querySelector('input[name="procDuedate"]').value,
+    //         businessNumber: row.querySelector('td:nth-child(7)').innerText,
+    //         itemCode: row.querySelector('td:nth-child(8)').innerText
+    //       });
+    //     });
+    //     if (selectedPlans.length === 1) {
+    //       fetch('/purchase_order/create', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(selectedPlans)
+    //       })
+    //               .then(response => {
+    //                 if (response.ok) {
+    //                   return response.json();
+    //                 } else {
+    //                   throw new Error('발주서가 성공적으로 생성되었습니다.');
+    //                 }
+    //               })
+    //               .then(data => {
+    //                 alert('발주서가 성공적으로 생성되었습니다.');
+    //               })
+    //               .catch(error => {
+    //                 alert(error.message);
+    //               });
+    //     } else { alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.'); }
+    //   });
+    // });
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
           if (this.checked) {
-            let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
+            let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText.trim();
 
             fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
                     .then(response => {
@@ -253,9 +320,8 @@
                     })
                     .then(data => {
                       let row = this.closest('tr');
-                      row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
-                      row.querySelector('input[name="procDuedate"]').value = data.procDuedate;
-
+                      row.querySelector('td[name="procQuantity"]').innerText = data.procQuantity;
+                      row.querySelector('td[name="procDuedate"]').innerText = data.procDuedate;
                     })
                     .catch(error => {
                       alert(error.message);
@@ -269,13 +335,13 @@
         document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
           let row = checkbox.closest('tr');
           selectedPlans.push({
-            procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
-            companyName: row.querySelector('td:nth-child(3)').innerText,
-            itemName: row.querySelector('td:nth-child(4)').innerText,
-            purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
-            receiveDuedate: row.querySelector('input[name="procDuedate"]').value,
-            businessNumber: row.querySelector('td:nth-child(7)').innerText,
-            itemCode: row.querySelector('td:nth-child(8)').innerText
+            procPlanNumber: row.querySelector('td:nth-child(2)').innerText.trim(),
+            companyName: row.querySelector('td:nth-child(3)').innerText.trim(),
+            itemName: row.querySelector('td:nth-child(4)').innerText.trim(),
+            purchaseOrderQuantity: row.querySelector('td[name="procQuantity"]').innerText.trim(),
+            receiveDuedate: row.querySelector('td[name="procDuedate"]').innerText.trim(),
+            businessNumber: row.querySelector('td:nth-child(7)').innerText.trim(),
+            itemCode: row.querySelector('td:nth-child(8)').innerText.trim()
           });
         });
         if (selectedPlans.length === 1) {
@@ -299,36 +365,50 @@
                   .catch(error => {
                     alert(error.message);
                   });
-        } else { alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.'); }
+        } else {
+          alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.');
+        }
       });
     });
 
-    $(document).ready(function() {
-      // 발주 버튼 클릭 시 모달 창에 현재 날짜 설정
-      $('#issue-order-btn').on('click', function() {
+    document.getElementById('issue-order-btn').addEventListener('click', function () {
+      let selectedCheckbox = document.querySelector('#procurement-plan-list input[type="checkbox"]:checked');
+      if (selectedCheckbox) {
+        let row = selectedCheckbox.closest('tr');
+        let selectedPlan = {
+          procPlanNumber: row.querySelector('td:nth-child(2)').innerText.trim(),
+          companyName: row.querySelector('td:nth-child(3)').innerText.trim(),
+          itemName: row.querySelector('td:nth-child(4)').innerText.trim(),
+          purchaseOrderQuantity: row.querySelector('td[name="procQuantity"]').innerText.trim(),
+          receiveDuedate: row.querySelector('td[name="procDuedate"]').innerText.trim(),
+          businessNumber: row.querySelector('td:nth-child(7)').innerText.trim(),
+          itemCode: row.querySelector('td:nth-child(8)').innerText.trim()
+        };
+
         // 현재 날짜 가져오기
         var today = new Date();
         var day = today.getDate().toString().padStart(2, '0');
-        var month = (today.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        var month = (today.getMonth() + 1).toString().padStart(2, '0');
         var year = today.getFullYear();
         var currentDate = year + '-' + month + '-' + day;
 
-        // 모달 창의 발주일자 요소에 현재 날짜 설정
-        $('#modal-purch-order-number').text(currentDate);
+        // 모달 창의 데이터를 설정
+        document.getElementById('modal-proc-duedate').innerText = selectedPlan.procPlanNumber;
+        document.getElementById('modal-purch-order-number').innerText = currentDate;
+        document.getElementById('modal-company-name').innerText = selectedPlan.companyName;
+        document.getElementById('modal-item-name').innerText = selectedPlan.itemName;
+        document.getElementById('modal-purchase-order-quantity').innerText = selectedPlan.purchaseOrderQuantity;
+        document.getElementById('modal-receive-duedate').innerText = selectedPlan.receiveDuedate;
 
-        // 수량과 단가 가져오기
-        var quantity = parseInt($('#modal-purchase-order-quantity').text(), 10);
-        var unitPrice = parseInt($('#unit-price').text().replace(/,/g, ''), 10);
+        var unitPrice = parseInt(document.getElementById('unit-price').innerText.replace(/,/g, ''), 10);
+        var totalSum = selectedPlan.purchaseOrderQuantity * unitPrice;
+        document.getElementById('total-sum').innerText = totalSum.toLocaleString();
 
-        // 합계 계산
-        var totalSum = quantity * unitPrice;
-
-        // 합계 표시
-        $('#total-sum').text(totalSum.toLocaleString());
-
-        // 모달 창 열기 (기존 모달 창 열기 코드가 여기에 있어야 합니다)
-        $('#orderModal').show();
-      });
+        // 모달 창 열기
+        document.getElementById('orderModal').style.display = 'block';
+      } else {
+        alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.');
+      }
     });
       // 모달 창 닫기 기능
       document.addEventListener('DOMContentLoaded', function () {
@@ -340,6 +420,40 @@
               }
           };
       });
+
+    // 전송 버튼 클릭 시 이메일 데이터를 클립보드에 복사
+    document.getElementById('sendOrder').addEventListener('click', function () {
+      let emailData = {
+        to: 'ekzmemforhs3@naver.com',
+        procPlanNumber: document.getElementById('modal-proc-duedate').innerText,
+        orderDate: document.getElementById('modal-purch-order-number').innerText,
+        companyName: document.getElementById('modal-company-name').innerText,
+        itemName: document.getElementById('modal-item-name').innerText,
+        purchaseOrderQuantity: document.getElementById('modal-purchase-order-quantity').innerText,
+        receiveDuedate: document.getElementById('modal-receive-duedate').innerText,
+        unitPrice: document.getElementById('unit-price').innerText,
+        totalSum: document.getElementById('total-sum').innerText
+      };
+
+      let emailContent = `
+    수신자: ${emailData.to}\n
+    조달계획 번호: ${emailData.procPlanNumber}\n
+    발주일자: ${emailData.orderDate}\n
+    회사명: ${emailData.companyName}\n
+    품목명: ${emailData.itemName}\n
+    발주수량: ${emailData.purchaseOrderQuantity}\n
+    납기일: ${emailData.receiveDuedate}\n
+    단가: ${emailData.unitPrice}\n
+    합계: ${emailData.totalSum}
+  `;
+
+      navigator.clipboard.writeText(emailContent).then(function() {
+        alert('이메일 주소와 내용이 클립보드에 복사되었습니다.');
+      }, function(err) {
+        alert('클립보드 복사에 실패했습니다: ' + err);
+      });
+    });
+
 
       $(document).ready(function() {
         // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
