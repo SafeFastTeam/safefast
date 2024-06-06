@@ -83,22 +83,30 @@ $(document).ready(function () {
                                 var tbody = $(`#${modalId} .modal-table-3 tbody`);
                                 tbody.empty();
 
+                                var currentDate = new Date().toISOString().slice(0, 10); // 현재 날짜 가져오기
+
                                 planData.forEach(function (item, index) {
-                                    var newRow = `
-                                        <tr>
-                                            <td>${index + 1}차</td>
-                                            <td><input type="date" class="inspection-date" value="${item.progCheckDate}" readonly></td>
-                                            <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
-                                            <td><input type="text" class="progCheckResult" value="${1}" readonly></td>
-                                            <td><input type="text" class="supplementation" value="없음"></td>
-<!--                                            <td>
-                                                <button class="btn add-btn">추가</button>
-                                                <button class="btn delete-btn">삭제</button>
-                                            </td>-->
-                                        </tr>
-                                    `;
-                                    tbody.append(newRow);
-                                });
+                                        // 검수 계획 일자와 현재 날짜 비교
+                                        if (item.progCheckDate <= currentDate) {
+                                            var newRow = `
+                                                <tr>
+                                                    <td>${index + 1}차</td>
+                                                    <td><input type="date" class="inspection-date" value="${item.progCheckDate}" readonly></td>
+                                                    <td><input type="number" class="completedQuantity" placeholder="수량 입력" value="${item.completedQuantity}"></td>
+                                                    <td><input type="text" class="progCheckResult" value="${1}" readonly></td>
+                                                    <td><input type="text" class="supplementation" value="없음"></td>
+        <!--                                            <td>
+                                                        <button class="btn add-btn">추가</button>
+                                                        <button class="btn delete-btn">삭제</button>
+                                                    </td>-->
+                                                </tr>
+                                            `;
+                                            tbody.append(newRow);
+                                        } else {
+                                            alert("검수 계획 일자가 현재 날짜보다 클 수 없습니다.");
+                                            return;
+                                        }
+                                    });
 
                                 updateRowIndices(modalId);
                                 updateDeleteButtons(modalId);
