@@ -5,8 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
@@ -44,4 +42,22 @@ public class ProductionPlan {
     @ManyToOne
     @JoinColumn(name = "businessNumber")
     private CoOpCompany coOpCompany;
+
+    // @PrePersist를 사용하여 엔티티가 영구 저장되기 전에 prodPlanCode를 생성합니다.
+    @PrePersist
+    public void generateProdPlanCode() {
+        if (prodPlanCode == null) {
+            String newProdPlanCode = generateNewProdPlanCode();
+            this.prodPlanCode = newProdPlanCode;
+        }
+    }
+
+    private String generateNewProdPlanCode() {
+        return "PROD-001"; // 임시로 기본값 "PROD-001"을 반환합니다.
+    }
+
+    //Getter Setter 메서드
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

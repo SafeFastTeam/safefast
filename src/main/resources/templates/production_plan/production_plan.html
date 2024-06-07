@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/image/favicon-32x32.png">
+  <title>생산 계획</title>
+  <link rel="stylesheet" href="/css/calendar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+  <th:block th:replace="~{/fragments/fragment1}"></th:block>
+  <th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='생산 계획')}"></th:block>
+  <div class="container">
+      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+      <div class="content">
+        <div id='calendar'></div>
+        <div id="productionPlanForm">
+          <h3>생산 계획 입력</h3>
+          <form th:object="${productionPlan}" th:action="@{/productionPlan/save}" method="post" class="production-plan-form">
+            <div class="form-group">
+              <label for="productCode">생산제품</label>
+              <select id="productCode" name="productCode" class="form-control">
+                <option value="">생산 제품 선택</option>
+                <option th:each="product : ${products}" th:value="${product.productCode}" th:text="${product.productName + '  ' + product.productCode}"></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prodStartDate">생산 시작일</label>
+              <input type="date" id="prodStartDate" name="prodStartDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="prodEndDate">생산 종료일</label>
+              <input type="date" id="prodEndDate" name="prodEndDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="prodQuantity">생산 수량</label>
+              <input type="text" id="prodQuantity" name="prodQuantity" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="procureTerm">L/T</label>
+              <input type="text" id="procureTerm" name="procureTerm" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">저장</button>
+          </form>
+        </div>
+      </div>
+  </div>
+
+  <!-- fullcalendar -->
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: true, // 날짜 선택 가능하도록 설정
+        dateClick: function(info) { // 날짜를 클릭했을 때 이벤트 처리
+          var prodStartDate = document.getElementById('prodStartDate').value;
+          if (!prodStartDate) { // 생산 시작일이 입력되지 않은 경우
+            if (confirm('생산 시작일로 설정하시겠습니까?')) {
+              document.getElementById('prodStartDate').value = info.dateStr; // 클릭한 날짜를 시작일 입력란에 설정
+            }
+          } else { // 생산 시작일이 이미 입력된 경우
+            if (confirm('생산 종료일로 설정하시겠습니까?')) {
+              document.getElementById('prodEndDate').value = info.dateStr; // 클릭한 날짜를 종료일 입력란에 설정
+            }
+          }
+        }
+      });
+      calendar.render();
+    });
+  </script>
+  <script src="/js/index.js"></script>
+</body>
+</html>
