@@ -223,6 +223,10 @@ th {
   width: 200PX;
 }
 
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
 button {
   background-color: #066278;
   color: white;
