@@ -11,11 +11,23 @@ public class InventoryValueDTO {
     private String itemName;
     private String category;
     private Double inventoryValue;
+    private int receiveQuantity; // 추가
+    private Double itemPrice;
+    private int allQuantity;
 
     public InventoryValueDTO(String itemCode, String itemName, Double inventoryValue) {
         this.itemCode = itemCode;
         this.itemName = itemName;
         this.inventoryValue = inventoryValue;
+    }
+
+    public InventoryValueDTO(String itemCode, String itemName, Double inventoryValue, int receiveQuantity, Double itemPrice, int allQuantity) {
+        this.itemCode = itemCode;
+        this.itemName = itemName;
+        this.inventoryValue = inventoryValue;
+        this.receiveQuantity = receiveQuantity;
+        this.itemPrice = itemPrice;
+        this.allQuantity = allQuantity;
     }
 
     // Getters and setters
