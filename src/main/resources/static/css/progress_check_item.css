@@ -75,65 +75,8 @@ header {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  background-color: #ffffff;
 }
-
-/* 사이드 바 */
-.sidebar {
-  width: 200px;
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  display: block;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar li a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.sidebar li a:hover {
-  background-color: #066278;
-}
-
-.sidebar li a i {
-  margin-right: 5px;
-}
-
-.dropdown li a {
-  padding-left: 30px;
-  position: relative;
-}
-
-.dropdown li a i {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.dropdown {
-  display: none;
-  padding-left: 20px;
-}
-
-.show {
-  display: block;
-}
-
-.sidebar li:hover .dropdown {
-  display: block;
-}
-
 
 /* 메인 스타일 */
 .progress { 
@@ -247,7 +190,8 @@ header {
 }*/
 
 .modal-table tbody tr:hover,
-.modal-table-3 tbody tr:hover {
+.modal-table-3 tbody tr:hover,
+.main-table tbody tr:hover{
   background-color: #f1f1f1;
 }
 
