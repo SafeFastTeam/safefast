@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1f0a711c-a378-4afc-b545-3e2bbccc0e66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/inventory_management.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/procurement.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/procurement.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory_management/inventory_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/procurement/procurement.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feat/dev/FixDetails03",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
