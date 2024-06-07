@@ -72,7 +72,7 @@ public class SecurityConfig {
                                 authorizeHttpRequests
                                         .requestMatchers("/member/**","/css/**","/js/**","/image/**","/contract/**","/item/**","/inventory/**",
                                                 "/inventory_management/**","/invoicing/**","/po_status/**","/api/stats/**","/procurement/**",
-                                                "/production/**","/item/**","/progress_check_item/**","/purchase_order/**","/receive/**", "/file/**", "/index").permitAll()
+                                                "/production/**","/item/**","/progress_check_item/**","/purchase_order/**","/receive/**", "/file/**", "/productionPlan/**", "/index").permitAll()
                                         .requestMatchers("/**").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 );
