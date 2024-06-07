@@ -58,6 +58,25 @@
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <!-- 표 업데이트 스크립트 -->
 <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const oneMonthAfter = new Date();
+    oneMonthAfter.setDate(oneMonthAfter.getDate() + 30);
+    document.getElementById('date-end').value = oneMonthAfter.toISOString().split('T')[0];
+
+    // 30일 전 날짜를 기본 시작 날짜로 설정
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+    document.getElementById('date-start').value = oneMonthAgo.toISOString().split('T')[0];
+
+  // 초기 데이터 로드
+  const startDate = document.getElementById('date-start').value;
+  const endDate = document.getElementById('date-end').value;
+
+  // 초기 차트 및 테이블 데이터 로드
+  fetchAndUpdateTable(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
+  fetchAndUpdateCharts(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
+  });
+
   let currentCategory = 'unit'; // 초기 카테고리를 '대분류'로 설정
 
   document.getElementById('date-search-btn').addEventListener('click', () => {
@@ -65,9 +84,8 @@
     const endDate = document.getElementById('date-end').value;
 
     if (startDate && endDate) {
-      const endpoint = `/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`;
-      fetchAndUpdateTable(endpoint);
-      fetchAndUpdateCharts(endpoint);
+      fetchAndUpdateTable(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
+      fetchAndUpdateCharts(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
     } else {
       alert('시작 날짜와 종료 날짜를 모두 선택해주세요.');
     }
