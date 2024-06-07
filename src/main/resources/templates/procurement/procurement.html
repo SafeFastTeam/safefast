@@ -22,36 +22,6 @@
 
   <div class="container">
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
-   <!--   <nav class="sidebar">
-          <ul>
-              <li><a th:href="@{/index}">메인화면</a></li>
-              <li>
-                  <a href="#">조달관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/item/register}">품목정보등록</a></li>
-                      <li><a th:href="@{/contract/register}">계약 등록</a></li>
-                      <li><a th:href="@{/procurement/procurement}">조달계획등록</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">발주관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/purchase_order/purchase_order}">구매 발주서 관리</a></li>
-                      <li><a th:href="@{/progress-check}">진척 검수 처리</a></li>
-                      <li><a th:href="@{/po-status}">발주 진행 현황</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="#">자재관리 <i class="fas fa-caret-down"></i></a>
-                  <ul class="dropdown">
-                      <li><a th:href="@{/templates/receive}">자재 입출고</a></li>
-                      <li><a th:href="@{/invoicing/invoicing}">거래 명세서 발행</a></li>
-                      <li><a th:href="@{/inventory}">재고 산출</a></li>
-                      <li><a th:href="@{/inventory-management}">재고(금액) 관리</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </nav>-->
 
     <div class="content">
         <div class="registration-section">
@@ -100,7 +70,7 @@
 
       <div class="management-section">
           <div class="ten">
-        <h2>생산계획조회</h2>
+             <h2>생산계획조회</h2>
           </div>
           <div class="search-bar">
             <select name="search-option" id="search-option">
@@ -112,7 +82,7 @@
               <input type="text" placeholder="품목코드 검색..." class="search-input">
               <button class="search-button">검색</button>
           </div>
-          <table>
+          <table id="productionPlanTable">
               <thead>
                   <tr>
                       <th>생산시작일</th>
