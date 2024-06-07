@@ -18,7 +18,7 @@
   <th:block th:replace="~{/fragments/fragment2}"></th:block>
   <div class="content">
     <div class="ten">
-    <h2>현황 관리 그래프</h2>
+      <h2>현황 관리 그래프</h2>
     </div>
     <div class="head-box">
       <div class="date-search">
@@ -36,11 +36,27 @@
       <canvas id="myChart" width="600" height="500"></canvas>
       <div id="container3" style="width: 1000px; height: 500px;"></div>
     </div>
+    <div class="data-table">
+      <table>
+        <thead>
+        <tr>
+          <th>품목</th>
+          <th>개수(EA)</th>
+          <th>단가(원)</th>
+          <th>재고금액(원)</th>
+        </tr>
+        </thead>
+        <tbody id="data-table-body">
+        <!-- 여기에 데이터가 동적으로 추가됩니다 -->
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<!-- 표 업데이트 스크립트 -->
 <script type="text/javascript">
   let currentCategory = 'unit'; // 초기 카테고리를 '대분류'로 설정
 
@@ -49,12 +65,56 @@
     const endDate = document.getElementById('date-end').value;
 
     if (startDate && endDate) {
-      fetchAndUpdateCharts(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
+      const endpoint = `/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`;
+      fetchAndUpdateTable(endpoint);
+      fetchAndUpdateCharts(endpoint);
     } else {
       alert('시작 날짜와 종료 날짜를 모두 선택해주세요.');
     }
   });
 
+  const fetchAndUpdateTable = async (endpoint) => {
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
+
+      // 표 업데이트
+      updateTable(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const updateTable = (data) => {
+    const tableBody = document.getElementById('data-table-body');
+    tableBody.innerHTML = ''; // 기존 데이터 초기화
+
+    data.forEach(item => {
+      const row = document.createElement('tr');
+
+      const itemNameCell = document.createElement('td');
+      itemNameCell.textContent = item.itemName;
+      row.appendChild(itemNameCell);
+
+      const receiveQuantityCell = document.createElement('td');
+      receiveQuantityCell.textContent = item.receiveQuantity;
+      row.appendChild(receiveQuantityCell);
+
+      const itemPriceCell = document.createElement('td');
+      itemPriceCell.textContent = item.itemPrice.toLocaleString();
+      row.appendChild(itemPriceCell);
+
+      const totalValueCell = document.createElement('td');
+      totalValueCell.textContent = (item.itemPrice * item.allQuantity).toLocaleString();
+      row.appendChild(totalValueCell);
+
+      tableBody.appendChild(row);
+    });
+  };
+</script>
+
+<!-- 차트 업데이트 스크립트 -->
+<script type="text/javascript">
   const fetchAndUpdateCharts = async (endpoint) => {
     try {
       const response = await fetch(endpoint);
@@ -64,6 +124,7 @@
       const labels = data.map(item => item.itemName);
       const values = data.map(item => item.inventoryValue);
 
+      // 차트 업데이트
       updateEchartsChart(values, labels);
       updateDoughnutChart(values, labels);
     } catch (error) {
@@ -82,10 +143,12 @@
         data: labels,
         axisLabel: {
           interval: 0, // 모든 레이블 표시
-        }
+        },
+        name: '품목명'
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        name: '재고 금액(원)'
       },
       series: [{
         data: data,
@@ -141,22 +204,22 @@
   // 카테고리 버튼 클릭 이벤트 핸들러
   document.getElementById('issue-order-btn-large').addEventListener('click', () => {
     currentCategory = 'unit';
-    fetchAndUpdateCharts('/inventory_management/unit');
+    fetchAndUpdateCharts(`/inventory_management/unit?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
   });
 
   document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
     currentCategory = 'assy';
-    fetchAndUpdateCharts('/inventory_management/assy');
+    fetchAndUpdateCharts(`/inventory_management/assy?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
   });
 
   document.getElementById('issue-order-btn-small').addEventListener('click', () => {
     currentCategory = 'part';
-    fetchAndUpdateCharts('/inventory_management/part');
+    fetchAndUpdateCharts(`/inventory_management/part?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
   });
 
   // 초기 차트 로드
   window.onload = function() {
-    fetchAndUpdateCharts('/inventory_management/unit');
+    fetchAndUpdateCharts(`/inventory_management/unit?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
     setTimeout(() => {
       if (myChartEcharts) {
         myChartEcharts.resize();

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.zerock.safefast.dto.inventory_management.InventoryValueDTO;
 import org.zerock.safefast.entity.Contract;
+import org.zerock.safefast.entity.Item;
+import org.zerock.safefast.entity.Quantity;
 import org.zerock.safefast.entity.Receive;
 import org.zerock.safefast.repository.QuantityRepository;
 import org.zerock.safefast.repository.ReceiveRepository;
@@ -62,15 +64,27 @@ public class InventoryManagementServiceImpl implements InventoryManagementServic
     @Override
     public List<InventoryValueDTO> getInventoryValuesByDateRange(LocalDate startDate, LocalDate endDate) {
         List<Receive> receives = receiveRepository.findByDateRange(startDate, endDate);
+
         return receives.stream()
                 .map(receive -> {
-                    Contract contract = receive.getItem().getContract().stream()
+                    Item item = receive.getItem();
+                    Contract contract = item.getContract().stream()
                             .findFirst()
-                            .orElseThrow(() -> new IllegalStateException("No contract found for item: " + receive.getItem().getItemCode()));
-                    String itemName = receive.getItem().getItemName();
-                    return new InventoryValueDTO(receive.getItem().getItemCode(), itemName, (double) (contract.getItemPrice() * receive.getReceiveQuantity()));
+                            .orElseThrow(() -> new IllegalStateException("No contract found for item: " + item.getItemCode()));
+                    String itemName = item.getItemName();
+                    int receiveQuantity = receive.getReceiveQuantity();
+                    double itemPrice = contract.getItemPrice();
+
+                    Quantity quantity = quantityRepository.findByItem(item);
+                    if (quantity == null) {
+                        throw new IllegalStateException("No quantity found for item: " + item.getItemCode());
+                    }
+                    int allQuantity = quantity.getAllQuantity(); // 현재 재고 수량
+
+                    return new InventoryValueDTO(item.getItemCode(), itemName, itemPrice * allQuantity, receiveQuantity, itemPrice, allQuantity);
                 })
                 .collect(Collectors.toList());
     }
+
 
 }

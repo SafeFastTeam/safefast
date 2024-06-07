@@ -20,34 +20,4 @@ public interface InventoryManagementService {
 
     List<InventoryValueDTO> getInventoryValuesByDateRange(LocalDate startDate, LocalDate endDate);
 
-//    public Map<String, Object> getTop6Items(String category) {
-//        List<Object[]> result;
-//        switch (category) {
-//            case "unit":
-//                result = quantityRepository.findTop6Units();
-//                break;
-//            case "assy":
-//                result = quantityRepository.findTop6Assys();
-//                break;
-//            case "part":
-//                result = quantityRepository.findTop6Parts();
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Invalid category: " + category);
-//        }
-//
-//        Map<String, Object> data = new HashMap<>();
-//        String[] labels = new String[result.size()];
-//        Long[] values = new Long[result.size()];
-//
-//        for (int i = 0; i < result.size(); i++) {
-//            labels[i] = (String) result.get(i)[0];
-//            values[i] = (Long) result.get(i)[1];
-//        }
-//
-//        data.put("labels", labels);
-//        data.put("data", values);
-//
-//        return data;
-//    }
 }
