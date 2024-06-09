@@ -54,4 +54,8 @@ public class ProductService {
     public Product getProductByCode(String productCode) {
         return productRepository.findByProductCode(productCode);
     }
+
+    public List<ProductionPlan> getAllProductionPlans() {
+        return productionPlanRepository.findAll();
+    }
 }

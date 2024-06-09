@@ -46,6 +46,14 @@ header {
 
 .content {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .sidebar {
@@ -53,6 +61,7 @@ header {
   background-color: #333;
   color: #fff;
   padding: 20px;
+  min-height: 120vh;
 }
 
 .sidebar ul {
@@ -110,17 +119,18 @@ main {
 }
 
 #calendar {
-  display: flex;
+  flex: 8;
   margin: 20px;
-  width: 800px;
-  height: 800px;
+  width: 900px;
+  height: 700px;
 }
 
 #productionPlanForm {
+  flex: 4;
   margin: 83px 40px;
   padding: 20px;
-  width: 400px;
-  height: 550px;
+  width: 300px;
+  height: 600px;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
@@ -138,7 +148,7 @@ main {
 
 .production-plan-form input[type="date"],
 .production-plan-form input[type="text"] {
-  width: 94%;
+  width: 94.5%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -166,4 +176,51 @@ main {
 
 .production-plan-form button:hover {
   background-color: #04495d;
+}
+
+#productionPlanTable {
+  width: 1260px;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin-left: 20px;
+  border-radius: 15px;
+}
+
+#productionPlanTable thead {
+  background-color: #066278;
+  color: #fff;
+}
+
+#productionPlanTable th, #productionPlanTable td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  width: calc(100% / 9);
+}
+
+#productionPlanTable th {
+  position: sticky;
+  top: 0;
+}
+
+#productionPlanTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#productionPlanTable tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+#productionPlanTable button {
+  background-color: #066278;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#productionPlanTable button:hover {
+  background-color: #054d5d;
 }

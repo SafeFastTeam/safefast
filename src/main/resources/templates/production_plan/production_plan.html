@@ -14,36 +14,69 @@
   <div class="container">
       <th:block th:replace="~{/fragments/fragment2}"></th:block>
       <div class="content">
-        <div id='calendar'></div>
-        <div id="productionPlanForm">
-          <h3>생산 계획 입력</h3>
-          <form th:object="${productionPlan}" th:action="@{/productionPlan/save}" method="post" class="production-plan-form">
-            <div class="form-group">
-              <label for="productCode">생산제품</label>
-              <select id="productCode" name="productCode" class="form-control">
-                <option value="">생산 제품 선택</option>
-                <option th:each="product : ${products}" th:value="${product.productCode}" th:text="${product.productName + '  ' + product.productCode}"></option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="prodStartDate">생산 시작일</label>
-              <input type="date" id="prodStartDate" name="prodStartDate" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="prodEndDate">생산 종료일</label>
-              <input type="date" id="prodEndDate" name="prodEndDate" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="prodQuantity">생산 수량</label>
-              <input type="text" id="prodQuantity" name="prodQuantity" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="procureTerm">L/T</label>
-              <input type="text" id="procureTerm" name="procureTerm" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">저장</button>
-          </form>
+        <div class="top-section">
+          <div id='calendar'></div>
+          <div id="productionPlanForm">
+            <h3>생산 계획 입력</h3>
+            <form th:object="${productionPlan}" th:action="@{/productionPlan/save}" method="post" class="production-plan-form">
+              <div class="form-group">
+                <label for="productCode">생산제품</label>
+                <select id="productCode" name="productCode" class="form-control">
+                  <option value="">생산 제품 선택</option>
+                  <option th:each="product : ${products}" th:value="${product.productCode}" th:text="${product.productName + '  ' + product.productCode}"></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="prodStartDate">생산 시작일</label>
+                <input type="date" id="prodStartDate" name="prodStartDate" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="prodEndDate">생산 종료일</label>
+                <input type="date" id="prodEndDate" name="prodEndDate" class="form-control">
+              </div>
+              <button type="button" onclick="clearDates()">날짜 초기화</button><br><br>
+              <div class="form-group">
+                <label for="prodQuantity">생산 수량</label>
+                <input type="text" id="prodQuantity" name="prodQuantity" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="procureTerm">L/T</label>
+                <input type="text" id="procureTerm" name="procureTerm" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-primary">저장</button>
+            </form>
+          </div>
         </div>
+        <!-- 생산 계획 테이블 -->
+        <table id="productionPlanTable">
+          <thead>
+          <tr>
+            <th>생산시작일</th>
+            <th>생산종료일</th>
+            <th>생산제품코드</th>
+            <th>생산제품명</th>
+            <th>생산수량</th>
+            <th>품목코드</th>
+            <th>품목명</th>
+            <th>사업자번호</th>
+            <th>조달계획등록</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="productionPlan : ${productionPlans}">
+            <td th:text="${productionPlan.prodStartDate}"></td>
+            <td th:text="${productionPlan.prodEndDate}"></td>
+            <td th:text="${productionPlan.product.productCode}"></td>
+            <td th:text="${productionPlan.product.productName}"></td>
+            <td th:text="${productionPlan.prodQuantity}"></td>
+            <td th:text="${productionPlan.item != null && productionPlan.item.itemCode != null ? productionPlan.item.itemCode : 'N/A'}"></td>
+            <td th:text="${productionPlan.item != null && productionPlan.item.itemName != null ? productionPlan.item.itemName : 'N/A'}"></td>
+            <td th:text="${productionPlan.coOpCompany != null && productionPlan.coOpCompany.businessNumber != null ? productionPlan.coOpCompany.businessNumber : 'N/A'}"></td>
+            <td><button class="btn btn-primary">등록</button></td>
+          </tr>
+          </tbody>
+        </table>
+
       </div>
   </div>
 
@@ -60,15 +93,48 @@
           if (!prodStartDate) { // 생산 시작일이 입력되지 않은 경우
             if (confirm('생산 시작일로 설정하시겠습니까?')) {
               document.getElementById('prodStartDate').value = info.dateStr; // 클릭한 날짜를 시작일 입력란에 설정
+              addEventToCalendar(info.dateStr, '생산 시작일', '#66ccff');
             }
           } else { // 생산 시작일이 이미 입력된 경우
             if (confirm('생산 종료일로 설정하시겠습니까?')) {
               document.getElementById('prodEndDate').value = info.dateStr; // 클릭한 날짜를 종료일 입력란에 설정
+              addEventToCalendar(info.dateStr, '생산 종료일', '#ff6666');
             }
           }
         }
       });
+
       calendar.render();
+
+      function addEventToCalendar(dateStr, title, color) {
+        calendar.addEvent({
+          title: title,
+          start: dateStr,
+          allDay: true,
+          backgroundColor: color,
+          borderColor: color
+        });
+      }
+
+      document.getElementById('prodStartDate').addEventListener('change', function() {
+        var dateStr = this.value;
+        if (dateStr) {
+          addEventToCalendar(dateStr, '생산 시작일', '#66ccff');
+        }
+      });
+
+      document.getElementById('prodEndDate').addEventListener('change', function() {
+        var dateStr = this.value;
+        if (dateStr) {
+          addEventToCalendar(dateStr, '생산 종료일', '#ff6666');
+        }
+      });
+
+      window.clearDates = function() {
+        document.getElementById('prodStartDate').value = '';
+        document.getElementById('prodEndDate').value = '';
+        calendar.getEvents().forEach(event => event.remove());
+      }
     });
   </script>
   <script src="/js/index.js"></script>
