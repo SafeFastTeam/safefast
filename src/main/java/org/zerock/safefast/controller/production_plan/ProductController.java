@@ -24,7 +24,9 @@ public class ProductController {
     @GetMapping("/productionPlan")
     public String showProductionPlan(Model model) {
         List<Product> products = productService.getAllProducts();
+        List<ProductionPlan> productionPlans = productService.getAllProductionPlans();
         model.addAttribute("products", products);
+        model.addAttribute("productionPlans", productionPlans);
         model.addAttribute("productionPlan", new ProductionPlan());
         return "production_plan/production_plan";
     }
@@ -43,13 +45,5 @@ public class ProductController {
         productService.saveProductionPlan(productionPlan);
 
         return "redirect:/productionPlan/productionPlan";
-    }
-
-    @GetMapping("/form")
-    public String showProductForm(Model model) {
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products);
-        model.addAttribute("productionPlan", new ProductionPlan());
-        return "productionPlan_form";
     }
 }
