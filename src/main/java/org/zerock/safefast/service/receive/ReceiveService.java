@@ -3,14 +3,19 @@ package org.zerock.safefast.service.receive;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -90,4 +95,17 @@ public class ReceiveService {
     }
 
 
+    public PageResultDTO<PurchaseOrder, PurchaseOrder> getListA(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("purchOrderNumber").descending());
+        Page<PurchaseOrder> result = purchaseOrderRepository.findAll(pageable);
+        Function<PurchaseOrder, PurchaseOrder> fn = Function.identity();
+        return new PageResultDTO<>(result, fn);
+    }
+
+    public PageResultDTO<Receive, Receive> getListB(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("receiveNumber").descending());
+        Page<Receive> result = receiveRepository.findAll(pageable);
+        Function<Receive, Receive> fn = Function.identity();
+        return new PageResultDTO<>(result, fn);
+    }
 }

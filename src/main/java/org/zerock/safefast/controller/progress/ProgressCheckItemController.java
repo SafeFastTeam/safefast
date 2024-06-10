@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
 import org.zerock.safefast.entity.ProgressCheckItem;
 import org.zerock.safefast.entity.PurchaseOrder;
@@ -40,8 +42,9 @@ public class ProgressCheckItemController {
     }
 
     @GetMapping("/progress_check_item")
-    public String progressCheck(Model model) {
+    public String progressCheck(PageRequestDTO pageRequestDTO, Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderService.getAllPurchaseOrders();
+        PageResultDTO<PurchaseOrder, PurchaseOrder> result = progressCheckItemService.getList(pageRequestDTO);
 
         // 각 PurchaseOrder에 대해 maxProgCheckOrder와 maxProgCheckResult 계산
         Map<String, Integer> maxProgCheckOrders = purchaseOrders.stream()
@@ -75,6 +78,7 @@ public class ProgressCheckItemController {
         model.addAttribute("maxProgCheckOrders", maxProgCheckOrders);
         model.addAttribute("sumProgCheckResults", sumProgCheckResults);
         model.addAttribute("maxProgCheckResults", maxProgCheckResults);
+        model.addAttribute("result", result);
         return "/progress_check_item/progress_check_item";
     }
 

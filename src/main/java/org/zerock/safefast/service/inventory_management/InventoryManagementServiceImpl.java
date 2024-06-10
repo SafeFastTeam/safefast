@@ -68,7 +68,7 @@ public class InventoryManagementServiceImpl implements InventoryManagementServic
         return receives.stream()
                 .map(receive -> {
                     Item item = receive.getItem();
-                    Contract contract = item.getContract().stream()
+                    Contract contract = item.getContracts().stream()
                             .findFirst()
                             .orElseThrow(() -> new IllegalStateException("No contract found for item: " + item.getItemCode()));
                     String itemName = item.getItemName();

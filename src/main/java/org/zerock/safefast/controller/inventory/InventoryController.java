@@ -42,7 +42,7 @@ public class InventoryController {
                     .mapToInt(receive -> receive.getReceiveQuantity())
                     .sum();
             int releaseQuantity = release.getReleaseQuantity();
-            int price = release.getItem().getContract().isEmpty() ? 0 : release.getItem().getContract().get(0).getItemPrice();
+            int price = release.getItem().getContracts().isEmpty() ? 0 : release.getItem().getContracts().get(0).getItemPrice();
             int initialQuantity = 0; // Assuming initial quantity is 0
             int finalQuantity = initialQuantity + receiveQuantity - releaseQuantity;
             int totalAmount = finalQuantity * price;

@@ -1,16 +1,18 @@
 package org.zerock.safefast.service.releases;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.zerock.safefast.dto.receive.ReleasesDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -43,8 +45,21 @@ public class ReleasesService {
         log.info("Quantity entity updated successfully: {}", quantityEntity);
     }
 
-//    public List<Quantity> getAllQuantity() {
-//        return quantityRepository.findAll();
-//    }
+    public PageResultDTO<Quantity, Quantity> getListA(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("quantityId").descending());
+        Page<Quantity> result = quantityRepository.findAll(pageable);
+        Function<Quantity, Quantity> fn = Function.identity();
+        return new PageResultDTO<>(result, fn);
+    }
+
+    public PageResultDTO<Releases, Releases> getListB(PageRequestDTO pageRequestDTO) {
+        // 내림차순으로 정렬된 페이지 정보를 가져옵니다.
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("releaseNumber").descending());
+        // 모든 항목을 가져오도록 수정합니다.
+        Page<Releases> result = releasesRepository.findAll(pageable);
+        Function<Releases, Releases> fn = Function.identity();
+        return new PageResultDTO<>(result, fn);
+    }
+
 
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.safefast.dto.inventory_management.InventoryValueDTO;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.ItemRepository;
@@ -35,15 +37,23 @@ public class ReceiveController {
     private final InventoryManagementServiceImpl inventoryManagementServiceImpl;
 
     @GetMapping("/receive")
-    public String showReceivePage(Model model) {
+    public String showReceivePage(PageRequestDTO pageRequestDTO, Model model) {
         List<PurchaseOrder> purchaseOrderList = receiveService.getAllPurchaseOrder();
         List<Quantity> quantityList = receiveService.getAllQuantity();
         List<Releases> releasesList = receiveService.getAllReleases();
         List<Receive> receiveList = receiveService.getAllReceive();
+        PageResultDTO<PurchaseOrder, PurchaseOrder> resultA = receiveService.getListA(pageRequestDTO);
+        PageResultDTO<Receive, Receive> resultB= receiveService.getListB(pageRequestDTO);
+        PageResultDTO<Quantity, Quantity> resultC= releasesService.getListA(pageRequestDTO);
+        PageResultDTO<Releases, Releases> resultD= releasesService.getListB(pageRequestDTO);
         model.addAttribute("purchases", purchaseOrderList);
         model.addAttribute("quantities", quantityList);
         model.addAttribute("releases", releasesList);
         model.addAttribute("receives", receiveList);
+        model.addAttribute("resultA", resultA);
+        model.addAttribute("resultB", resultB);
+        model.addAttribute("resultC", resultC);
+        model.addAttribute("resultD", resultD);
         return "receive/receive";
     }
 
