@@ -76,7 +76,6 @@
             <th>품목코드</th>
             <th>품목명</th>
             <th>사업자번호</th>
-            <th>조달계획등록</th>
           </tr>
           </thead>
           <tbody>
@@ -89,11 +88,26 @@
             <td th:text="${productionPlan.item != null && productionPlan.item.itemCode != null ? productionPlan.item.itemCode : 'N/A'}"></td>
             <td th:text="${productionPlan.item != null && productionPlan.item.itemName != null ? productionPlan.item.itemName : 'N/A'}"></td>
             <td th:text="${productionPlan.coOpCompany != null && productionPlan.coOpCompany.businessNumber != null ? productionPlan.coOpCompany.businessNumber : 'N/A'}"></td>
-            <td><button class="btn btn-primary">등록</button></td>
           </tr>
           </tbody>
         </table>
-
+        <div th:if="${totalPages > 1}">
+          <ul class="pagination">
+            <li th:class="${currentPage == 0} ? 'disabled' : ''">
+              <a th:href="@{'/productionPlan/productionPlan?page=' + ${currentPage - 1} + '&size=' + ${pageSize}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${page == currentPage} ? 'active' : ''">
+              <a th:href="@{'/productionPlan/productionPlan?page=' + ${page} + '&size=' + ${pageSize}}" th:text="${page + 1}"></a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1} ? 'disabled' : ''">
+              <a th:href="@{'/productionPlan/productionPlan?page=' + ${currentPage + 1} + '&size=' + ${pageSize}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
   </div>
 
