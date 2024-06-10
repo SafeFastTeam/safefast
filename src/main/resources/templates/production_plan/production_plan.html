@@ -68,8 +68,8 @@
         <table id="productionPlanTable">
           <thead>
           <tr>
-            <th>생산시작일</th>
-            <th>생산종료일</th>
+            <th>생산시작일<i class="fas fa-sort" data-column="0"></i></th>
+            <th>생산종료일<i class="fas fa-sort" data-column="1"></i></th>
             <th>생산제품코드</th>
             <th>생산제품명</th>
             <th>생산수량</th>
@@ -168,6 +168,109 @@
       }
     });
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const ASCENDING = 'ascending';
+      const DESCENDING = 'descending';
+
+      var sortDirection = [];
+
+      function sortTable(columnIndex, direction) {
+        var $table = $("#productionPlanTable");
+        var rows = $table.find('tbody > tr').get();
+
+        rows.sort(function (rowA, rowB) {
+          var cellA = $(rowA).children('td').eq(columnIndex).text().trim();
+          var cellB = $(rowB).children('td').eq(columnIndex).text().trim();
+
+          // 날짜 형식인 경우 정렬을 위해 Date 객체로 변환
+          if (columnIndex === 0 || columnIndex === 1) {
+            cellA = new Date(cellA);
+            cellB = new Date(cellB);
+          }
+
+          if (direction === ASCENDING) {
+            return cellA > cellB ? 1 : -1;
+          } else {
+            return cellA < cellB ? 1 : -1;
+          }
+        });
+
+        // 정렬된 행을 다시 테이블에 추가
+        $.each(rows, function (index, row) {
+          $table.children('tbody').append(row);
+        });
+      }
+
+      function updateSortIcon($columnHeader, direction) {
+        // 이전에 설정된 아이콘을 제거합니다.
+        $columnHeader.closest('thead').find('i').removeClass('fas fa-sort-up fas fa-sort-down');
+
+        // 정렬 방향에 따라 아이콘을 설정합니다.
+        if (direction === ASCENDING) {
+          $columnHeader.find('i').addClass('fas fa-sort-up');
+        } else {
+          $columnHeader.find('i').addClass('fas fa-sort-down');
+        }
+      }
+
+      // 테이블 헤더 클릭 이벤트
+      $("#productionPlanTable th").on('click', function () {
+        var columnIndex = $(this).index();
+        var direction = sortDirection[columnIndex] === ASCENDING ? DESCENDING : ASCENDING;
+
+        // 모든 열의 정렬 방향 초기화
+        $.each(sortDirection, function (key) {
+          sortDirection[key] = null;
+        });
+
+        sortTable(columnIndex, direction);
+        updateSortIcon($(this), direction);
+
+        sortDirection[columnIndex] = direction;
+      });
+
+      // 테이블의 열 순서 변경 기능
+      var $table = $("#productionPlanTable");
+
+      // 초기 th에 data-index 추가
+      $table.find("thead th").each(function (index) {
+        $(this).data("index", index);
+      });
+
+      $table.find("thead tr").sortable({
+        items: "th",
+        cursor: "move",
+        placeholder: "sortable-placeholder",
+        forcePlaceholderSize: true,
+        axis: "x",
+        update: function (event, ui) {
+          var $th = ui.item;
+          var newIndex = $th.index();
+          var oldIndex = $th.data("index");
+
+          // 모든 행의 열 순서를 바꿈
+          $table.find("tbody tr").each(function () {
+            var $row = $(this);
+            if (newIndex > oldIndex) {
+              $row.children().eq(oldIndex).insertAfter($row.children().eq(newIndex - 1));
+            } else {
+              $row.children().eq(oldIndex).insertBefore($row.children().eq(newIndex));
+            }
+          });
+
+          // 새 인덱스를 데이터에 저장
+          $table.find("thead th").each(function (index) {
+            $(this).data("index", index);
+          });
+        }
+      }).disableSelection();
+    });
+
+  </script>
+
   <script src="/js/index.js"></script>
 </body>
 </html>
