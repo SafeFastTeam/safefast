@@ -17,7 +17,7 @@
         <div class="top-section">
           <div id='calendar'></div>
           <div id="productionPlanForm">
-            <h3>생산 계획 입력</h3>
+            <h2>생산 계획 입력</h2>
             <form th:object="${productionPlan}" th:action="@{/productionPlan/save}" method="post" class="production-plan-form">
               <div class="form-group">
                 <label for="productCode">생산제품</label>
@@ -39,6 +39,23 @@
                 <label for="prodQuantity">생산 수량</label>
                 <input type="text" id="prodQuantity" name="prodQuantity" class="form-control">
               </div>
+              <!-- 부품 및 회사 선택 섹션 -->
+              <div class="form-group">
+                <label for="itemCode">부품 선택</label>
+                <select id="itemCode" name="itemCode" class="form-control">
+                  <option th:each="item : ${items}" th:value="${item.itemCode}" th:text="${item.itemName + '  ' + item.itemCode}"></option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="businessNumber">회사 선택</label>
+                <select id="businessNumber" name="businessNumber" class="form-control">
+                  <option th:each="company : ${coOpCompanies}" th:value="${company.businessNumber}" th:text="${company.companyName + '  ' + company.businessNumber}"></option>
+                </select>
+              </div>
+<!--              <div class="form-group">-->
+<!--                <label for="quantityInput">부품 수량 입력</label>-->
+<!--                <input type="text" id="quantityInput" name="procQuantity" class="form-control">-->
+<!--              </div>-->
               <div class="form-group">
                 <label for="procureTerm">L/T</label>
                 <input type="text" id="procureTerm" name="procureTerm" class="form-control">
