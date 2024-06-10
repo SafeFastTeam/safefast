@@ -70,14 +70,14 @@ public class InventoryService {
 
     // 해당 품목에 대한 입고 수량을 데이터베이스에서 조회하여 반환하는 메서드
 //    private int calculateIncomingQuantity(Item item) {
-        // 데이터베이스에서 해당 품목에 대한 입고 수량을 조회하여 반환하는 로직을 작성
+    // 데이터베이스에서 해당 품목에 대한 입고 수량을 조회하여 반환하는 로직을 작성
 /*        Integer incomingQuantity = receiveRepository.sumQuantityByItem(item);
         return incomingQuantity != null ? incomingQuantity : 0;*/
 //    }
 
     // 해당 품목에 대한 출고 수량을 계산하여 반환하는 메서드
 //    private int calculateOutgoingQuantity(Item item) {
-        // 데이터베이스에서 해당 품목에 대한 출고 수량을 조회하여 반환하는 로직을 작성
+    // 데이터베이스에서 해당 품목에 대한 출고 수량을 조회하여 반환하는 로직을 작성
 /*        String itemCode = item.getItemCode(); // 아이템의 itemCode 가져오기
         Integer outgoingQuantity = releasesRepository.sumQuantityByItem(itemCode);
         return outgoingQuantity != null ? outgoingQuantity : 0;*/
@@ -85,7 +85,7 @@ public class InventoryService {
 
     // 해당 품목에 대한 단가(원)를 계산하는 메서드
 //    private int calculateUnitPrice(Item item) {
-        // ContractRepository를 사용하여 해당 품목에 대한 계약 정보를 조회합니다.
+    // ContractRepository를 사용하여 해당 품목에 대한 계약 정보를 조회합니다.
 /*        Contract contract = contractRepository.findByItem(item)
                 .orElseThrow(() -> new RuntimeException("해당 품목에 대한 계약 정보를 찾을 수 없습니다."));
 
