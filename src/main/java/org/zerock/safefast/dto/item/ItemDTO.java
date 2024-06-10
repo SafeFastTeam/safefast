@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.zerock.safefast.dto.contract.ContractDTO;
+
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -19,5 +22,6 @@ public class ItemDTO {
     private String material;
     private String blueprintOriginName;
     private String blueprintSaveName;
+    private List<ContractDTO> contracts;
 
 }

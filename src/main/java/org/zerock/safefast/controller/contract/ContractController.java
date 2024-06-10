@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.safefast.dto.contract.ContractDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
 import org.zerock.safefast.dto.page.PageRequestDTO;
 import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.service.contract.ContractService;
@@ -48,7 +49,7 @@ public class ContractController {
     public String showContract(PageRequestDTO pageRequestDTO, Model model) {
         List<Item> items = contractService.getAllItems();
         List<Contract> contracts = contractService.getAllContracts();
-        PageResultDTO<ContractDTO, Contract> result = contractService.getLists(pageRequestDTO);
+        PageResultDTO<ItemDTO, Item> result = contractService.getLists(pageRequestDTO);
 
         model.addAttribute("items", items);
         model.addAttribute("contracts", contracts);

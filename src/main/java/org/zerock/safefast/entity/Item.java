@@ -61,7 +61,7 @@ public class Item {
     private Part part;
 
     @OneToMany(mappedBy = "item")
-    private List<Contract> contract;
+    private List<Contract> contracts;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore

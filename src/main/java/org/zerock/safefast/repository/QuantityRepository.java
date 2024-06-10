@@ -13,7 +13,7 @@ public interface QuantityRepository extends JpaRepository <Quantity, Integer> {
     // 대분류 상위 6개 재고금액 조회
     @Query("SELECT q.item.unit.unitName, SUM(q.allQuantity * c.itemPrice) AS totalInventoryValue " +
             "FROM Quantity q " +
-            "JOIN q.item.contract c " +
+            "JOIN q.item.contracts c " +
             "GROUP BY q.item.unit.unitName " +
             "ORDER BY totalInventoryValue DESC")
     List<Object[]> findInventoryValueByUnit();
@@ -21,7 +21,7 @@ public interface QuantityRepository extends JpaRepository <Quantity, Integer> {
     // 중분류 상위 6개 재고금액 조회
     @Query("SELECT q.item.assy.assyName, SUM(q.allQuantity * c.itemPrice) AS totalInventoryValue " +
             "FROM Quantity q " +
-            "JOIN q.item.contract c " +
+            "JOIN q.item.contracts c " +
             "GROUP BY q.item.assy.assyName " +
             "ORDER BY totalInventoryValue DESC")
     List<Object[]> findInventoryValueByAssy();
@@ -29,7 +29,7 @@ public interface QuantityRepository extends JpaRepository <Quantity, Integer> {
     // 소분류 상위 6개 재고금액 조회
     @Query("SELECT q.item.part.partName, SUM(q.allQuantity * c.itemPrice) AS totalInventoryValue " +
             "FROM Quantity q " +
-            "JOIN q.item.contract c " +
+            "JOIN q.item.contracts c " +
             "GROUP BY q.item.part.partName " +
             "ORDER BY totalInventoryValue DESC")
     List<Object[]> findInventoryValueByPart();

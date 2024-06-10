@@ -1,8 +1,13 @@
 package org.zerock.safefast.service.purchase_order;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderResponse;
 import org.zerock.safefast.entity.*;
@@ -11,16 +16,16 @@ import org.zerock.safefast.repository.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class PurchaseOrderService {
 
-    @Autowired
-    private PurchaseOrderRepository purchaseOrderRepository;
+    private final ProcurementPlanRepository procurementPlanRepository;
 
     @Autowired
-    private ProcurementPlanRepository procurementPlanRepository;
+    private PurchaseOrderRepository purchaseOrderRepository;
 
     @Autowired
     private QuantityRepository quantityRepository;
@@ -32,12 +37,21 @@ public class PurchaseOrderService {
     @Autowired
     private ReceiveRepository receiveRepository;
 
+
     @Autowired
     private ItemRepository itemRepository;
 
     @Autowired
-    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository) {
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, ProcurementPlanRepository procurementPlanRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
+        this.procurementPlanRepository = procurementPlanRepository;
+    }
+
+    public  PageResultDTO<ProcurementPlan, ProcurementPlan> getList(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("procPlanNumber").descending());
+        Page<ProcurementPlan> result = procurementPlanRepository.findAll(pageable);
+        Function<ProcurementPlan, ProcurementPlan> fn = Function.identity();
+        return new PageResultDTO<>(result, fn);
     }
 
 

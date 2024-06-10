@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.safefast.dto.contract.ContractDTO;
+import org.zerock.safefast.dto.item.ItemDTO;
 import org.zerock.safefast.dto.page.PageRequestDTO;
 import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.entity.Contract;
@@ -28,6 +29,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +39,34 @@ public class ContractService {
     private final ContractRepository contractRepository;
     private final ItemRepository itemRepository;
 
-    public PageResultDTO<ContractDTO, Contract> getLists(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("contractNumber").descending());
-        Page<Contract> result = contractRepository.findAll(pageable);
-
-        // Contract를 ContractDTO로 변환하는 함수 정의
-        Function<Contract, ContractDTO> fn = this::entityDto;
-
-        // 변환 함수를 이용하여 PageResultDTO 생성 후 반환
+    public PageResultDTO<ItemDTO, Item> getLists(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("itemCode").descending());
+        Page<Item> result = itemRepository.findAll(pageable);
+        Function<Item, ItemDTO> fn = this::entityToDto;
         return new PageResultDTO<>(result, fn);
     }
 
-    public ContractDTO entityDto(Contract entity) {
-        ContractDTO dto = ContractDTO.builder()
+
+    public ItemDTO entityToDto(Item entity) {
+        ItemDTO dto = ItemDTO.builder()
+                .itemCode(entity.getItemCode())
+                .itemName(entity.getItemName())
+                .width(entity.getWidth())
+                .length(entity.getLength())
+                .height(entity.getHeight())
+                .material(entity.getMaterial())
+                .blueprintOriginName(entity.getBlueprintOriginName())
+                .blueprintSaveName(entity.getBlueprintSaveName())
+                .contracts(entity.getContracts().stream()
+                        .map(this::contractToDto)
+                        .collect(Collectors.toList()))
+                .build();
+
+        return dto;
+    }
+
+    public ContractDTO contractToDto(Contract entity) {
+        ContractDTO contractDTO = ContractDTO.builder()
                 .contractNumber(entity.getContractNumber())
                 .itemPrice(entity.getItemPrice())
                 .leadTime(entity.getLeadTime())
@@ -61,7 +78,7 @@ public class ContractService {
                 .contractOriginName(entity.getContractOriginName())
                 .contractSaveName(entity.getContractSaveName())
                 .build();
-        return dto;
+        return contractDTO;
     }
 
     @Value("${file.upload-dir}")

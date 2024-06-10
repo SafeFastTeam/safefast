@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.zerock.safefast.dto.page.PageRequestDTO;
+import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.purchase_order.PurchaseOrderRequest;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
@@ -54,6 +56,7 @@ public class PurchaseOrderController {
     @PostMapping("/purchase_order")
     public String createPurchaseOrder(@ModelAttribute PurchaseOrder purchaseOrder, Model model) {
         model.addAttribute("purchaseOrder", purchaseOrder);
+
         return "redirect:/purchase_order/purchase_order";
     }
 
@@ -106,8 +109,11 @@ public class PurchaseOrderController {
     }
 
     @GetMapping("/purchase_order")
-    public String showPurchaseOrderPage(Model model) {
+    public String showPurchaseOrderPage(PageRequestDTO pageRequestDTO, Model model) {
         List<ProcurementPlan> procurementPlans = procurementPlanService.getAllProcurementPlans();
+        PageResultDTO<ProcurementPlan, ProcurementPlan> result = purchaseOrderService.getList(pageRequestDTO);
+
+        model.addAttribute("result", result);
         model.addAttribute("procurementPlans", procurementPlans);
         return "purchase_order/purchase_order";
     }

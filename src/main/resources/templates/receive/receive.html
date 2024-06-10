@@ -38,21 +38,37 @@
         </tr>
         </thead>
         <tbody id="procurement-plan-list">
-          <tr th:each="purchase : ${purchases}"
-              th:classappend="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity == purchase.purchOrderQuantity} ? 'hidden' : ''">
-            <td th:text="${purchase.purchOrderNumber}"></td>
-            <td th:text="${purchase.coOpCompany.companyName}"></td>
-            <td th:text="${purchase.item.itemName}"></td>
-            <td th:text="${purchase.purchOrderDate}"></td>
-            <td th:text="${purchase.receiveDuedate}"></td>
-            <td th:text="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity}"></td>
-            <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
-            <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
-            <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
-            <td><button id="issue-order-btn" class="button">저장</button></td>
-          </tr>
+        <tr th:each="purchase : ${resultA.dtoList}"
+            th:classappend="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity == purchase.purchOrderQuantity} ? 'hidden' : ''">
+          <td th:text="${purchase.purchOrderNumber}"></td>
+          <td th:text="${purchase.coOpCompany.companyName}"></td>
+          <td th:text="${purchase.item.itemName}"></td>
+          <td th:text="${purchase.purchOrderDate}"></td>
+          <td th:text="${purchase.receiveDuedate}"></td>
+          <td th:text="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity}"></td>
+          <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
+          <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
+          <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
+          <td><button id="issue-order-btn" class="button">저장</button></td>
+        </tr>
         </tbody>
       </table>
+      <div class="pagination1">
+        <ul>
+          <!-- 이전 페이지 링크 -->
+          <li th:if="${resultA.page > 1}">
+            <a th:href="@{'/receive/receive?page=' + ${resultA.page - 1}}" class="page-btn">Previous</a>
+          </li>
+          <!-- 페이지 번호 링크 -->
+          <li th:each="pageNum : ${#numbers.sequence(1, resultA.totalPage)}" th:class="${pageNum == resultA.page} ? 'active' : ''">
+            <a th:href="@{'/receive/receive?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
+          </li>
+          <!-- 다음 페이지 링크 -->
+          <li th:if="${resultA.page < resultA.totalPage}">
+            <a th:href="@{'/receive/receive?page=' + ${resultA.page + 1}}" class="page-btn">Next</a>
+          </li>
+        </ul>
+      </div>
       <div class="ten">
         <h2>자재 출고</h2>
       </div>
@@ -69,7 +85,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="quantity: ${quantities}" th:classappend="${quantity.allQuantity == 0} ? 'hidden' : ''">
+        <tr th:each="quantity: ${resultC.dtoList}" th:classappend="${quantity.allQuantity == 0} ? 'hidden' : ''">
           <td th:text="${quantity.productionPlan.prodPlanCode}"></td>
           <td th:text="${quantity.productionPlan.product.productName}"></td>
           <td th:text="${quantity.item.itemName}"></td>
@@ -81,6 +97,22 @@
         </tr>
         </tbody>
       </table>
+      <div class="pagination2">
+        <ul>
+          <!-- 이전 페이지 링크 -->
+          <li th:if="${resultC.page > 1}">
+            <a th:href="@{'/receive/receive?page=' + ${resultC.page - 1}}" class="page-btn">Previous</a>
+          </li>
+          <!-- 페이지 번호 링크 -->
+          <li th:each="pageNum : ${#numbers.sequence(1, resultC.totalPage)}" th:class="${pageNum == resultC.page} ? 'active' : ''">
+            <a th:href="@{'/receive/receive?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
+          </li>
+          <!-- 다음 페이지 링크 -->
+          <li th:if="${resultC.page < resultC.totalPage}">
+            <a th:href="@{'/receive/receive?page=' + ${resultC.page + 1}}" class="page-btn">Next</a>
+          </li>
+        </ul>
+      </div>
     </section>
     <section class="purchase-order">
       <div class="ten">
@@ -113,19 +145,30 @@
         </tr>
         </thead>
         <tbody id="purchase-order-list">
-          <tr th:each="receive : ${receives}">
-            <td th:text="${receive.purchaseOrder.purchOrderNumber}"></td>
-            <td th:text="${receive.purchaseOrder.coOpCompany.companyName}"></td>
-            <td th:text="${receive.purchaseOrder.item.itemName}"></td>
-            <td th:text="${receive.receiveDate}"></td>
-            <td th:text="${receive.receiveQuantity}"></td>
-          </tr>
+        <tr th:each="receive : ${resultB.dtoList}">
+          <td th:text="${receive.purchaseOrder.purchOrderNumber}"></td>
+          <td th:text="${receive.purchaseOrder.coOpCompany.companyName}"></td>
+          <td th:text="${receive.purchaseOrder.item.itemName}"></td>
+          <td th:text="${receive.receiveDate}"></td>
+          <td th:text="${receive.receiveQuantity}"></td>
+        </tr>
         </tbody>
       </table>
-      <div class="pagination">
-        <button class="pagination-button">이전</button>
-        <span>1/10 페이지</span>
-        <button class="pagination-button">다음</button>
+      <div class="pagination3">
+        <ul>
+          <!-- 이전 페이지 링크 -->
+          <li th:if="${resultB.page > 1}">
+            <a th:href="@{'/receive/receive?page=' + ${resultB.page - 1}}" class="page-btn">Previous</a>
+          </li>
+          <!-- 페이지 번호 링크 -->
+          <li th:each="pageNum : ${#numbers.sequence(1, resultB.totalPage)}" th:class="${pageNum == resultB.page} ? 'active' : ''">
+            <a th:href="@{'/receive/receive?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
+          </li>
+          <!-- 다음 페이지 링크 -->
+          <li th:if="${resultB.page < resultB.totalPage}">
+            <a th:href="@{'/receive/receive?page=' + ${resultB.page + 1}}" class="page-btn">Next</a>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -160,7 +203,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="release: ${releases}" >
+        <tr th:each="release: ${resultD.dtoList}" >
           <td th:text="${release.quantity.productionPlan.product.productName}"></td>
           <td th:text="${release.quantity.item.itemName}"></td>
           <td th:text="${release.quantity.item.itemCode}"></td>
@@ -169,10 +212,21 @@
         </tr>
         </tbody>
       </table>
-      <div class="pagination">
-        <button class="pagination-button">이전</button>
-        <span>1/10 페이지</span>
-        <button class="pagination-button">다음</button>
+      <div class="pagination4">
+        <ul>
+          <!-- 이전 페이지 링크 -->
+          <li th:if="${resultD.page > 1}">
+            <a th:href="@{'/receive/receive?page=' + ${resultD.page - 1}}" class="page-btn">Previous</a>
+          </li>
+          <!-- 페이지 번호 링크 -->
+          <li th:each="pageNum : ${#numbers.sequence(1, resultD.totalPage)}" th:class="${pageNum == resultD.page} ? 'active' : ''">
+            <a th:href="@{'/receive/receive?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
+          </li>
+          <!-- 다음 페이지 링크 -->
+          <li th:if="${resultD.page < resultD.totalPage}">
+            <a th:href="@{'/receive/receive?page=' + ${resultD.page + 1}}" class="page-btn">Next</a>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -214,6 +268,7 @@
         dataType: 'json',
         success: function(response) {
           alert('등록되었습니다.');
+          window.location.href = "/receive/receive";
         },
         error: function (xhr, status, error) {
           var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '등록에 실패했습니다.';
@@ -253,18 +308,14 @@
       $.ajax({
         type: "POST",
         url: "/receive/add",
-        data: {
-          releaseQuantity: releaseQuantity,
-          itemCode: itemCode,
-          quantityId: quantityId
-        },
+        data: data,
         success: function (response) {
           // 서버로부터의 응답 데이터를 콘솔에 출력합니다.
           console.log(response);
           // 성공적인 메시지를 사용자에게 표시할 수 있습니다.
           alert('출고가 성공적으로 등록되었습니다.');
           // 성공적으로 처리되었다는 메시지 등을 표시할 수 있습니다.
-          window.location.href = "/receive/receive"
+          window.location.href = "/receive/receive";
         },
         error: function (xhr, status, error) {
           // 오류 메시지를 콘솔에 출력합니다.
