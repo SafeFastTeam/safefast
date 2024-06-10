@@ -122,17 +122,23 @@ main {
   flex: 8;
   margin: 20px;
   width: 900px;
-  height: 700px;
+  height: 850px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.fc-day:hover {
+  background-color: #fddde7;
 }
 
 #productionPlanForm {
   flex: 4;
-  margin: 83px 40px;
-  padding: 20px;
+  margin: 70px 10px;
+  padding: 0 20px;
   width: 300px;
-  height: 600px;
+  height: 800px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.62);
 }
 
 .production-plan-form .form-group {

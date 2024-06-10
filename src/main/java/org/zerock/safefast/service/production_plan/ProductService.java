@@ -1,11 +1,12 @@
 package org.zerock.safefast.service.production_plan;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.safefast.entity.Product;
 import org.zerock.safefast.entity.ProductionPlan;
-import org.zerock.safefast.repository.ProductRepository;
-import org.zerock.safefast.repository.ProductionPlanRepository;
+import org.zerock.safefast.entity.ProductionPlanItem;
+import org.zerock.safefast.repository.*;
 
 import java.util.List;
 
@@ -14,23 +15,27 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductionPlanRepository productionPlanRepository;
+    private final ItemRepository itemRepository;
+    private final CoOpCompanyRepository coOpCompanyRepository;
+    private final ProductionPlanItemRepository productionPlanItemRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductionPlanRepository productionPlanRepository) {
+    public ProductService(ProductRepository productRepository, ProductionPlanRepository productionPlanRepository, ProductionPlanItemRepository productionPlanItemRepository, ItemRepository itemRepository, CoOpCompanyRepository coOpCompanyRepository) {
+        this.productionPlanItemRepository = productionPlanItemRepository;
+        this.itemRepository = itemRepository;
+        this.coOpCompanyRepository = coOpCompanyRepository;
         this.productRepository = productRepository;
         this.productionPlanRepository = productionPlanRepository;
     }
 
-    public void saveProductionPlan(ProductionPlan productionPlan) {
-        generateProdPlanCode(productionPlan);
+    public void saveProductionPlan(ProductionPlan productionPlan, List<ProductionPlanItem> productionPlanItems) {
+        generateProdPlanCode(productionPlan); // prodPlanCode 생성
 
-        Product product = productionPlan.getProduct();
-
-        // 제품이 존재하지 않으면 저장
-        if (product != null && productRepository.findByProductCode(product.getProductCode()) == null) {
-            productRepository.save(product);
-        }
         productionPlanRepository.save(productionPlan);
+        for (ProductionPlanItem item : productionPlanItems) {
+            item.setProductionPlan(productionPlan);
+            productionPlanItemRepository.save(item);
+        }
     }
 
     private void generateProdPlanCode(ProductionPlan productionPlan) {

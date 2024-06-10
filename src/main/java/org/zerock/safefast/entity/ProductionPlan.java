@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,6 +44,9 @@ public class ProductionPlan {
     @ManyToOne
     @JoinColumn(name = "businessNumber")
     private CoOpCompany coOpCompany;
+
+    @OneToMany(mappedBy = "productionPlan", cascade = CascadeType.ALL)
+    private List<ProductionPlanItem> productionPlanItems = new ArrayList<>();
 
     // @PrePersist를 사용하여 엔티티가 영구 저장되기 전에 prodPlanCode를 생성합니다.
     @PrePersist
