@@ -2,6 +2,8 @@ package org.zerock.safefast.service.production_plan;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.zerock.safefast.entity.Product;
 import org.zerock.safefast.entity.ProductionPlan;
@@ -62,5 +64,9 @@ public class ProductService {
 
     public List<ProductionPlan> getAllProductionPlans() {
         return productionPlanRepository.findAll();
+    }
+
+    public Page<ProductionPlan> findAll(Pageable pageable) {
+        return productionPlanRepository.findAll(pageable);
     }
 }

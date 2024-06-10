@@ -1,6 +1,8 @@
 package org.zerock.safefast.controller.production_plan;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,17 +39,20 @@ public class ProductController {
     }
 
     @GetMapping("/productionPlan")
-    public String showProductionPlan(Model model) {
+    public String showProductionPlan(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        Page<ProductionPlan> productionPlanPage = productService.findAll(PageRequest.of(page, size));
         List<Product> products = productService.getAllProducts();
-        List<ProductionPlan> productionPlans = productionPlanService.findAll();
         model.addAttribute("products", products);
-        model.addAttribute("productionPlans", productionPlans);
         model.addAttribute("productionPlan", new ProductionPlan());
         model.addAttribute("items", itemRepository.findAll());
+        model.addAttribute("productionPlans", productionPlanPage.getContent());
+        model.addAttribute("totalPages", productionPlanPage.getTotalPages());
+        model.addAttribute("currentPage", page);
         model.addAttribute("coOpCompanies", coOpCompanyRepository.findAll());
+        model.addAttribute("pageSize", size);
+
         return "production_plan/production_plan";
     }
-
     @PostMapping("/save")
     public String saveProductionPlan(@RequestParam("productCode") String productCode,
                                      @RequestParam("itemCode") String itemCode,
