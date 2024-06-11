@@ -194,7 +194,7 @@
               <ul>
                   <!-- 이전 페이지 링크 -->
                   <li th:if="${result.page > 1}">
-                      <a th:href="@{'/item/register?page=' + ${result.page - 1}}" class="page-btn">Previous</a>
+                      <a th:href="@{'/item/register?page=' + ${result.page - 1}}" class="page-btn">◀</a>
                   </li>
                   <!-- 페이지 번호 링크 -->
                   <li th:each="pageNum : ${#numbers.sequence(1, result.totalPage)}" th:class="${pageNum == result.page} ? 'active' : ''">
@@ -202,7 +202,7 @@
                   </li>
                   <!-- 다음 페이지 링크 -->
                   <li th:if="${result.page < result.totalPage}">
-                      <a th:href="@{'/item/register?page=' + ${result.page + 1}}" class="page-btn">Next</a>
+                      <a th:href="@{'/item/register?page=' + ${result.page + 1}}" class="page-btn">▶</a>
                   </li>
               </ul>
           </div>
