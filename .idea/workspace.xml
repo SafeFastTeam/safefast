@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f0a711c-a378-4afc-b545-3e2bbccc0e66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/production_plan/production_plan.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/production_plan/production_plan.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/procurement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/procurement.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +43,17 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "Spring Boot.SafefastApplication (1).executor": "Run",
     "Spring Boot.SafefastApplication.executor": "Run",
-    "git-widget-placeholder": "feat/dev/prod01",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/safefast/src/main/resources/static/css",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -56,7 +62,20 @@
       <recent name="C:\safefast\src\main\resources\templates\production_plan" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.SafefastApplication (1)">
+    <configuration name="SafefastApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="org.zerock.safefast.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.zerock.safefast.SafefastApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.zerock.safefast.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SafefastApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="safefast.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.zerock.safefast.SafefastApplication" />
@@ -72,11 +91,16 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.SafefastApplication (1)" />
         <item itemvalue="Spring Boot.SafefastApplication" />
       </list>
     </recent_temporary>
   </component>
   <component name="TaskManager">
     <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

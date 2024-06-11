@@ -5,9 +5,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var form = document.querySelector('form');
         var formData = new FormData(form); // 폼 데이터 가져오기
-        var xhr = new XMLHttpRequest(); // AJAX 객체 생성
 
-        console.log(formData.get('procDueDate')); // 이 값을 확인합니다.
+        // 조달 납기일과 수량 가져오기
+        var procDueDate = formData.get('procDuedate');
+        var procQuantity = formData.get('procQuantity');
+
+        // 조달 납기일이 비어 있는지 확인
+        if (!procDueDate.trim()) {
+            alert('조달납기일을 입력해주세요.');
+            return; // 함수 종료
+        }
+
+        // 수량이 비어 있는지 확인
+        if (!procQuantity.trim()) {
+            alert('조달수량을 입력해주세요.');
+            return; // 함수 종료
+        }
+
+        var xhr = new XMLHttpRequest(); // AJAX 객체 생성
 
         xhr.open('POST', '/procurement/submit_procurement_plan'); // 요청 준비
         xhr.onload = function() {
