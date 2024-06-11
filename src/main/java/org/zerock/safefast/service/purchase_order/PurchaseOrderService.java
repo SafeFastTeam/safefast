@@ -176,4 +176,12 @@ public class PurchaseOrderService {
         int progress = (int) ((double) totalCompletedQuantity / purchaseOrder.getPurchOrderQuantity() * 100);
         return progress;
     }
+
+    public Page<PurchaseOrder> getPurchaseOrders(Pageable pageable) {
+        return purchaseOrderRepository.findAll(pageable);
+    }
+
+    public Page<PurchaseOrder> getPurchaseOrdersByDateRange(LocalDate startDate, LocalDate endDate, Pageable pageable) {
+        return purchaseOrderRepository.findByPurchOrderDateBetween(startDate, endDate, pageable);
+    }
 }
