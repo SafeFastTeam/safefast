@@ -67,20 +67,6 @@ public class ItemController {
         return "item/register";
     }
 
-    // 아래 거가 원본
-/*    @GetMapping("/register")
-    public String showItemRegisterPage(Model model) {
-        List<Unit> units = unitRepository.findAll();
-        List<Assy> assies = assyRepository.findAll();
-        List<Part> parts = partRepository.findAll();
-        List<Item> items = itemService.getAllItems();
-        model.addAttribute("units", units);
-        model.addAttribute("assies", assies);
-        model.addAttribute("parts", parts);
-        model.addAttribute("items", items);
-        return "item/register";
-    }*/
-
     @PostMapping("/register")
     public String registerItem(@RequestParam("unitCode") String unitCode,
                                @RequestParam("assyCode") String assyCode,
@@ -170,37 +156,5 @@ public class ItemController {
             throw new RuntimeException("Failed to encode file name", e);
         }
     }
-
-/*    @GetMapping("/file/{fileName}")
-    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws IOException {
-        Resource resource = itemService.loadFileAsResource(fileName);
-        return ResponseEntity.ok().body(resource);
-    }*/
-
-
-//    @GetMapping("/file/{fileName}")
-//    @ResponseBody
-//    public ResponseEntity<Resource> getFile(@PathVariable String fileName) {
-//        try {
-//            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
-//            Resource resource = new UrlResource(filePath.toUri());
-//
-//            if (!resource.exists()) {
-//                throw new RuntimeException("File not found " + fileName);
-//            }
-//
-//            String contentType = Files.probeContentType(filePath);
-//            if (contentType == null) {
-//                contentType = "application/octet-stream";
-//            }
-//
-//            return ResponseEntity.ok()
-//                    .contentType(MediaType.parseMediaType(contentType))
-//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-//                    .body(resource);
-//        } catch (IOException ex) {
-//            throw new RuntimeException("Error reading file " + fileName, ex);
-//        }
-//    }
 
 }
