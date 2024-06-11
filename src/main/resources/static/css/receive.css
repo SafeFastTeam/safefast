@@ -168,14 +168,18 @@ h2 {
 }
 
 .date-search,
-.keyword-search {
+.keyword-search,
+.keyword-search2{
   display: flex;
   align-items: center;
 }
 
 .date-search input,
+.date-search2 input,
 .keyword-search input,
-.keyword-search select {
+.keyword-search select,
+.keyword-search2 input,
+.keyword-search2 select{
   margin-right: 5px;
   padding: 5px;
   border: 1px solid #ccc;
@@ -184,13 +188,18 @@ h2 {
 
 .date-search input:focus,
 .keyword-search input:focus,
-.keyword-search select:focus {
+.keyword-search select:focus
+.date-search2 input:focus,
+.keyword-search2 input:focus,
+.keyword-search2 select:focus{
   outline: none;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .date-search button,
-.keyword-search button {
+.keyword-search2 button,
+.date-search button,
+.keyword-search2 button{
   margin-right: 5px;
   padding: 5px 10px;
   border: none;
@@ -202,7 +211,9 @@ h2 {
 }
 
 .date-search button:hover,
-.keyword-search button:hover {
+.keyword-search button:hover,
+.date-search2 button:hover,
+.keyword-search2 button:hover{
   background-color: #044b5e;
 }
 
