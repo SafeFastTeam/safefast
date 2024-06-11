@@ -455,27 +455,6 @@
             fileNameDiv.textContent = '선택된 파일이 없습니다.';
         }
     }
-
-/*    해준 스크립트 잠시 주석 처리 // 모달 열기
-    $(document).on("click", ".modalLink", function() {
-        var blueprintSaveName = $(this).text(); // 클릭된 링크의 텍스트 (파일 이름)
-        var imageUrl = "/item/image/" + blueprintSaveName; // 이미지 URL (서버에서 이미지를 제공하는 엔드포인트)
-
-        $("#modalImage").attr("src", imageUrl); // 모달 내 이미지 엘리먼트에 이미지 URL 설정
-        $("#myModal").css("display", "block"); // 모달 표시
-    });
-    // 모달 닫기
-    $(document).on("click", ".close", function() {
-        $("#myModal").css("display", "none"); // 모달 숨기기
-    });
-
-    // 배경 클릭 시 모달 닫기
-    $(document).on("click", function(event) {
-        var modal = document.getElementById("myModal");
-        if (event.target === modal) {
-            $("#myModal").css("display", "none"); // 모달 숨기기
-        }
-    });*/
 </script>
 <script>
     function displayFileName() {

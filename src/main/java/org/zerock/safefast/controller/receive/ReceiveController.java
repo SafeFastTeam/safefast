@@ -11,6 +11,7 @@ import org.zerock.safefast.dto.inventory_management.InventoryValueDTO;
 import org.zerock.safefast.dto.page.PageRequestDTO;
 import org.zerock.safefast.dto.page.PageResultDTO;
 import org.zerock.safefast.dto.receive.ReceiveDTO;
+import org.zerock.safefast.dto.receive.ReleasesDTO;
 import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.ItemRepository;
 import org.zerock.safefast.repository.QuantityRepository;
@@ -70,26 +71,40 @@ public class ReceiveController {
     }
 
     @PostMapping("/add")
-    public String addRelease(@RequestParam("releaseQuantity") Integer releaseQuantity,
-                             @RequestParam("itemCode") String itemCode,
-                             @RequestParam("quantityId") Integer quantityId) {
-
-        Item item = itemRepository.findById(itemCode)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Item: " + itemCode));
-
-        Quantity quantity = quantityRepository.findById(quantityId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid quantityId: " + quantityId));
-
-        Releases releases = Releases.builder()
-                .item(item)
-                .releaseQuantity(releaseQuantity)
-                .quantity(quantity)
-                .build();
-
-        releasesService.registerReleases(releases);
-
-        return "receive/receive";
+    public ResponseEntity<String> addRelease(@RequestBody ReleasesDTO releasesDTO) {
+        log.info("Received DTO: {}", releasesDTO);
+        try {
+            releasesService.addRelease(releasesDTO);
+            return ResponseEntity.ok("{\"message\": \"등록되었습니다.\"}");
+        } catch (Exception e) {
+            log.error("Error while adding receive: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"등록에 실패했습니다.\"}");
+        }
     }
+
+
+
+//    @PostMapping("/add")
+//    public String addRelease(@RequestParam("releaseQuantity") Integer releaseQuantity,
+//                             @RequestParam("itemCode") String itemCode,
+//                             @RequestParam("quantityId") Integer quantityId) {
+//
+//        Item item = itemRepository.findById(itemCode)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid Item: " + itemCode));
+//
+//        Quantity quantity = quantityRepository.findById(quantityId)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid quantityId: " + quantityId));
+//
+//        Releases releases = Releases.builder()
+//                .item(item)
+//                .releaseQuantity(releaseQuantity)
+//                .quantity(quantity)
+//                .build();
+//
+//        releasesService.registerReleases(releases);
+//
+//        return "receive/receive";
+//    }
     @GetMapping("/search")
     public String searchInventoryValuesByDateRange(
             @RequestParam(value = "startDate", required = false) String startDateStr,

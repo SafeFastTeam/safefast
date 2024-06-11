@@ -18,6 +18,6 @@ public class ReleasesDTO {
 
     private String itemCode;
 
-    private Integer id;
+    private Integer quantityId;
 
 }
