@@ -81,12 +81,12 @@ public class PurchaseOrderController {
 
                 purchaseOrderRepository.save(purchaseOrder);
 
-                // Quantity 생성 및 저장
-                Quantity quantity = new Quantity();
-                quantity.setItem(procurementPlan.getItem());
-                quantity.setAllQuantity(0);
-                quantity.setPurchaseOrder(purchaseOrder);
-                quantityRepository.save(quantity);
+                // Quantity 생성 및 purchaseOrder 할당
+                Quantity quantity = quantityRepository.findByItem(procurementPlan.getItem());
+                if (quantity != null) {
+                    quantity.setPurchaseOrder(purchaseOrder);
+                    quantityRepository.save(quantity);
+                }
             }
             Map<String, String> response = new HashMap<>();
             response.put("message", "Purchase orders created successfully");

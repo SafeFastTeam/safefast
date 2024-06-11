@@ -3,6 +3,7 @@ package org.zerock.safefast.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.zerock.safefast.entity.Item;
+import org.zerock.safefast.entity.ProductionPlan;
 import org.zerock.safefast.entity.Quantity;
 
 import java.util.List;
@@ -33,4 +34,5 @@ public interface QuantityRepository extends JpaRepository <Quantity, Integer> {
             "GROUP BY q.item.part.partName " +
             "ORDER BY totalInventoryValue DESC")
     List<Object[]> findInventoryValueByPart();
+
 }

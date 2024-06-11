@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.zerock.safefast.entity.Product;
 import org.zerock.safefast.entity.ProductionPlan;
 import org.zerock.safefast.entity.ProductionPlanItem;
+import org.zerock.safefast.entity.Quantity;
 import org.zerock.safefast.repository.*;
 
 import java.util.List;
@@ -20,14 +21,16 @@ public class ProductService {
     private final ItemRepository itemRepository;
     private final CoOpCompanyRepository coOpCompanyRepository;
     private final ProductionPlanItemRepository productionPlanItemRepository;
+    private final QuantityRepository quantityRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductionPlanRepository productionPlanRepository, ProductionPlanItemRepository productionPlanItemRepository, ItemRepository itemRepository, CoOpCompanyRepository coOpCompanyRepository) {
+    public ProductService(ProductRepository productRepository, ProductionPlanRepository productionPlanRepository, ProductionPlanItemRepository productionPlanItemRepository, ItemRepository itemRepository, CoOpCompanyRepository coOpCompanyRepository, QuantityRepository quantityRepository) {
         this.productionPlanItemRepository = productionPlanItemRepository;
         this.itemRepository = itemRepository;
         this.coOpCompanyRepository = coOpCompanyRepository;
         this.productRepository = productRepository;
         this.productionPlanRepository = productionPlanRepository;
+        this.quantityRepository = quantityRepository;
     }
 
     public void saveProductionPlan(ProductionPlan productionPlan, List<ProductionPlanItem> productionPlanItems) {
@@ -38,6 +41,13 @@ public class ProductService {
             item.setProductionPlan(productionPlan);
             productionPlanItemRepository.save(item);
         }
+
+        // Quantity 생성 및 저장
+        Quantity quantity = new Quantity();
+        quantity.setItem(productionPlan.getItem());
+        quantity.setAllQuantity(0);
+        quantity.setProductionPlan(productionPlan);
+        quantityRepository.save(quantity);
     }
 
     private void generateProdPlanCode(ProductionPlan productionPlan) {
