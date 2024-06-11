@@ -86,7 +86,7 @@
               <thead>
                   <tr>
                       <th>생산시작일 <i class="fas fa-sort" data-column="0"></i></th>
-                      <th>생산종료일 <i class="fas fa-sort" data-column="1"></i></th>
+                      <th>생산종료일</th>
                       <th>생산제품코드</th>
                       <th>생산제품명</th>
                       <th>생산수량</th>
@@ -127,7 +127,7 @@
               <ul class="pagination">
                   <li th:class="${currentPage == 0} ? 'disabled' : ''">
                       <a th:href="@{'/procurement/procurement?page=' + ${currentPage - 1} + '&size=' + ${pageSize}}" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
+                          <span aria-hidden="true">◀</span>
                       </a>
                   </li>
                   <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${page == currentPage} ? 'active' : ''">
@@ -135,7 +135,7 @@
                   </li>
                   <li th:class="${currentPage == totalPages - 1} ? 'disabled' : ''">
                       <a th:href="@{'/procurement/procurement?page=' + ${currentPage + 1} + '&size=' + ${pageSize}}" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
+                          <span aria-hidden="true">▶</span>
                       </a>
                   </li>
               </ul>
