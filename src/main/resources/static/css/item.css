@@ -102,33 +102,66 @@ th {
   background-color: #f1f1f1;
 }
 
-/* 기타 */
-.search-item {
-  margin: 15px 15px 15px 0px;
+/* 검색 CSS */
+.search-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px;
+  clear: both;
 }
 
-select {
-  width: 100%; /* select 요소의 너비를 100%로 설정하여 부모 요소에 맞게 조정합니다. */
+.date-search,
+.keyword-search {
+  display: flex;
+  align-items: center;
+}
+
+.date-search input,
+.keyword-search input,
+.keyword-search select {
+  margin-right: 5px;
   padding: 5px;
-  border-radius: 3px;
   border: 1px solid #ccc;
-  background-color: #fff; /* 배경색을 흰색으로 설정합니다. */
-  appearance: none; /* 기본적인 스타일링을 제거합니다. */
+  border-radius: 3px;
+  font-size: 16px; /* 폰트 크기 추가 */
 }
 
-select:focus {
-  outline: none; /* 선택이 포커스됐을 때의 아웃라인을 제거합니다. */
-  border-color: #066278; /* 포커스 시 테두리 색상을 변경합니다. */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* 포커스 시 그림자 효과를 추가합니다. */
+.date-search input:focus,
+.keyword-search input:focus,
+.keyword-search select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
-select option {
-  font-size: 14px; /* option 요소의 글꼴 크기를 조정할 수 있습니다. */
-  padding: 5px; /* option 요소의 내부 여백을 조정할 수 있습니다. */
+.date-search button,
+.keyword-search button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #066278;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
-.search-button[type="button"] {
-  margin-right: 0;
+.date-search button:hover,
+.keyword-search button:hover {
+  background-color: #044b5e;
+}
+
+.item-register select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.item-register select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .product-spec input {

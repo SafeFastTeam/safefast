@@ -145,13 +145,15 @@
           <div class="ten">
             <h2>품목 정보 관리</h2>
           </div>
-          <div class="keyword-search">
-              <select id="keyword-search-type">
-                  <option value="itemCode">품목코드</option>
-                  <option value="itemName">품목명</option>
-              </select>
-              <input type="text" id="keyword-search" placeholder="키워드 검색">
-              <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
+          <div class="search-bar">
+              <div class="keyword-search">
+                  <select id="keyword-search-type" class="search-select">
+                      <option value="itemCode">품목코드</option>
+                      <option value="itemName">품목명</option>
+                  </select>
+                  <input type="text" id="keyword-search" placeholder="키워드 검색">
+                  <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
+              </div>
           </div>
       <!-- 검색 결과 표시 영역 -->
       <div id="searchResult">

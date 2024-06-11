@@ -153,24 +153,46 @@ button:hover {
   margin-top: 10px;
 }
 
-#search-option {
-  height: 33px;
+/* 검색 CSS */
+.search-bar-container {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  margin: 10px;
 }
 
 .search-bar {
-  margin-bottom: 10px;
   display: flex;
-  width: 400px;
   align-items: center;
 }
 
+.search-select,
 .search-input {
-  flex-grow: 1;
   margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.search-select:focus,
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .search-button {
-  width: 80px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #066278;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.search-button:hover {
+  background-color: #044b5e;
 }
 
 .management-section table tbody tr td {
@@ -205,6 +227,7 @@ button:hover {
   border-radius: 5px; /* 모서리를 둥글게 만듦 */
 }
 
+/*페이징 CSS*/
 .pagination {
   display: flex;
   justify-content: center;

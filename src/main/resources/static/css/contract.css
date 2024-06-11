@@ -126,25 +126,47 @@ button:hover {
   float: right;
   margin-top: 10px;
 }
-
-#search-option {
-  height: 33px;
-}
-
 .search-bar {
-  margin-bottom: 10px;
   display: flex;
-  width: 400px;
+  justify-content: flex-end;
   align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-.search-input {
-  flex-grow: 1;
+.search-select, .search-input {
+  padding: 10px;
   margin-right: 10px;
+  border: 2px solid #066278;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-select:focus, .search-input:focus {
+  border-color: #066278;
+  box-shadow: 0 0 5px rgba(6, 98, 120, 0.5);
 }
 
 .search-button {
-  width: 80px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #066278;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button:hover {
+  background-color: #055063;
+}
+
+.search-button i {
+  font-size: 18px;
 }
 
 .management-section table tbody tr td {

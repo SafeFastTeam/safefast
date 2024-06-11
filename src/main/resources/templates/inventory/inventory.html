@@ -71,11 +71,23 @@
 <!--              <td th:text="${entry.value}"></td>-->
 <!--            </tr>-->
         </table>
-          <div class="pagination">
-              <button class="pagination-button">이전</button>
-              <span>1/10 페이지</span>
-              <button class="pagination-button">다음</button>
-          </div>
+        <div th:if="${totalPages > 1}">
+          <ul class="pagination">
+            <li th:class="${currentPage == 0} ? 'disabled' : ''">
+              <a th:href="@{'/inventory?page=' + ${currentPage - 1} + '&size=' + ${pageSize}}" aria-label="Previous">
+                <span aria-hidden="true">◀</span>
+              </a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${page == currentPage} ? 'active' : ''">
+              <a th:href="@{'/inventory?page=' + ${page} + '&size=' + ${pageSize}}" th:text="${page + 1}"></a>
+            </li>
+            <li th:class="${currentPage == totalPages - 1} ? 'disabled' : ''">
+              <a th:href="@{'/inventory?page=' + ${currentPage + 1} + '&size=' + ${pageSize}}" aria-label="Next">
+                <span aria-hidden="true">▶</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
     </div>
   </div>

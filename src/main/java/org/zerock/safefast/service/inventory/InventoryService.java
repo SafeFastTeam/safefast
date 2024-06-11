@@ -1,12 +1,11 @@
 package org.zerock.safefast.service.inventory;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.zerock.safefast.entity.InventoryItem;
-import org.zerock.safefast.entity.Item; // Item 엔티티 import
-import org.zerock.safefast.entity.Receive; // Receive 엔티티 import
-import org.zerock.safefast.entity.Releases; // Releases 엔티티 import
-import org.zerock.safefast.entity.Contract; // Contract 엔티티 import
+import org.zerock.safefast.entity.*;
 import org.zerock.safefast.repository.InventoryRepository;
 import org.zerock.safefast.repository.ItemRepository; // ItemRepository import
 import org.zerock.safefast.repository.ReceiveRepository; // ReceiveRepository import
@@ -116,5 +115,10 @@ public class InventoryService {
 
     public List<Releases> getAllReleases() {
         return releasesRepository.findAll();
+    }
+
+
+    public Page<InventoryItem> getAllInventoryItemsPaged(Pageable pageable) {
+        return inventoryRepository.findAll(pageable);
     }
 }
