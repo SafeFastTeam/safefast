@@ -12,315 +12,274 @@
 <body>
 <th:block th:replace="~{/fragments/fragment1}"></th:block>
 <th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='발주 관리 > 구매 발주서 관리')}"></th:block>
-  <div class="container">
-      <th:block th:replace="~{/fragments/fragment2}"></th:block>
-    <div class="content">
-      <section class="procurement-plan">
-        <div class="ten">
+<div class="container">
+  <th:block th:replace="~{/fragments/fragment2}"></th:block>
+  <div class="content">
+    <section class="procurement-plan">
+      <div class="ten">
         <h2>구매 발주서 관리 - 조달 계획 리스트</h2>
+      </div>
+      <button id="issue-order-btn" class="button">발주</button>
+      <div class="search-bar">
+        <div class="date-search">
+          <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
+          <input type="date" id="date-end" placeholder="종료 날짜">
+          <button id="date-search-btn">검색</button>
         </div>
-        <button id="issue-order-btn" class="button">발주</button>
-        <div class="search-bar">
-          <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
-            <input type="date" id="date-end" placeholder="종료 날짜">
-            <button id="date-search-btn">검색</button>
-          </div>
-          <div class="keyword-search">
-            <select id="keyword-search-type">
-              <option value="company">업체명</option>
-              <option value="item">품목명</option>
-            </select>
-            <input type="text" id="keyword-search" placeholder="키워드 검색">
-            <button id="keyword-search-btn">검색</button>
-          </div>
+        <div class="keyword-search">
+          <select id="keyword-search-type">
+            <option value="companyName">업체명</option>
+            <option value="itemName">품목명</option>
+          </select>
+          <input type="text" id="keyword-search" placeholder="키워드 검색">
+          <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>조달계획번호</th>
-              <th>업체명</th>
-              <th>품목명</th>
-              <th>구매주문수량</th>
-              <th>조달납기일</th>
-              <th>사업자 번호</th>
-              <th>품목 코드</th>
-            </tr>
-          </thead>
-          <tbody id="procurement-plan-list">
-            <tr  class="plan-row" th:each="plan : ${result.dtoList}">
-              <td><input type="checkbox"></td>
-              <td th:text="${plan.procPlanNumber}"></td>
-              <td th:text="${plan.coOpCompany.companyName}"></td>
-              <td th:text="${plan.item.itemName}"></td>
-              <td name="procQuantity" class="input-field" th:text="${plan.procQuantity}"></td>
-              <td name="procDuedate" class="input-field" th:text="${plan.procDuedate}"></td>
-<!--              <td><input type="number" name="procQuantity" class="input-field"></input></td>-->
-<!--              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>-->
-              <td th:text="${plan.coOpCompany.businessNumber}"></td>
-              <td th:text="${plan.item.itemCode}"></td>
-<!--              <td th:text="${plan.procQuantity}"></td>-->
-<!--              <td th:text="${plan.procDuedate}"></td>-->
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <ul>
-            <!-- 이전 페이지 링크 -->
-            <li th:if="${result.page > 1}">
-              <a th:href="@{'/purchase_order/purchase_order?page=' + ${result.page - 1}}" class="page-btn">◀</a>
-            </li>
-            <!-- 페이지 번호 링크 -->
-            <li th:each="pageNum : ${#numbers.sequence(1, result.totalPage)}" th:class="${pageNum == result.page} ? 'active' : ''">
-              <a th:href="@{'/purchase_order/purchase_order?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
-            </li>
-            <!-- 다음 페이지 링크 -->
-            <li th:if="${result.page < result.totalPage}">
-              <a th:href="@{'/purchase_order/purchase_order?page=' + ${result.page + 1}}" class="page-btn">▶</a>
-            </li>
-          </ul>
-        </div>
-      </section>
-      <section class="purchase-order">
-        <div class="ten">
-        <h2>구매 발주서 관리 - 구매 발주서 리스트</h2>
-        </div>
-        <button id="delete-order-btn" class="button">삭제</button>
-        <button id="modify-order-btn" class="button">수정</button>
-        <div class="search-bar">
-          <div class="date-search">
-            <input type="date" id="date-start" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
-            <input type="date" id="date-end" placeholder="종료 날짜">
-            <button id="date-search-btn">검색</button>
-          </div>
-          <div class="keyword-search">
-            <select id="keyword-search-type">
-              <option value="company">업체명</option>
-              <option value="item">품목명</option>
-            </select>
-            <input type="text" id="keyword-search" placeholder="키워드 검색">
-            <button id="keyword-search-btn">검색</button>
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>발주번호</th>
-              <th>업체명</th>
-              <th>품목명</th>
-              <th>발주수량</th>
-              <th>입고예정일</th>
-              <th>발주일</th>
-            </tr>
-          </thead>
-          <tbody id="purchase-order-list">
-
-          </tbody>
-        </table>
-        <ul id="pagination" class="pagination">
+      </div>
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>조달계획번호</th>
+          <th>업체명</th>
+          <th>품목명</th>
+          <th>구매주문수량</th>
+          <th>조달납기일</th>
+          <th>사업자 번호</th>
+          <th>품목 코드</th>
+        </tr>
+        </thead>
+        <tbody id="procurement-plan-list">
+        <tr  class="plan-row" th:each="plan : ${result.dtoList}">
+          <td><input type="checkbox"></td>
+          <td th:text="${plan.procPlanNumber}"></td>
+          <td th:text="${plan.coOpCompany.companyName}"></td>
+          <td th:text="${plan.item.itemName}"></td>
+          <td name="procQuantity" class="input-field" th:text="${plan.procQuantity}"></td>
+          <td name="procDuedate" class="input-field" th:text="${plan.procDuedate}"></td>
+          <!--              <td><input type="number" name="procQuantity" class="input-field"></input></td>-->
+          <!--              <td><input type="date" name="procDuedate" class="input-field" readonly></input></td>-->
+          <td th:text="${plan.coOpCompany.businessNumber}"></td>
+          <td th:text="${plan.item.itemCode}"></td>
+          <!--              <td th:text="${plan.procQuantity}"></td>-->
+          <!--              <td th:text="${plan.procDuedate}"></td>-->
+        </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <ul>
+          <!-- 이전 페이지 링크 -->
+          <li th:if="${result.page > 1}">
+            <a th:href="@{'/purchase_order/purchase_order?page=' + ${result.page - 1}}" class="page-btn">◀</a>
+          </li>
+          <!-- 페이지 번호 링크 -->
+          <li th:each="pageNum : ${#numbers.sequence(1, result.totalPage)}" th:class="${pageNum == result.page} ? 'active' : ''">
+            <a th:href="@{'/purchase_order/purchase_order?page=' + ${pageNum}}" class="page-btn">[[${pageNum}]]</a>
+          </li>
+          <!-- 다음 페이지 링크 -->
+          <li th:if="${result.page < result.totalPage}">
+            <a th:href="@{'/purchase_order/purchase_order?page=' + ${result.page + 1}}" class="page-btn">▶</a>
+          </li>
         </ul>
-      </section>
-
-      <!-- 모달 창 -->
-      <div id="orderModal" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>발주서</h2>
-            <div class="btn-group">
-<!--              <button id="saveOrder" class="button">저장</button>-->
-              <button id="sendOrder" class="button">전송</button>
-              <button id="printOrder" class="button" onclick="window.print()">인쇄</button>
-            </div>
-          </div>
-<!--            <div id="image-container" class="print-area"></div>-->
-          <div>
-            <div class="order-info">
-              <table class="order-table">
-                <thead>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-                <tr>
-                  <th colspan="2" style="background-color: white;"></th>
-                  <th colspan="2" style="background-color: white;"><strong>납기일자: <span id="modal-receive-duedate"></span></strong></th>
-                </tr>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-                <tr>
-                  <th colspan="2">발주번호: <span id="modal-proc-duedate"></span></th>
-                  <th colspan="2">발주일자: <span id="modal-purch-order-number"></span></th>
-                </tr>
-                <tr>
-                  <th colspan="2">발주처</th>
-                  <th colspan="2">수주처</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>상호</td>
-                  <td>세페스트</td>
-                  <td>상호</td>
-                  <td id="modal-company-name">company</td>
-                </tr>
-                <tr>
-                  <td>담당자</td>
-                  <td>허준혁</td>
-                  <td>담당자</td>
-                  <td>이민지</td>
-                </tr>
-                <tr>
-                  <td>전화</td>
-                  <td>010-1111-1111</td>
-                  <td>전화</td>
-                  <td>010-3333-3333</td>
-                </tr>
-                <tr>
-                  <td colspan="4"></td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="order-detail">
-              <table class="order-table">
-                <thead>
-                <tr>
-                  <th>No</th>
-                  <th>품명</th>
-                  <th>규격</th>
-                  <th>단위</th>
-                  <th>수량</th>
-                  <th>단가</th>
-                  <th>비고</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- 예시 데이터 행 추가 -->
-                <tr>
-                  <td>1</td>
-                  <td id="modal-item-name"></td>
-                  <td>5x5x10</td>
-                  <td>1EA</td>
-                  <td id="modal-purchase-order-quantity"></td>
-                  <td id="unit-price">1,000</td>
-                  <td>없음</td>
-                </tr>
-                <!-- 추가 행은 여기에 삽입 -->
-                </tbody>
-                <tfoot>
-                <tr>
-                  <td colspan="6" style="text-align:right;"><strong>합계</strong></td>
-                  <td id="total-sum">SUM</td>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-          <button id="checkOrder" class="button">확인</button>
+      </div>
+    </section>
+    <section class="purchase-order">
+      <div class="ten">
+        <h2>구매 발주서 관리 - 구매 발주서 리스트</h2>
+      </div>
+      <button id="delete-order-btn" class="button">삭제</button>
+      <button id="modify-order-btn" class="button">수정</button>
+      <div class="search-bar">
+        <div class="date-search">
+          <input type="date" id="date-start2" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
+          <input type="date" id="date-end2" placeholder="종료 날짜">
+          <button id="date-search-btn2">검색</button>
+        </div>
+        <div class="keyword-search2">
+          <select id="keyword-search-type2">
+            <option value="companyName">업체명</option>
+            <option value="itemName">품목명</option>
+          </select>
+          <input type="text" id="keyword-search2" placeholder="키워드 검색">
+          <button id="keyword-search-btn2" onclick="searchInventory2()">검색</button>
         </div>
       </div>
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>발주번호</th>
+          <th>업체명</th>
+          <th>품목명</th>
+          <th>발주수량</th>
+          <th>입고예정일</th>
+          <th>발주일</th>
+        </tr>
+        </thead>
+        <tbody id="purchase-order-list">
 
-      <!-- 수정 모달 창 -->
-      <div id="modifyOrderModal" class="modal">
-        <div class="modal-content">
-          <!-- 모달을 닫는 버튼 -->
-          <span class="close" id="closeModifyOrderModal">&times;</span>
-          <h3>구매 발주서 수정</h3>
-          <form id="modifyOrderForm">
-            <input type="hidden" id="orderId"> <!-- 수정할 발주서 ID를 저장할 숨은 입력 필드 -->
-            <label for="companyName">업체명</label>
-            <input type="text" id="modifyCompanyName" name="companyName" required readonly><br>
-            <label for="itemName">품목명</label>
-            <input type="text" id="modifyItemName" name="itemName" required readonly><br>
-            <label for="orderQuantity">발주수량</label>
-            <input type="number" id="modifyOrderQuantity" name="orderQuantity" required><br>
-            <label for="dueDate">조달납기일</label>
-            <input type="date" id="modifyDueDate" name="dueDate" required><br>
-            <label for="orderDate">발주일</label>
-            <input type="date" id="modifyOrderDate" name="orderDate" required><br><br>
-            <button type="button" id="saveModifiedOrder" class="button">저장</button>
-          </form>
+        </tbody>
+      </table>
+      <ul id="pagination" class="pagination">
+      </ul>
+    </section>
+
+    <!-- 모달 창 -->
+    <div id="orderModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>발주서</h2>
+          <div class="btn-group">
+            <!--              <button id="saveOrder" class="button">저장</button>-->
+            <button id="sendOrder" class="button">전송</button>
+            <button id="printOrder" class="button" onclick="window.print()">인쇄</button>
+          </div>
         </div>
-      </div>
+        <!--            <div id="image-container" class="print-area"></div>-->
+        <div>
+          <div class="order-info">
+            <table class="order-table">
+              <thead>
+              <tr>
+                <td colspan="4"></td>
+              </tr>
+              <tr>
+                <th colspan="2" style="background-color: white;"></th>
+                <th colspan="2" style="background-color: white;"><strong>납기일자: <span id="modal-receive-duedate"></span></strong></th>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+              </tr>
+              <tr>
+                <th colspan="2">발주번호: <span id="modal-proc-duedate"></span></th>
+                <th colspan="2">발주일자: <span id="modal-purch-order-number"></span></th>
+              </tr>
+              <tr>
+                <th colspan="2">발주처</th>
+                <th colspan="2">수주처</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>상호</td>
+                <td>세페스트</td>
+                <td>상호</td>
+                <td id="modal-company-name">company</td>
+              </tr>
+              <tr>
+                <td>담당자</td>
+                <td>허준혁</td>
+                <td>담당자</td>
+                <td>이민지</td>
+              </tr>
+              <tr>
+                <td>전화</td>
+                <td>010-1111-1111</td>
+                <td>전화</td>
+                <td>010-3333-3333</td>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
 
+          <div class="order-detail">
+            <table class="order-table">
+              <thead>
+              <tr>
+                <th>No</th>
+                <th>품명</th>
+                <th>규격</th>
+                <th>단위</th>
+                <th>수량</th>
+                <th>단가</th>
+                <th>비고</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- 예시 데이터 행 추가 -->
+              <tr>
+                <td>1</td>
+                <td id="modal-item-name"></td>
+                <td>5x5x10</td>
+                <td>1EA</td>
+                <td id="modal-purchase-order-quantity"></td>
+                <td id="unit-price">1,000</td>
+                <td>없음</td>
+              </tr>
+              <!-- 추가 행은 여기에 삽입 -->
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="6" style="text-align:right;"><strong>합계</strong></td>
+                <td id="total-sum">SUM</td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <button id="checkOrder" class="button">확인</button>
+      </div>
     </div>
+
+    <!-- 수정 모달 창 -->
+    <div id="modifyOrderModal" class="modal">
+      <div class="modal-content">
+        <!-- 모달을 닫는 버튼 -->
+        <span class="close" id="closeModifyOrderModal">&times;</span>
+        <h3>구매 발주서 수정</h3>
+        <form id="modifyOrderForm">
+          <input type="hidden" id="orderId"> <!-- 수정할 발주서 ID를 저장할 숨은 입력 필드 -->
+          <label for="companyName">업체명</label>
+          <input type="text" id="modifyCompanyName" name="companyName" required readonly><br>
+          <label for="itemName">품목명</label>
+          <input type="text" id="modifyItemName" name="itemName" required readonly><br>
+          <label for="orderQuantity">발주수량</label>
+          <input type="number" id="modifyOrderQuantity" name="orderQuantity" required><br>
+          <label for="dueDate">조달납기일</label>
+          <input type="date" id="modifyDueDate" name="dueDate" required><br>
+          <label for="orderDate">발주일</label>
+          <input type="date" id="modifyOrderDate" name="orderDate" required><br><br>
+          <button type="button" id="saveModifiedOrder" class="button">저장</button>
+        </form>
+      </div>
+    </div>
+
   </div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-          if (this.checked) {
-            let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText.trim();
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText.trim();
 
-            fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
-                    .then(response => {
-                      if (response.ok) {
-                        return response.json();
-                      } else {
-                        throw new Error('조달계획 정보를 불러오지 못했습니다.');
-                      }
-                    })
-                    .then(data => {
-                      let row = this.closest('tr');
-                      row.querySelector('td[name="procQuantity"]').innerText = data.procQuantity;
-                      row.querySelector('td[name="procDuedate"]').innerText = data.procDuedate;
-                    })
-                    .catch(error => {
-                      alert(error.message);
-                    });
-          }
-        });
-      });
-
-      document.getElementById('issue-order-btn').addEventListener('click', function () {
-        let selectedPlans = [];
-        document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
-          let row = checkbox.closest('tr');
-          selectedPlans.push({
-            procPlanNumber: row.querySelector('td:nth-child(2)').innerText.trim(),
-            companyName: row.querySelector('td:nth-child(3)').innerText.trim(),
-            itemName: row.querySelector('td:nth-child(4)').innerText.trim(),
-            purchaseOrderQuantity: row.querySelector('td[name="procQuantity"]').innerText.trim(),
-            receiveDuedate: row.querySelector('td[name="procDuedate"]').innerText.trim(),
-            businessNumber: row.querySelector('td:nth-child(7)').innerText.trim(),
-            itemCode: row.querySelector('td:nth-child(8)').innerText.trim()
-          });
-        });
-        if (selectedPlans.length === 1) {
-          fetch('/purchase_order/create', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(selectedPlans)
-          })
+          fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
                   .then(response => {
                     if (response.ok) {
                       return response.json();
                     } else {
-                      throw new Error('발주서가 성공적으로 생성되었습니다.');
+                      throw new Error('조달계획 정보를 불러오지 못했습니다.');
                     }
                   })
                   .then(data => {
-                    alert('발주서가 성공적으로 생성되었습니다.');
+                    let row = this.closest('tr');
+                    row.querySelector('td[name="procQuantity"]').innerText = data.procQuantity;
+                    row.querySelector('td[name="procDuedate"]').innerText = data.procDuedate;
                   })
                   .catch(error => {
                     alert(error.message);
                   });
-        } else {
-          alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.');
         }
       });
     });
 
     document.getElementById('issue-order-btn').addEventListener('click', function () {
-      let selectedCheckbox = document.querySelector('#procurement-plan-list input[type="checkbox"]:checked');
-      if (selectedCheckbox) {
-        let row = selectedCheckbox.closest('tr');
-        let selectedPlan = {
+      let selectedPlans = [];
+      document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
+        let row = checkbox.closest('tr');
+        selectedPlans.push({
           procPlanNumber: row.querySelector('td:nth-child(2)').innerText.trim(),
           companyName: row.querySelector('td:nth-child(3)').innerText.trim(),
           itemName: row.querySelector('td:nth-child(4)').innerText.trim(),
@@ -328,59 +287,100 @@
           receiveDuedate: row.querySelector('td[name="procDuedate"]').innerText.trim(),
           businessNumber: row.querySelector('td:nth-child(7)').innerText.trim(),
           itemCode: row.querySelector('td:nth-child(8)').innerText.trim()
-        };
-
-        // 현재 날짜 가져오기
-        var today = new Date();
-        var day = today.getDate().toString().padStart(2, '0');
-        var month = (today.getMonth() + 1).toString().padStart(2, '0');
-        var year = today.getFullYear();
-        var currentDate = year + '-' + month + '-' + day;
-
-        // 모달 창의 데이터를 설정
-        document.getElementById('modal-proc-duedate').innerText = selectedPlan.procPlanNumber;
-        document.getElementById('modal-purch-order-number').innerText = currentDate;
-        document.getElementById('modal-company-name').innerText = selectedPlan.companyName;
-        document.getElementById('modal-item-name').innerText = selectedPlan.itemName;
-        document.getElementById('modal-purchase-order-quantity').innerText = selectedPlan.purchaseOrderQuantity;
-        document.getElementById('modal-receive-duedate').innerText = selectedPlan.receiveDuedate;
-
-        var unitPrice = parseInt(document.getElementById('unit-price').innerText.replace(/,/g, ''), 10);
-        var totalSum = selectedPlan.purchaseOrderQuantity * unitPrice;
-        document.getElementById('total-sum').innerText = totalSum.toLocaleString();
-
-        // 모달 창 열기
-        document.getElementById('orderModal').style.display = 'block';
+        });
+      });
+      if (selectedPlans.length === 1) {
+        fetch('/purchase_order/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(selectedPlans)
+        })
+                .then(response => {
+                  if (response.ok) {
+                    return response.json();
+                  } else {
+                    throw new Error('발주서가 성공적으로 생성되었습니다.');
+                  }
+                })
+                .then(data => {
+                  alert('발주서가 성공적으로 생성되었습니다.');
+                })
+                .catch(error => {
+                  alert(error.message);
+                });
       } else {
         alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.');
       }
     });
-      // 모달 창 닫기 기능
-      document.addEventListener('DOMContentLoaded', function () {
-          var modal = document.getElementById('orderModal');
+  });
 
-          window.onclick = function (event) {
-              if (event.target == modal) {
-                  modal.style.display = 'none';
-              }
-          };
-      });
-
-    // 전송 버튼 클릭 시 이메일 데이터를 클립보드에 복사
-    document.getElementById('sendOrder').addEventListener('click', function () {
-      let emailData = {
-        to: 'ekzmemforhs3@naver.com',
-        procPlanNumber: document.getElementById('modal-proc-duedate').innerText,
-        orderDate: document.getElementById('modal-purch-order-number').innerText,
-        companyName: document.getElementById('modal-company-name').innerText,
-        itemName: document.getElementById('modal-item-name').innerText,
-        purchaseOrderQuantity: document.getElementById('modal-purchase-order-quantity').innerText,
-        receiveDuedate: document.getElementById('modal-receive-duedate').innerText,
-        unitPrice: document.getElementById('unit-price').innerText,
-        totalSum: document.getElementById('total-sum').innerText
+  document.getElementById('issue-order-btn').addEventListener('click', function () {
+    let selectedCheckbox = document.querySelector('#procurement-plan-list input[type="checkbox"]:checked');
+    if (selectedCheckbox) {
+      let row = selectedCheckbox.closest('tr');
+      let selectedPlan = {
+        procPlanNumber: row.querySelector('td:nth-child(2)').innerText.trim(),
+        companyName: row.querySelector('td:nth-child(3)').innerText.trim(),
+        itemName: row.querySelector('td:nth-child(4)').innerText.trim(),
+        purchaseOrderQuantity: row.querySelector('td[name="procQuantity"]').innerText.trim(),
+        receiveDuedate: row.querySelector('td[name="procDuedate"]').innerText.trim(),
+        businessNumber: row.querySelector('td:nth-child(7)').innerText.trim(),
+        itemCode: row.querySelector('td:nth-child(8)').innerText.trim()
       };
 
-      let emailContent = `
+      // 현재 날짜 가져오기
+      var today = new Date();
+      var day = today.getDate().toString().padStart(2, '0');
+      var month = (today.getMonth() + 1).toString().padStart(2, '0');
+      var year = today.getFullYear();
+      var currentDate = year + '-' + month + '-' + day;
+
+      // 모달 창의 데이터를 설정
+      document.getElementById('modal-proc-duedate').innerText = selectedPlan.procPlanNumber;
+      document.getElementById('modal-purch-order-number').innerText = currentDate;
+      document.getElementById('modal-company-name').innerText = selectedPlan.companyName;
+      document.getElementById('modal-item-name').innerText = selectedPlan.itemName;
+      document.getElementById('modal-purchase-order-quantity').innerText = selectedPlan.purchaseOrderQuantity;
+      document.getElementById('modal-receive-duedate').innerText = selectedPlan.receiveDuedate;
+
+      var unitPrice = parseInt(document.getElementById('unit-price').innerText.replace(/,/g, ''), 10);
+      var totalSum = selectedPlan.purchaseOrderQuantity * unitPrice;
+      document.getElementById('total-sum').innerText = totalSum.toLocaleString();
+
+      // 모달 창 열기
+      document.getElementById('orderModal').style.display = 'block';
+    } else {
+      alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.');
+    }
+  });
+  // 모달 창 닫기 기능
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('orderModal');
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+  });
+
+  // 전송 버튼 클릭 시 이메일 데이터를 클립보드에 복사
+  document.getElementById('sendOrder').addEventListener('click', function () {
+    let emailData = {
+      to: 'ekzmemforhs3@naver.com',
+      procPlanNumber: document.getElementById('modal-proc-duedate').innerText,
+      orderDate: document.getElementById('modal-purch-order-number').innerText,
+      companyName: document.getElementById('modal-company-name').innerText,
+      itemName: document.getElementById('modal-item-name').innerText,
+      purchaseOrderQuantity: document.getElementById('modal-purchase-order-quantity').innerText,
+      receiveDuedate: document.getElementById('modal-receive-duedate').innerText,
+      unitPrice: document.getElementById('unit-price').innerText,
+      totalSum: document.getElementById('total-sum').innerText
+    };
+
+    let emailContent = `
     수신자: ${emailData.to}\n
     조달계획 번호: ${emailData.procPlanNumber}\n
     발주일자: ${emailData.orderDate}\n
@@ -392,19 +392,40 @@
     합계: ${emailData.totalSum}
   `;
 
-      navigator.clipboard.writeText(emailContent).then(function() {
-        alert('이메일 주소와 내용이 클립보드에 복사되었습니다.');
-      }, function(err) {
-        alert('클립보드 복사에 실패했습니다: ' + err);
-      });
+    navigator.clipboard.writeText(emailContent).then(function() {
+      alert('이메일 주소와 내용이 클립보드에 복사되었습니다.');
+    }, function(err) {
+      alert('클립보드 복사에 실패했습니다: ' + err);
     });
+  });
 
+  function fetchPurchaseOrders(page = 0) {
+    $.ajax({
+      url: '/purchase_order/list',
+      type: 'GET',
+      dataType: 'json',
+      data: { page: page, size: 5 }, // 요청 파라미터로 페이지 번호와 크기를 전송
+      success: function (data) {
+        displayPurchaseOrders(data.purchaseOrders);
+        displayPagination(data.totalPages, data.currentPage);
+      },
+      error: function (xhr, status, error) {
+        console.error('Failed to fetch purchase orders:', error);
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
+    fetchPurchaseOrders();
+
+    // 구매 발주서 리스트를 가져와서 HTML에 표시하는 함수
     function fetchPurchaseOrders(page = 0) {
       $.ajax({
         url: '/purchase_order/list',
         type: 'GET',
         dataType: 'json',
-        data: { page: page, size: 5 }, // 요청 파라미터로 페이지 번호와 크기를 전송
+        data: { page: page, size: 5 },
         success: function (data) {
           displayPurchaseOrders(data.purchaseOrders);
           displayPagination(data.totalPages, data.currentPage);
@@ -415,172 +436,228 @@
       });
     }
 
-    $(document).ready(function() {
-      // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
-      fetchPurchaseOrders();
+    // 페이징 정보를 HTML에 표시하는 함수
+    function displayPagination(totalPages, currentPage) {
+      var pagination = $('#pagination');
+      pagination.empty();
 
-      // 구매 발주서 리스트를 가져와서 HTML에 표시하는 함수
-      function fetchPurchaseOrders(page = 0) {
-        $.ajax({
-          url: '/purchase_order/list',
-          type: 'GET',
-          dataType: 'json',
-          data: { page: page, size: 5 },
-          success: function (data) {
-            displayPurchaseOrders(data.purchaseOrders);
-            displayPagination(data.totalPages, data.currentPage);
-          },
-          error: function (xhr, status, error) {
-            console.error('Failed to fetch purchase orders:', error);
-          }
-        });
-      }
+      for (var i = 0; i < totalPages; i++) {
+        var pageItem = $('<li class="page-item">').append(
+                $('<a class="page-link">').text(i + 1).attr('href', '#').data('page', i)
+        );
 
-      // 페이징 정보를 HTML에 표시하는 함수
-      function displayPagination(totalPages, currentPage) {
-        var pagination = $('#pagination');
-        pagination.empty();
-
-        for (var i = 0; i < totalPages; i++) {
-          var pageItem = $('<li class="page-item">').append(
-                  $('<a class="page-link">').text(i + 1).attr('href', '#').data('page', i)
-          );
-
-          if (i === currentPage) {
-            pageItem.addClass('active');
-          }
-
-          pagination.append(pageItem);
+        if (i === currentPage) {
+          pageItem.addClass('active');
         }
 
-        // 페이지 링크 클릭 시 해당 페이지로 이동
-        $('.page-link').on('click', function (e) {
-          e.preventDefault();
-          var page = $(this).data('page');
-          fetchPurchaseOrders(page);
-        });
+        pagination.append(pageItem);
       }
 
-      // 구매 발주서 데이터를 HTML에 표시하는 함수
-      function displayPurchaseOrders(purchaseOrders) {
-        var tableBody = $('#purchase-order-list');
-        tableBody.empty(); // 기존 데이터를 지우고 새로운 데이터로 채움
-
-        // 업체명과 사업자번호를 매핑하는 배열
-        var companies = [];
-
-        $.each(purchaseOrders, function (index, purchaseOrder) {
-          var companyName = purchaseOrder.coOpCompany.companyName;
-          var businessNumber = purchaseOrder.coOpCompany.businessNumber;
-
-          // 사업자번호가 companies 배열에 존재하지 않는 경우에만 추가
-          var existingCompany = companies.find(function (company) {
-            return company.businessNumber === businessNumber;
-          });
-
-          if (!existingCompany) {
-            companies.push({
-              businessNumber: businessNumber,
-              companyName: companyName
-            });
-          }
-
-          var row = $('<tr>');
-          row.append('<td><input type="checkbox"></td>');
-          row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
-
-          // 회사명을 찾아서 표시
-          var company = companies.find(function (company) {
-            return company.businessNumber === businessNumber;
-          });
-          row.append('<td>' + (company ? company.companyName : '') + '</td>');
-
-          row.append('<td>' + purchaseOrder.item.itemName + '</td>');
-          row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
-          row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
-          row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
-          tableBody.append(row);
-        });
-      }
-    });
-
-    // 수정 버튼 클릭 이벤트
-    document.getElementById('modify-order-btn').addEventListener('click', function () {
-      const selectedOrders = [];
-
-      // 선택된 발주서의 정보를 수집
-      $('#purchase-order-list input[type="checkbox"]:checked').each(function () {
-        const row = $(this).closest('tr');
-        const orderId = row.find('td:nth-child(2)').text();
-        const companyName = row.find('td:nth-child(3)').text();
-        const itemName = row.find('td:nth-child(4)').text();
-        const orderQuantity = row.find('td:nth-child(5)').text();
-        const dueDate = row.find('td:nth-child(6)').text();
-        const orderDate = row.find('td:nth-child(7)').text();
-
-        selectedOrders.push({
-          orderId: orderId,
-          companyName: companyName,
-          itemName: itemName,
-          orderQuantity: orderQuantity,
-          dueDate: dueDate,
-          orderDate: orderDate
-        });
+      // 페이지 링크 클릭 시 해당 페이지로 이동
+      $('.page-link').on('click', function (e) {
+        e.preventDefault();
+        var page = $(this).data('page');
+        fetchPurchaseOrders(page);
       });
+    }
 
-      if (selectedOrders.length !== 1) {
-        alert('수정할 발주서를 하나만 선택하세요.');
-        return;
-      }
+    // 구매 발주서 데이터를 HTML에 표시하는 함수
+    function displayPurchaseOrders(purchaseOrders) {
+      var tableBody = $('#purchase-order-list');
+      tableBody.empty(); // 기존 데이터를 지우고 새로운 데이터로 채움
 
-      // 선택된 발주서의 정보를 모달 창에 표시
-      const selectedOrder = selectedOrders[0];
-      document.getElementById('orderId').value = selectedOrder.orderId;
-      document.getElementById('modifyCompanyName').value = selectedOrder.companyName;
-      document.getElementById('modifyItemName').value = selectedOrder.itemName;
-      document.getElementById('modifyOrderQuantity').value = selectedOrder.orderQuantity;
-      document.getElementById('modifyDueDate').value = selectedOrder.dueDate;
-      document.getElementById('modifyOrderDate').value = selectedOrder.orderDate;
+      // 업체명과 사업자번호를 매핑하는 배열
+      var companies = [];
 
-      // 수정 모달 창 열기
-      document.getElementById('modifyOrderModal').style.display = 'block';
-    });
+      $.each(purchaseOrders, function (index, purchaseOrder) {
+        var companyName = purchaseOrder.coOpCompany.companyName;
+        var businessNumber = purchaseOrder.coOpCompany.businessNumber;
 
-    // 모달 창 닫기 버튼 클릭 이벤트
-    document.getElementById('closeModifyOrderModal').addEventListener('click', function () {
-      // 수정 모달 창 닫기
-      document.getElementById('modifyOrderModal').style.display = 'none';
-    });
+        // 사업자번호가 companies 배열에 존재하지 않는 경우에만 추가
+        var existingCompany = companies.find(function (company) {
+          return company.businessNumber === businessNumber;
+        });
 
-    // 수정된 데이터 저장 버튼 클릭 이벤트
-    document.getElementById('saveModifiedOrder').addEventListener('click', function () {
-      const orderId = document.getElementById('orderId').value;
-      const modifiedOrder = {
-        purchOrderQuantity: document.getElementById('modifyOrderQuantity').value,
-        receiveDuedate: document.getElementById('modifyDueDate').value,
-        purchOrderDate: document.getElementById('modifyOrderDate').value
-      };
-
-      // 서버로 수정된 데이터 전송
-      $.ajax({
-        url: '/purchase_order/' + orderId,
-        type: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(modifiedOrder),
-        success: function (response) {
-          alert(response);
-          // 수정 후에 발주서 목록을 갱신하는 등의 작업 수행
-          window.location.href = "/purchase_order/purchase_order";
-        },
-        error: function (xhr, status, error) {
-          console.error('Failed to update purchase order:', error);
-          alert('발주서 수정 중 오류가 발생했습니다: ' + xhr.responseText);
+        if (!existingCompany) {
+          companies.push({
+            businessNumber: businessNumber,
+            companyName: companyName
+          });
         }
+
+        var row = $('<tr>');
+        row.append('<td><input type="checkbox"></td>');
+        row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
+
+        // 회사명을 찾아서 표시
+        var company = companies.find(function (company) {
+          return company.businessNumber === businessNumber;
+        });
+        row.append('<td>' + (company ? company.companyName : '') + '</td>');
+
+        row.append('<td>' + purchaseOrder.item.itemName + '</td>');
+        row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
+        row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
+        row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
+        tableBody.append(row);
+      });
+    }
+  });
+
+  // 수정 버튼 클릭 이벤트
+  document.getElementById('modify-order-btn').addEventListener('click', function () {
+    const selectedOrders = [];
+
+    // 선택된 발주서의 정보를 수집
+    $('#purchase-order-list input[type="checkbox"]:checked').each(function () {
+      const row = $(this).closest('tr');
+      const orderId = row.find('td:nth-child(2)').text();
+      const companyName = row.find('td:nth-child(3)').text();
+      const itemName = row.find('td:nth-child(4)').text();
+      const orderQuantity = row.find('td:nth-child(5)').text();
+      const dueDate = row.find('td:nth-child(6)').text();
+      const orderDate = row.find('td:nth-child(7)').text();
+
+      selectedOrders.push({
+        orderId: orderId,
+        companyName: companyName,
+        itemName: itemName,
+        orderQuantity: orderQuantity,
+        dueDate: dueDate,
+        orderDate: orderDate
       });
     });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
-  <script src="/js/purchase_order.js"></script>
+
+    if (selectedOrders.length !== 1) {
+      alert('수정할 발주서를 하나만 선택하세요.');
+      return;
+    }
+
+    // 선택된 발주서의 정보를 모달 창에 표시
+    const selectedOrder = selectedOrders[0];
+    document.getElementById('orderId').value = selectedOrder.orderId;
+    document.getElementById('modifyCompanyName').value = selectedOrder.companyName;
+    document.getElementById('modifyItemName').value = selectedOrder.itemName;
+    document.getElementById('modifyOrderQuantity').value = selectedOrder.orderQuantity;
+    document.getElementById('modifyDueDate').value = selectedOrder.dueDate;
+    document.getElementById('modifyOrderDate').value = selectedOrder.orderDate;
+
+    // 수정 모달 창 열기
+    document.getElementById('modifyOrderModal').style.display = 'block';
+  });
+
+  // 모달 창 닫기 버튼 클릭 이벤트
+  document.getElementById('closeModifyOrderModal').addEventListener('click', function () {
+    // 수정 모달 창 닫기
+    document.getElementById('modifyOrderModal').style.display = 'none';
+  });
+
+  // 수정된 데이터 저장 버튼 클릭 이벤트
+  document.getElementById('saveModifiedOrder').addEventListener('click', function () {
+    const orderId = document.getElementById('orderId').value;
+    const modifiedOrder = {
+      purchOrderQuantity: document.getElementById('modifyOrderQuantity').value,
+      receiveDuedate: document.getElementById('modifyDueDate').value,
+      purchOrderDate: document.getElementById('modifyOrderDate').value
+    };
+
+    // 서버로 수정된 데이터 전송
+    $.ajax({
+      url: '/purchase_order/' + orderId,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(modifiedOrder),
+      success: function (response) {
+        alert(response);
+        // 수정 후에 발주서 목록을 갱신하는 등의 작업 수행
+        window.location.href = "/purchase_order/purchase_order";
+      },
+      error: function (xhr, status, error) {
+        console.error('Failed to update purchase order:', error);
+        alert('발주서 수정 중 오류가 발생했습니다: ' + xhr.responseText);
+      }
+    });
+  });
+</script>
+<script>
+  // 검색 버튼 클릭 시 실행되는 함수
+  function searchInventory() {
+    // 검색 키워드와 타입 가져오기
+    var keyword = document.getElementById("keyword-search").value.toLowerCase();
+    var searchType = document.getElementById("keyword-search-type").value;
+
+    // 테이블의 모든 행 가져오기
+    var rows = document.querySelectorAll("#procurement-plan-list tr");
+
+    // 각 행을 순회하며 검색 키워드와 일치하는 항목이 있는지 확인
+    rows.forEach(function(row) {
+      // 각 행에서 검색 대상이 되는 텍스트 가져오기
+      var searchText = row.querySelector("td:nth-child(" + (getColumnIndex(searchType) + 1) + ")").textContent.toLowerCase();
+
+      // 검색 키워드와 일치하는지 확인
+      if (searchText.includes(keyword)) {
+        row.style.display = ""; // 일치하는 경우 행 표시
+      } else {
+        row.style.display = "none"; // 일치하지 않는 경우 행 숨김
+      }
+    });
+  }
+
+  // 검색 타입에 따라 열의 인덱스를 반환하는 함수
+  function getColumnIndex(searchType) {
+    switch (searchType) {
+      case "itemName":
+        return 3;
+      case "companyName":
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  // 검색 버튼에 이벤트 리스너 추가
+  document.getElementById("keyword-search-btn").addEventListener("click", searchInventory);
+
+  // 검색 버튼 클릭 시 실행되는 함수
+  function searchInventory2() {
+    // 검색 키워드와 타입 가져오기
+    var keyword = document.getElementById("keyword-search2").value.toLowerCase();
+    var searchType = document.getElementById("keyword-search-type2").value;
+
+    // 테이블의 모든 행 가져오기
+    var rows = document.querySelectorAll("#purchase-order-list tr");
+
+    // 각 행을 순회하며 검색 키워드와 일치하는 항목이 있는지 확인
+    rows.forEach(function(row) {
+      // 각 행에서 검색 대상이 되는 텍스트 가져오기
+      var searchText = row.querySelector("td:nth-child(" + (getColumnIndex2(searchType) + 1) + ")").textContent.toLowerCase();
+
+      // 검색 키워드와 일치하는지 확인
+      if (searchText.includes(keyword)) {
+        row.style.display = ""; // 일치하는 경우 행 표시
+      } else {
+        row.style.display = "none"; // 일치하지 않는 경우 행 숨김
+      }
+    });
+  }
+
+  // 검색 타입에 따라 열의 인덱스를 반환하는 함수
+  function getColumnIndex2(searchType) {
+    switch (searchType) {
+      case "companyName":
+        return 2;
+      case "itemName":
+        return 3;
+      default:
+        return 0;
+    }
+  }
+
+  // 검색 버튼에 이벤트 리스너 추가
+  document.getElementById("keyword-search-btn2").addEventListener("click", searchInventory2);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+<script src="/js/purchase_order.js"></script>
 </body>
 </html>
