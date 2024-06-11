@@ -73,14 +73,14 @@
              <h2>생산계획조회</h2>
           </div>
           <div class="search-bar">
-            <select name="search-option" id="search-option">
-              <option value="품목코드">품목코드</option>
-              <option value="생산제품코드">생산제품코드</option>
-              <option value="품목명">품목명</option>
-              <option value="생산제품명">생산제품명</option>
+            <select name="search-option" id="keyword-search-type">
+              <option value="itemCode">품목코드</option>
+              <option value="productCode">생산제품코드</option>
+              <option value="itemName">품목명</option>
+              <option value="productName">생산제품명</option>
             </select>
-              <input type="text" placeholder="품목코드 검색..." class="search-input">
-              <button class="search-button">검색</button>
+              <input type="text" id="keyword-search" placeholder="키워드 검색">
+              <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
           </div>
           <table id="productionPlanTable">
               <thead>
@@ -96,7 +96,7 @@
                       <th>조달계획등록</th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody id="inventory-calculation-list">
               <!-- 반복문을 통해 서버에서 받아온 데이터를 동적으로 표시 -->
               <tr th:each="productionPlan : ${productionPlans}">
                   <td th:text="${productionPlan.prodStartDate}"></td>
@@ -301,5 +301,48 @@
           });
       });
   </script>
+    <script>
+        // 검색 버튼 클릭 시 실행되는 함수
+        function searchInventory() {
+            // 검색 키워드와 타입 가져오기
+            var keyword = document.getElementById("keyword-search").value.toLowerCase();
+            var searchType = document.getElementById("keyword-search-type").value;
+
+            // 테이블의 모든 행 가져오기
+            var rows = document.querySelectorAll("#inventory-calculation-list tr");
+
+            // 각 행을 순회하며 검색 키워드와 일치하는 항목이 있는지 확인
+            rows.forEach(function(row) {
+                // 각 행에서 검색 대상이 되는 텍스트 가져오기
+                var searchText = row.querySelector("td:nth-child(" + (getColumnIndex(searchType) + 1) + ")").textContent.toLowerCase();
+
+                // 검색 키워드와 일치하는지 확인
+                if (searchText.includes(keyword)) {
+                    row.style.display = ""; // 일치하는 경우 행 표시
+                } else {
+                    row.style.display = "none"; // 일치하지 않는 경우 행 숨김
+                }
+            });
+        }
+
+        // 검색 타입에 따라 열의 인덱스를 반환하는 함수
+        function getColumnIndex(searchType) {
+            switch (searchType) {
+                case "itemCode":
+                    return 5;
+                case "itemName":
+                    return 6;
+                case "productCode":
+                    return 2;
+                case "productName":
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+
+        // 검색 버튼에 이벤트 리스너 추가
+        document.getElementById("keyword-search-btn").addEventListener("click", searchInventory);
+    </script>
 </body>
 </html>
