@@ -247,7 +247,9 @@ button:hover {
   padding: 20px;
   border: 1px solid #ccc;
   width: 80%;
-  max-width: 600px;
+  height: 80%;
+  max-height: 600px;
+  max-width: 900px;
   border-radius: 5px;
   position: relative;
 }
@@ -287,6 +289,31 @@ button:hover {
   font-weight: bold;
 }
 
+.modal-header table tr {
+  padding: 10px;
+}
+
+.modal-buttons {
+  text-align: right; /* 버튼을 오른쪽 정렬 */
+  margin-top: 20px; /* 버튼과 내용 사이의 간격 조절 */
+}
+
+.modal-buttons button {
+  margin-left: 10px; /* 버튼 사이의 간격 조절 */
+}
+
+/* 도장 이미지 */
+.modal-watermark {
+  position: absolute;
+  top: 15%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* 이 이미지는 마우스 이벤트를 받지 않도록 설정 */
+  width: 20%;
+  max-width: 80px;
+  height: auto;
+}
+
 button {
   background-color: #066278;
   color: white;
@@ -302,63 +329,37 @@ button:hover {
   background-color: #044b5e;
 }
 
-
-
-/*
-
-
-!* 모달 *!
-.modal {
-  display: none; !* 모달 숨기기 *!
-  position: fixed; !* 고정 위치 *!
-  z-index: 1; !* 다른 요소 위에 위치 *!
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); !* 배경 투명도 조절 *!
+/*페이징 CSS*/
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 수직 정렬 추가 */
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  height: 500px;
-  max-width: 600px;
-  border-radius: 5px;
+.pagination li {
+  list-style: none;
+  margin: 0 5px;
+  display: inline-block;
+  line-height: 1; /* 요소들 사이의 수직 정렬을 위해 추가 */
 }
 
-
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
+.pagination a {
+  color: #333;
   text-decoration: none;
-  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  justify-content: center; /* 추가 */
 }
 
-#email, #printButton {
-  float: right;
-  margin: 50px 20px 0 0;
+.pagination a:hover {
+  background-color: #f0f0f0;
 }
 
-.modal-content span {
-  color: #888888;
-  float: right;
-  cursor: pointer;
+.pagination .disabled a {
+  pointer-events: none;
+  background-color: #eee;
 }
-
-.modal-header span {
-  color: black;
-}
-
-*/

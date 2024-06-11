@@ -72,15 +72,17 @@
           <div class="ten">
              <h2>생산계획조회</h2>
           </div>
-          <div class="search-bar">
-            <select name="search-option" id="keyword-search-type">
-              <option value="itemCode">품목코드</option>
-              <option value="productCode">생산제품코드</option>
-              <option value="itemName">품목명</option>
-              <option value="productName">생산제품명</option>
-            </select>
-              <input type="text" id="keyword-search" placeholder="키워드 검색">
-              <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
+          <div class="search-bar-container">
+              <div class="search-bar">
+                  <select name="search-option" id="keyword-search-type" class="search-select">
+                      <option value="itemCode">품목코드</option>
+                      <option value="productCode">생산제품코드</option>
+                      <option value="itemName">품목명</option>
+                      <option value="productName">생산제품명</option>
+                  </select>
+                  <input type="text" id="keyword-search" class="search-input" placeholder="키워드 검색">
+                  <button id="keyword-search-btn" class="search-button" onclick="searchInventory()">검색</button>
+              </div>
           </div>
           <table id="productionPlanTable">
               <thead>

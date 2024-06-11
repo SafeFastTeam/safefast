@@ -231,15 +231,18 @@ main {
   background-color: #054d5d;
 }
 
+/*페이징 CSS*/
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center; /* 수직 정렬 추가 */
 }
 
 .pagination li {
   list-style: none;
   margin: 0 5px;
   display: inline-block;
+  line-height: 1; /* 요소들 사이의 수직 정렬을 위해 추가 */
 }
 
 .pagination a {
@@ -248,14 +251,17 @@ main {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 18px; /* 버튼 크기 조정 */
+  font-size: 18px;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  justify-content: center; /* 추가 */
 }
 
 .pagination a:hover {
   background-color: #f0f0f0;
 }
 
-
-li.disabled {
-  margin: -4px 0;
+.pagination .disabled a {
+  pointer-events: none;
+  background-color: #eee;
 }

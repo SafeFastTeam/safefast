@@ -109,19 +109,54 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  clear: both;
 }
 
-.date-search {
+.date-search, .keyword-search {
   display: flex;
   align-items: center;
 }
 
-.date-search input,
-.select-search input,
-.date-search select,
-.select-search select {
+.date-search input, .keyword-search input,
+.keyword-search select {
   margin-right: 5px;
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.date-search input:focus, .keyword-search input:focus,
+.keyword-search select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.date-search button {
+  margin-right: 5px;
+  border: none;
+  background-color: #066278;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  width: 70px;
+  height: 47px;
+  font-size: 16px;
+}
+
+.keyword-search button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #066278;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.date-search button:hover, .keyword-search button:hover {
+  background-color: #044b5e;
 }
 
 .btn {

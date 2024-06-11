@@ -68,6 +68,23 @@
               </tr>
           </tbody>
         </table>
+          <div th:if="${totalPages > 1}">
+              <ul class="pagination">
+                  <li th:class="${currentPage == 0} ? 'disabled' : ''">
+                      <a th:href="@{'/invoicing/invoicing?page=' + ${currentPage - 1} + '&size=' + ${pageSize}}" aria-label="Previous">
+                          <span aria-hidden="true">◀</span>
+                      </a>
+                  </li>
+                  <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" th:class="${page == currentPage} ? 'active' : ''">
+                      <a th:href="@{'/invoicing/invoicing?page=' + ${page} + '&size=' + ${pageSize}}" th:text="${page + 1}"></a>
+                  </li>
+                  <li th:class="${currentPage == totalPages - 1} ? 'disabled' : ''">
+                      <a th:href="@{'/invoicing/invoicing?page=' + ${currentPage + 1} + '&size=' + ${pageSize}}" aria-label="Next">
+                          <span aria-hidden="true">▶</span>
+                      </a>
+                  </li>
+              </ul>
+          </div>
       </section>
     </div>
   </div>
@@ -75,41 +92,61 @@
 <!-- 모달 1: 거래명세서 발행 -->
 <div id="modal1" class="modal">
     <div class="modal-content">
+        <img class="modal-watermark" src="/image/SAFEFAST_MARK.png" alt="도장">
         <span class="close-btn">&times;</span>
-        <h3>거래명세서 발행</h3>
+        <h3>거래명세서</h3>
         <div class="modal-header">
             <table>
                 <tr>
-                    <th>발주번호</th>
-                    <td><span id="order-no" data-field="purchOrderNumber"></span></td>
+                    <th colspan="2">거래명세서</th>
+                    <th colspan="2">발주번호</th>
+                    <th><span id="order-no" data-field="purchOrderNumber"></span></th>
                 </tr>
                 <tr>
-                    <th>발주일자</th>
-                    <td><span data-field="orderDate"></span></td>
-                </tr>
-                <tr>
-                    <th>납기일자</th>
-                    <td><span data-field="receiveDueDate"></span></td>
-                </tr>
-                <tr>
-                    <th>업체명</th>
+                    <th rowspan="3">공급자</th>
+                    <th>상호</th>
                     <td><span data-field="companyName"></span></td>
+                    <th rowspan="3">TEL</th>
+                    <td rowspan="3"><span data-field="companyTel">02-1515-3232</span></td>
                 </tr>
                 <tr>
                     <th>사업자등록번호</th>
                     <td><span data-field="businessNumber"></span></td>
                 </tr>
                 <tr>
+                    <th>주소</th>
+                    <td><span data-field="companyAddress">서울특별시 서초구 신반포로45길 18</span></td>
+                </tr>
+                <tr>
+                    <th>발주일자</th>
+                    <th>납기일자</th>
                     <th>품목코드</th>
-                    <td><span data-field="itemCode"></span></td>
-                </tr>
-                <tr>
                     <th>품목명</th>
-                    <td><span data-field="itemName"></span></td>
+                    <th>입고수량</th>
                 </tr>
                 <tr>
-                    <th>입고수량</th>
+                    <td><span data-field="orderDate"></span></td>
+                    <td><span data-field="receiveDueDate"></span></td>
+                    <td><span data-field="itemCode"></span></td>
+                    <td><span data-field="itemName"></span></td>
                     <td><span data-field="orderQuantity"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th colspan="6"></th>
                 </tr>
             </table>
         </div>

@@ -3,6 +3,8 @@ package org.zerock.safefast.controller.inventory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,15 @@ public class InventoryController {
 
     // 재고 페이지를 보여주는 메서드
     @GetMapping("/inventory")
-    public String showInventoryPage(Model model) {
+    public String showInventoryPage(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    Model model) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<InventoryItem> inventoryItemPage = inventoryService.getAllInventoryItemsPaged(pageRequest);
+        List<InventoryItem> inventoryItems = inventoryItemPage.getContent();
+        int totalPages = inventoryItemPage.getTotalPages();
+        int currentPage = inventoryItemPage.getNumber();
+
         // InventoryService를 통해 재고 데이터를 가져옵니다.
         List<Releases> releasesList = inventoryService.getAllReleases();
 
@@ -66,7 +76,10 @@ public class InventoryController {
                 inventoryData.get(itemCode).put("totalAmount", totalAmount);
             }
         }
-
+        model.addAttribute("inventoryItems", inventoryItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("pageSize", size);
         model.addAttribute("inventoryData", inventoryData);
 
         return "/inventory/inventory"; // inventory.html 템플릿을 반환합니다.

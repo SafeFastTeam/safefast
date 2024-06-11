@@ -235,20 +235,39 @@ button:hover {
 }
 
 
+/*페이징 CSS*/
 .pagination {
-  margin-top: 30px;
   display: flex;
   justify-content: center;
+  align-items: center; /* 수직 정렬 추가 */
 }
 
-.pagination span {
-  margin: 8px 20px;
+.pagination li {
+  list-style: none;
+  margin: 0 5px;
+  display: inline-block;
+  line-height: 1; /* 요소들 사이의 수직 정렬을 위해 추가 */
 }
 
-.pagination-button {
-  margin-right: 5px;
-  width: 60px;
-  height: 40px;
+.pagination a {
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px;
+  display: flex; /* 추가 */
+  align-items: center; /* 추가 */
+  justify-content: center; /* 추가 */
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .disabled a {
+  pointer-events: none;
+  background-color: #eee;
 }
 
 #save-excel-btn {
