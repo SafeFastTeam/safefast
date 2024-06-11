@@ -121,24 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('modal-purchase-order-quantity').innerText = orderQuantity;
       document.getElementById('modal-receive-duedate').innerText = receiveDueDate;
 
-      // const imageContainer = document.getElementById("image-container");
-      // imageContainer.innerHTML = '';
-      // const ItemName = row.children[3].innerText.trim();
-      // let imgSrc;
-      // if (itemName === "볼트") {
-      //   imgSrc = "/image/bal01.png";
-      // } else if (itemName === "충전잭") {
-      //   imgSrc = "/image/bal02.png";
-      // } else if (itemName === "너트") {
-      //   imgSrc = "/image/bal03.png";
-      // }
-      // const img = document.createElement("img");
-      // img.src = imgSrc;
-      // img.style.width = "600px";
-      // img.style.height = "450px";
-      // img.style.objectFit = "contain";
-      // imageContainer.appendChild(img);
-
       orderModal.style.display = 'block';
     } else {
       alert('발주할 조달 계획을 선택하세요.');

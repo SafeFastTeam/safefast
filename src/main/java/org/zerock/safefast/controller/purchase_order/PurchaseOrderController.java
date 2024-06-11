@@ -19,6 +19,9 @@ import org.zerock.safefast.repository.PurchaseOrderRepository;
 import org.zerock.safefast.repository.QuantityRepository;
 import org.zerock.safefast.service.procurement.ProcurementPlanService;
 import org.zerock.safefast.service.purchase_order.PurchaseOrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -120,8 +123,16 @@ public class PurchaseOrderController {
 
     @GetMapping("/list")
     @ResponseBody
-    public List<PurchaseOrder> getPurchaseOrderList() {
-        return purchaseOrderService.getAllPurchaseOrders();
+    public ResponseEntity<Map<String, Object>> getPurchaseOrders(@PageableDefault(size = 5) Pageable pageable) {
+        Page<PurchaseOrder> purchaseOrders = purchaseOrderService.getPurchaseOrders(pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("purchaseOrders", purchaseOrders.getContent());
+        response.put("totalPages", purchaseOrders.getTotalPages());
+        response.put("currentPage", purchaseOrders.getNumber());
+        response.put("pageSize", purchaseOrders.getSize());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{purchOrderNumber}")
@@ -134,41 +145,6 @@ public class PurchaseOrderController {
         }
     }
 
-//    @PutMapping("/{purchOrderNumber}")
-//    @Transactional
-//    public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrderNumber, @RequestBody PurchaseOrderRequest request) {
-//        try {
-//            Optional<PurchaseOrder> optionalPurchaseOrder = Optional.ofNullable(purchaseOrderRepository.findByPurchOrderNumber(purchOrderNumber));
-//
-//            if (optionalPurchaseOrder.isPresent()) {
-//                PurchaseOrder purchaseOrder = optionalPurchaseOrder.get();
-//
-//                // 업데이트할 데이터 설정
-//                purchaseOrder.setPurchOrderQuantity(request.getPurchOrderQuantity());
-//                purchaseOrder.setReceiveDuedate(request.getReceiveDuedate());
-//                purchaseOrder.setPurchOrderDate(request.getPurchOrderDate());
-//
-//                // 업데이트된 발주서 저장
-//                purchaseOrderRepository.save(purchaseOrder);
-//
-//                // 로그 출력
-//                System.out.println("발주서가 성공적으로 업데이트되었습니다.");
-//
-//                return ResponseEntity.ok("발주서가 성공적으로 업데이트되었습니다.");
-//            } else {
-//                // 로그 출력
-//                System.out.println("발주서가 발견되지 않았습니다.");
-//
-//                return ResponseEntity.notFound().build();
-//            }
-//        } catch (Exception e) {
-//            // 예외 로그 출력
-//            e.printStackTrace();
-//
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("발주서 업데이트 중 오류가 발생했습니다: " + e.getMessage());
-//        }
-//    }
 @PutMapping("/{purchOrderNumber}")
 public ResponseEntity<String> updatePurchaseOrder(@PathVariable String purchOrderNumber, @RequestBody PurchaseOrder modifiedOrder) {
     try {

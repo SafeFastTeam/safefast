@@ -117,16 +117,10 @@
           </thead>
           <tbody id="purchase-order-list">
 
-<!--            <tr th:each="purchase : ${purchasePlans}">-->
-<!--                <td><input type="checkbox"></td>-->
-<!--                <td th:text="${purchase.purchOrderNumber}"></td>-->
-<!--                <td th:text="${purchase.purchOrderQuantity}"></td>-->
-<!--                <td th:text="${purchase.receiveDuedate}"></td>-->
-<!--                <td th:text="${purchase.purchOrderDate}"></td>-->
-<!--            </tr>-->
-
           </tbody>
         </table>
+        <ul id="pagination" class="pagination">
+        </ul>
       </section>
 
       <!-- 모달 창 -->
@@ -255,71 +249,6 @@
     </div>
   </div>
   <script>
-    // document.addEventListener('DOMContentLoaded', function () {
-    //   document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
-    //     checkbox.addEventListener('change', function () {
-    //       if (this.checked) {
-    //         let procPlanNumber = this.closest('tr').querySelector('td:nth-child(2)').innerText;
-    //
-    //         fetch(`/procurement/getPlan?procPlanNumber=${procPlanNumber}`)
-    //                 .then(response => {
-    //                   if (response.ok) {
-    //                     return response.json();
-    //                   } else {
-    //                     throw new Error('조달계획 정보를 불러오지 못했습니다.');
-    //                   }
-    //                 })
-    //                 .then(data => {
-    //                   let row = this.closest('tr');
-    //                   row.querySelector('input[name="procQuantity"]').value = data.procQuantity;
-    //                   row.querySelector('input[name="procDuedate"]').value = data.procDuedate;
-    //
-    //                 })
-    //                 .catch(error => {
-    //                   alert(error.message);
-    //                 });
-    //       }
-    //     });
-    //   });
-    //
-    //   document.getElementById('issue-order-btn').addEventListener('click', function () {
-    //     let selectedPlans = [];
-    //     document.querySelectorAll('#procurement-plan-list input[type="checkbox"]:checked').forEach(function (checkbox) {
-    //       let row = checkbox.closest('tr');
-    //       selectedPlans.push({
-    //         procPlanNumber: row.querySelector('td:nth-child(2)').innerText,
-    //         companyName: row.querySelector('td:nth-child(3)').innerText,
-    //         itemName: row.querySelector('td:nth-child(4)').innerText,
-    //         purchaseOrderQuantity: row.querySelector('input[name="procQuantity"]').value,
-    //         receiveDuedate: row.querySelector('input[name="procDuedate"]').value,
-    //         businessNumber: row.querySelector('td:nth-child(7)').innerText,
-    //         itemCode: row.querySelector('td:nth-child(8)').innerText
-    //       });
-    //     });
-    //     if (selectedPlans.length === 1) {
-    //       fetch('/purchase_order/create', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(selectedPlans)
-    //       })
-    //               .then(response => {
-    //                 if (response.ok) {
-    //                   return response.json();
-    //                 } else {
-    //                   throw new Error('발주서가 성공적으로 생성되었습니다.');
-    //                 }
-    //               })
-    //               .then(data => {
-    //                 alert('발주서가 성공적으로 생성되었습니다.');
-    //               })
-    //               .catch(error => {
-    //                 alert(error.message);
-    //               });
-    //     } else { alert('발주서를 생성할 조달번호를 하나만 선택해 주십시오.'); }
-    //   });
-    // });
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('#procurement-plan-list input[type="checkbox"]').forEach(function (checkbox) {
         checkbox.addEventListener('change', function () {
@@ -470,68 +399,110 @@
       });
     });
 
-
-      $(document).ready(function() {
-        // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
-        fetchPurchaseOrders();
-
-        // 구매 발주서 리스트를 가져와서 HTML에 표시하는 함수
-        function fetchPurchaseOrders() {
-          $.ajax({
-            url: '/purchase_order/list', // 서버의 해당 엔드포인트에 요청을 보냄
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-              displayPurchaseOrders(data); // 받아온 데이터를 화면에 표시하는 함수 호출
-            },
-            error: function (xhr, status, error) {
-              console.error('Failed to fetch purchase orders:', error);
-            }
-          });
-        }
-
-// 구매 발주서 데이터를 HTML에 표시하는 함수
-        function displayPurchaseOrders(purchaseOrders) {
-          var tableBody = $('#purchase-order-list');
-          tableBody.empty(); // 기존 데이터를 지우고 새로운 데이터로 채움
-
-          // 업체명과 사업자번호를 매핑하는 배열
-          var companies = [];
-
-          $.each(purchaseOrders, function (index, purchaseOrder) {
-            var companyName = purchaseOrder.coOpCompany.companyName;
-            var businessNumber = purchaseOrder.coOpCompany.businessNumber;
-
-            // 사업자번호가 companies 배열에 존재하지 않는 경우에만 추가
-            var existingCompany = companies.find(function (company) {
-              return company.businessNumber === businessNumber;
-            });
-
-            if (!existingCompany) {
-              companies.push({
-                businessNumber: businessNumber,
-                companyName: companyName
-              });
-            }
-
-            var row = $('<tr>');
-            row.append('<td><input type="checkbox"></td>');
-            row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
-
-            // 회사명을 찾아서 표시
-            var company = companies.find(function (company) {
-              return company.businessNumber === businessNumber;
-            });
-            row.append('<td>' + (company ? company.companyName : '') + '</td>');
-
-            row.append('<td>' + purchaseOrder.item.itemName + '</td>');
-            row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
-            row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
-            row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
-            tableBody.append(row);
-          });
+    function fetchPurchaseOrders(page = 0) {
+      $.ajax({
+        url: '/purchase_order/list',
+        type: 'GET',
+        dataType: 'json',
+        data: { page: page, size: 5 }, // 요청 파라미터로 페이지 번호와 크기를 전송
+        success: function (data) {
+          displayPurchaseOrders(data.purchaseOrders);
+          displayPagination(data.totalPages, data.currentPage);
+        },
+        error: function (xhr, status, error) {
+          console.error('Failed to fetch purchase orders:', error);
         }
       });
+    }
+
+    $(document).ready(function() {
+      // 페이지 로드 시 구매 발주서 리스트를 가져와서 표시하는 함수 호출
+      fetchPurchaseOrders();
+
+      // 구매 발주서 리스트를 가져와서 HTML에 표시하는 함수
+      function fetchPurchaseOrders(page = 0) {
+        $.ajax({
+          url: '/purchase_order/list',
+          type: 'GET',
+          dataType: 'json',
+          data: { page: page, size: 5 },
+          success: function (data) {
+            displayPurchaseOrders(data.purchaseOrders);
+            displayPagination(data.totalPages, data.currentPage);
+          },
+          error: function (xhr, status, error) {
+            console.error('Failed to fetch purchase orders:', error);
+          }
+        });
+      }
+
+      // 페이징 정보를 HTML에 표시하는 함수
+      function displayPagination(totalPages, currentPage) {
+        var pagination = $('#pagination');
+        pagination.empty();
+
+        for (var i = 0; i < totalPages; i++) {
+          var pageItem = $('<li class="page-item">').append(
+                  $('<a class="page-link">').text(i + 1).attr('href', '#').data('page', i)
+          );
+
+          if (i === currentPage) {
+            pageItem.addClass('active');
+          }
+
+          pagination.append(pageItem);
+        }
+
+        // 페이지 링크 클릭 시 해당 페이지로 이동
+        $('.page-link').on('click', function (e) {
+          e.preventDefault();
+          var page = $(this).data('page');
+          fetchPurchaseOrders(page);
+        });
+      }
+
+      // 구매 발주서 데이터를 HTML에 표시하는 함수
+      function displayPurchaseOrders(purchaseOrders) {
+        var tableBody = $('#purchase-order-list');
+        tableBody.empty(); // 기존 데이터를 지우고 새로운 데이터로 채움
+
+        // 업체명과 사업자번호를 매핑하는 배열
+        var companies = [];
+
+        $.each(purchaseOrders, function (index, purchaseOrder) {
+          var companyName = purchaseOrder.coOpCompany.companyName;
+          var businessNumber = purchaseOrder.coOpCompany.businessNumber;
+
+          // 사업자번호가 companies 배열에 존재하지 않는 경우에만 추가
+          var existingCompany = companies.find(function (company) {
+            return company.businessNumber === businessNumber;
+          });
+
+          if (!existingCompany) {
+            companies.push({
+              businessNumber: businessNumber,
+              companyName: companyName
+            });
+          }
+
+          var row = $('<tr>');
+          row.append('<td><input type="checkbox"></td>');
+          row.append('<td>' + purchaseOrder.purchOrderNumber + '</td>');
+
+          // 회사명을 찾아서 표시
+          var company = companies.find(function (company) {
+            return company.businessNumber === businessNumber;
+          });
+          row.append('<td>' + (company ? company.companyName : '') + '</td>');
+
+          row.append('<td>' + purchaseOrder.item.itemName + '</td>');
+          row.append('<td>' + purchaseOrder.purchOrderQuantity + '</td>');
+          row.append('<td>' + purchaseOrder.receiveDuedate + '</td>');
+          row.append('<td>' + purchaseOrder.purchOrderDate + '</td>');
+          tableBody.append(row);
+        });
+      }
+    });
 
     // 수정 버튼 클릭 이벤트
     document.getElementById('modify-order-btn').addEventListener('click', function () {

@@ -1,6 +1,8 @@
 package org.zerock.safefast.repository;
 
 import feign.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.zerock.safefast.entity.ProcurementPlan;
 import org.zerock.safefast.entity.PurchaseOrder;
@@ -29,4 +31,5 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, St
 
     void deleteAllByPurchOrderNumberIn(List<String> orderNumbers);
 
+    Page<PurchaseOrder> findByPurchOrderDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
 }
