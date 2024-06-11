@@ -177,22 +177,6 @@ button:hover {
   text-align: center;
 }
 
-.pagination {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-.pagination span {
-  margin: 8px 20px;
-}
-
-.pagination-button {
-  margin-right: 5px;
-  width: 60px;
-  height: 40px;
-}
-
 .register-button, .modify-button {
   background-color: #066278;
   color: white;
@@ -219,4 +203,33 @@ button:hover {
   margin-bottom: 20px; /* 콘텐츠 섹션 아래 여백 추가 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
   border-radius: 5px; /* 모서리를 둥글게 만듦 */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination li {
+  list-style: none;
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.pagination a {
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px; /* 버튼 크기 조정 */
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .disabled a {
+  pointer-events: none;
+  background-color: #eee;
 }

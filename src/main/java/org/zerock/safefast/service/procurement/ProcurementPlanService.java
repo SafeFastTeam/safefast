@@ -1,10 +1,14 @@
 package org.zerock.safefast.service.procurement;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.safefast.entity.ProcurementPlan;
+import org.zerock.safefast.entity.ProductionPlan;
 import org.zerock.safefast.repository.ProcurementPlanRepository;
+import org.zerock.safefast.repository.ProductionPlanRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +17,21 @@ import java.util.Optional;
 public class ProcurementPlanService {
 
     private final ProcurementPlanRepository procurementPlanRepository;
+    private final ProductionPlanRepository productionPlanRepository;
 
     @Autowired
-    public ProcurementPlanService(ProcurementPlanRepository procurementPlanRepository) {
+    public ProcurementPlanService(ProcurementPlanRepository procurementPlanRepository, ProductionPlanRepository productionPlanRepository) {
         this.procurementPlanRepository = procurementPlanRepository;
+        this.productionPlanRepository = productionPlanRepository;
     }
 
     public List<ProcurementPlan> getAllProcurementPlans() {
         return procurementPlanRepository.findAll();
     }
 
-
+    public Page<ProductionPlan> findAll(Pageable pageable) {
+        return productionPlanRepository.findAll(pageable);
+    }
 
     @Transactional
     public void saveProcurementPlan(ProcurementPlan procurementPlan) {
