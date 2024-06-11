@@ -126,12 +126,11 @@
         </div>
         <div class="keyword-search">
           <select id="keyword-search-type">
-            <option value="품목코드" checked>품목코드</option>
-            <option value="company">업체명</option>
-            <option value="item">품목명</option>
+            <option value="companyName">업체명</option>
+            <option value="itemName">품목명</option>
           </select>
           <input type="text" id="keyword-search" placeholder="키워드 검색">
-          <button id="keyword-search-btn">검색</button>
+          <button id="keyword-search-btn" onclick="searchInventory()">검색</button>
         </div>
       </div>
       <table>
@@ -176,20 +175,19 @@
       <div class="ten">
         <h2>자재 출고 리스트</h2>
       </div>
-      <div class="search-bar">
-        <div class="date-search">
+      <div class="search-bar2">
+        <div class="date-search2">
           <input type="date" id="date-start2" placeholder="시작 날짜"> <span>&nbsp; - &nbsp;&nbsp;</span>
           <input type="date" id="date-end2" placeholder="종료 날짜">
           <button id="date-search-btn2">검색</button>
         </div>
-        <div class="keyword-search">
+        <div class="keyword-search2">
           <select id="keyword-search-type2">
-            <option value="품목코드" checked>품목코드</option>
-            <option value="company">업체명</option>
-            <option value="item">품목명</option>
+            <option value="productName">제품명</option>
+            <option value="itemName">품목명</option>
           </select>
           <input type="text" id="keyword-search2" placeholder="키워드 검색">
-          <button id="keyword-search-btn2">검색</button>
+          <button id="keyword-search-btn2" onclick="searchInventory2()">검색</button>
         </div>
       </div>
       <table>
@@ -202,7 +200,7 @@
           <th>출고 수량</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="purchase-order-list2">
         <tr th:each="release: ${resultD.dtoList}" >
           <td th:text="${release.quantity.productionPlan.product.productName}"></td>
           <td th:text="${release.quantity.item.itemName}"></td>
@@ -328,6 +326,81 @@
         }
       });
     });
+    // 검색 버튼 클릭 시 실행되는 함수
+    function searchInventory() {
+      // 검색 키워드와 타입 가져오기
+      var keyword = document.getElementById("keyword-search").value.toLowerCase();
+      var searchType = document.getElementById("keyword-search-type").value;
+
+      // 테이블의 모든 행 가져오기
+      var rows = document.querySelectorAll("#purchase-order-list tr");
+
+      // 각 행을 순회하며 검색 키워드와 일치하는 항목이 있는지 확인
+      rows.forEach(function(row) {
+        // 각 행에서 검색 대상이 되는 텍스트 가져오기
+        var searchText = row.querySelector("td:nth-child(" + (getColumnIndex(searchType) + 1) + ")").textContent.toLowerCase();
+
+        // 검색 키워드와 일치하는지 확인
+        if (searchText.includes(keyword)) {
+          row.style.display = ""; // 일치하는 경우 행 표시
+        } else {
+          row.style.display = "none"; // 일치하지 않는 경우 행 숨김
+        }
+      });
+    }
+
+    // 검색 타입에 따라 열의 인덱스를 반환하는 함수
+    function getColumnIndex(searchType) {
+      switch (searchType) {
+        case "itemName":
+          return 2;
+        case "companyName":
+          return 1;
+        default:
+          return 0;
+      }
+    }
+
+    // 검색 버튼에 이벤트 리스너 추가
+    document.getElementById("keyword-search-btn").addEventListener("click", searchInventory);
+
+    // 검색 버튼 클릭 시 실행되는 함수
+    function searchInventory2() {
+      // 검색 키워드와 타입 가져오기
+      var keyword = document.getElementById("keyword-search2").value.toLowerCase();
+      var searchType = document.getElementById("keyword-search-type2").value;
+
+      // 테이블의 모든 행 가져오기
+      var rows = document.querySelectorAll("#purchase-order-list2 tr");
+
+      // 각 행을 순회하며 검색 키워드와 일치하는 항목이 있는지 확인
+      rows.forEach(function(row) {
+        // 각 행에서 검색 대상이 되는 텍스트 가져오기
+        var searchText = row.querySelector("td:nth-child(" + (getColumnIndex2(searchType) + 1) + ")").textContent.toLowerCase();
+
+        // 검색 키워드와 일치하는지 확인
+        if (searchText.includes(keyword)) {
+          row.style.display = ""; // 일치하는 경우 행 표시
+        } else {
+          row.style.display = "none"; // 일치하지 않는 경우 행 숨김
+        }
+      });
+    }
+
+    // 검색 타입에 따라 열의 인덱스를 반환하는 함수
+    function getColumnIndex2(searchType) {
+      switch (searchType) {
+        case "productName":
+          return 0;
+        case "itemName":
+          return 1;
+        default:
+          return 0;
+      }
+    }
+
+    // 검색 버튼에 이벤트 리스너 추가
+    document.getElementById("keyword-search-btn2").addEventListener("click", searchInventory2);
   });
 </script>
 </body>
