@@ -1,5 +1,6 @@
 package org.zerock.safefast.controller.receive;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -82,29 +83,19 @@ public class ReceiveController {
         }
     }
 
+    @PostMapping("/complete/{purchOrderNumber}")
+    public ResponseEntity<String> completePurchaseOrder(@PathVariable String purchOrderNumber) {
+        try {
+            receiveService.completePurchaseOrder(purchOrderNumber);
+            return ResponseEntity.ok("{\"message\": \"완료 처리되었습니다.\"}");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\": \"해당 발주 번호를 찾을 수 없습니다.\"}");
+        } catch (Exception e) {
+            log.error("Error while completing purchase order: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"완료 처리 중 오류가 발생했습니다.\"}");
+        }
+    }
 
-
-//    @PostMapping("/add")
-//    public String addRelease(@RequestParam("releaseQuantity") Integer releaseQuantity,
-//                             @RequestParam("itemCode") String itemCode,
-//                             @RequestParam("quantityId") Integer quantityId) {
-//
-//        Item item = itemRepository.findById(itemCode)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid Item: " + itemCode));
-//
-//        Quantity quantity = quantityRepository.findById(quantityId)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid quantityId: " + quantityId));
-//
-//        Releases releases = Releases.builder()
-//                .item(item)
-//                .releaseQuantity(releaseQuantity)
-//                .quantity(quantity)
-//                .build();
-//
-//        releasesService.registerReleases(releases);
-//
-//        return "receive/receive";
-//    }
     @GetMapping("/search")
     public String searchInventoryValuesByDateRange(
             @RequestParam(value = "startDate", required = false) String startDateStr,

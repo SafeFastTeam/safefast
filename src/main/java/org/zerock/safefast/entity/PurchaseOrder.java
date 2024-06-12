@@ -37,6 +37,9 @@ public class PurchaseOrder {
     @Column
     private String procPlanNumber;
 
+    @Column
+    private boolean completed;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "businessNumber", referencedColumnName = "businessNumber")
     private CoOpCompany coOpCompany;
