@@ -14,10 +14,8 @@ import org.zerock.safefast.entity.Releases;
 import org.zerock.safefast.service.inventory.InventoryService;
 import org.zerock.safefast.service.releases.ReleasesService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.NumberFormat;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,23 +52,30 @@ public class InventoryController {
             int finalQuantity = initialQuantity + receiveQuantity - releaseQuantity;
             int totalAmount = finalQuantity * price;
 
+            // 숫자를 포맷팅합니다.
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.KOREA);
+            String formattedTotalAmount = numberFormat.format(totalAmount);
+
             if (!inventoryData.containsKey(itemCode)) {
-                inventoryData.put(itemCode, new HashMap<>());
-                inventoryData.get(itemCode).put("itemName", release.getItem().getItemName());
-                inventoryData.get(itemCode).put("dimensions", release.getItem().getWidth() + "x" + release.getItem().getLength() + "x" + release.getItem().getHeight());
-                inventoryData.get(itemCode).put("material", release.getItem().getMaterial());
-                inventoryData.get(itemCode).put("initialQuantity", initialQuantity);
-                inventoryData.get(itemCode).put("receiveQuantity", receiveQuantity);
-                inventoryData.get(itemCode).put("releaseQuantity", releaseQuantity);
-                inventoryData.get(itemCode).put("finalQuantity", finalQuantity);
-                inventoryData.get(itemCode).put("price", price);
-                inventoryData.get(itemCode).put("totalAmount", totalAmount);
+                Map<String, Object> itemData = new HashMap<>();
+                itemData.put("itemName", release.getItem().getItemName());
+                itemData.put("dimensions", release.getItem().getWidth() + "x" + release.getItem().getLength() + "x" + release.getItem().getHeight());
+                itemData.put("material", release.getItem().getMaterial());
+                itemData.put("initialQuantity", initialQuantity);
+                itemData.put("receiveQuantity", receiveQuantity);
+                itemData.put("releaseQuantity", releaseQuantity);
+                itemData.put("finalQuantity", finalQuantity);
+                itemData.put("price", price);
+                itemData.put("totalAmount", formattedTotalAmount); // 포맷된 값 저장
+                inventoryData.put(itemCode, itemData);
             } else {
-                inventoryData.get(itemCode).put("releaseQuantity", (int)inventoryData.get(itemCode).get("releaseQuantity") + releaseQuantity);
-                finalQuantity = initialQuantity + (int)inventoryData.get(itemCode).get("receiveQuantity") - (int)inventoryData.get(itemCode).get("releaseQuantity");
+                Map<String, Object> itemData = inventoryData.get(itemCode);
+                itemData.put("releaseQuantity", (int) itemData.get("releaseQuantity") + releaseQuantity);
+                finalQuantity = initialQuantity + (int) itemData.get("receiveQuantity") - (int) itemData.get("releaseQuantity");
                 totalAmount = finalQuantity * price;
-                inventoryData.get(itemCode).put("finalQuantity", finalQuantity);
-                inventoryData.get(itemCode).put("totalAmount", totalAmount);
+                formattedTotalAmount = numberFormat.format(totalAmount);
+                itemData.put("finalQuantity", finalQuantity);
+                itemData.put("totalAmount", formattedTotalAmount); // 포맷된 값 저장
             }
         }
         model.addAttribute("inventoryItems", inventoryItems);
