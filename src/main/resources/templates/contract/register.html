@@ -9,13 +9,13 @@
     <link rel="icon" href="/image/favicon-32x32.png">
     <script src="/js/jquery-3.7.1.min.js"></script>
     <style>
-        .modal {
+        #imageModal {
             display: none; /* 숨기기 */
             position: fixed; /* 위치 고정 */
             z-index: 1; /* 다른 요소들보다 위에 표시 */
-            padding-top: 60px; /* 화면 위로부터의 패딩 */
-            left: 0;
-            top: 0;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); /* 가운데 정렬 */
             width: 100%; /* 전체 너비 */
             height: 100%; /* 전체 높이 */
             overflow: auto; /* 스크롤바 추가 */
@@ -24,10 +24,14 @@
         }
 
         .modal-content {
+            position: absolute;
+            top: -25%;
+            left: 33%;
             margin: auto;
             display: block;
             width: 80%;
-            max-width: 700px;
+            max-width: 600px;
+            height: auto;
         }
 
         .close {

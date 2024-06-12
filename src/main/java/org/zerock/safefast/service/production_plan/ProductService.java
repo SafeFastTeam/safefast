@@ -59,6 +59,11 @@ public class ProductService {
     }
 
     private String generateNewProdPlanCode(String lastProdPlanCode) {
+        if (lastProdPlanCode == null || lastProdPlanCode.isEmpty()) {
+            // lastProdPlanCode가 null이거나 비어있으면 첫 번째 코드 생성
+            return "PROD-001";
+        }
+
         int lastNumber = Integer.parseInt(lastProdPlanCode.split("-")[1]);
         int newNumber = lastNumber + 1;
         return String.format("PROD-%03d", newNumber);

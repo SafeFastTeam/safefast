@@ -27,7 +27,8 @@
             margin: auto;
             display: block;
             width: 80%;
-            max-width: 700px;
+            max-width: 400px; /* 최대 너비 400px로 제한 */
+            height: auto; /* 높이는 동일한 비율로 자동 조정 */
         }
 
         .close {
@@ -64,7 +65,7 @@
                       <th rowspan="4" class="product-code">품목 분류</th>
                       <td><label for="unit">대분류</label></td>
                       <td>
-                          <select id="unit" name="unitCode" required>
+                          <select id="unit" name="unitCode" class="category-select" required>
                               <option value="">대분류 선택</option>
                               <option th:each="unit : ${units}" th:value="${unit.unitCode}" th:text="${unit.unitName}"></option>
                           </select>
@@ -74,7 +75,7 @@
                   <tr>
                       <td><label for="assyCode">중분류</label></td>
                       <td>
-                          <select id="assyCode" name="assyCode" required>
+                          <select id="assyCode" name="assyCode" class="category-select" required>
                               <option value="">중분류 선택</option>
                           </select>
                       </td>
@@ -83,7 +84,7 @@
                 <tr>
                     <td><label for="partCode">소분류</label></td>
                     <td>
-                        <select id="partCode" name="partCode" required>
+                        <select id="partCode" name="partCode" class="category-select" required>
                             <option value="">소분류 선택</option>
                             <!-- 서버에서 받은 소분류 목록을 반복하여 옵션으로 추가 -->
                             <option th:each="part : ${parts}" th:value="${part.partCode}" th:text="${part.partName}"></option>
@@ -244,11 +245,11 @@
 
     const assemblies = {
         'CG': [
-            { code: 'A01', name: 'CableHeader접속부포함' },
+            { code: 'A01', name: 'CableHeader' },
             { code: 'A02', name: 'Heater' }
         ],
         'CP': [
-            { code: 'A03', name: 'iNDEXUNiTDRiVE' },
+            { code: 'A03', name: 'INDEXUNITDRIVE' },
             { code: 'A04', name: 'LASER' }
         ],
         'CR': [
@@ -295,7 +296,7 @@
 
     const parts = {
         'A01': [
-            { code: '100', name: 'BEARiNG' },
+            { code: '100', name: 'BEARING' },
             { code: '101', name: 'BELT' }
         ],
         'A02': [
@@ -304,11 +305,11 @@
         ],
         'A03': [
             { code: '200', name: 'CABLE' },
-            { code: '201', name: 'CHAiN' }
+            { code: '201', name: 'CHAIN' }
         ],
         'A04': [
             { code: '202', name: 'CLUTCHBRAKE' },
-            { code: '203', name: 'COUPLiNG' },
+            { code: '203', name: 'COUPLING' },
             { code: '204', name: 'CUTTER' }
         ],
         'A05': [
@@ -319,7 +320,7 @@
         ],
         'A07': [
             { code: '302', name: 'FLASHLAMP' },
-            { code: '303', name: 'FLOATiNGJOiNT' }
+            { code: '303', name: 'FLOATINGJOINT' }
         ],
         'A08': [
             { code: '400', name: 'GEAR' }
@@ -338,7 +339,7 @@
             { code: '470', name: 'NOZZLE' }
         ],
         'A13': [
-            { code: '500', name: 'PiN' },
+            { code: '500', name: 'PIN' },
             { code: '501', name: 'PLC' }
         ],
         'A14': [

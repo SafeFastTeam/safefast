@@ -70,8 +70,9 @@
           <tr>
             <th>생산시작일<i class="fas fa-sort" data-column="0"></i></th>
             <th>생산종료일</th>
-            <th>생산제품코드</th>
+            <th>생산계획번호</th>
             <th>생산제품명</th>
+            <th>생산제품코드</th>
             <th>생산수량</th>
             <th>품목코드</th>
             <th>품목명</th>
@@ -82,8 +83,9 @@
           <tr th:each="productionPlan : ${productionPlans}">
             <td th:text="${productionPlan.prodStartDate}"></td>
             <td th:text="${productionPlan.prodEndDate}"></td>
-            <td th:text="${productionPlan.product.productCode}"></td>
+            <td th:text="${productionPlan.prodPlanCode}"></td>
             <td th:text="${productionPlan.product.productName}"></td>
+            <td th:text="${productionPlan.product.productCode}"></td>
             <td th:text="${productionPlan.prodQuantity}"></td>
             <td th:text="${productionPlan.item != null && productionPlan.item.itemCode != null ? productionPlan.item.itemCode : 'N/A'}"></td>
             <td th:text="${productionPlan.item != null && productionPlan.item.itemName != null ? productionPlan.item.itemName : 'N/A'}"></td>
