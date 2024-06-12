@@ -55,7 +55,7 @@ public class ReceiveController {
         model.addAttribute("resultB", resultB);
         model.addAttribute("resultC", resultC);
         model.addAttribute("resultD", resultD);
-        return "receive/receive";
+        return "/receive/receive";
     }
 
     @PostMapping("/receive")
@@ -136,7 +136,7 @@ public class ReceiveController {
         }
 
         model.addAttribute("inventoryValues", inventoryValues);
-        return "inventory_management/inventory_management";
+        return "/inventory_management/inventory_management";
     }
     @GetMapping("/inventory_management/search")
     public ResponseEntity<List<InventoryValueDTO>> searchInventoryValuesByDateRange(

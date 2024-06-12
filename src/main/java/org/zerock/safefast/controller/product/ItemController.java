@@ -64,7 +64,7 @@ public class ItemController {
         model.addAttribute("parts", parts);
         // 페이징 처리된 결과를 모델에 추가
         model.addAttribute("result", result);
-        return "item/register";
+        return "/item/register";
     }
 
     @PostMapping("/register")

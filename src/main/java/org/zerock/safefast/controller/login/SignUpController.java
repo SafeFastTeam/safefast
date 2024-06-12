@@ -24,7 +24,7 @@ public class SignUpController {
     public String createMember() {
         log.info("Create account form");
 
-        return "member/create_account_form";
+        return "/member/create_account_form";
     }
 
     @PostMapping("/create_account_form")
@@ -34,7 +34,7 @@ public class SignUpController {
             PrintWriter out = response.getWriter();
             out.println("<html>");
             out.flush();
-            return "member/create_account_form";
+            return "/member/create_account_form";
         } else {
             signUpService.join(signUpDTO);
             response.setContentType("text/html;charset=utf-8");
@@ -42,7 +42,7 @@ public class SignUpController {
             out.println("<html>");
             out.println("<script>alert('회원가입이 완료됐습니다.');</script>");
             out.flush();
-            return "member/login_form";
+            return "/member/login_form";
         }
     }
 }

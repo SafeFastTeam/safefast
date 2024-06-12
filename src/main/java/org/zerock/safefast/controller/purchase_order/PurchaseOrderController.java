@@ -118,7 +118,7 @@ public class PurchaseOrderController {
 
         model.addAttribute("result", result);
         model.addAttribute("procurementPlans", procurementPlans);
-        return "purchase_order/purchase_order";
+        return "/purchase_order/purchase_order";
     }
 
     @GetMapping("/list")

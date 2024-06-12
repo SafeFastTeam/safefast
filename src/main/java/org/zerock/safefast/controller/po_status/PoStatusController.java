@@ -10,6 +10,6 @@ public class PoStatusController {
 
     @GetMapping("/po_status")
     public String showPo_status() {
-        return "po_status/po_status";
+        return "/po_status/po_status";
     }
 }

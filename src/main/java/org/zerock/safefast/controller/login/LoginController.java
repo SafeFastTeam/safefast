@@ -29,7 +29,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLogin() {
-        return "member/login_form";
+        return "/member/login_form";
     }
 
     @PostMapping("/login")
@@ -46,7 +46,7 @@ public class LoginController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('아이디 또는 비밀번호가 올바르지 않습니다.');</script>");
             writer.flush();
-            return "member/login_form";
+            return "/member/login_form";
         }
     }
 
@@ -57,7 +57,7 @@ public class LoginController {
 
     @GetMapping("/reset_password_form")
     public String resetPasswordForm() {
-        return "member/reset_password_form";
+        return "/member/reset_password_form";
     }
 
     @PostMapping("/reset_password_form")
@@ -72,19 +72,19 @@ public class LoginController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('비밀번호 재설정 이메일이 전송되었습니다.');</script>");
             writer.flush();
-            return "member/login_form";
+            return "/member/login_form";
         } else {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('아이디 또는 이메일 주소가 올바르지 않습니다.');</script>");
             writer.flush();
-            return "member/reset_password_form";
+            return "/member/reset_password_form";
         }
     }
 
     @GetMapping("/forgot_id")
     public String showForgotIdForm() {
-        return "member/forgot_id_form";
+        return "/member/forgot_id_form";
     }
 
     @PostMapping("/forgot_id")
@@ -100,13 +100,13 @@ public class LoginController {
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('가입하신 이메일 주소로 아이디를 전송했습니다.');</script>");
             writer.flush();
-            return "member/login_form";
+            return "/member/login_form";
         } else {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.println("<script>alert('해당 이메일 주소와 연결된 사용자가 없습니다.');</script>");
             writer.flush();
-            return "member/forgot_id_form";
+            return "/member/forgot_id_form";
         }
     }
 

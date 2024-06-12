@@ -13,6 +13,6 @@ public class Modal1Controller {
     public String showModal1(Model model) {
         // 모달 1에 필요한 데이터를 모델에 추가
         model.addAttribute("modalData", "모달 1 데이터");
-        return "modal/modal1"; // 모달 1의 Thymeleaf 템플릿 경로
+        return "/modal/modal1"; // 모달 1의 Thymeleaf 템플릿 경로
     }
 }

@@ -52,7 +52,7 @@ public class ProcurementPlanController {
         model.addAttribute("totalPages", productionPlanPage.getTotalPages());
         model.addAttribute("currentPage", productionPlanPage.getNumber());
         model.addAttribute("pageSize", productionPlanPage.getSize());
-        return "procurement/procurement";
+        return "/procurement/procurement";
     }
 
     // 등록 버튼을 눌렀을 때의 요청을 처리하는 메서드

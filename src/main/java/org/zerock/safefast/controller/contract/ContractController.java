@@ -56,7 +56,7 @@ public class ContractController {
         model.addAttribute("result", result);
         List<CoOpCompany> coOpCompanies = coOpCompanyRepository.findAll();
         model.addAttribute("coOpCompanies", coOpCompanies);
-        return "contract/register";
+        return "/contract/register";
     }
 
     @GetMapping("/company")

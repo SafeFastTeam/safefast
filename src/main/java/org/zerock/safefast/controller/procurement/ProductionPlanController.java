@@ -27,7 +27,7 @@ public class ProductionPlanController {
     public String showProductionPlan(Model model) {
         List<ProductionPlan> productionPlans = productionPlanService.getAllProductionPlans();
         model.addAttribute("productionPlans", productionPlans);
-        return "procurement/procurement"; // 실제 뷰의 이름으로 수정 필요
+        return "/procurement/procurement"; // 실제 뷰의 이름으로 수정 필요
     }
 
     // 다른 요청 처리 메서드들 추가 가능
