@@ -136,7 +136,6 @@ button:hover {
 .search-select, .search-input {
   padding: 10px;
   margin-right: 10px;
-  border: 2px solid #066278;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
