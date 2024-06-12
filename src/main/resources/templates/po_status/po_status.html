@@ -51,12 +51,13 @@
           // 현재 날짜와 한 달 전 날짜를 구하는 함수
           function getDefaultDates() {
             const today = new Date();
+            const oneMonthBefore = new Date();
             const oneMonthAfter = new Date();
             oneMonthAfter.setMonth(today.getMonth() + 1);
-
+            oneMonthBefore.setMonth(today.getMonth() - 1);
             const formatDate = (date) => date.toISOString().split('T')[0];
             return {
-              startDate: formatDate(today),
+              startDate: formatDate(oneMonthBefore),
               endDate: formatDate(oneMonthAfter)
             };
           }

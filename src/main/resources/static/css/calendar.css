@@ -53,7 +53,7 @@ header {
 .top-section {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: -40px;
 }
 
 .sidebar {
@@ -142,7 +142,7 @@ main {
 }
 
 .production-plan-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .production-plan-form label {
@@ -184,8 +184,12 @@ main {
   background-color: #04495d;
 }
 
+.reset-date-btn {
+  margin-bottom: 10px;
+}
+
 #productionPlanTable {
-  width: 1260px;
+  width: 1272px;
   border-collapse: collapse;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: block;

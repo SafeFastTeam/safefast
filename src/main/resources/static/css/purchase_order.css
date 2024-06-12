@@ -264,6 +264,7 @@ tbody tr:hover {
   height: 800px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation: modalFadeIn 0.5s;
+  position: relative;
 }
 
 .close {
@@ -295,7 +296,8 @@ tbody tr:hover {
 .modal-watermark {
   position: absolute;
   top: 35%;
-  left: 45%;
+  left: 50%;
+  margin-left: 40px;
   transform: translate(-50%, -50%);
   pointer-events: none; /* 이 이미지는 마우스 이벤트를 받지 않도록 설정 */
   width: 20%;
