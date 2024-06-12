@@ -15,6 +15,7 @@ import org.zerock.safefast.repository.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
@@ -50,6 +51,19 @@ public class ReceiveService {
 
         // Quantity 엔티티 업데이트
         updateQuantity(receive.getItem(), receive.getReceiveQuantity());
+    }
+
+    public void completePurchaseOrder(String purchOrderNumber) {
+        PurchaseOrder purchaseOrder = purchaseOrderRepository.findById(purchOrderNumber)
+                .orElseThrow(() -> new EntityNotFoundException("발주 번호를 찾을 수 없습니다."));
+
+        if (!purchaseOrder.isCompleted()) {
+            purchaseOrder.setCompleted(true);
+            purchaseOrderRepository.save(purchaseOrder);
+            log.info("Purchase order {} completed successfully.", purchOrderNumber);
+        } else {
+            throw new IllegalStateException("이미 완료된 발주입니다.");
+        }
     }
 
     // Quantity 엔티티 업데이트 메서드 추가
