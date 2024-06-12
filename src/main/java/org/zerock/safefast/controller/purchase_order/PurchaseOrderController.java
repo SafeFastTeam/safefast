@@ -155,10 +155,22 @@ public class PurchaseOrderController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("발주서 수정 중 오류가 발생했습니다.");
         }
     }
+    // 발주서와 Quantity의 연결을 해제하고 삭제
     @DeleteMapping("/delete")
     @Transactional
     public ResponseEntity<String> deletePurchaseOrders(@RequestBody List<String> orderNumbers) {
         try {
+            for (String orderNumber : orderNumbers) {
+                PurchaseOrder purchaseOrder = purchaseOrderRepository.findByPurchOrderNumber(orderNumber);
+                if (purchaseOrder != null) {
+                    // 연결된 Quantity 객체를 찾고 PurchaseOrder와의 연결 해제
+                    Quantity quantity = quantityRepository.findByItem(purchaseOrder.getItem());
+                    if (quantity != null && quantity.getPurchaseOrder().equals(purchaseOrder)) {
+                        quantity.setPurchaseOrder(null);
+                        quantityRepository.save(quantity);
+                    }
+                }
+            }
             purchaseOrderRepository.deleteAllByPurchOrderNumberIn(orderNumbers);
             return ResponseEntity.ok("선택한 발주서가 삭제되었습니다.");
         } catch (Exception e) {
@@ -166,6 +178,29 @@ public class PurchaseOrderController {
                     .body("발주서 삭제 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
+    // 발주서와 연결된 Quantity까지 삭제
+/*    @DeleteMapping("/delete")
+    @Transactional
+    public ResponseEntity<String> deletePurchaseOrders(@RequestBody List<String> orderNumbers) {
+        try {
+            for (String orderNumber : orderNumbers) {
+                PurchaseOrder purchaseOrder = purchaseOrderRepository.findByPurchOrderNumber(orderNumber);
+                if (purchaseOrder != null) {
+                    // 연결된 Quantity 객체를 찾고 삭제
+                    Quantity quantity = quantityRepository.findByItem(purchaseOrder.getItem());
+                    if (quantity != null && quantity.getPurchaseOrder().equals(purchaseOrder)) {
+                        quantityRepository.delete(quantity);
+                    }
+                }
+            }
+            purchaseOrderRepository.deleteAllByPurchOrderNumberIn(orderNumbers);
+            return ResponseEntity.ok("선택한 발주서가 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("발주서 삭제 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+*/
     @GetMapping("/progress_check_item")
     public String showProgressCheckItemPage(Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderService.findAll();
