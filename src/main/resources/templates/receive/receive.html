@@ -34,12 +34,12 @@
           <th>재고</th>
           <th>발주 수량</th>
           <th>입고 수량</th>
+          <th>완료</th> <!-- 완료 버튼 추가 -->
           <th>저장</th>
         </tr>
         </thead>
         <tbody id="procurement-plan-list">
-        <tr th:each="purchase : ${resultA.dtoList}"
-            th:classappend="${#lists.isEmpty(purchase.quantities) ? 0 : purchase.quantities[0].allQuantity == purchase.purchOrderQuantity} ? 'hidden' : ''">
+        <tr th:each="purchase : ${resultA.dtoList}">
           <td th:text="${purchase.purchOrderNumber}"></td>
           <td th:text="${purchase.coOpCompany.companyName}"></td>
           <td th:text="${purchase.item.itemName}"></td>
@@ -49,6 +49,8 @@
           <td th:text="${purchase.purchOrderQuantity}" data-proc-quantity="${purchase.purchOrderQuantity}"></td>
           <td><input type="text" class="procurement-quantity-input" min="0" data-proc-plan-number="${purchase.purchOrderNumber}"></td>
           <td th:text="${purchase.item.itemCode}" style="display: none;"></td>
+          <td th:text="${purchase.completed}" style="display: none;"></td>
+          <td><button class="complete-btn button">완료</button></td>
           <td><button id="issue-order-btn" class="button">저장</button></td>
         </tr>
         </tbody>
@@ -238,6 +240,32 @@
 <script src="/js/index.js"></script>
 <script>
   $(document).ready(function() {
+    // 발주 수량과 입고 수량을 비교하여 완료 버튼 또는 저장 버튼을 보이거나 숨깁니다.
+    function toggleButtonVisibility() {
+      $('#procurement-plan-list tr').each(function () {
+        var row = $(this);
+        var orderQuantity = parseInt(row.find('td:nth-child(7)').text().trim()); // 발주 수량 가져오기
+        var stockQuantity = parseInt(row.find('td:nth-child(6)').text().trim()); // 재고 수량 가져오기
+
+        if (stockQuantity === orderQuantity) {
+          row.find('.complete-btn').show(); // 재고 수량과 발주 수량이 같으면 완료 버튼 보이기
+          row.find('#issue-order-btn').hide(); // 재고 수량과 발주 수량이 같으면 저장 버튼 숨기기
+        } else {
+          row.find('.complete-btn').hide(); // 재고 수량과 발주 수량이 다르면 완료 버튼 숨기기
+          row.find('#issue-order-btn').show(); // 재고 수량과 발주 수량이 다르면 저장 버튼 보이기
+        }
+      });
+    }
+
+// 페이지 로드 시 버튼의 표시 여부를 초기화합니다.
+    toggleButtonVisibility();
+
+// 재고 수량이 변경될 때마다 버튼의 표시 여부를 업데이트합니다.
+    $(document).on('input', '.stock-quantity-input', function() {
+      toggleButtonVisibility();
+    });
+
+
 
     $(document).on('click', '#issue-order-btn', function () {
       var row = $(this).closest('tr'); // 클릭된 버튼이 속한 행 찾기
@@ -401,6 +429,43 @@
 
     // 검색 버튼에 이벤트 리스너 추가
     document.getElementById("keyword-search-btn2").addEventListener("click", searchInventory2);
+
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    function hideCompletedRows() {
+      $('#procurement-plan-list tr').each(function () {
+        var completed = $(this).find('td:eq(9)').text().trim(); // 완료 여부 가져오기
+        if (completed === "true") {
+          $(this).hide(); // 완료된 항목은 숨깁니다.
+        }
+      });
+    }
+
+    // 페이지 로드 시 완료가 1인 행 숨기기
+    hideCompletedRows();
+
+    $('.complete-btn').click(function () {
+      var row = $(this).closest('tr');
+      var purchOrderNumber = row.find('td:first-child').text().trim(); // 발주번호 가져오기
+
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/receive/complete/" + purchOrderNumber, // 발주번호를 전달하여 완료 여부 확인
+        data: JSON.stringify({ completed: true }),
+        success: function () {
+          alert('완료 처리되었습니다.');
+          window.location.reload();
+        },
+        error: function (xhr, status, error) {
+          alert('완료 처리 중 오류가 발생했습니다.');
+          console.error(xhr, status, error);
+        }
+      });
+    });
+
   });
 </script>
 </body>
