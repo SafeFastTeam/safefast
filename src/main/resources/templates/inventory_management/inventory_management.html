@@ -50,87 +50,145 @@
         <!-- 여기에 데이터가 동적으로 추가됩니다 -->
         </tbody>
       </table>
+      <div class="pagination">
+        <button id="prev-page" class="pagination-btn">이전</button>
+        <span id="page-info"></span>
+        <button id="next-page" class="pagination-btn">다음</button>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
-<!-- 표 업데이트 스크립트 -->
+<!-- 표 업데이트 및 페이징 처리 -->
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
+    const itemsPerPage = 5;
+    let currentPage = 1;
+    let tableData = [];
+
+    const tableBody = document.getElementById('data-table-body');
+    const pageInfo = document.getElementById('page-info');
+
+    // 페이징 함수
+    const goToPage = (page) => {
+      currentPage = page;
+      updateTable();
+    };
+
+    // 페이징 버튼 이벤트 핸들러
+    document.getElementById('prev-page').addEventListener('click', () => {
+      if (currentPage > 1) {
+        goToPage(currentPage - 1);
+      }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+      if (currentPage < Math.ceil(tableData.length / itemsPerPage)) {
+        goToPage(currentPage + 1);
+      }
+    });
+
+    // 데이터 업데이트 함수
+    const updateTable = () => {
+      tableBody.innerHTML = ''; // 기존 데이터 초기화
+
+      // 현재 페이지의 데이터만 추출
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageData = tableData.slice(start, end);
+
+      // 현재 페이지의 데이터로 테이블 업데이트
+      pageData.forEach(item => {
+        const row = document.createElement('tr');
+
+        const itemNameCell = document.createElement('td');
+        itemNameCell.textContent = item.itemName;
+        row.appendChild(itemNameCell);
+
+        const receiveQuantityCell = document.createElement('td');
+        receiveQuantityCell.textContent = item.receiveQuantity;
+        row.appendChild(receiveQuantityCell);
+
+        const itemPriceCell = document.createElement('td');
+        itemPriceCell.textContent = item.itemPrice.toLocaleString();
+        row.appendChild(itemPriceCell);
+
+        const totalValueCell = document.createElement('td');
+        totalValueCell.textContent = (item.itemPrice * item.allQuantity).toLocaleString();
+        row.appendChild(totalValueCell);
+
+        tableBody.appendChild(row);
+      });
+
+      // 페이지 정보 업데이트
+      pageInfo.textContent = `${currentPage} / ${Math.ceil(tableData.length / itemsPerPage)}`;
+    };
+
+    // 데이터 로드 및 테이블 업데이트 함수
+    const fetchDataAndUpdate = async (startDate, endDate, category) => {
+      const endpoint = `/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${category}`;
+      try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        tableData = data; // 테이블 데이터 업데이트
+        updateTable();
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    // 초기 설정
+    const startDateInput = document.getElementById('date-start');
+    const endDateInput = document.getElementById('date-end');
+
+    // 기본 날짜 설정
     const oneMonthAfter = new Date();
     oneMonthAfter.setDate(oneMonthAfter.getDate() + 30);
-    document.getElementById('date-end').value = oneMonthAfter.toISOString().split('T')[0];
+    endDateInput.value = oneMonthAfter.toISOString().split('T')[0];
 
-    // 30일 전 날짜를 기본 시작 날짜로 설정
     const oneMonthAgo = new Date();
     oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
-    document.getElementById('date-start').value = oneMonthAgo.toISOString().split('T')[0];
+    startDateInput.value = oneMonthAgo.toISOString().split('T')[0];
 
-  // 초기 데이터 로드
-  const startDate = document.getElementById('date-start').value;
-  const endDate = document.getElementById('date-end').value;
+    // 초기 데이터 로드
+    const startDate = startDateInput.value;
+    const endDate = endDateInput.value;
+    let currentCategory = 'unit'; // 초기 카테고리를 '대분류'로 설정
 
-  // 초기 차트 및 테이블 데이터 로드
-  fetchAndUpdateTable(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
-  fetchAndUpdateCharts(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
-  });
+    fetchDataAndUpdate(startDate, endDate, currentCategory);
 
-  let currentCategory = 'unit'; // 초기 카테고리를 '대분류'로 설정
+    // 날짜 검색 버튼 클릭 이벤트
+    document.getElementById('date-search-btn').addEventListener('click', () => {
+      const startDate = startDateInput.value;
+      const endDate = endDateInput.value;
 
-  document.getElementById('date-search-btn').addEventListener('click', () => {
-    const startDate = document.getElementById('date-start').value;
-    const endDate = document.getElementById('date-end').value;
-
-    if (startDate && endDate) {
-      fetchAndUpdateTable(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
-      fetchAndUpdateCharts(`/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${currentCategory}`);
-    } else {
-      alert('시작 날짜와 종료 날짜를 모두 선택해주세요.');
-    }
-  });
-
-  const fetchAndUpdateTable = async (endpoint) => {
-    try {
-      const response = await fetch(endpoint);
-      const data = await response.json();
-
-      // 표 업데이트
-      updateTable(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  const updateTable = (data) => {
-    const tableBody = document.getElementById('data-table-body');
-    tableBody.innerHTML = ''; // 기존 데이터 초기화
-
-    data.forEach(item => {
-      const row = document.createElement('tr');
-
-      const itemNameCell = document.createElement('td');
-      itemNameCell.textContent = item.itemName;
-      row.appendChild(itemNameCell);
-
-      const receiveQuantityCell = document.createElement('td');
-      receiveQuantityCell.textContent = item.receiveQuantity;
-      row.appendChild(receiveQuantityCell);
-
-      const itemPriceCell = document.createElement('td');
-      itemPriceCell.textContent = item.itemPrice.toLocaleString();
-      row.appendChild(itemPriceCell);
-
-      const totalValueCell = document.createElement('td');
-      totalValueCell.textContent = (item.itemPrice * item.allQuantity).toLocaleString();
-      row.appendChild(totalValueCell);
-
-      tableBody.appendChild(row);
+      if (startDate && endDate) {
+        fetchDataAndUpdate(startDate, endDate, currentCategory);
+      } else {
+        alert('시작 날짜와 종료 날짜를 모두 선택해주세요.');
+      }
     });
-  };
-</script>
 
+    // 대분류, 중분류, 소분류 버튼 클릭 이벤트
+    document.getElementById('issue-order-btn-large').addEventListener('click', () => {
+      currentCategory = 'unit';
+      fetchDataAndUpdate(startDate, endDate, currentCategory);
+    });
+
+    document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
+      currentCategory = 'assy';
+      fetchDataAndUpdate(startDate, endDate, currentCategory);
+    });
+
+    document.getElementById('issue-order-btn-small').addEventListener('click', () => {
+      currentCategory = 'part';
+      fetchDataAndUpdate(startDate, endDate, currentCategory);
+    });
+
+  });
+</script>
 <!-- 차트 업데이트 스크립트 -->
 <script type="text/javascript">
   const fetchAndUpdateCharts = async (endpoint) => {

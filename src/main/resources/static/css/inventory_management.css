@@ -264,3 +264,34 @@ td {
 tr:hover {
   background-color: #e9ecef;
 }
+
+/* 페이징 CSS */
+.pagination {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 추가 */
+  margin-top: 30px; /* 테이블 아래로 마진 설정 */
+}
+
+#page-info {
+  margin: 0 10px; /* 좌우 여백 추가 */
+  font-size: 16px; /* 폰트 사이즈 설정 */
+}
+
+.pagination-btn {
+  background-color: #066278;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+  background-color: #044b5e;
+}
+
+.pagination-btn #page-info span {
+  margin: 5px 10px 0 10px;
+}
