@@ -11,10 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 거래 명세서 발행')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='자재 관리 > 거래 명세서 발행')}"></th:block>
   <div class="container">
-      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+      <th:block th:replace="~{fragments/fragment2}"></th:block>
     <div class="content">
       <section class="purchase-order">
           <div class="ten">

@@ -10,10 +10,10 @@
   <script src="/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 자재 입출고')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='자재 관리 > 자재 입출고')}"></th:block>
 <div class="container">
-  <th:block th:replace="~{/fragments/fragment2}"></th:block>
+  <th:block th:replace="~{fragments/fragment2}"></th:block>
   <div class="content">
     <section class="procurement-plan">
       <div class="ten">

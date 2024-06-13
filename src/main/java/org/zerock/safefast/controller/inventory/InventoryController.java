@@ -84,7 +84,7 @@ public class InventoryController {
         model.addAttribute("pageSize", size);
         model.addAttribute("inventoryData", inventoryData);
 
-        return "/inventory/inventory"; // inventory.html 템플릿을 반환합니다.
+        return "inventory/inventory"; // inventory.html 템플릿을 반환합니다.
     }
 
 
@@ -113,7 +113,7 @@ public class InventoryController {
         // 검색 결과를 모델에 추가하여 뷰에 전달합니다.
         model.addAttribute("inventoryItems", searchResults);
 
-        return "/inventory/inventory"; // inventory.html 템플릿을 반환합니다.
+        return "inventory/inventory"; // inventory.html 템플릿을 반환합니다.
     }
 
 }

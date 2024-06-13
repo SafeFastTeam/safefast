@@ -10,10 +10,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='자재 관리 > 재고 산출')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='자재 관리 > 재고 산출')}"></th:block>
   <div class="container">
-      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+      <th:block th:replace="~{fragments/fragment2}"></th:block>
 
       <div class="content">
       <section class="inventory-calculation">

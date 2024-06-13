@@ -46,38 +46,37 @@ public class ContractService {
         return new PageResultDTO<>(result, fn);
     }
 
-
     public ItemDTO entityToDto(Item entity) {
         ItemDTO dto = ItemDTO.builder()
-                .itemCode(entity.getItemCode())
-                .itemName(entity.getItemName())
-                .width(entity.getWidth())
-                .length(entity.getLength())
-                .height(entity.getHeight())
-                .material(entity.getMaterial())
-                .blueprintOriginName(entity.getBlueprintOriginName())
-                .blueprintSaveName(entity.getBlueprintSaveName())
-                .contracts(entity.getContracts().stream()
-                        .map(this::contractToDto)
-                        .collect(Collectors.toList()))
-                .build();
+            .itemCode(entity.getItemCode())
+            .itemName(entity.getItemName())
+            .width(entity.getWidth())
+            .length(entity.getLength())
+            .height(entity.getHeight())
+            .material(entity.getMaterial())
+            .blueprintOriginName(entity.getBlueprintOriginName())
+            .blueprintSaveName(entity.getBlueprintSaveName())
+            .contracts(entity.getContracts().stream()
+                    .map(this::contractToDto)
+                    .collect(Collectors.toList()))
+            .build();
 
         return dto;
     }
 
     public ContractDTO contractToDto(Contract entity) {
         ContractDTO contractDTO = ContractDTO.builder()
-                .contractNumber(entity.getContractNumber())
-                .itemPrice(entity.getItemPrice())
-                .leadTime(entity.getLeadTime())
-                .note(entity.getNote())
-                .itemName(entity.getItem().getItemName())
-                .businessNumber(entity.getCoOpCompany().getBusinessNumber())
-                .itemCode(entity.getItem().getItemCode())
-                .companyName(entity.getCoOpCompany().getCompanyName())
-                .contractOriginName(entity.getContractOriginName())
-                .contractSaveName(entity.getContractSaveName())
-                .build();
+            .contractNumber(entity.getContractNumber())
+            .itemPrice(entity.getItemPrice())
+            .leadTime(entity.getLeadTime())
+            .note(entity.getNote())
+            .itemName(entity.getItem().getItemName())
+            .businessNumber(entity.getCoOpCompany().getBusinessNumber())
+            .itemCode(entity.getItem().getItemCode())
+            .companyName(entity.getCoOpCompany().getCompanyName())
+            .contractOriginName(entity.getContractOriginName())
+            .contractSaveName(entity.getContractSaveName())
+            .build();
         return contractDTO;
     }
 
@@ -119,11 +118,6 @@ public class ContractService {
         }
     }
 
-    public byte[] getContractFile(String filename) throws IOException {
-        Path filePath = Paths.get(uploadDir, filename);
-        return Files.readAllBytes(filePath);
-    }
-
     private String generateNextContractNumber() {
         String maxContractNumber = contractRepository.findMaxContractNumber();
         if (maxContractNumber != null && maxContractNumber.startsWith("CON-")) {
@@ -133,22 +127,4 @@ public class ContractService {
             return "CON-001";
         }
     }
-
-
-    public Resource loadFileAsResource(String fileName) {
-        try {
-            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new IOException("File not found " + fileName);
-            }
-        } catch (MalformedURLException ex) {
-            throw new RuntimeException("File not found " + fileName, ex);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

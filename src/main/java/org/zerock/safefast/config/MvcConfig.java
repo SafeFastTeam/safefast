@@ -9,7 +9,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/uploads/**")  // 외부 디렉토리 경로 설정
+        registry.addResourceHandler("uploads/**")  // 외부 디렉토리 경로 설정
                 .addResourceLocations("file:///C:/uploads/");  // 외부 디렉토리 경로
     }
 }

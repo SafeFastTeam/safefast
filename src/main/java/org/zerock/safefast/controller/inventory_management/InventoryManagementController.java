@@ -20,7 +20,7 @@ public class InventoryManagementController {
 
     @GetMapping("/inventory_management")
     public String showInventoryManagement() {
-        return "/inventory_management/inventory_management";
+        return "inventory_management/inventory_management";
     }
 
     @GetMapping("/unit")

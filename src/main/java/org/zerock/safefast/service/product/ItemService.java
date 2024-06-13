@@ -105,7 +105,8 @@ public class ItemService {
 
         if (!blueprintFile.isEmpty()) {
             try {
-                String uploadDir = "uploads";
+//              String uploadDir = "uploads"; 이거 local용
+                String uploadDir = "/home/mit305/back/safefast/image/"; // 서버용
                 String fileName = UUID.randomUUID().toString() + "_" + blueprintFile.getOriginalFilename();
                 Path uploadPath = Paths.get(uploadDir);
 
@@ -155,21 +156,6 @@ public class ItemService {
         Path filePath = Paths.get(uploadDir, filename);
         return Files.readAllBytes(filePath);
     }
-
-/*    public Resource loadFileAsResource(String fileName) throws IOException {
-        try {
-            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new IOException("File not found: " + fileName);
-            }
-        } catch (MalformedURLException ex) {
-            throw new IOException("File not found: " + fileName, ex);
-        }
-    }*/
 
     public Resource loadFileAsResource(String blueprintFileName) {
         try {

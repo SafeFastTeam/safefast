@@ -32,8 +32,4 @@ public class Member {
     @Column
     private String email;
 
-    // Authorities 테이블과의 연결
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Authority> authorities;
-
 }

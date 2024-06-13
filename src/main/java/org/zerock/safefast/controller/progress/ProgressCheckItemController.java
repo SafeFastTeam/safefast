@@ -79,7 +79,7 @@ public class ProgressCheckItemController {
         model.addAttribute("sumProgCheckResults", sumProgCheckResults);
         model.addAttribute("maxProgCheckResults", maxProgCheckResults);
         model.addAttribute("result", result);
-        return "/progress_check_item/progress_check_item";
+        return "progress_check_item/progress_check_item";
     }
 
     @GetMapping("/purchaseOrders")

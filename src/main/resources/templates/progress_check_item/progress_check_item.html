@@ -9,10 +9,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='발주 관리 > 진척 검수 처리')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='발주 관리 > 진척 검수 처리')}"></th:block>
 <div class="container">
-    <th:block th:replace="~{/fragments/fragment2}"></th:block>
+    <th:block th:replace="~{fragments/fragment2}"></th:block>
     <div class="content">
         <div class="ten">
         <h2>진척 검수 처리 - 발주리스트</h2>

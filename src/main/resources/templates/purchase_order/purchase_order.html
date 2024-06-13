@@ -10,10 +10,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='발주 관리 > 구매 발주서 관리')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='발주 관리 > 구매 발주서 관리')}"></th:block>
 <div class="container">
-  <th:block th:replace="~{/fragments/fragment2}"></th:block>
+  <th:block th:replace="~{fragments/fragment2}"></th:block>
   <div class="content">
     <section class="procurement-plan">
       <div class="ten">

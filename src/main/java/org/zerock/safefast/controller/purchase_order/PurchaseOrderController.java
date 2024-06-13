@@ -80,7 +80,7 @@ public class PurchaseOrderController {
                         .purchOrderDate(LocalDate.now())
                         .coOpCompany(procurementPlan.getCoOpCompany())
                         .item(procurementPlan.getItem())
-                        .completed(true)
+                        .completed(false)
                         .build();
 
                 purchaseOrderRepository.save(purchaseOrder);
@@ -119,7 +119,7 @@ public class PurchaseOrderController {
 
         model.addAttribute("result", result);
         model.addAttribute("procurementPlans", procurementPlans);
-        return "/purchase_order/purchase_order";
+        return "purchase_order/purchase_order";
     }
 
     @GetMapping("/list")
@@ -205,6 +205,6 @@ public class PurchaseOrderController {
     public String showProgressCheckItemPage(Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderService.findAll();
         model.addAttribute("purchaseOrders", purchaseOrders);
-        return "/progress_check_item/progress_check_item";
+        return "progress_check_item/progress_check_item";
     }
 }

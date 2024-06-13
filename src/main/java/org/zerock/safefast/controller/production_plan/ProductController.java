@@ -51,7 +51,7 @@ public class ProductController {
         model.addAttribute("coOpCompanies", coOpCompanyRepository.findAll());
         model.addAttribute("pageSize", size);
 
-        return "/production_plan/production_plan";
+        return "production_plan/production_plan";
     }
     @PostMapping("/save")
     public String saveProductionPlan(@RequestParam("productCode") String productCode,

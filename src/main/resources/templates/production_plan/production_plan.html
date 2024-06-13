@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
-  <th:block th:replace="~{/fragments/fragment1}"></th:block>
-  <th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='생산 계획')}"></th:block>
+  <th:block th:replace="~{fragments/fragment1}"></th:block>
+  <th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='생산 계획')}"></th:block>
   <div class="container">
-      <th:block th:replace="~{/fragments/fragment2}"></th:block>
+      <th:block th:replace="~{fragments/fragment2}"></th:block>
       <div class="content">
         <div class="top-section">
           <div id='calendar'></div>

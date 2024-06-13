@@ -49,11 +49,11 @@
     </style>
 </head>
 <body>
-<th:block th:replace="~{/fragments/fragment1}"></th:block>
-<th:block th:replace="~{/fragments/fragment3 :: subnav(currentPageName='조달 관리 > 품목 정보 등록')}"></th:block>
+<th:block th:replace="~{fragments/fragment1}"></th:block>
+<th:block th:replace="~{fragments/fragment3 :: subnav(currentPageName='조달 관리 > 품목 정보 등록')}"></th:block>
 
 <div class="container">
-    <th:block th:replace="~{/fragments/fragment2}"></th:block>
+    <th:block th:replace="~{fragments/fragment2}"></th:block>
     <div class="content">
       <div class="item-registration">
           <div class="ten">
@@ -439,17 +439,6 @@
         });
     });
 
-    function displayFileName() {
-        const input = document.getElementById('blueprintOriginName');
-        const fileNameDiv = document.getElementById('fileName');
-        if (input.files.length > 0) {
-            fileNameDiv.textContent = input.files[0].name;
-        } else {
-            fileNameDiv.textContent = '선택된 파일이 없습니다.';
-        }
-    }
-</script>
-<script>
     function displayFileName() {
         const input = document.getElementById('blueprintOriginName');
         const fileNameDiv = document.getElementById('fileName');
