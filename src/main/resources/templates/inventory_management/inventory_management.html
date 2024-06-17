@@ -191,7 +191,8 @@
 </script>
 <!-- 차트 업데이트 스크립트 -->
 <script type="text/javascript">
-  const fetchAndUpdateCharts = async (endpoint) => {
+  const fetchAndUpdateCharts = async (startDate, endDate, category) => {
+    const endpoint = `/receive/inventory_management/search?startDate=${startDate}&endDate=${endDate}&category=${category}`;
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
@@ -311,17 +312,23 @@
   // 카테고리 버튼 클릭 이벤트 핸들러
   document.getElementById('issue-order-btn-large').addEventListener('click', () => {
     currentCategory = 'unit';
-    fetchAndUpdateCharts(`/inventory_management/unit?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+    fetchAndUpdateCharts(startDate, endDate, currentCategory);
   });
 
   document.getElementById('issue-order-btn-medium').addEventListener('click', () => {
     currentCategory = 'assy';
-    fetchAndUpdateCharts(`/inventory_management/assy?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+    fetchAndUpdateCharts(startDate, endDate, currentCategory);
   });
 
   document.getElementById('issue-order-btn-small').addEventListener('click', () => {
     currentCategory = 'part';
-    fetchAndUpdateCharts(`/inventory_management/part?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+    fetchAndUpdateCharts(startDate, endDate, currentCategory);
   });
 
   // 초기 차트 로드
