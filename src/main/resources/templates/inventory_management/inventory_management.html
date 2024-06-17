@@ -333,7 +333,10 @@
 
   // 초기 차트 로드
   window.onload = function() {
-    fetchAndUpdateCharts(`/inventory_management/unit?startDate=${document.getElementById('date-start').value}&endDate=${document.getElementById('date-end').value}`);
+    const startDate = document.getElementById('date-start').value;
+    const endDate = document.getElementById('date-end').value;
+    fetchAndUpdateCharts(startDate, endDate, 'unit');
+
     setTimeout(() => {
       if (myChartEcharts) {
         myChartEcharts.resize();
